@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "neodgm";
+  src: url("./assets/fonts/neodgm.ttf");
+}
+
+.App{
+  font-family: 'neodgm';
+  margin: 0%;
+}
