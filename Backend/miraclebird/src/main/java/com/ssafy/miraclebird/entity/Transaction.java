@@ -1,5 +1,6 @@
 package com.ssafy.miraclebird.entity;
 
+import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,11 +27,11 @@ public class Transaction {
     @Column(nullable = true)
     private LocalDateTime regtime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_idx")
-    private User user;
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "user_idx")
+    //private User user;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "price_idx")
     private Price price;
 

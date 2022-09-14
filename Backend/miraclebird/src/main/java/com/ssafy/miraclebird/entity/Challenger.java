@@ -1,5 +1,6 @@
 package com.ssafy.miraclebird.entity;
 
+import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,9 +28,9 @@ public class Challenger {
     private String selfie;
 
     /* 연관관계 매핑 */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userIdx")
-    private User user;
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "userIdx")
+    //private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challengeIdx")

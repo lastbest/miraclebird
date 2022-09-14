@@ -1,5 +1,8 @@
 package com.ssafy.miraclebird.entity;
 
+import com.ssafy.miraclebird.dto.BoardDto;
+import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
+import com.ssafy.miraclebird.util.ModelMapperUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,10 +34,16 @@ public class Board {
     private int hit;
 
     /* 연관관계 매핑 */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userIdx")
-    private User user;
+    // @ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "userIdx")
+    //private User user;
 
     @OneToMany(mappedBy = "board")
     List<Comment> comment = new ArrayList<>();
+
+    public static Board of(BoardDto boardDto) {
+        Board boardEntity = ModelMapperUtils.getModelMapper().map(boardDto, Board.class);
+
+        return boardEntity;
+    }
 }
