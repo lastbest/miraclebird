@@ -1,6 +1,6 @@
 .footer {
   position: fixed;
-  bottom: 0;
+  bottom: 0px;
   width: 100%;
 }
 
@@ -24,6 +24,35 @@
   display: block;
   margin: auto;
   height: 40px;
+}
+
+/* .footer_home {
+  display: block;
+  margin: auto;
+  height: 40px;
+}
+
+.footer_store {
+  display: block;
+  margin: auto;
+  height: 40px;
+}
+
+.footer_challenge {
+  display: block;
+  margin: auto;
+  height: 40px;
+}
+
+.footer_mypage {
+  display: block;
+  margin: auto;
+  height: 40px;
+} */
+
+.footer_camera {
+  padding-top:8px;
+
 }
 
 .hr{
