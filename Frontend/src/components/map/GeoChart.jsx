@@ -1,0 +1,74 @@
+import React, { useRef, useEffect, useState } from "react";
+import { select, geoPath, geoMercator } from "d3";
+import useResizeObserver from "./useResizeObserver";
+import { useSelector } from "react-redux";
+import { login } from "../../store/area";
+import "./GeoChart.css";
+import { useDispatch } from "react-redux";
+/**
+ * Component that renders a map of Germany.
+ */
+
+function GeoChart({ data, property }) {
+  const area = useSelector((state) => state.area.value);
+  const dispatch = useDispatch();
+
+  const svgRef = useRef();
+  const wrapperRef = useRef();
+  const dimensions = useResizeObserver(wrapperRef);
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  // will be called initially and on every data change
+  useEffect(() => {
+    const svg = select(svgRef.current);
+    // use resized dimensions
+    // but fall back to getBoundingClientRect, if no dimensions yet.
+    const { width, height } =
+      dimensions || wrapperRef.current.getBoundingClientRect();
+
+    // projects geo-coordinates on a 2D plane
+    const projection = geoMercator()
+      .fitSize([width, height], selectedCountry || data)
+      .precision(100);
+
+    // takes geojson data,
+    // transforms that into the d attribute of a path element
+    const pathGenerator = geoPath().projection(projection);
+
+    // render each country
+    svg
+      .selectAll(".country")
+      .data(data.features)
+      .join("path")
+      .on("click", (event, feature) => {
+        console.log(feature.properties.name);
+
+        dispatch(login({ name: feature.properties.name }));
+
+        console.log(area.name);
+        setSelectedCountry(selectedCountry === feature ? null : feature);
+      })
+      .attr("class", "country")
+      .transition()
+      .attr("d", (feature) => pathGenerator(feature));
+
+    // render text
+    svg
+      .selectAll(".label")
+      .data([selectedCountry])
+      .join("text")
+      .attr("class", "label")
+      .text((feature) => feature && feature.properties.name + ": ")
+      .attr("x", 10)
+      .attr("y", 25);
+  }, [data, dimensions, property, selectedCountry]);
+
+  return (
+    <div ref={wrapperRef} style={{ marginBottom: "2rem" }}>
+      {selectedCountry !== null ? <div>{area.name}</div> : <div>전체</div>}
+
+      <svg ref={svgRef}></svg>
+    </div>
+  );
+}
+
+export default GeoChart;
