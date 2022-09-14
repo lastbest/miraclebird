@@ -1,7 +1,6 @@
-FROM node:16.16.0
-WORKDIR /usr/src/app
-COPY package.json ./
-RUN npm install
-COPY ./ ./
-EXPOSE 3000
-CMD ["npm","run","start"]
+FROM openjdk:11-jdk
+VOLUME /tmp 
+ARG JAR_FILE=build/libs/backend-0.0.1-SNAPSHOT.jar
+COPY ${JAR_FILE} app.jar 
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","/app.jar"]
