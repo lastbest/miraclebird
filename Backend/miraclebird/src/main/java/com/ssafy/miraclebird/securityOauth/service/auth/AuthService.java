@@ -2,10 +2,7 @@ package com.ssafy.miraclebird.securityOauth.service.auth;
 
 import com.ssafy.miraclebird.securityOauth.advice.assertThat.DefaultAssert;
 import com.ssafy.miraclebird.securityOauth.config.security.token.UserPrincipal;
-import com.ssafy.miraclebird.securityOauth.domain.entity.user.Provider;
-import com.ssafy.miraclebird.securityOauth.domain.entity.user.Role;
-import com.ssafy.miraclebird.securityOauth.domain.entity.user.Token;
-import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
+import com.ssafy.miraclebird.securityOauth.domain.entity.user.*;
 import com.ssafy.miraclebird.securityOauth.domain.mapping.TokenMapping;
 import com.ssafy.miraclebird.securityOauth.payload.request.auth.ChangePasswordRequest;
 import com.ssafy.miraclebird.securityOauth.payload.request.auth.RefreshTokenRequest;
@@ -16,6 +13,7 @@ import com.ssafy.miraclebird.securityOauth.payload.response.AuthResponse;
 import com.ssafy.miraclebird.securityOauth.payload.response.Message;
 import com.ssafy.miraclebird.securityOauth.repository.auth.TokenRepository;
 import com.ssafy.miraclebird.securityOauth.repository.user.UserRepository;
+import com.ssafy.miraclebird.util.ModelMapperUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -43,8 +41,9 @@ public class AuthService {
 
     public ResponseEntity<?> whoAmI(UserPrincipal userPrincipal){
         Optional<User> user = userRepository.findById(userPrincipal.getId());
+        UserDto userDto = ModelMapperUtils.getModelMapper().map(user.get(), UserDto.class);
         DefaultAssert.isOptionalPresent(user);
-        ApiResponse apiResponse = ApiResponse.builder().check(true).information(user.get()).build();
+        ApiResponse apiResponse = ApiResponse.builder().check(true).information(userDto).build();
 
         return ResponseEntity.ok(apiResponse);
     }

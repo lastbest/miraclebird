@@ -30,9 +30,9 @@ public class Comment {
     private String content;
 
     /* 연관관계 매핑 */
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "userIdx")
-    //private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userIdx")
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "boardIdx")

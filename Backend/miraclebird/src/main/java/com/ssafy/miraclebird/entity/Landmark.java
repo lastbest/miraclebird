@@ -39,9 +39,9 @@ public class Landmark {
     private Boolean selling;
 
     /* 연관관계 매핑 */
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "userIdx")
-    //private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userIdx")
+    private User user;
 
     @OneToMany(mappedBy = "landmark")
     List<Price> price = new ArrayList<>();

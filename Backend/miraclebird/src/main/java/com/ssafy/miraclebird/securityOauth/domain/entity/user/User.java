@@ -75,20 +75,20 @@ public class User extends DefaultTime {
     }
 
     /* 연관관계 매핑 */
-    //@OneToMany(mappedBy = "user")
-    //List<Challenger> challenger = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    List<Challenger> challenger = new ArrayList<>();
 
-    //@OneToMany(mappedBy = "user")
-    //List<Landmark> landmark = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    List<Landmark> landmark = new ArrayList<>();
 
-    //@OneToMany(mappedBy = "user")
-    //List<Board> board = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    List<Board> board = new ArrayList<>();
 
-    //@OneToMany(mappedBy = "user")
-    //List<Comment> comment = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    List<Comment> comment = new ArrayList<>();
 
-    //@OneToMany(mappedBy = "user")
-    //List<Transaction> transaction = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    List<Transaction> transaction = new ArrayList<>();
 
     public static User of(UserDto userDto) {
         User userEntity = ModelMapperUtils.getModelMapper().map(userDto, User.class);

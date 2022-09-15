@@ -28,9 +28,9 @@ public class Challenger {
     private String selfie;
 
     /* 연관관계 매핑 */
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "userIdx")
-    //private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userIdx")
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challengeIdx")

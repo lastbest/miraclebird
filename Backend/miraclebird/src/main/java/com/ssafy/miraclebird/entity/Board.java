@@ -34,9 +34,9 @@ public class Board {
     private int hit;
 
     /* 연관관계 매핑 */
-    // @ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "userIdx")
-    //private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userIdx")
+    private User user;
 
     @OneToMany(mappedBy = "board")
     List<Comment> comment = new ArrayList<>();
