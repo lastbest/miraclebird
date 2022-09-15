@@ -11,13 +11,15 @@ function App() {
   return (
     <div className={styles.App}>
       <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/Store" element={<Store />}></Route>
-          <Route path="/Camera" element={<Camera />}></Route>
-        </Routes>
-        <Footer />
+        <Header className={styles.Header} />
+        <div className={styles.Contents}>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/Store" element={<Store />}></Route>
+            <Route path="/Camera" element={<Camera />}></Route>
+          </Routes>
+        </div>
+        <Footer className={styles.Footer} />
       </BrowserRouter>
     </div>
   );

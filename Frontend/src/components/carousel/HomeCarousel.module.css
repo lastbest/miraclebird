@@ -1,7 +1,12 @@
 .awssld__bullets{
-    display: none;
-    
+    display: none !important;
+    width:80% !important;
 }
+
+.awssld__bullets > button {
+    display:none;
+}
+
 .awssld__content > img {
     object-fit:unset;
 }
@@ -9,3 +14,4 @@
 .awssld__timer {
     display:none;
 }
+

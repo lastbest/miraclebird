@@ -1,73 +1,59 @@
 .footer {
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
+    position:fixed;
+    left:0;
+    bottom:0;
+    width:100%;
+    background-color: white;
 }
 
 .footer_navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: white;
-  height: 5vh;
-  margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin:auto;
+    margin-bottom: 20px;
 }
 
 .footer_button {
-  margin: auto;
-  text-align: center;
-  display: block;
-  height: 40px;
-}
+    margin: auto;
+    text-align: center;
+    display: block;
+    height: 40px;
+    width:45px;
+  }
 
 .footer_button img {
-  display: block;
-  margin: auto;
-  height: 40px;
-}
-
-/* .footer_home {
-  display: block;
-  margin: auto;
-  height: 40px;
-}
-
-.footer_store {
-  display: block;
-  margin: auto;
-  height: 40px;
-}
-
-.footer_challenge {
-  display: block;
-  margin: auto;
-  height: 40px;
-}
-
-.footer_mypage {
-  display: block;
-  margin: auto;
-  height: 40px;
-} */
+    display: block;
+    margin: auto;
+    height: 40px;
+  }
 
 .footer_camera {
-  padding-top:8px;
-
+    display: flex;
+    margin: auto;
+    height: 40px;
+    width: 40px;
+    padding-top:10px;
 }
 
-.hr{
-  /* box-shadow: 1px 1px 1px 1px rgba(128, 128, 128, 0.466); */
+.footer_camerabutton {
+margin: auto;
+text-align: center;
+display: block;
+height: 40px;
 }
 
 .circle {
-  box-shadow: 2px 2px 2px 2px gray;
-  background-color: #FFE969;
-  height: 150%;
-  width: 150%;
-  border-radius: 75px;
-  text-align: center;
-  margin: uto;
-  font-size: 12px;
-  vertical-align: middle;
-  line-height: 150px;
+    box-shadow: 2px 2px 2px 2px gray;
+    background-color: #FFE969;
+    border-radius: 50%;
+    line-height: 150px;
+    height:60px;
+    width:60px;
+    text-align: center;
+    margin-top: -5px;
+}
+
+.text_challenge {
+    font-size:10.5px;
 }

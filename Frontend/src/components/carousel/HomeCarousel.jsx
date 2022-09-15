@@ -5,7 +5,6 @@ import './HomeCarousel.module.css';
 import React from 'react';
 import { MobileView } from 'react-device-detect';
 
-
 const AutoplaySlider = withAutoplay(AwesomeSlider);
 
 const HomeCarousel = () => {
