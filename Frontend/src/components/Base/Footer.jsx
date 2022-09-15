@@ -39,7 +39,7 @@ function Footer () {
                     alt="challenge"
                     src="/footer_challenge.png"
                     className={styles.footer_challenge}
-                    onClick={()=>{document.location.href="/"}}
+                    onClick={()=>{document.location.href="/Challenge"}}
                     />
                     <div className={styles.text_challenge}>challenge</div>
                 </div>

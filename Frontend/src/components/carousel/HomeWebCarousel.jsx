@@ -23,8 +23,8 @@ const items = [
 const WebCarousel = () => {
     return (
         <>
-        <div className="container" style={{display:"flex", "justifyContent":"center", "marginTop":"1%", "width":"70%","margin":"auto"}}>
-            <AliceCarousel mouseTracking items={items} responsive={responsive} />
+        <div className="container" style={{display:"flex", "justifyContent":"center", "marginTop":"1%", "width":"70%","margin":"auto", "margin-bottom":"10px"}}>
+            <AliceCarousel mouseTracking items={items} responsive={responsive} autoPlay infinite={3000} animationDuration={2000} disableButtonsControls disableDotsControls />
         </div>
         </>
     )

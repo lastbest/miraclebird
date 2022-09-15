@@ -8,19 +8,19 @@ import Rank from "../components/common/Rank";
 function Home() {
   return (
     <>
+    <BrowserView>
+      <div className="App">
+        <WebCarousel className={styles.carousel} />
+        <Rank />
+      </div>
+    </BrowserView>
     <MobileView>
       <div className="App">
-        <HomeCarousel></HomeCarousel>
+        <WebCarousel className={styles.carousel} />
         <Rank />
       </div>
     </MobileView>
-    <BrowserView>
-      <div className="App">
-        <WebCarousel />
-        <Rank />
-
-      </div>
-    </BrowserView>
+  
     </>
   );
 }
