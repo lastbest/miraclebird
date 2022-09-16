@@ -21,7 +21,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @ApiOperation(value = "user_id에 해당하는 유저 정보를 반환한다.", response = UserDto.class)
+    @ApiOperation(value = "user_idx에 해당하는 유저 정보를 반환한다.", response = UserDto.class)
     @GetMapping("/{user_idx}")
     public ResponseEntity<UserDto> getUserById(@PathVariable("user_idx") Long userIdx) {
         UserDto result = userService.getUserById(userIdx);
