@@ -1,5 +1,6 @@
 package com.ssafy.miraclebird.entity;
 
+import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

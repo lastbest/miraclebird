@@ -1,5 +1,8 @@
 package com.ssafy.miraclebird.entity;
 
+import com.ssafy.miraclebird.dto.BoardDto;
+import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
+import com.ssafy.miraclebird.util.ModelMapperUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,4 +40,10 @@ public class Board {
 
     @OneToMany(mappedBy = "board")
     List<Comment> comment = new ArrayList<>();
+
+    public static Board of(BoardDto boardDto) {
+        Board boardEntity = ModelMapperUtils.getModelMapper().map(boardDto, Board.class);
+
+        return boardEntity;
+    }
 }
