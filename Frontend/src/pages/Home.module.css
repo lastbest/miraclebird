@@ -1,0 +1,12 @@
+.App{
+  font-family: 'neodgm';
+}
+
+.content{
+  height: 30vh;
+  background-color: #FFFB84;
+  text-align: center;
+  margin: auto;
+  padding: 30px;
+  font-size: 35px;
+}

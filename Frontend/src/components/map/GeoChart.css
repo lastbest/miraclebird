@@ -1,0 +1,30 @@
+svg {
+  display: block;
+  width: 100%;
+  height: 300px;
+  fill: lightgrey;
+}
+
+svg path:hover {
+  stroke: black;
+  fill: red;
+  stroke-width: 1px;
+  cursor: pointer;
+}
+
+svg path:active,
+path:visited {
+  fill: blue;
+}
+
+svg city:hover {
+  stroke: black;
+  fill: red;
+  stroke-width: 1px;
+  cursor: pointer;
+}
+
+svg city:active,
+city:visited {
+  fill: blue;
+}
