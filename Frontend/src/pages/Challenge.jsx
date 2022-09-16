@@ -8,12 +8,12 @@ function Challenge () {
         <div className={styles.header}>
             <p>챌린지</p>
             <div className={styles.community}>
-                <button onClick={()=>{document.location.href="/Challenge/Community"}} className={styles.communitybtn}><img alt="community" src="/community.png" className={styles.communityicon}/>커뮤니티</button>
+                <button onClick={()=>{document.location.href="/challenge/community"}} className={styles.communitybtn}><img alt="community" src="/community.png" className={styles.communityicon}/>커뮤니티</button>
             </div>
         </div>
         <div className={styles.containers}>
             <div className={styles.miraclemorning}>
-                <p>미라클모닝</p>
+                <p >미라클모닝</p>
                 <img alt="morning" src="/miraclemorning.png" />
             </div>
             <div className={styles.health}>

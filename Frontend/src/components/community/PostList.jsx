@@ -4,14 +4,13 @@ import CommonTable from "./CommonTable";
 import CommonTableColumn from "./CommonTableColumn";
 import CommonTableRow from "./CommonTableRow";
 import { postList } from "./PostData";
-import Modal from 'react-bootstrap/Modal';
+
+import styles from './PostList.module.css'
+import { Link } from "react-router-dom";
+
 
 const PostList = props => {
     const [dataList, setDataList] = useState([]);
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     useEffect(()=>{
         setDataList(postList);
@@ -19,37 +18,33 @@ const PostList = props => {
 
     return (
         <>
-        <CommonTable headersName={['글번호', '제목', '날짜', '조회수']}>
-            {
-            dataList ? dataList.map((item, index) => {
-                return (
-                <CommonTableRow key={index}>
-                    <CommonTableColumn>{ item.no }</CommonTableColumn>
-                    <CommonTableColumn onClick={handleShow}>{ item.title }</CommonTableColumn>
-                    <CommonTableColumn>{ item.createDate }</CommonTableColumn>
-                    <CommonTableColumn>{ item.readCount }</CommonTableColumn>
-                </CommonTableRow>
-                )
-            }) : ''
-            }
-        </CommonTable>
-
-        <Modal
-                centered
-                show={show}
-                onHide={handleClose}
-                backdrop="static"
-                keyboard={false}
-            >
-                <Modal.Header closeButton>
-                </Modal.Header>
-                <Modal.Body>
-                    hi
-                    {/* {dataList.map((item)=>{
-                        {item.title}
-                    })} */}
-                </Modal.Body>
-            </Modal>
+        
+        <div className={styles.tableContainer}>
+            <CommonTable headersName={[]}>
+            {/* <CommonTable headersName={['No', '제목', '날짜', '♡']}> */}
+                {
+                dataList ? dataList.map((item, index) => {
+                    return (
+                    <CommonTableRow key={index}>
+                        {/* <CommonTableColumn className={styles.no}>{ item.no }</CommonTableColumn> */}
+                        { item.category === 1 ?
+                        <CommonTableColumn className={styles.title}>
+                            <Link to={`/challenge/community/${item.no}`} className={styles.titletext2}>[공지사항] { item.title }</Link>
+                        </CommonTableColumn>
+                        : 
+                        <CommonTableColumn className={styles.title}>
+                            <Link to={`/challenge/community/${item.no}`} className={styles.titletext}>{ item.title }</Link>
+                        </CommonTableColumn>
+                        }
+                        
+                        {/* <CommonTableColumn className={styles.createDate}>{ item.createDate }</CommonTableColumn>
+                        <CommonTableColumn className={styles.readCount}>{ item.readCount }</CommonTableColumn> */}
+                    </CommonTableRow>
+                    )
+                }) : ''
+                }
+            </CommonTable>
+        </div>
         </>
     )
 };

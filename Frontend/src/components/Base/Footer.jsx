@@ -20,7 +20,7 @@ function Footer () {
                     alt="store"
                     src="/footer_store.png"
                     className={styles.footer_store}
-                    onClick={()=>{document.location.href="/Store"}}
+                    onClick={()=>{document.location.href="/store"}}
                     />
                     <div>store</div>
                 </div>
@@ -30,7 +30,7 @@ function Footer () {
                         alt="camera"
                         src="/footer_camera.png"
                         className={styles.footer_camera}
-                        onClick={()=>{document.location.href="/Camera"}}
+                        onClick={()=>{document.location.href="/camera"}}
                         />
                     </div>
                 </div>
@@ -39,7 +39,7 @@ function Footer () {
                     alt="challenge"
                     src="/footer_challenge.png"
                     className={styles.footer_challenge}
-                    onClick={()=>{document.location.href="/Challenge"}}
+                    onClick={()=>{document.location.href="/challenge"}}
                     />
                     <div className={styles.text_challenge}>challenge</div>
                 </div>

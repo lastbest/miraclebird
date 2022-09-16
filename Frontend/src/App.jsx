@@ -9,6 +9,7 @@ import Footer from "./components/Base/Footer";
 import Challenge from "./pages/Challenge";
 import Community from "./components/community/Community";
 import CreatePost from "./components/community/CreatePost";
+import PostView from "./components/community/PostView";
 
 function App() {
   return (
@@ -18,11 +19,12 @@ function App() {
         <div className={styles.Contents}>
           <Routes>
             <Route path="/" element={<Home />}></Route>
-            <Route path="/Store" element={<Store />}></Route>
-            <Route path="/Camera" element={<Camera />}></Route>
-            <Route path="/Challenge" element={<Challenge />}></Route>
-            <Route path="/Challenge/Community" element={<Community/>}></Route>
-            <Route path="/Challenge/Community/Create" element={<CreatePost/>}></Route>
+            <Route path="/store" element={<Store />}></Route>
+            <Route path="/camera" element={<Camera />}></Route>
+            <Route path="/challenge" element={<Challenge />}></Route>
+            <Route path="/challenge/community" element={<Community/>}></Route>
+            <Route path="/challenge/community/create" element={<CreatePost/>}></Route>
+            <Route path='/challenge/community/:no' element={<PostView />}></Route>
           </Routes>
         </div>
         <Footer className={styles.Footer} />

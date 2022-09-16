@@ -11,7 +11,7 @@
 
 .header {
     margin-left:10px;
-    width:100%
+    width:100%;
 }
 .rankicon {
     width:25px;
@@ -19,9 +19,10 @@
     margin: auto;
     float: left;
     display:flex;
-    margin-top:13px;
-    margin-right:5px;
+    margin-right:3px;
+    margin-top:-8px;
 }
+
 
 .content2 {
     width:80%;
@@ -41,4 +42,36 @@
     display:flex;
     margin-right:5px;
     margin-top:13px;
+}
+
+.modal {
+    position: absolute;
+    top: 40%;
+    left: 20%;
+    right: 20%;
+    bottom: 40%;
+    background-color: white;
+    border: 2px solid lightgray;
+    border-radius: 30px;
+}
+
+.modalcontent {
+    position: absolute;
+    font-family: 'neodgm';
+    text-align: center;
+    padding:10px;
+}
+
+.modalHeader {
+    text-align: right;
+    margin-right:5%;
+    margin-top:5%;
+}
+
+.closebtn {
+    right:0;
+    background-color: white;
+    border:none;
+    font-family: "neodgm";
+    font-size:20px;
 }

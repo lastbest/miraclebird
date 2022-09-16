@@ -54,3 +54,13 @@
     justify-content: center;
     margin-top:20px;
   }
+
+  .selectBox {
+    width:30%;
+    font-family: 'neodgm';
+    padding:3px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 2px solid lightgray;
+  }
+

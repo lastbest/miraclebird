@@ -1,16 +1,16 @@
 .commontable {
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
-    text-align: center;
+    /* text-align: center; */
     border-spacing: 0;
   }
   
   .header {
-    border-bottom: 1px solid #e8e8e8;
+    border-bottom: 3px solid lightgray;
     padding: 0;
-    font-size: 16px;
+    font-size: 20px;
     padding: 10px 5px;
-    font-weight: bold;
+
   }
   
   .tablerow:hover {
@@ -19,5 +19,6 @@
   }
   
   .tablecolumn {
-    padding: 10px 5px;
+    padding: 13px 8px;
+    border-bottom: 1px solid lightgray;
   }

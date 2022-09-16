@@ -33,9 +33,20 @@ function CreatePost () {
     return (
         <>
         <div className={styles.header}>
-            <button className={styles.backbtn} onClick={()=>{document.location.href="/Challenge/Community"}}><img alt="back" src="/back.png" className={styles.backicon} /></button>
+            <button className={styles.backbtn} onClick={()=>{history.back()}}><img alt="back" src="/back.png" className={styles.backicon} /></button>
         </div>
         <div className={styles.Form}>
+            <select className={styles.selectBox}>
+                <option key="notice" value="notice">
+                    공지사항
+                </option>
+                <option key="talk" value="talk">
+                    잡담
+                </option>
+                <option key="etc" value="etc">
+                    기타
+                </option>
+            </select>
             <div className={styles.titleForm}>
                 제목
                 <input className={styles.title} type="text" placeholder ="제목" name="title" onInput={(e)=>{setTitle(e.target.value)}} />
