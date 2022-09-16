@@ -4,7 +4,6 @@ import styles from "./Footer.module.css";
 function Footer () {
     return (
         <div className={styles.footer}>
-            <hr></hr>
             <div className={styles.footer_navbar}>
                 <div className={styles.footer_button}>
                     <img

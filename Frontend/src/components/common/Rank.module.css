@@ -1,12 +1,14 @@
 .content {
     width:80%;
-    height:100px;
+    height:180px;
     border-radius: 20px;
     border: 1px solid lightgray;
     display: flex;
     justify-content: center;
     margin:auto;
     margin-bottom:10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .header {
@@ -32,6 +34,8 @@
     display: flex;
     justify-content: center;
     margin:auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .nfticon {
@@ -74,4 +78,83 @@
     border:none;
     font-family: "neodgm";
     font-size:20px;
+}
+
+.slide {
+    width:80%;
+    height:80px;
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+}
+
+.medalcontainer {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.maintext{
+    margin:0;
+    margin-left:20px;
+    text-align: left;
+    margin-bottom:5px;
+    /* color: #0930a5 ; */
+    font-size:15px;
+}
+
+.slidecontainer {
+    width:100%;
+    height: 80%;
+    margin:auto;
+}
+
+
+.slide img {
+    width:40px;
+    height:40px;
+}
+
+.slidetext {
+    margin-top:0;
+}
+
+.silver {
+    margin-top:23px;
+}
+
+.bronze {
+    margin-top:35px;
+}
+
+.gold {
+    margin-left:30px;
+    margin-right:30px;
+}
+
+.swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal {
+    bottom:-10px !important;
+}
+
+.nftcontainer {
+    width:100%;
+    height: 80%;
+    margin:auto;
+}
+
+.nftslide {
+    width:80%;
+    height:80px;
+    text-align: center;
+    
+}
+
+.nftslide img {
+    width:100px;
+    height:100px;
+}
+
+.nfttext {
+    margin-bottom:30px;
+    margin-top:2px;
 }
