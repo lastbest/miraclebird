@@ -10,6 +10,10 @@ import Challenge from "./pages/Challenge";
 import Community from "./components/community/Community";
 import CreatePost from "./components/community/CreatePost";
 import PostView from "./components/community/PostView";
+import MiracleMorning from "./pages/MiracleMorning";
+import Study from "./pages/Study";
+import Health from "./pages/Health";
+import MiracleFeed from "./components/common/MiracleFeed";
 
 function App() {
   return (
@@ -25,6 +29,10 @@ function App() {
             <Route path="/challenge/community" element={<Community/>}></Route>
             <Route path="/challenge/community/create" element={<CreatePost/>}></Route>
             <Route path='/challenge/community/:no' element={<PostView />}></Route>
+            <Route path="/challenge/morning" element={<MiracleMorning />}></Route>
+            <Route path="/challenge/health" element={<Health />}></Route>
+            <Route path="/challenge/study" element={<Study />}></Route>
+            <Route path="/challenge/morning/feed" element={<MiracleFeed />}></Route>
           </Routes>
         </div>
         <Footer className={styles.Footer} />

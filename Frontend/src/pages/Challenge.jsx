@@ -14,15 +14,15 @@ function Challenge () {
         <div className={styles.containers}>
             <div className={styles.miraclemorning}>
                 <p >미라클모닝</p>
-                <img alt="morning" src="/miraclemorning.png" />
+                <img alt="morning" src="/miraclemorning.png" onClick={()=>(document.location='/challenge/morning')}/>
             </div>
             <div className={styles.health}>
                 <p>운동</p>
-                <img alt="health" src="/health.jpg" />
+                <img alt="health" src="/health.jpg" onClick={()=>(document.location='/challenge/health')}/>
             </div>
             <div className={styles.study}>
                 <p>스터디</p>
-                <img alt="study" src="/study.jpg" />
+                <img alt="study" src="/study.jpg" onClick={()=>(document.location='/challenge/study')}/>
             </div>
         </div>
 
