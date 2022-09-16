@@ -19,8 +19,16 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public UserDto getUserById(Long userIdx) {
+    public UserDto getUserById(Long userIdx) throws Exception{
         User userEntity = userDao.getUserById(userIdx);
+        UserDto userDto = UserDto.of(userEntity);
+
+        return userDto;
+    }
+
+    @Override
+    public UserDto updateUserInfo(Long userIdx, String name) throws Exception {
+        User userEntity = userDao.updateUserInfo(userIdx, name);
         UserDto userDto = UserDto.of(userEntity);
 
         return userDto;

@@ -24,7 +24,29 @@ public class UserController {
     @ApiOperation(value = "user_idx에 해당하는 유저 정보를 반환한다.", response = UserDto.class)
     @GetMapping("/{user_idx}")
     public ResponseEntity<UserDto> getUserById(@PathVariable("user_idx") Long userIdx) {
-        UserDto result = userService.getUserById(userIdx);
+
+        UserDto result = null;
+
+        try {
+            result = userService.getUserById(userIdx);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @ApiOperation(value = "user_idx에 해당하는 유저 정보를 수정한다.", response = UserDto.class)
+    @PutMapping("/{user_idx}")
+    public ResponseEntity<UserDto> updateUserInfo(@PathVariable("user_idx") Long userIdx, @RequestParam("name") String name) {
+
+        UserDto result = null;
+
+        try {
+            result = userService.updateUserInfo(userIdx, name);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
