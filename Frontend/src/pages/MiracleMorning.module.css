@@ -1,0 +1,65 @@
+.backbtn {
+    background-color: white;
+    border:none;
+    margin-top:10px;
+}
+
+.backicon {
+    width:25px;
+    height:25px;
+}
+
+.mainContainer {
+    width:90%;
+    display: flex;
+    flex-direction: column;
+    margin:auto;
+}
+
+.morningimg {
+    width:90%;
+    margin:auto;
+}
+
+.reward {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+}
+
+.subtext {
+    margin-bottom:2px;
+    margin-top:0;
+    font-size: 15px;
+}
+
+.titletext {
+    margin-top:10px;
+    font-size: 18px;
+    margin-bottom:2px;
+    background-color: #058bf0  ;
+    padding:2px;
+    width:100px;
+    text-align: center;
+    color:white;
+}
+
+.coin {
+    width:20px !important;
+    height:20px;
+    margin-top:auto;
+    margin-bottom: auto;
+    margin-left:3px;
+    margin-right:3px;
+}
+
+.detailbtn {
+    width:200px;
+    height: 30px;
+    background-color: #fffb84;
+    border-radius:20px;
+    font-family: 'neodgm';
+    font-size:18px;
+    border: 2px solid #ffe969;
+    margin:auto;
+}

@@ -1,0 +1,41 @@
+.post_view_wrapper {
+    width: 80%;
+    margin: auto;
+
+  }
+  
+  .backbtn {
+    background-color: white;
+    border:none;
+    margin-top:3%;
+  }
+  
+  .post_view_row {
+    margin: 10px 0;
+    display: flex;
+    
+  }
+  
+  .post_view_row > label:first-child {
+    margin: 10px 0;
+    width: 30%;
+    font-weight: bold;
+  }
+  
+  .post_view_row > *:nth-child(2) {
+    margin: 10px 0;
+    width: 70%;
+  }
+
+  .postHeader {
+    background-color: #058bf0;
+    color: white;
+    text-align: center;
+    font-size: 25px;
+    padding:2px;
+  }
+
+.backicon {
+    width:25px;
+    height:25px;
+}

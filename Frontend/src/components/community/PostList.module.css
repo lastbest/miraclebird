@@ -1,0 +1,19 @@
+.titletext {
+    text-decoration: none;
+    color: black;
+}
+
+.titletext2 {
+    text-decoration: none;
+    color:black;
+    font-weight: bold;
+}
+
+
+.tableContainer {
+    width:90%;
+    margin:auto;
+    margin-top:3%;
+    /* border:2px solid lightgray; */
+    /* border-radius: 20px; */
+}

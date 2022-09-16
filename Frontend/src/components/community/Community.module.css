@@ -1,0 +1,27 @@
+.backbtn {
+    background-color: white;
+    border:none;
+
+}
+
+.backicon {
+    width:25px;
+    height:25px;
+}
+
+.header {
+    margin-top:10px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.createbtn {
+    background-color: white;
+    border:none;
+}
+
+.pencilicon {
+    width:25px;
+    height:25px;
+}

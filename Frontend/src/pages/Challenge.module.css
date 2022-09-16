@@ -1,0 +1,82 @@
+.containers {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin:auto;
+}
+
+.miraclemorning {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width:80%;
+    height:30vh;
+}
+
+.miraclemorning img {
+    margin:auto;
+    width:80%;
+    height:80%;
+}
+
+.health {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width:80%;
+    height:30vh;
+}
+
+.health img {
+    margin:auto;
+    width:80%;
+    height:80%;
+}
+
+.study {
+    display: flex;
+    flex-direction: column;
+    margin:auto;
+    width:80%;
+    height:30vh;
+}
+
+.study img {
+    margin:auto;
+    width:80%;
+    height:80%;
+}
+
+.header {
+    width:80%;
+    display:flex;
+    justify-content: space-between;
+    margin:auto;
+    align-items: center;
+}
+
+.header p {
+    font-size: 20px;
+    color: #0930a5 ;
+}
+
+.communitybtn {
+    background-color: white;
+    border: none;
+    font-family: "neodgm";
+    font-size:20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.communityicon {
+    width:25px;
+    height:25px;
+    margin-right:5px;
+}
+
+.containers p {
+    margin-bottom:0;
+    margin-left:10%;
+}
