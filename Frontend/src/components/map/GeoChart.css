@@ -1,30 +1,35 @@
 svg {
   display: block;
   width: 100%;
-  height: 300px;
+  height: 400px;
   fill: lightgrey;
+  stroke: white;
+}
+
+svg text {
+  fill: black;
+  stroke: black;
+  stroke-width: 0.1px;
 }
 
 svg path:hover {
-  stroke: black;
-  fill: red;
+  stroke: white;
+  fill: #fffb84;
   stroke-width: 1px;
   cursor: pointer;
 }
 
 svg path:active,
 path:visited {
-  fill: blue;
+  fill: #d0fff7;
 }
 
-svg city:hover {
+svg text {
+  font-size: 25px;
   stroke: black;
-  fill: red;
-  stroke-width: 1px;
-  cursor: pointer;
+  fill: black;
 }
 
-svg city:active,
-city:visited {
-  fill: blue;
+circle:hover {
+  fill: black;
 }

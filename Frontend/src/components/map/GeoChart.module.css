@@ -1,0 +1,84 @@
+
+
+.picture {
+    width:70%;
+    text-align: center;
+}
+
+.modal {
+    position: absolute;
+    top: 18%;
+    left: 10%;
+    right: 10%;
+    bottom: 18%;
+    background-color: white;
+    border: 2px solid lightgray;
+    border-radius: 30px;
+}
+
+.modalcontent {
+    position: absolute;
+    font-family: 'neodgm';
+    text-align: center;
+    padding:10px;
+}
+
+.modalHeader {
+    text-align: right;
+    margin-right:5%;
+    margin-top:5%;
+}
+
+.closebtn {
+    right:0;
+    background-color: white;
+    border:none;
+    font-family: "neodgm";
+    font-size:20px;
+}
+
+
+
+.detail {
+    text-align: left;
+    vertical-align: middle;
+    margin-left: 10%;
+}
+
+
+
+.purchase{
+    line-height: 20px;
+    display: block;
+    vertical-align: middle;
+}
+
+.reward {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+}
+
+.coin {
+    width: 30px !important;
+    height:  30px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.btn {
+    width: 80px;
+    height: 30px;
+    background-color: #fffb84;
+    border-radius: 20px;
+    font-family: 'neodgm';
+    font-size: 18px;
+    border: 2px solid #ffe969;
+    margin: auto;
+}
+
+.desc{
+    font-size: 15px;
+}
