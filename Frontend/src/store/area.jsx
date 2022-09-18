@@ -1,14 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { nice } from "d3";
 
 export const areaSlice = createSlice({
   name: "area",
-  initialState: { value: { name: null } },
+  initialState: { value: { name: "korea", SIG_CD: "" } },
   reducers: {
-    login: (state, action) => {
+    selectArea: (state, action) => {
       state.value = action.payload;
     },
   },
 });
-export const { login } = areaSlice.actions;
+export const { selectArea } = areaSlice.actions;
 export default areaSlice.reducer;
