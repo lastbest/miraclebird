@@ -14,6 +14,7 @@ import MiracleMorning from "./pages/MiracleMorning";
 import Study from "./pages/Study";
 import Health from "./pages/Health";
 import MiracleFeed from "./components/common/MiracleFeed";
+import Animation from "./components/animation/Aniamtion";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             <Route path="/challenge/health" element={<Health />}></Route>
             <Route path="/challenge/study" element={<Study />}></Route>
             <Route path="/challenge/morning/feed" element={<MiracleFeed />}></Route>
+            <Route path='/ani' element={<Animation />}></Route>
           </Routes>
         </div>
         <Footer className={styles.Footer} />
