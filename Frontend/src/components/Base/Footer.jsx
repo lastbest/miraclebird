@@ -16,18 +16,18 @@ function Footer() {
               navigate("/");
             }}
           />
-          <div>home</div>
+          <div className={styles.icontext}>홈</div>
         </div>
         <div className={styles.footer_button}>
           <img
             alt="store"
-            src="/footer_store.png"
+            src="/footer_shop.png"
             className={styles.footer_store}
             onClick={() => {
               navigate("/store");
             }}
           />
-          <div>store</div>
+          <div className={styles.icontext}>스토어</div>
         </div>
         <div className={styles.footer_camerabutton}>
           <div className={styles.circle}>
@@ -44,13 +44,13 @@ function Footer() {
         <div className={styles.footer_button}>
           <img
             alt="challenge"
-            src="/footer_challenge.png"
+            src="/footer_target.png"
             className={styles.footer_challenge}
             onClick={() => {
               navigate("/challenge");
             }}
           />
-          <div className={styles.text_challenge}>challenge</div>
+          <div className={styles.icontext}>챌린지</div>
         </div>
         <div className={styles.footer_button}>
           <img
@@ -61,7 +61,7 @@ function Footer() {
               navigate("/");
             }}
           />
-          <div className={styles.text_mypage}>mypage</div>
+          <div className={styles.icontext}>마이룸</div>
         </div>
       </div>
     </div>
