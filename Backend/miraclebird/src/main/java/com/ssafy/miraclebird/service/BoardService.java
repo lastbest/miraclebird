@@ -6,4 +6,6 @@ public interface BoardService {
 
     BoardDto getBoardById(Long boardIdx) throws Exception;
 
+    BoardDto updateBoardInfo(BoardDto boardDto, Long userIdx) throws Exception;
+
 }
