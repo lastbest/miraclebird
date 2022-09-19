@@ -58,7 +58,7 @@ function Footer() {
             src="/footer_mypage.png"
             className={styles.footer_mypage}
             onClick={() => {
-              navigate("/");
+              navigate("/mypage");
             }}
           />
           <div className={styles.icontext}>마이룸</div>
