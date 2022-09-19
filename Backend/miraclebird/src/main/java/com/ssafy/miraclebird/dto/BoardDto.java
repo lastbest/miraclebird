@@ -19,6 +19,8 @@ public class BoardDto {
 
     private int hit;
 
+    private long userIdx;
+
     public static BoardDto of(Board missionEntity) {
         BoardDto missionDto = ModelMapperUtils.getModelMapper().map(missionEntity, BoardDto.class);
 
