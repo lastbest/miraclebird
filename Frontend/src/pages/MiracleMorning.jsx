@@ -12,7 +12,7 @@ function MiracleMorning () {
                 <p className={styles.subtext}>당신의 아침을 책임져줄 미라클 모닝!</p>
                 <p className={styles.subtext}>하루 한 장의 사진으로 당신의 아침을 인증해보세요!</p>
             </div>
-            <div classname={styles.maintext}>
+            <div className={styles.maintext}>
                 <p className={styles.titletext}>인증사진</p>
                 <p className={styles.subtext}>이불정리, 물 한 잔, 시계 등</p>
                 <p className={styles.subtext}>자세한 내용은 커뮤니티의 공지사항을 참고해주세요!</p>
