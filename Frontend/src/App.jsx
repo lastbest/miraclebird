@@ -15,6 +15,7 @@ import Study from "./pages/Study";
 import Health from "./pages/Health";
 import MiracleFeed from "./components/common/MiracleFeed";
 import MyPage from "./pages/MyPage";
+import Reinforce from "./pages/Reinforce";
 import Login from "./pages/Login";
 
 function App() {
