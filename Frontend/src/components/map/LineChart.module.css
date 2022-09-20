@@ -1,0 +1,27 @@
+.svg{
+    width: 95%;
+    height: 50vh;
+    background-color: #fffb84;
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+svg text {
+    font-size: 10px;
+}
+  th,
+  td {
+      border: 1px solid lightgrey;
+  }
+.table{
+    border-collapse: collapse;
+    width: 95%;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    font-size: 13px;
+    text-align: center;
+}
+.span{
+    font-size: 10px;
+}
