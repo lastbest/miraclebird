@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { select, geoPath, geoMercator, csv } from "d3";
+import { select, geoPath, geoMercator } from "d3";
 import useResizeObserver from "./useResizeObserver";
 import { useSelector } from "react-redux";
 import { selectArea } from "../../store/area";
@@ -11,12 +11,17 @@ import spot2 from "./spot29110.json";
 import spot3 from "./spot11710.json";
 import Modal from "react-modal";
 import styles from "./GeoChart.module.css";
+import LineChart from "./LineChart";
+import back from "../../assets/icon/GeoChart_Back.png";
+import back_1 from "../../assets/icon/GeoChart_Back1.png";
 
 /**
  * Component that renders a map of Germany.
  */
 
 function GeoChart({ data }) {
+  const [isListHover, setIsListHover] = useState(false);
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const area = useSelector((state) => state.area.value);
   const landmark = useSelector((state) => state.landmark.value);
@@ -59,6 +64,7 @@ function GeoChart({ data }) {
             SIG_CD: feature.properties.SIG_CD,
           })
         );
+
         if (selectedCountry === feature) {
           setSelectedCountry(null);
           dispatch(selectArea({ name: "korea" }));
@@ -66,6 +72,8 @@ function GeoChart({ data }) {
           setSelectedCountry(feature);
         }
 
+        svg.selectAll("mark").remove();
+        svg.selectAll("text").remove();
         console.log(area);
       })
       .attr("class", "city")
@@ -100,10 +108,10 @@ function GeoChart({ data }) {
           );
           setModalIsOpen(true);
         })
-        .transition()
-        .duration(1000)
         .attr("r", "10px")
-        .attr("fill", "#1d4999");
+        .attr("fill", "#1d4999")
+        .transition()
+        .duration(1000);
 
       svg
         .selectAll(".labelsc")
@@ -132,60 +140,97 @@ function GeoChart({ data }) {
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "central")
         .style("font-size", 15)
-        .style("fill", "black");
+        .style("fill", "black")
+        .transition();
     } else {
       svg.selectAll("mark").remove();
       svg.selectAll("text").remove();
     }
-
-    // 선택되 지역 텍스트
-    // svg
-    //   .selectAll(".label")
-    //   .data([selectedCountry])
-    //   .join("text")
-    //   .attr("class", "label")
-    //   .text((feature) => feature && feature.properties.name + ": ")
-    //   .attr("x", 10)
-    //   .attr("y", 25);
-
     // 지역별 텍스트
-    // svg
-    //   .selectAll(".labels")
-    //   .data(data.features)
-    //   .join("text")
-    //   .attr("class", "labels")
-    //   .attr("x", function (d) {
-    //     return pathGenerator.centroid(d)[0];
-    //   })
-    //   .attr("y", function (d) {
-    //     return pathGenerator.centroid(d)[1];
-    //   })
-    //   .text(function (d) {
-    //     return d.properties.name;
-    //   })
-    //   .on("click", (event, feature) => {
-    //     console.log(feature.properties.name);
-    //     console.log(wrapperRef);
-    //     dispatch(selectArea({ name: feature.properties.name }));
-    //     console.log("Click : " + area.name);
-    //     if (selectedCountry === feature) {
-    //       setSelectedCountry(null);
-    //       dispatch(selectArea({ name: "korea" }));
-    //     } else {
-    //       setSelectedCountry(feature);
-    //     }
-    //   })
-    //   .attr("text-anchor", "middle")
-    //   .attr("alignment-baseline", "central")
-    //   .style("font-size", 15)
-    //   .style("fill", "black");
+    if (area.SIG_CD != null && area.SIG_CD.length == 2) {
+      svg
+        .selectAll(".labels")
+        .data(data.features)
+        .join("text")
+        .attr("class", "labels")
+        .attr("x", function (d) {
+          return pathGenerator.centroid(d)[0];
+        })
+        .attr("y", function (d) {
+          return pathGenerator.centroid(d)[1];
+        })
+        .text(function (d) {
+          return d.properties.name;
+        })
+        .on("click", (event, feature) => {
+          console.log(feature.properties.SIG_CD);
+          console.log(wrapperRef);
+          dispatch(
+            selectArea({
+              name: feature.properties.name,
+              SIG_CD: feature.properties.SIG_CD,
+            })
+          );
+
+          if (selectedCountry === feature) {
+            setSelectedCountry(null);
+            dispatch(selectArea({ name: "korea" }));
+          } else {
+            setSelectedCountry(feature);
+          }
+
+          svg.selectAll("mark").remove();
+          svg.selectAll("text").remove();
+          console.log(area);
+        })
+        .attr("text-anchor", "middle")
+        .attr("alignment-baseline", "central")
+        .style("font-size", 15)
+        .style("fill", "#363636");
+    }
+
+    svg
+      .select("#arrow1")
+      .append("polygon")
+      .attr("points", "0 0, 0 12, 12 12, 12 0")
+      .attr("fill", "black")
+      .append("polygon")
+      .attr("points", "0 0, 0 6, 6 6, 12 0, 0 0")
+      .attr("fill", "blue");
   }, [data, dimensions, selectedCountry]);
 
   return (
     <>
+      {area.name == "korea" ? null : (
+        <img
+          src={isListHover ? back_1 : back}
+          className={styles.back}
+          onMouseOver={() => setIsListHover(true)}
+          onMouseOut={() => setIsListHover(false)}
+          onClick={() => {
+            console.log(area.SIG_CD);
+            if (area.SIG_CD.length == 2) {
+              setSelectedCountry(null);
+              dispatch(
+                selectArea({
+                  name: "korea",
+                  SIG_CD: "",
+                })
+              );
+            } else {
+              dispatch(
+                selectArea({
+                  name: "korea",
+                  SIG_CD: "",
+                })
+              );
+            }
+          }}
+        />
+      )}
+
       <div ref={wrapperRef} style={{ marginBottom: "2rem" }}>
         {selectedCountry !== null ? <div>{area.name}</div> : <div></div>}
-
         <svg ref={svgRef}></svg>
       </div>
       <Modal
@@ -214,15 +259,14 @@ function GeoChart({ data }) {
             <p>{landmark.name}</p>
             <div className={styles.purchase}>
               {landmark.desc != null ? (
-                <div className={styles.desc}>
-                  {landmark.desc.substr(0, 90) + "..."}
-                </div>
+                <div className={styles.desc}>{landmark.desc}</div>
               ) : (
                 <></>
               )}
 
+              <LineChart className={styles.chart} />
+
               <div className={styles.reward}>
-                <p>Reward:</p>
                 <img alt="coin" src="/mira.png" className={styles.coin}></img>
                 <p>300 MIRA</p>
                 <button className={styles.btn}>구입</button>

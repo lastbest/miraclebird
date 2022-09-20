@@ -36,7 +36,7 @@ function Footer() {
               src="/footer_camera.png"
               className={styles.footer_camera}
               onClick={() => {
-                navigate("/camera");
+                navigate("/login");
               }}
             />
           </div>
