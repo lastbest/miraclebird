@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/post")
 @Api("게시판 관련 REST V1")
@@ -19,6 +21,21 @@ public class PostController {
     @Autowired
     public PostController(PostService postService) {
         this.postService = postService;
+    }
+
+    @ApiOperation(value = "전체 게시글 정보를 반환한다.", response = List.class)
+    @GetMapping
+    public ResponseEntity<List<PostDto>> getPostALL() {
+        List<PostDto> result = null;
+
+        try {
+            result = postService.getPostAll();
+        }
+        catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @ApiOperation(value = "새로운 게시글을 등록한다.", response = PostDto.class)

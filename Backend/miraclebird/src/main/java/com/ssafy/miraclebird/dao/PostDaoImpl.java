@@ -5,6 +5,8 @@ import com.ssafy.miraclebird.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class PostDaoImpl implements PostDao {
 
@@ -13,6 +15,13 @@ public class PostDaoImpl implements PostDao {
     @Autowired
     public PostDaoImpl(PostRepository postRepository) {
         this.postRepository = postRepository;
+    }
+
+    @Override
+    public List<Post> getPostAll() {
+        List<Post> postList = postRepository.findAll();
+
+        return postList;
     }
 
     @Override
