@@ -13,12 +13,14 @@ import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import MypageFeed from "../components/common/MypageFeed";
 
 function MyPage () {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [modalIsOpen2, setModalIsOpen2] = useState(false);
     const [modalIsOpen3, setModalIsOpen3] = useState(false);
     const [modalIsOpen4, setModalIsOpen4] = useState(false);
+    const [modalIsOpen5, setModalIsOpen5] = useState(false);
     const [Image, setImage] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
     const fileInput = useRef(null)
     let [write, setWrite] = useState("")
@@ -97,7 +99,7 @@ function MyPage () {
     return (
         <>
         <div className={styles.btns}>
-            <button className={styles.logout}>로그아웃</button>
+            <button className={styles.logout} onClick={()=>setModalIsOpen5(true)}>로그아웃</button>
             <button className={styles.connect} onClick={()=>setModalIsOpen(true)}>CONNECT</button>
         </div>
         <div className={styles.profile}>
@@ -203,7 +205,7 @@ function MyPage () {
                                     <div className={styles.nftname}>{nft.nftname}</div>
                                     <div className={styles.nftdetail}>{nft.nftdetail}</div>
                                     <div className={styles.miraprice}>
-                                        <img alt="mira" src="/mira.png" className={styles.mira} />
+                                        <img alt="mira" src="/mira.png" className={styles.miraicon} />
                                         <div className={styles.nftprice}>{nft.nftprice}</div>
                                     </div>
                                     <div className={styles.btnContainer}>
@@ -221,6 +223,10 @@ function MyPage () {
                     }
                 </Swiper>
             </div>
+        </div>
+
+        <div className={styles.challengeCt}>
+            <MypageFeed />
         </div>
 
         <Modal isOpen={modalIsOpen} appElement={document.getElementById('root') || undefined} className={styles.modal}>
@@ -305,6 +311,20 @@ function MyPage () {
                         setModalIsOpen4(false)
                     }}
                     className={styles.sellbtn}>수정하기</button>
+                </div>
+            </div>
+ 
+        </Modal>
+
+        <Modal isOpen={modalIsOpen5} appElement={document.getElementById('root') || undefined} className={styles.modal5}>
+            <div className={styles.modalHeader}> 
+            <button onClick={()=>setModalIsOpen5(false)} className={styles.closebtn}>X</button>
+            </div>
+            <div className={styles.modalcontent5}>
+                로그아웃하시겠습니까?
+                <div className={styles.btnCt}>
+                    <button className={styles.backbtn} onClick={()=>setModalIsOpen5(false)}>돌아가기</button>
+                    <button className={styles.logoutbtn}>로그아웃</button>
                 </div>
             </div>
  
