@@ -1,0 +1,85 @@
+
+.listbtn {
+    background: none;
+    border: none;
+    padding: 5px;
+    text-align: right;
+  }
+
+  .listicon {
+    width: 20px;
+    height:20px;
+    text-align: right;
+  }
+  
+  .selectBox {
+    font-family: 'neodgm';
+    width: 31%;
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    font-size:15px;
+    padding:2px;
+}
+
+.feeds {
+    margin-top:10px;
+    border: 2px solid lightgray;
+    border-radius: 20px;
+    
+}
+
+.feedImg {
+    width:80%;
+    margin:auto;
+    margin-bottom:5px;
+}
+
+.modal {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    right: 10%;
+    bottom: 20%;
+    background-color: white;
+    border: 2px solid lightgray;
+    border-radius: 30px;
+    overflow-y: initial !important;
+}
+
+.modalcontent {
+    font-family: 'neodgm';
+    text-align: center;
+    padding:10px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    justify-content: center;
+    overflow-y: auto;
+    height:80%;
+}
+
+.modalHeader {
+    text-align: right;
+    margin-right:5%;
+    margin-top:5%;
+}
+
+.closebtn {
+    right:0;
+    background-color: white;
+    border:none;
+    font-family: "neodgm";
+    font-size:20px;
+}
+
+
+.feedsImg {
+    text-align: center;
+    margin-bottom:10px;
+}
+
+.list {
+    text-align: right;
+    margin-right: 10%;
+    margin-top:10px;
+}

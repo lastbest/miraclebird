@@ -15,6 +15,7 @@ import Study from "./pages/Study";
 import Health from "./pages/Health";
 import MiracleFeed from "./components/common/MiracleFeed";
 import MyPage from "./pages/MyPage";
+import Reinforce from "./pages/Reinforce";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="/challenge/study" element={<Study />}></Route>
             <Route path="/challenge/morning/feed" element={<MiracleFeed />}></Route>
             <Route path="/mypage" element={<MyPage />}></Route>
+            <Route path="/reinforce" element={<Reinforce />}></Route>
           </Routes>
         </div>
         <Footer className={styles.Footer} />
