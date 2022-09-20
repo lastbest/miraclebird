@@ -28,4 +28,18 @@ public class ChallengerDaoImpl implements ChallengerDao {
         Challenger challengerEntity = challengerRepository.getById(challengerIdx);
         return challengerEntity;
     }
+
+    @Override
+    public Challenger approveChallenger(long challengerIdx, long updateApproval) throws Exception {
+        Challenger challengerEntity = challengerRepository.getById(challengerIdx);
+
+        if(challengerEntity != null) {
+            challengerEntity.setApproval(updateApproval);
+            challengerRepository.save(challengerEntity);
+            return challengerEntity;
+        }
+        else {
+            throw new Exception();
+        }
+    }
 }

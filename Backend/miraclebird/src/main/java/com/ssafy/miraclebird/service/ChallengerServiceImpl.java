@@ -37,4 +37,12 @@ public class ChallengerServiceImpl implements ChallengerService{
         ChallengerDto challengerDto = ChallengerDto.of(challengerEntity);
         return challengerDto;
     }
+
+    @Override
+    @Transactional
+    public ChallengerDto approveChallenger(long challengerId, long updateApproval) throws Exception {
+        Challenger challengerEntity = challengerDao.approveChallenger(challengerId, updateApproval);
+        ChallengerDto challengerDto = ChallengerDto.of(challengerEntity);
+        return challengerDto;
+    }
 }

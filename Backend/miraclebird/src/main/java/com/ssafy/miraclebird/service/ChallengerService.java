@@ -7,4 +7,5 @@ import java.util.List;
 public interface ChallengerService {
     List<ChallengerDto> getChallengerALL();
     ChallengerDto getChallengerById(long challengerId);
+    ChallengerDto approveChallenger(long challengerId, long updateApproval) throws Exception;
 }

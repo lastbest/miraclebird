@@ -25,7 +25,7 @@ public class ChallengerController {
         this.challengerService = challengerService;
     }
 
-    @ApiOperation(value = "모든 challenger의 정보를 반환한다.", response = ChallengerDto.class)
+    @ApiOperation(value = "모든 챌린지인증샷의 정보를 반환한다.", response = ChallengerDto.class)
     @GetMapping("/")
     public ResponseEntity<List<ChallengerDto>> getChallengerALL() {
         List<ChallengerDto> result = challengerService.getChallengerALL();
@@ -33,10 +33,26 @@ public class ChallengerController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @ApiOperation(value = "특정 challenger의 정보를 반환한다.", response = ChallengerDto.class)
+    @ApiOperation(value = "특정 챌린지인증샷의 정보를 반환한다.", response = ChallengerDto.class)
     @GetMapping("/{challenger_idx}")
     public ResponseEntity<ChallengerDto> getChallengerById(@PathVariable("challenger_idx") Long challengerIdx) {
         ChallengerDto result = challengerService.getChallengerById(challengerIdx);
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @ApiOperation(value = "특정 챌린지 인증샷을 승인한다.", response = ChallengerDto.class)
+    @GetMapping("/approve/{challenger_idx}")
+    public ResponseEntity<ChallengerDto> approveChallenger(@PathVariable("challenger_idx") Long challengerIdx) throws Exception {
+        ChallengerDto result = challengerService.approveChallenger(challengerIdx, 1);
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @ApiOperation(value = "특정 챌린지 인증샷을 거절한다.", response = ChallengerDto.class)
+    @GetMapping("/decline/{challenger_idx}")
+    public ResponseEntity<ChallengerDto> declineChallenger(@PathVariable("challenger_idx") Long challengerIdx) throws Exception {
+        ChallengerDto result = challengerService.approveChallenger(challengerIdx, 2);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }

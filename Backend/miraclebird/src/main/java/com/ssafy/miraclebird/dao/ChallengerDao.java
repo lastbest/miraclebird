@@ -7,4 +7,6 @@ import java.util.List;
 public interface ChallengerDao {
     List<Challenger> getChallengerALL();
     Challenger getChallengerById(long challengerIdx);
+    Challenger approveChallenger(long challengerIdx, long updateApproval) throws Exception;
+
 }
