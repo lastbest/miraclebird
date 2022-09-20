@@ -15,6 +15,7 @@ import Study from "./pages/Study";
 import Health from "./pages/Health";
 import MiracleFeed from "./components/common/MiracleFeed";
 import MyPage from "./pages/MyPage";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -24,16 +25,26 @@ function App() {
         <div className={styles.Contents}>
           <Routes>
             <Route path="/" element={<Home />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/store" element={<Store />}></Route>
             <Route path="/store" element={<Store />}></Route>
             <Route path="/camera" element={<Camera />}></Route>
             <Route path="/challenge" element={<Challenge />}></Route>
-            <Route path="/challenge/community" element={<Community/>}></Route>
-            <Route path="/challenge/community/create" element={<CreatePost/>}></Route>
-            <Route path='/challenge/community/:no' element={<PostView />}></Route>
-            <Route path="/challenge/morning" element={<MiracleMorning />}></Route>
+            <Route path="/challenge/community" element={<Community />}></Route>
+            <Route
+              path="/challenge/community/create"
+              element={<CreatePost />}></Route>
+            <Route
+              path="/challenge/community/:no"
+              element={<PostView />}></Route>
+            <Route
+              path="/challenge/morning"
+              element={<MiracleMorning />}></Route>
             <Route path="/challenge/health" element={<Health />}></Route>
             <Route path="/challenge/study" element={<Study />}></Route>
-            <Route path="/challenge/morning/feed" element={<MiracleFeed />}></Route>
+            <Route
+              path="/challenge/morning/feed"
+              element={<MiracleFeed />}></Route>
             <Route path="/mypage" element={<MyPage />}></Route>
           </Routes>
         </div>
