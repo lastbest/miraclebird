@@ -45,4 +45,15 @@ public class ChallengerServiceImpl implements ChallengerService{
         ChallengerDto challengerDto = ChallengerDto.of(challengerEntity);
         return challengerDto;
     }
+
+    @Override
+    @Transactional
+    public void deleteChallengerInfo(long challengerId, long userId) throws Exception {
+        challengerDao.deleteChallengerInfo(challengerId, userId);
+//        ChallengerDto challengerDto = ChallengerDto.of(challengerEntity);
+//        return challengerDto;
+        return;
+    }
+
+
 }

@@ -7,10 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -55,5 +52,17 @@ public class ChallengerController {
         ChallengerDto result = challengerService.approveChallenger(challengerIdx, 2);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @ApiOperation(value = "특정 챌린지 인증샷을 삭제한다.", response = ChallengerDto.class)
+    @DeleteMapping("/{challenger_idx}")
+    public ResponseEntity deleteChallengerInfo(@PathVariable("challenger_idx") Long challengerIdx, @RequestParam("user_idx") Long userIdx) throws Exception {
+        try {
+            challengerService.deleteChallengerInfo(challengerIdx, userIdx);
+        } catch (Exception e){
+            throw new RuntimeException();
+        }
+
+        return new ResponseEntity<String>("challenger delete success", HttpStatus.OK);
     }
 }

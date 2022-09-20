@@ -42,4 +42,15 @@ public class ChallengerDaoImpl implements ChallengerDao {
             throw new Exception();
         }
     }
+
+    public void deleteChallengerInfo(long challengerIdx, long userIdx) throws Exception {
+        //userIdx 비교 필요!!!!!!
+        try {
+            challengerRepository.deleteById(challengerIdx);
+        } catch (Exception e) {
+            throw new Exception();
+        }
+    }
+
+
 }

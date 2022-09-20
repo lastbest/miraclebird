@@ -8,5 +8,6 @@ public interface ChallengerDao {
     List<Challenger> getChallengerALL();
     Challenger getChallengerById(long challengerIdx);
     Challenger approveChallenger(long challengerIdx, long updateApproval) throws Exception;
+    void deleteChallengerInfo(long challengerIdx, long userIdx) throws Exception;
 
 }

@@ -8,4 +8,5 @@ public interface ChallengerService {
     List<ChallengerDto> getChallengerALL();
     ChallengerDto getChallengerById(long challengerId);
     ChallengerDto approveChallenger(long challengerId, long updateApproval) throws Exception;
+    void deleteChallengerInfo(long challengerId, long userId) throws Exception;
 }
