@@ -46,6 +46,7 @@ function App() {
               path="/challenge/morning/feed"
               element={<MiracleFeed />}></Route>
             <Route path="/mypage" element={<MyPage />}></Route>
+            <Route path="/reinforce" element={<Reinforce />}></Route>
           </Routes>
         </div>
         <Footer className={styles.Footer} />
