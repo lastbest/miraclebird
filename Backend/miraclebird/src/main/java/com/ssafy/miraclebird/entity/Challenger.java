@@ -21,6 +21,9 @@ public class Challenger {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long challengerIdx;
 
+    @Column(nullable = false)
+    private long approval;
+
     @Column(nullable = true)
     private LocalDate regtime;
 
