@@ -24,7 +24,6 @@ public class PostController {
     @ApiOperation(value = "새로운 게시글을 등록한다.", response = PostDto.class)
     @PostMapping
     public ResponseEntity<String> createPost(@RequestBody PostDto postDto, @RequestParam("user_idx") Long userIdx) {
-
         try {
             postService.createPost(postDto, userIdx);
         }
@@ -38,7 +37,6 @@ public class PostController {
     @ApiOperation(value = "post_idx 해당하는 게시글 정보를 반환한다.", response = PostDto.class)
     @GetMapping("/{post_idx}")
     public ResponseEntity<PostDto> getPost(@PathVariable("post_idx") Long postIdx) {
-
         PostDto result = null;
 
         try {
@@ -54,7 +52,6 @@ public class PostController {
     @ApiOperation(value = "post_idx에 해당하는 게시글 정보를 수정한다.", response = String.class)
     @PutMapping("/{post_idx}")
     public ResponseEntity<String> updatePost(@PathVariable("post_idx") Long postIdx, @RequestBody PostDto postDto, @RequestParam("user_idx") Long userIdx) {
-
         try {
             postDto.setPostIdx(postIdx);
             postService.updatePost(postDto, userIdx);
@@ -69,7 +66,6 @@ public class PostController {
     @ApiOperation(value = "post_idx에 해당하는 게시글 정보를 삭제한다.", response = String.class)
     @DeleteMapping("/{post_idx}")
     public ResponseEntity<String> deletePost(@PathVariable("post_idx") Long postIdx, @RequestParam("user_idx") Long userIdx) {
-
         try {
             postService.deletePost(postIdx, userIdx);
         }
@@ -79,5 +75,4 @@ public class PostController {
 
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
-
 }

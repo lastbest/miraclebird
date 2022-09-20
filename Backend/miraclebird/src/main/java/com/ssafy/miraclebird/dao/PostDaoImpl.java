@@ -27,22 +27,21 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public void saveBoard(Post post) throws Exception {
-
         try {
             postRepository.save(post);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new Exception();
         }
     }
 
     @Override
     public void deletePost(Long postIdx) throws Exception{
-
         try {
             postRepository.deleteById(postIdx);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new Exception();
         }
     }
-
 }

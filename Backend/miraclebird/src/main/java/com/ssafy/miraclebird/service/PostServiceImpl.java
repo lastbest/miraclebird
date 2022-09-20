@@ -59,7 +59,6 @@ public class PostServiceImpl implements PostService {
         else {
             throw new Exception();
         }
-
     }
 
     @Override
@@ -74,5 +73,4 @@ public class PostServiceImpl implements PostService {
             throw new Exception();
         }
     }
-
 }
