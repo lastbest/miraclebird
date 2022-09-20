@@ -34,9 +34,8 @@ public class BoardServiceImpl implements BoardService{
     @Transactional
     public BoardDto updateBoardInfo(BoardDto boardDto, Long userIdx) throws Exception {
         Board boardEntity = boardDao.getBoardById(boardDto.getBoardIdx());
-        User userEntity = userDao.getUserById(userIdx);
 
-        if (boardEntity.getUser().getUserIdx() == userEntity.getUserIdx()) {
+        if (boardEntity.getUser().getUserIdx() == userIdx) {
             Board board = boardDao.updateBoardInfo(boardDto);
             BoardDto result = BoardDto.of(board);
 
@@ -46,6 +45,19 @@ public class BoardServiceImpl implements BoardService{
             throw new Exception();
         }
 
+    }
+
+    @Override
+    @Transactional
+    public void deleteBoardInfo(Long boardIdx, Long userIdx) throws Exception {
+        Board boardEntity = boardDao.getBoardById(boardIdx);
+
+        if (boardEntity.getUser().getUserIdx() == userIdx) {
+            boardDao.deleteBoardById(boardIdx);
+        }
+        else {
+            throw new Exception();
+        }
     }
 
 }

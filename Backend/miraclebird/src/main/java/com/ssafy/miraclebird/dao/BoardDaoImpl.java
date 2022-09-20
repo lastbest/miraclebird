@@ -4,6 +4,7 @@ import com.ssafy.miraclebird.dto.BoardDto;
 import com.ssafy.miraclebird.entity.Board;
 import com.ssafy.miraclebird.repository.Boardrepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -38,6 +39,16 @@ public class BoardDaoImpl implements BoardDao{
             return boardEntity;
         }
         else {
+            throw new Exception();
+        }
+    }
+
+    @Override
+    public void deleteBoardById(Long boardIdx) throws Exception{
+
+        try {
+            boardRepository.deleteById(boardIdx);
+        } catch (Exception e) {
             throw new Exception();
         }
     }

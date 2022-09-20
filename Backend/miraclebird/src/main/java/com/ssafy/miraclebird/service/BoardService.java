@@ -8,4 +8,6 @@ public interface BoardService {
 
     BoardDto updateBoardInfo(BoardDto boardDto, Long userIdx) throws Exception;
 
+    void deleteBoardInfo(Long boardIdx, Long userIdx) throws Exception;
+
 }

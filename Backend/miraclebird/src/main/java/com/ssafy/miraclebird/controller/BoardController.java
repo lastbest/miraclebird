@@ -37,8 +37,8 @@ public class BoardController {
     }
 
     @ApiOperation(value = "board_idx에 해당하는 게시글 정보를 수정한다.", response = BoardDto.class)
-    @PutMapping("/{board_idx에}")
-    public ResponseEntity<BoardDto> updateBoardInfo(@PathVariable("board_idx에") Long boardIdx, @RequestBody BoardDto boardDto, @RequestParam("user_idx") Long userIdx) {
+    @PutMapping("/{board_idx}")
+    public ResponseEntity<BoardDto> updateBoardInfo(@PathVariable("board_idx") Long boardIdx, @RequestBody BoardDto boardDto, @RequestParam("user_idx") Long userIdx) {
 
         BoardDto result = null;
 
@@ -51,5 +51,19 @@ public class BoardController {
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
+    @ApiOperation(value = "board_idx에 해당하는 게시글 정보를 삭제한다.", response = BoardDto.class)
+    @DeleteMapping("/{board_idx}")
+    public ResponseEntity<String> deleteBoardInfo(@PathVariable("board_idx") Long boardIdx, @RequestParam("user_idx") Long userIdx) {
+
+        try {
+            boardService.deleteBoardInfo(boardIdx, userIdx);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+        return new ResponseEntity<String>("success", HttpStatus.OK);
+    }
+
 
 }
