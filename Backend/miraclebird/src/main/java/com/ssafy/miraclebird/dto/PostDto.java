@@ -1,6 +1,6 @@
 package com.ssafy.miraclebird.dto;
 
-import com.ssafy.miraclebird.entity.Board;
+import com.ssafy.miraclebird.entity.Post;
 import com.ssafy.miraclebird.util.ModelMapperUtils;
 import lombok.*;
 
@@ -9,9 +9,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class BoardDto {
+public class PostDto {
 
-    private long boardIdx;
+    private long postIdx;
 
     private String title;
 
@@ -21,10 +21,10 @@ public class BoardDto {
 
     private long userIdx;
 
-    public static BoardDto of(Board missionEntity) {
-        BoardDto missionDto = ModelMapperUtils.getModelMapper().map(missionEntity, BoardDto.class);
+    public static PostDto of(Post postEntity) {
+        PostDto postDto = ModelMapperUtils.getModelMapper().map(postEntity, PostDto.class);
 
-        return missionDto;
+        return postDto;
     }
 
 }

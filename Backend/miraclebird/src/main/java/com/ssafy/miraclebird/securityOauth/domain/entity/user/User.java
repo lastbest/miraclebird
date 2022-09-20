@@ -82,7 +82,7 @@ public class User extends DefaultTime {
     List<Landmark> landmark = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    List<Board> board = new ArrayList<>();
+    List<Post> post = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     List<Comment> comment = new ArrayList<>();

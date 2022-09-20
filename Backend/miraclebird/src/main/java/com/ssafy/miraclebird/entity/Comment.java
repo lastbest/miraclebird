@@ -35,6 +35,6 @@ public class Comment {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "boardIdx")
-    private Board board;
+    @JoinColumn(name = "postIdx")
+    private Post post;
 }
