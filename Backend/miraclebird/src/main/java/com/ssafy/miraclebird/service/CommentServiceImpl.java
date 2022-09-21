@@ -61,4 +61,17 @@ public class CommentServiceImpl implements CommentService {
         }
     }
 
+    @Override
+    @Transactional
+    public void deleteComment(Long commentIdx, Long userIdx) throws Exception {
+        Comment commentEntity = commentDao.getComment(commentIdx);
+
+        if (commentEntity.getUser().getUserIdx() == userIdx) {
+            commentDao.deleteComment(commentIdx);
+        }
+        else {
+            throw new Exception();
+        }
+    }
+
 }

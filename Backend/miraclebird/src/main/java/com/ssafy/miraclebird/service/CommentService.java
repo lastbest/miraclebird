@@ -9,5 +9,5 @@ import java.util.List;
 public interface CommentService {
     void createComment(CommentDto commentDto, Long postIdx, Long userIdx) throws Exception;
     void updateComment(CommentDto commentDto, Long userIdx) throws Exception;
-
+    void deleteComment(Long commentIdx, Long userIdx) throws Exception;
 }

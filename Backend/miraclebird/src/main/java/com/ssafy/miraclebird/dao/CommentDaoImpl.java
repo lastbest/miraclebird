@@ -38,4 +38,14 @@ public class CommentDaoImpl implements CommentDao {
             throw new Exception();
         }
     }
+
+    @Override
+    public void deleteComment(Long commentIdx) throws Exception{
+        try {
+            commentRepository.deleteById(commentIdx);
+        }
+        catch (Exception e) {
+            throw new Exception();
+        }
+    }
 }

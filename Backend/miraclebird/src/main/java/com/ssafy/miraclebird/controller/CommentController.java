@@ -52,4 +52,17 @@ public class CommentController {
 
         return new ResponseEntity<String>("success",HttpStatus.OK);
     }
+
+    @ApiOperation(value = "comment_idx에 해당하는 댓글 정보를 삭제한다.", response = String.class)
+    @DeleteMapping("/{comment_idx}")
+    public ResponseEntity<String> deletePost(@PathVariable("comment_idx") Long commentIdx, @RequestParam("user_idx") Long userIdx) {
+        try {
+            commentService.deleteComment(commentIdx, userIdx);
+        }
+        catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+        return new ResponseEntity<String>("success", HttpStatus.OK);
+    }
 }
