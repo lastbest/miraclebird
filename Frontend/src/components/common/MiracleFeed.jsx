@@ -1,9 +1,11 @@
 import React, {useState} from "react";
 import styles from './MiracleFeed.module.css'
-import Modal from 'react-modal';
+import Modal from 'react-bootstrap/Modal';
 
 function MiracleFeed () {
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     return (
         <>
@@ -13,30 +15,35 @@ function MiracleFeed () {
         </div>
         <div className={styles.feeds}>
             <div className={styles.feed}>
-                <img src="/miraclemorning.png" alt="mm" className={styles.picture} onClick={()=>setModalIsOpen(true)}/>
+                <img src="/miraclemorning.png" alt="mm" className={styles.picture} onClick={handleShow}/>
             </div>
             <div className={styles.feed}>
-                <img src="/miraclemorning.png" alt="mm" className={styles.picture} onClick={()=>setModalIsOpen(true)}/>
+                <img src="/miraclemorning.png" alt="mm" className={styles.picture} onClick={handleShow}/>
             </div>
             <div className={styles.feed}>
-                <img src="/miraclemorning.png" alt="mm" className={styles.picture} onClick={()=>setModalIsOpen(true)}/>
+                <img src="/miraclemorning.png" alt="mm" className={styles.picture} onClick={handleShow}/>
             </div>
             <div className={styles.feed}>
-                <img src="/miraclemorning.png" alt="mm" className={styles.picture} onClick={()=>setModalIsOpen(true)}/>
+                <img src="/miraclemorning.png" alt="mm" className={styles.picture} onClick={handleShow}/>
             </div>
             <div className={styles.feed}>
-                <img src="/miraclemorning.png" alt="mm" className={styles.picture} onClick={()=>setModalIsOpen(true)}/>
+                <img src="/miraclemorning.png" alt="mm" className={styles.picture} onClick={handleShow}/>
             </div>
             <div className={styles.feed}>
-                <img src="/miraclemorning.png" alt="mm" className={styles.picture} onClick={()=>setModalIsOpen(true)}/>
+                <img src="/miraclemorning.png" alt="mm" className={styles.picture} onClick={handleShow}/>
             </div>
         </div>
         
-        <Modal isOpen={modalIsOpen} appElement={document.getElementById('root') || undefined} className={styles.modal}>
-            <div className={styles.modalHeader}> 
-            <button onClick={()=>setModalIsOpen(false)} className={styles.closebtn}>X</button>
-            </div>
-            <div className={styles.modalcontent}>
+        <Modal
+            centered
+            show={show}
+            onHide={handleClose}
+            backdrop="static"
+            keyboard={false}
+        >
+            <Modal.Header className={styles.modalheader} closeButton>
+            </Modal.Header>
+            <Modal.Body className={styles.modalcontent} closeButton>
                 <img src="/miraclemorning.png" alt="mm" className={styles.picture} />
                 <button className={styles.reportbtn}><img alt="siren" src="/siren.png" className={styles.sirenicon} />신고하기</button>
                 <div className={styles.detail}>
@@ -44,8 +51,9 @@ function MiracleFeed () {
                     <p>시즌1 미라클 모닝</p>
                     <p>2022/09/08</p>
                 </div>
-            </div>
+            </Modal.Body>
         </Modal>
+
         </>
     )
 }
