@@ -65,3 +65,40 @@
     margin-top:3px;
     font-size: 10px;
 }
+
+.modalheader {
+    border: none !important;
+    font-family: 'neodgm';
+    padding-bottom: 0 !important;
+}
+
+.modalcontent {
+    font-family: 'neodgm';
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        padding-top: 0 !important;
+}
+.logoutbtn {
+    border: none;
+    border-radius: 20px;
+    background-color: #ffe969;
+    font-family: 'neodgm';
+    height: 30px;
+    font-size: 15px;
+    margin: auto;
+    color: black;
+}
+.btnCt {
+    margin-top: 10px;
+}
+.backbtn {
+    border: none;
+    border-radius: 20px;
+    background-color: #D9D9D9;
+    font-family: 'neodgm';
+    height: 30px;
+    font-size: 15px;
+    margin: auto;
+    margin-right: 10px;
+}
