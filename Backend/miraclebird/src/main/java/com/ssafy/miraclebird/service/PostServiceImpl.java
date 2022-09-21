@@ -105,6 +105,12 @@ public class PostServiceImpl implements PostService {
         Post postEntity = postDao.getPost(postIdx);
 
         if (postEntity.getUser().getUserIdx() == userIdx) {
+            List<Comment> commentList = commentDao.getCommentAll(postIdx);
+
+            for(Comment comment : commentList) {
+                commentDao.deleteComment(comment.getCommentIdx());
+            }
+
             postDao.deletePost(postIdx);
         }
         else {
