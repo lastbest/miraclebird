@@ -68,9 +68,13 @@
     display:flex;
     flex-direction: row;
     justify-content: space-around;
-    margin-top:20px;
+    /* margin-top:20px; */
     font-size:20px;
 
+}
+
+.numbertext {
+  margin: auto;
 }
 
 .arrowoptions {
@@ -78,6 +82,16 @@
     margin-right:20px;
     display: flex;
     align-items: center;
+}
+
+.arrowCt {
+  /* height: 50px; */
+  display: flex;
+  align-items: center;
+}
+
+.arrows {
+  height:50px;
 }
 
 .arrowAnim {
@@ -138,7 +152,7 @@
   }
 
   .levelbtnct {
-    margin-top:20px;
+    /* margin-top:20px; */
   }
 
   .levelbtn {
@@ -165,6 +179,8 @@
     position: relative;
     transition: .4s;
     transform-style: preserve-3d;
+    margin-top: -200px;
+    z-index: 0 !important;
   }	
 
   .back {
@@ -189,4 +205,19 @@
     transition: ease;
     transform-style: preserve-3d;
     transform: rotateY(720deg);
+  }
+
+  .shimmer {
+    opacity: 80%;
+    position: relative;
+    z-index: 9999 !important;
+  
+  }
+
+  .lottie {
+    height:200px;
+  }
+
+  .shimmereffect {
+    border:20px;
   }
