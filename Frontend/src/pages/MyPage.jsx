@@ -1,12 +1,12 @@
 import React,{useState, useRef} from "react";
 import styles from "./MyPage.module.css"
-import Modal from 'react-modal';
+import Modal from "react-bootstrap/Modal";
 import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import ReactTooltip from 'react-tooltip';
 import "./Mypage.css";
 import {Swiper, SwiperSlide} from "swiper/react";
-import SwiperCore, {Navigation, Pagination, Autoplay} from "swiper";
+import {Navigation} from "swiper";
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -16,11 +16,22 @@ import { useEffect } from "react";
 import MypageFeed from "../components/common/MypageFeed";
 
 function MyPage () {
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [modalIsOpen2, setModalIsOpen2] = useState(false);
-    const [modalIsOpen3, setModalIsOpen3] = useState(false);
-    const [modalIsOpen4, setModalIsOpen4] = useState(false);
-    const [modalIsOpen5, setModalIsOpen5] = useState(false);
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const [show2, setShow2] = useState(false);
+    const handleClose2 = () => setShow2(false);
+    const handleShow2 = () => setShow2(true);
+    const [show3, setShow3] = useState(false);
+    const handleClose3 = () => setShow3(false);
+    const handleShow3 = () => setShow3(true);
+    const [show4, setShow4] = useState(false);
+    const handleClose4 = () => setShow4(false);
+    const handleShow4 = () => setShow4(true);
+    const [show5, setShow5] = useState(false);
+    const handleClose5 = () => setShow5(false);
+    const handleShow5 = () => setShow5(true);
+
     const [Image, setImage] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
     const fileInput = useRef(null)
     let [write, setWrite] = useState("")
@@ -99,8 +110,8 @@ function MyPage () {
     return (
         <>
         <div className={styles.btns}>
-            <button className={styles.logout} onClick={()=>setModalIsOpen5(true)}>로그아웃</button>
-            <button className={styles.connect} onClick={()=>setModalIsOpen(true)}>CONNECT</button>
+            <button className={styles.logout} onClick={()=>handleShow5()}>로그아웃</button>
+            <button className={styles.connect} onClick={()=>handleShow()}>CONNECT</button>
         </div>
         <div className={styles.profile}>
             <div className={styles.profileimg}>
@@ -117,7 +128,7 @@ function MyPage () {
                     ref={fileInput}/>
                 <div className={styles.nicknamebox}>
                     <div className={styles.nickname}>{credentials}</div>
-                    <button className={styles.pencilbtn} onClick={()=>setModalIsOpen2(true)}>
+                    <button className={styles.pencilbtn} onClick={handleShow2}>
                         <img src="/pencil.png" alt="pencil" className={styles.pencil}/>
                     </button>
                 </div>
@@ -210,9 +221,9 @@ function MyPage () {
                                     </div>
                                     <div className={styles.btnContainer}>
                                         <button className={styles.btnReinforce} onClick={() =>{navigate("/reinforce");}}>강화</button>
-                                        {nft.onsale === 0 ? <button className={styles.btnSell} onClick={()=>setModalIsOpen3(true)}>판매</button>
+                                        {nft.onsale === 0 ? <button className={styles.btnSell} onClick={()=>handleShow3()}>판매</button>
                                         :
-                                        <button className={styles.btnonsale} onClick={()=>setModalIsOpen4(true)}>판매중</button>
+                                        <button className={styles.btnonsale} onClick={()=>handleShow4(true)}>판매중</button>
                                         }
                                         
                                     </div>
@@ -229,24 +240,34 @@ function MyPage () {
             <MypageFeed />
         </div>
 
-        <Modal isOpen={modalIsOpen} appElement={document.getElementById('root') || undefined} className={styles.modal}>
-            <div className={styles.modalHeader}> 
-            <button onClick={()=>setModalIsOpen(false)} className={styles.closebtn}>X</button>
-            </div>
-            <div className={styles.modalcontent}>
+        <Modal
+            centered
+            show={show}
+            onHide={handleClose}
+            backdrop="static"
+            keyboard={false}
+        >
+            <Modal.Header className={styles.modalheader} closeButton>
+            </Modal.Header>
+            <Modal.Body className={styles.modalcontent} closeButton>
                 <img alt="metamaskfox" src="/MetaMaskFox.png" className={styles.metamask} />
                 <button className={styles.metamaskbtn}>연결하기</button>
-            </div>
- 
+            </Modal.Body>
         </Modal>
         
         
-        <Modal isOpen={modalIsOpen2} appElement={document.getElementById('root') || undefined} className={styles.modal2}>
-            <div className={styles.modalHeader2}> 
-            <button onClick={()=>setModalIsOpen2(false)} className={styles.closebtn}>X</button>
-            </div>
-            <div className={styles.modalcontent2}>
-                <div className={styles.nicknamechange}>닉네임변경</div>
+        <Modal
+            centered
+            show={show2}
+            onHide={handleClose2}
+            backdrop="static"
+            keyboard={false}
+            className={styles.modal2}
+        >
+            <Modal.Header className={styles.modalheader} closeButton>
+            </Modal.Header>
+            <Modal.Body className={styles.modalcontent2} closeButton>
+            <div className={styles.nicknamechange}>닉네임변경</div>
                 <div className={styles.nicknamecontainer}>
                     <input 
                     autoComplete="nickname"
@@ -258,44 +279,52 @@ function MyPage () {
                     }} />
                     <button onClick={()=>{
                         setCredentials((credentials = write))  
-                        setModalIsOpen2(false)
+                        handleClose2
                     }}
                     className={styles.nicknamebtn}>변경하기</button>
                 </div>
-            </div>
- 
+            </Modal.Body>
         </Modal>
-
-        <Modal isOpen={modalIsOpen3} appElement={document.getElementById('root') || undefined} className={styles.modal3}>
-            <div className={styles.modalHeader3}> 
-            <button onClick={()=>setModalIsOpen3(false)} className={styles.closebtn}>X</button>
-            </div>
-            <div className={styles.modalcontent3}>
+        
+        <Modal
+            centered
+            show={show3}
+            onHide={handleClose3}
+            backdrop="static"
+            keyboard={false}
+        >
+            <Modal.Header className={styles.modalheader} closeButton>
+            </Modal.Header>
+            <Modal.Body className={styles.modalcontent3} closeButton>
                 <div className={styles.sellprice}>판매가격</div>
-                <div className={styles.pricecontainer}>
-                    <input 
-                    autoComplete="price"
-                    name="price"
-                    className={styles.priceinput}
-                    placeholder="판매가"
-                    onInput={(event)=>{
-                        setSell(event.target.value);
-                    }} />
-                    <button onClick={()=>{
-                        console.log(sell)
-                        setModalIsOpen3(false)
-                    }}
-                    className={styles.sellbtn}>판매하기</button>
+                    <div className={styles.pricecontainer}>
+                        <input 
+                        autoComplete="price"
+                        name="price"
+                        className={styles.priceinput}
+                        placeholder="판매가"
+                        onInput={(event)=>{
+                            setSell(event.target.value);
+                        }} />
+                        <button onClick={()=>{
+                            console.log(sell)
+                            handleClose3
+                        }}
+                        className={styles.sellbtn}>판매하기</button>
                 </div>
-            </div>
- 
+            </Modal.Body>
         </Modal>
 
-        <Modal isOpen={modalIsOpen4} appElement={document.getElementById('root') || undefined} className={styles.modal3}>
-            <div className={styles.modalHeader3}> 
-            <button onClick={()=>setModalIsOpen4(false)} className={styles.closebtn}>X</button>
-            </div>
-            <div className={styles.modalcontent3}>
+        <Modal
+            centered
+            show={show4}
+            onHide={handleClose4}
+            backdrop="static"
+            keyboard={false}
+        >
+            <Modal.Header className={styles.modalheader} closeButton>
+            </Modal.Header>
+            <Modal.Body className={styles.modalcontent4} closeButton>
                 <div className={styles.sellprice}>판매가격</div>
                 <div className={styles.pricecontainer}>
                     <input 
@@ -308,26 +337,29 @@ function MyPage () {
                     }} />
                     <button onClick={()=>{
                         console.log(sell)
-                        setModalIsOpen4(false)
+                        handleClose4(false)
                     }}
                     className={styles.sellbtn}>수정하기</button>
                 </div>
-            </div>
- 
+            </Modal.Body>
         </Modal>
 
-        <Modal isOpen={modalIsOpen5} appElement={document.getElementById('root') || undefined} className={styles.modal5}>
-            <div className={styles.modalHeader}> 
-            <button onClick={()=>setModalIsOpen5(false)} className={styles.closebtn}>X</button>
-            </div>
-            <div className={styles.modalcontent5}>
+        <Modal
+            centered
+            show={show5}
+            onHide={handleClose5}
+            backdrop="static"
+            keyboard={false}
+        >
+            <Modal.Header className={styles.modalheader} closeButton>
+            </Modal.Header>
+            <Modal.Body className={styles.modalcontent5} closeButton>
                 로그아웃하시겠습니까?
                 <div className={styles.btnCt}>
-                    <button className={styles.backbtn} onClick={()=>setModalIsOpen5(false)}>돌아가기</button>
+                    <button className={styles.backbtn} onClick={()=>handleClose5()}>돌아가기</button>
                     <button className={styles.logoutbtn}>로그아웃</button>
                 </div>
-            </div>
- 
+            </Modal.Body>
         </Modal>
         </>
     )
