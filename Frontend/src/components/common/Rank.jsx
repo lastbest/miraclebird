@@ -19,7 +19,7 @@ function Rank() {
             <div className={styles.header}>
                 <div className={styles.rankcontainer}>
                     <img alt="rank" src="/rank.png" className={styles.rankicon}/>
-                    <p onClick={()=>setModalIsOpen(true)}>챌린지 랭킹</p>
+                    <div className={styles.ranktext} onClick={()=>setModalIsOpen(true)}>챌린지 랭킹</div>
                 </div>
             </div>
             <div className={styles.slidecontainer}>
@@ -70,7 +70,7 @@ function Rank() {
         <div className={styles.content2}>
             <div className={styles.header}>
                 <img alt="nft" src="/nftenhance.png" className={styles.nfticon}/>
-                <h3>NFT OWNER</h3>
+                <div className={styles.ownertext}>NFT OWNER</div>
             </div>
             <div className={styles.nftcontainer}>
             <Swiper
