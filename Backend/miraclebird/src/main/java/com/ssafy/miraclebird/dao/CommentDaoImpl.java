@@ -20,6 +20,13 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
+    public List<Comment> getCommentAll() {
+        List<Comment> commentList = commentRepository.findAll();
+
+        return commentList;
+    }
+
+    @Override
     public Comment getComment(Long commentIdx) throws Exception {
         Comment commentEntity = commentRepository.getById(commentIdx);
 

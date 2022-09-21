@@ -6,6 +6,7 @@ import com.ssafy.miraclebird.entity.Post;
 import java.util.List;
 
 public interface CommentDao {
+    List<Comment> getCommentAll() throws Exception;
     Comment getComment(Long commentIdx) throws Exception;
     void saveComment(Comment comment) throws Exception;
     void deleteComment(Long commentIdx) throws Exception;

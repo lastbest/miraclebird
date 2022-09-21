@@ -26,6 +26,21 @@ public class CommentController {
         this.commentService = commentService;
     }
 
+    @ApiOperation(value = "post_idx에 해당하는 게시글의 전체 댓글 정보를 반환한다", response = List.class)
+    @GetMapping("/{post_idx}")
+    public ResponseEntity<List<CommentDto>> getCommentALL() {
+        List<CommentDto> result = null;
+
+        try {
+            result = commentService.getCommentAll();
+        }
+        catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
     @ApiOperation(value = "새로운 댓글을 등록한다.", response = Comment.class)
     @PostMapping
     public ResponseEntity<String> createComment(@RequestBody CommentDto commentDto,@RequestParam("post_idx") Long postIdx, @RequestParam("user_idx") Long userIdx) {

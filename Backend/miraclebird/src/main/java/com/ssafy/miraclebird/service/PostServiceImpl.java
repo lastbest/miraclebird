@@ -1,8 +1,10 @@
 package com.ssafy.miraclebird.service;
 
+import com.ssafy.miraclebird.dao.CommentDao;
 import com.ssafy.miraclebird.dao.PostDao;
 import com.ssafy.miraclebird.dao.UserDao;
 import com.ssafy.miraclebird.dto.PostDto;
+import com.ssafy.miraclebird.entity.Comment;
 import com.ssafy.miraclebird.entity.Post;
 import com.ssafy.miraclebird.securityOauth.domain.entity.user.Role;
 import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
@@ -22,11 +24,13 @@ public class PostServiceImpl implements PostService {
 
     private final PostDao postDao;
     private final UserDao userDao;
+    private final CommentDao commentDao;
 
     @Autowired
-    public PostServiceImpl(PostDao postDao, UserDao userDao) {
+    public PostServiceImpl(PostDao postDao, UserDao userDao, CommentDao commentDao) {
         this.postDao = postDao;
         this.userDao = userDao;
+        this.commentDao = commentDao;
     }
 
     @Override

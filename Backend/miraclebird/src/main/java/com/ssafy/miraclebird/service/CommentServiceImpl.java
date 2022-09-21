@@ -32,6 +32,26 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
+    public List<CommentDto> getCommentAll() throws Exception {
+        try {
+            List<Comment> commentList = commentDao.getCommentAll();
+            List<CommentDto> commentDtoList = commentList.stream().map(entity -> CommentDto.of(entity)).collect(Collectors.toList());
+
+            for (CommentDto commentDto : commentDtoList) {
+                User userEntity = userDao.getUserById(commentDto.getUserIdx());
+                commentDto.setName(userEntity.getName());
+                commentDto.setImage_url(userEntity.getImageUrl());
+            }
+
+            return commentDtoList;
+        }
+        catch (Exception e) {
+            throw new Exception();
+        }
+    }
+
+    @Override
+    @Transactional
     public void createComment(CommentDto commentDto, Long postIdx, Long userIdx) throws Exception {
         try {
             Comment commentEntity = new Comment();

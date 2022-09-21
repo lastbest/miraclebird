@@ -29,6 +29,10 @@ public class CommentDto {
 
     private long postIdx;
 
+    private String name;
+
+    private String image_url;
+
     public static CommentDto of(Comment commentEntity) {
         CommentDto commentDto = ModelMapperUtils.getModelMapper().map(commentEntity, CommentDto.class);
 
