@@ -38,4 +38,18 @@ public class CommentController {
 
         return new ResponseEntity<String>("success",HttpStatus.OK);
     }
+
+    @ApiOperation(value = "comment_idx에 해당하는 댓글 정보를 수정한다.", response = String.class)
+    @PutMapping("/{comment_idx}")
+    public ResponseEntity<String> updateComment(@PathVariable("comment_idx") Long commentIdx, @RequestBody CommentDto commentDto, @RequestParam("user_idx") Long userIdx) {
+        try {
+            commentDto.setCommentIdx(commentIdx);
+            commentService.updateComment(commentDto, userIdx);
+        }
+        catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+        return new ResponseEntity<String>("success",HttpStatus.OK);
+    }
 }

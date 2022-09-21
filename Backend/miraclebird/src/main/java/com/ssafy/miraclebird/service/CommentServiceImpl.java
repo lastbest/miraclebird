@@ -46,4 +46,19 @@ public class CommentServiceImpl implements CommentService {
         }
     }
 
+    @Override
+    @Transactional
+    public void updateComment(CommentDto commentDto, Long userIdx) throws Exception {
+        Comment commentEntity = commentDao.getComment(commentDto.getCommentIdx());
+
+        if (commentEntity.getUser().getUserIdx() == userIdx) {
+            commentEntity.setContent(commentDto.getContent());
+            commentEntity.setRegtime(LocalDateTime.now());
+            commentDao.saveComment(commentEntity);
+        }
+        else {
+            throw new Exception();
+        }
+    }
+
 }

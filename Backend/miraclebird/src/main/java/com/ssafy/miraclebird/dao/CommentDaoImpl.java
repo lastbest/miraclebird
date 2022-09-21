@@ -20,6 +20,16 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
+    public Comment getComment(Long commentIdx) throws Exception {
+        Comment commentEntity = commentRepository.getById(commentIdx);
+
+        if(commentEntity == null)
+            throw new Exception();
+
+        return commentEntity;
+    }
+
+    @Override
     public void saveComment(Comment comment) throws Exception {
         try {
             commentRepository.save(comment);
