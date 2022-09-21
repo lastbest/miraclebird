@@ -17,6 +17,7 @@ import MiracleFeed from "./components/common/MiracleFeed";
 import MyPage from "./pages/MyPage";
 import Reinforce from "./pages/Reinforce";
 import Login from "./pages/Login";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
