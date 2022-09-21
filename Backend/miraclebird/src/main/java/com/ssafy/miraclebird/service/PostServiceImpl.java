@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,9 +69,10 @@ public class PostServiceImpl implements PostService {
             Post postEntity = new Post();
             postEntity.setTitle(postDto.getTitle());
             postEntity.setContent(postDto.getContent());
+            postEntity.setRegtime(LocalDateTime.now());
             postEntity.setHit(0);
             postEntity.setUser(userDao.getUserById(userIdx));
-            postDao.saveBoard(postEntity);
+            postDao.savePost(postEntity);
         }
         catch (Exception e) {
             throw new Exception();
@@ -83,7 +87,7 @@ public class PostServiceImpl implements PostService {
         if (postEntity.getUser().getUserIdx() == userIdx) {
             postEntity.setTitle(postDto.getTitle());
             postEntity.setContent(postDto.getContent());
-            postDao.saveBoard(postEntity);
+            postDao.savePost(postEntity);
         }
         else {
             throw new Exception();
