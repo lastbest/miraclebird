@@ -14,12 +14,12 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "Challenger")
-public class Challenger {
+@Table(name = "Verification")
+public class Verification {
     @Id
-    @Column(name = "challenger_idx")
+    @Column(name = "verification_idx")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long challengerIdx;
+    private long verificationIdx;
 
     @Column(nullable = false)
     private long approval;

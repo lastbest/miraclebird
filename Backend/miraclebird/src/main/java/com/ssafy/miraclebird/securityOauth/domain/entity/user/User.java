@@ -76,7 +76,7 @@ public class User extends DefaultTime {
 
     /* 연관관계 매핑 */
     @OneToMany(mappedBy = "user")
-    List<Challenger> challenger = new ArrayList<>();
+    List<Verification> verification = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     List<Landmark> landmark = new ArrayList<>();
