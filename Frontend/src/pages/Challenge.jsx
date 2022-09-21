@@ -1,8 +1,11 @@
 import React from "react";
-import { Container } from "react-bootstrap";
 import styles from "./Challenge.module.css";
+import {useNavigate} from 'react-router-dom';
+
 
 function Challenge() {
+
+  const navigate = useNavigate();
   return (
     <>
       <div className={styles.header}>
@@ -45,6 +48,19 @@ function Challenge() {
             alt="study"
             src="/new_study.png"
             onClick={() => (document.location = "/challenge/study")}
+          />
+        </div>
+      </div>
+
+      <div className={styles.footer_camerabutton}>
+        <div className={styles.circle}>
+          <img
+            alt="camera"
+            src="/new_camera.png"
+            className={styles.footer_camera}
+            onClick={() => {
+              navigate("/login");
+            }}
           />
         </div>
       </div>

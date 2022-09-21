@@ -32,7 +32,7 @@ function App() {
             <Route path="/store" element={<Store />}></Route>
             <Route path="/camera" element={<Camera />}></Route>
             <Route path="/challenge" element={<Challenge />}></Route>
-            <Route path="/challenge/community" element={<Community />}></Route>
+            <Route path="/community" element={<Community />}></Route>
             <Route
               path="/challenge/community/create"
               element={<CreatePost />}></Route>
