@@ -1,6 +1,6 @@
 package com.ssafy.miraclebird.entity;
 
-import com.ssafy.miraclebird.dto.BoardDto;
+import com.ssafy.miraclebird.dto.PostDto;
 import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
 import com.ssafy.miraclebird.util.ModelMapperUtils;
 import lombok.AllArgsConstructor;
@@ -17,12 +17,12 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "Board")
-public class Board {
+@Table(name = "Post")
+public class Post {
     @Id
-    @Column(name = "board_idx")
+    @Column(name = "post_idx")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long boardIdx;
+    private long postIdx;
 
     @Column(nullable = false)
     private String title;
@@ -38,12 +38,12 @@ public class Board {
     @JoinColumn(name = "userIdx")
     private User user;
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "post")
     List<Comment> comment = new ArrayList<>();
 
-    public static Board of(BoardDto boardDto) {
-        Board boardEntity = ModelMapperUtils.getModelMapper().map(boardDto, Board.class);
+    public static Post of(PostDto postDto) {
+        Post postEntity = ModelMapperUtils.getModelMapper().map(postDto, Post.class);
 
-        return boardEntity;
+        return postEntity;
     }
 }
