@@ -35,7 +35,7 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
-    public void saveBoard(Post post) throws Exception {
+    public void savePost(Post post) throws Exception {
         try {
             postRepository.save(post);
         }

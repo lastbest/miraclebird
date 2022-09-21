@@ -5,6 +5,8 @@ import com.ssafy.miraclebird.securityOauth.domain.entity.user.Role;
 import com.ssafy.miraclebird.util.ModelMapperUtils;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,6 +19,8 @@ public class PostDto {
     private String title;
 
     private String content;
+
+    private LocalDateTime regtime;
 
     private int hit;
 

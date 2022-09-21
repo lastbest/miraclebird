@@ -1,8 +1,10 @@
 package com.ssafy.miraclebird.service;
 
+import com.ssafy.miraclebird.dao.CommentDao;
 import com.ssafy.miraclebird.dao.PostDao;
 import com.ssafy.miraclebird.dao.UserDao;
 import com.ssafy.miraclebird.dto.PostDto;
+import com.ssafy.miraclebird.entity.Comment;
 import com.ssafy.miraclebird.entity.Post;
 import com.ssafy.miraclebird.securityOauth.domain.entity.user.Role;
 import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
@@ -11,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,11 +24,13 @@ public class PostServiceImpl implements PostService {
 
     private final PostDao postDao;
     private final UserDao userDao;
+    private final CommentDao commentDao;
 
     @Autowired
-    public PostServiceImpl(PostDao postDao, UserDao userDao) {
+    public PostServiceImpl(PostDao postDao, UserDao userDao, CommentDao commentDao) {
         this.postDao = postDao;
         this.userDao = userDao;
+        this.commentDao = commentDao;
     }
 
     @Override
@@ -50,6 +57,7 @@ public class PostServiceImpl implements PostService {
     public PostDto getPost(Long postIdx) throws Exception{
         try {
             Post postEntity = postDao.getPost(postIdx);
+            postEntity.setHit(postEntity.getHit()+1);
             PostDto postDto = PostDto.of(postEntity);
 
             return postDto;
@@ -66,9 +74,10 @@ public class PostServiceImpl implements PostService {
             Post postEntity = new Post();
             postEntity.setTitle(postDto.getTitle());
             postEntity.setContent(postDto.getContent());
+            postEntity.setRegtime(LocalDateTime.now());
             postEntity.setHit(0);
             postEntity.setUser(userDao.getUserById(userIdx));
-            postDao.saveBoard(postEntity);
+            postDao.savePost(postEntity);
         }
         catch (Exception e) {
             throw new Exception();
@@ -83,7 +92,7 @@ public class PostServiceImpl implements PostService {
         if (postEntity.getUser().getUserIdx() == userIdx) {
             postEntity.setTitle(postDto.getTitle());
             postEntity.setContent(postDto.getContent());
-            postDao.saveBoard(postEntity);
+            postDao.savePost(postEntity);
         }
         else {
             throw new Exception();
@@ -96,6 +105,12 @@ public class PostServiceImpl implements PostService {
         Post postEntity = postDao.getPost(postIdx);
 
         if (postEntity.getUser().getUserIdx() == userIdx) {
+            List<Comment> commentList = commentDao.getCommentAll(postIdx);
+
+            for(Comment comment : commentList) {
+                commentDao.deleteComment(comment.getCommentIdx());
+            }
+
             postDao.deletePost(postIdx);
         }
         else {
