@@ -53,6 +53,7 @@ public class PostServiceImpl implements PostService {
     public PostDto getPost(Long postIdx) throws Exception{
         try {
             Post postEntity = postDao.getPost(postIdx);
+            postEntity.setHit(postEntity.getHit()+1);
             PostDto postDto = PostDto.of(postEntity);
 
             return postDto;
