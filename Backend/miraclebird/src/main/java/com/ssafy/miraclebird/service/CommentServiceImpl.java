@@ -32,9 +32,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
-    public List<CommentDto> getCommentAll() throws Exception {
+    public List<CommentDto> getCommentAll(Long postIdx) throws Exception {
         try {
-            List<Comment> commentList = commentDao.getCommentAll();
+            List<Comment> commentList = commentDao.getCommentAll(postIdx);
             List<CommentDto> commentDtoList = commentList.stream().map(entity -> CommentDto.of(entity)).collect(Collectors.toList());
 
             for (CommentDto commentDto : commentDtoList) {

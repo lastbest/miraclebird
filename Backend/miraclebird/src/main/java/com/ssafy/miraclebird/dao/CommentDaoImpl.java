@@ -20,8 +20,8 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public List<Comment> getCommentAll() {
-        List<Comment> commentList = commentRepository.findAll();
+    public List<Comment> getCommentAll(Long postIdx) {
+        List<Comment> commentList = commentRepository.findAllByPost_PostIdx(postIdx);
 
         return commentList;
     }
