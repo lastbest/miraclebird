@@ -6,10 +6,10 @@ import Modal from "react-bootstrap/Modal";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { login } from "../../store/user";
+import { selectArea } from "../../store/area";
 
 function Footer() {
   const navigate = useNavigate();
-
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
 
@@ -44,6 +44,12 @@ function Footer() {
                   src="/new_home.png"
                   className={styles.footer_home}
                   onClick={() => {
+                    dispatch(
+                      selectArea({
+                        name: "korea",
+                        SIG_CD: "",
+                      })
+                    );
                     navigate("/");
                   }}
                 />
@@ -55,6 +61,12 @@ function Footer() {
                   src="/new_earth.png"
                   className={styles.footer_store}
                   onClick={() => {
+                    dispatch(
+                      selectArea({
+                        name: "",
+                        SIG_CD: "",
+                      })
+                    );
                     navigate("/store");
                   }}
                 />
@@ -66,6 +78,12 @@ function Footer() {
                   src="/new_post.png"
                   className={styles.footer_store}
                   onClick={() => {
+                    dispatch(
+                      selectArea({
+                        name: "",
+                        SIG_CD: "",
+                      })
+                    );
                     navigate("/community");
                   }}
                 />
@@ -78,6 +96,12 @@ function Footer() {
                   src="/new_hashtag.png"
                   className={styles.footer_challenge}
                   onClick={() => {
+                    dispatch(
+                      selectArea({
+                        name: "",
+                        SIG_CD: "",
+                      })
+                    );
                     navigate("/challenge");
                   }}
                 />
@@ -89,6 +113,12 @@ function Footer() {
                   src="/new_profile.png"
                   className={styles.footer_mypage}
                   onClick={() => {
+                    dispatch(
+                      selectArea({
+                        name: "",
+                        SIG_CD: "",
+                      })
+                    );
                     navigate("/mypage");
                   }}
                 />
