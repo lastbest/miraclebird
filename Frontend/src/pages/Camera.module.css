@@ -1,3 +1,22 @@
 .Camera{
   width: 100%;
 }
+.screenshot_wrap{
+  margin: 10px auto;
+  border: 1px solid #000000;
+  position: relative;
+}
+.screenshot{
+    width: 100%;
+      vertical-align: middle;
+}
+.timestamp{
+  padding: 5px 10px;
+    color:#0930a5;
+    font-size: 20px;
+    text-align: center;
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
