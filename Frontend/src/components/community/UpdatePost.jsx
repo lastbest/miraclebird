@@ -1,14 +1,16 @@
-import React, {useState} from "react";
-import styles from "./CreatePost.module.css"
+import React, {useState, useEffect} from "react";
+import styles from "./UpdatePost.module.css"
 import axios from "axios";
-import { useEffect } from "react";
+import { getPostByNo } from './PostData';
+import { useParams } from 'react-router-dom';
 
 
-function CreatePost () {
+function UpdatePost () {
 
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
-
+    const [ data, setData ] = useState({});
+    const { no } = useParams();
     useEffect(()=> {
 
     })
@@ -29,6 +31,10 @@ function CreatePost () {
         console.log(Community)
     }
 
+    useEffect(() => {
+        setData(getPostByNo(no));
+      }, [ ]);
+
     return (
         <>
         <div className={styles.header}>
@@ -48,11 +54,11 @@ function CreatePost () {
             </select> */}
             <div className={styles.titleForm}>
                 제목
-                <input className={styles.title} type="text" placeholder ="제목" name="title" onInput={(e)=>{setTitle(e.target.value)}} />
+                <input className={styles.title} type="text" placeholder ="제목" name="title" onInput={(e)=>{setTitle(e.target.value)}} value={data.title} />
             </div>
             <div className={styles.contentForm}>
                 내용
-                <textarea className={styles.textarea} placeholder="내용" name="content" onInput={(e)=>{setContent(e.target.value)}} />
+                <textarea className={styles.textarea} placeholder="내용" name="content" onInput={(e)=>{setContent(e.target.value)}} value={data.content}/>
             </div>
         </div>
         <div className={styles.btnForm}>
@@ -68,10 +74,10 @@ function CreatePost () {
                     .then((res)=>{
                         console.log(res.data.result)
                     })
-            }}>작성하기</button>
+            }}>수정하기</button>
         </div>
         </>
     )
 };
 
-export default CreatePost;
+export default UpdatePost;

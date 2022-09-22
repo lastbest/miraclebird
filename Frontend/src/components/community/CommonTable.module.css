@@ -14,11 +14,13 @@
   }
   
   .tablerow:hover {
-    background-color: #d0fff7;
+    background-color: #d0fff7   ;
     cursor: pointer;
   }
   
-  .tablecolumn {
+  .tablerow {
     padding: 13px 8px;
     border-bottom: 1px solid lightgray;
+    display: flex;
+    flex-direction: column;
   }

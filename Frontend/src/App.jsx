@@ -19,6 +19,8 @@ import Reinforce from "./pages/Reinforce";
 import Login from "./pages/Login";
 import "bootstrap/dist/css/bootstrap.min.css";
 import OAuth2RedirectHandler from "./oauth2/OAuth2RedirectHandler";
+import UpdatePost from "./components/community/UpdatePost";
+
 
 function App() {
   return (
@@ -38,10 +40,13 @@ function App() {
             <Route path="/challenge" element={<Challenge />}></Route>
             <Route path="/community" element={<Community />}></Route>
             <Route
-              path="/challenge/community/create"
+              path="/community/create"
               element={<CreatePost />}></Route>
+              <Route
+              path="/community/update/:no"
+              element={<UpdatePost />}></Route>
             <Route
-              path="/challenge/community/:no"
+              path="/community/:no"
               element={<PostView />}></Route>
             <Route
               path="/challenge/morning"

@@ -3,10 +3,18 @@
     color: black;
 }
 
+.titletext:hover {
+    color:black !important;
+}
+
 .titletext2 {
     text-decoration: none;
     color:black;
     font-weight: bold;
+}
+
+.titletext2:hover {
+    color:black !important;
 }
 
 
@@ -14,6 +22,49 @@
     width:90%;
     margin:auto;
     margin-top:3%;
-    /* border:2px solid lightgray; */
-    /* border-radius: 20px; */
+}
+
+.tableRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.tableRow2 {
+    display: flex;
+    justify-content: space-between;
+    color: gray;
+}
+
+.viewicon {
+    width:15px;
+    height:15px;
+    margin: auto;
+    margin-right: 3px;
+}
+
+.readCount {
+    display:flex;
+    flex-direction: row;
+}
+
+.counttext {
+    margin:auto;
+}
+
+.datename {
+    display: flex;
+    flex-direction: row;
+}
+
+.createDate {
+    margin-right:5px;
+}
+
+.nickname img {
+    width:18px;
+    height:18px;
+    border-radius: 50%;
+    border:1px solid gray;
+    margin-right: 3px;
 }
