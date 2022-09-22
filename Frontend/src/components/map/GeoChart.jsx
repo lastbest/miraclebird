@@ -1,14 +1,15 @@
 import React, { useRef, useEffect, useState } from "react";
 import { select, geoPath, geoMercator } from "d3";
 import useResizeObserver from "./useResizeObserver";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { selectArea } from "../../store/area";
 import { selectLandmark } from "../../store/landmark";
 import "./GeoChart.css";
-import { useDispatch } from "react-redux";
 import spot1 from "./spot29170.json";
 import spot2 from "./spot29110.json";
 import spot3 from "./spot11710.json";
+import spot from "./spot.json";
 import Modal from "react-modal";
 import styles from "./GeoChart.module.css";
 import LineChart from "./LineChart";
@@ -49,7 +50,8 @@ function GeoChart({ data }) {
     // takes geojson data,
     // transforms that into the d attribute of a path element
     const pathGenerator = geoPath().projection(projection);
-
+    svg.selectAll("circle").remove();
+    svg.selectAll("text").remove();
     // render each country
     svg
       .selectAll(".city")
@@ -72,7 +74,7 @@ function GeoChart({ data }) {
           setSelectedCountry(feature);
         }
 
-        svg.selectAll("mark").remove();
+        svg.selectAll("circle").remove();
         svg.selectAll("text").remove();
         console.log(area);
       })
@@ -80,12 +82,16 @@ function GeoChart({ data }) {
       .transition()
       .attr("d", (feature) => pathGenerator(feature));
 
-    if (area.name == "북구" || area.name == "동구" || area.name == "송파구") {
-      var mark = spot1;
-      if (area.name == "동구") {
-        mark = spot2;
-      } else if (area.name == "송파구") {
-        mark = spot3;
+    if (area.name != "korea") {
+      var mark = spot;
+      for (var i = 0; i < spot.length; i++) {
+        if (area.name == mark[i].name) {
+          console.log(mark[i].landmark);
+          mark = mark[i].landmark;
+          svg.selectAll("circle").remove();
+          svg.selectAll("text").remove();
+          break;
+        }
       }
       svg
         .selectAll("circle")
@@ -93,9 +99,15 @@ function GeoChart({ data }) {
         .join("circle")
         .attr("class", "mark")
         .attr("cx", function (d) {
+          if (isNaN(projection([d.lon, d.lat])[0])) {
+            return 0;
+          }
           return projection([d.lon, d.lat])[0];
         })
         .attr("cy", function (d) {
+          if (isNaN(projection([d.lon, d.lat])[1])) {
+            return 0;
+          }
           return projection([d.lon, d.lat])[1];
         })
         .on("click", (event, d) => {
@@ -114,14 +126,20 @@ function GeoChart({ data }) {
         .duration(1000);
 
       svg
-        .selectAll(".labelsc")
+        .selectAll(".landmarkLabel")
         .data(mark)
         .join("text")
-        .attr("class", "labelsc")
+        .attr("class", "landmarkLabel")
         .attr("x", function (d) {
+          if (isNaN(projection([d.lon, d.lat + 0.007])[0])) {
+            return 0;
+          }
           return projection([d.lon, d.lat + 0.007])[0];
         })
         .attr("y", function (d) {
+          if (isNaN(projection([d.lon, d.lat + 0.007])[1])) {
+            return 0;
+          }
           return projection([d.lon, d.lat + 0.007])[1];
         })
         .text(function (d) {
@@ -145,9 +163,13 @@ function GeoChart({ data }) {
     } else {
       svg.selectAll("mark").remove();
       svg.selectAll("text").remove();
+      mark = null;
     }
+
     // 지역별 텍스트
     if (area.SIG_CD != null && area.SIG_CD.length == 2) {
+      svg.selectAll("circle").remove();
+      svg.selectAll("text").remove();
       svg
         .selectAll(".labels")
         .data(data.features)
@@ -179,7 +201,7 @@ function GeoChart({ data }) {
             setSelectedCountry(feature);
           }
 
-          svg.selectAll("mark").remove();
+          svg.selectAll("circle").remove();
           svg.selectAll("text").remove();
           console.log(area);
         })

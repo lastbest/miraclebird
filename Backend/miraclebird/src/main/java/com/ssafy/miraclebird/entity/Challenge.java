@@ -30,5 +30,5 @@ public class Challenge {
 
     /* 연관관계 매핑 */
     @OneToMany(mappedBy = "challenge")
-    List<Challenger> challenger = new ArrayList<>();
+    List<Verification> verification = new ArrayList<>();
 }

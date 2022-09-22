@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,9 +23,9 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long commentIdx;
 
-    @Column(nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate regtime;
+    @Column(nullable = true)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime regtime;
 
     @Column(nullable = false)
     private String content;
@@ -35,6 +36,6 @@ public class Comment {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "boardIdx")
-    private Board board;
+    @JoinColumn(name = "postIdx")
+    private Post post;
 }

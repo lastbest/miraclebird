@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ChallengerRepository extends JpaRepository<Challenger,Long> {
-//    Optional<Challenger> findBy
+
 }

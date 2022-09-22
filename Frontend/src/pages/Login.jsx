@@ -1,18 +1,13 @@
 import React from "react";
 import { BrowserView, MobileView } from "react-device-detect";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 import kakaoLogo from "../assets/button/kakao_logo.png";
 import { KAKAO_AUTH_URL } from "../constants";
+import styles from "./Login.module.css";
 
 function Login() {
-  const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-
-  console.log(user);
   return (
-    <>
-      Sign in
+    <div className={styles.container}>
+      <div className={styles.text}>로그인</div>
       <BrowserView>
         <div className="App">
           <a href={KAKAO_AUTH_URL}>
@@ -23,11 +18,11 @@ function Login() {
       <MobileView>
         <div className="App">
           <a href={KAKAO_AUTH_URL}>
-            <img src={kakaoLogo}></img>
+            <img src={kakaoLogo} />
           </a>
         </div>
       </MobileView>
-    </>
+    </div>
   );
 }
 

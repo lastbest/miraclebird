@@ -34,16 +34,10 @@
     margin-bottom:5px;
 }
 
-.modal {
-    position: absolute;
-    top: 20%;
-    left: 10%;
-    right: 10%;
-    bottom: 20%;
-    background-color: white;
-    border: 2px solid lightgray;
-    border-radius: 30px;
-    overflow-y: initial !important;
+.modalheader {
+    border: none !important;
+    font-family: 'neodgm';
+    padding-bottom:0 !important;
 }
 
 .modalcontent {
@@ -54,24 +48,7 @@
     flex-direction: column;
     margin: auto;
     justify-content: center;
-    overflow-y: auto;
-    height:80%;
 }
-
-.modalHeader {
-    text-align: right;
-    margin-right:5%;
-    margin-top:5%;
-}
-
-.closebtn {
-    right:0;
-    background-color: white;
-    border:none;
-    font-family: "neodgm";
-    font-size:20px;
-}
-
 
 .feedsImg {
     text-align: center;
@@ -82,4 +59,13 @@
     text-align: right;
     margin-right: 10%;
     margin-top:10px;
+}
+
+.dialog{
+    overflow-y: initial !important
+  }
+
+.body {
+    overflow-y: scroll !important;
+    height:400px;
 }

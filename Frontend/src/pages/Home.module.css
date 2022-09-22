@@ -10,3 +10,31 @@
   padding: 30px;
   font-size: 35px;
 }
+
+.footer_camera {
+  display: flex;
+  margin: auto;
+  /* height: 30px; */
+  width: 31px;
+  padding-top:14px;
+}
+
+.footer_camerabutton {
+  text-align: center;
+  display: block;
+  position:fixed;
+  bottom:60px;
+  width:100%;
+  z-index:999;
+  left: 80%;
+}
+
+.circle {
+  /* box-shadow: 2px 2px 2px 2px gray; */
+  background-color: #FFE969;
+  border-radius: 50%;
+  height:60px;
+  width:60px;
+  text-align: center;
+  margin-top: -5px;
+}

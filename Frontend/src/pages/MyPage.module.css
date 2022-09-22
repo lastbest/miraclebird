@@ -1,5 +1,6 @@
 .btns {
     text-align: right;
+    margin-right:5%;
 }
 
 .logout {
@@ -9,6 +10,7 @@
     font-family: 'neodgm';
     height: 30px;
     margin-right: 10px;
+    color: black;
 }
 
 .connect {
@@ -20,41 +22,15 @@
     width:80px;
     height:30px;
     font-size: 18px;
+    text-align: center;
 }
 
-.modal {
-    position: absolute;
-    top: 30%;
-    left: 20%;
-    right: 20%;
-    bottom: 30%;
-    background-color: white;
-    border: 2px solid lightgray;
-    border-radius: 30px;
-}
 
 .modalcontent {
     font-family: 'neodgm';
     text-align: center;
-    padding:10px;
     display: flex;
     flex-direction: column;
-    margin: auto;
-    justify-content: center;
-}
-
-.modalHeader {
-    text-align: right;
-    margin-right:5%;
-    margin-top:5%;
-}
-
-.closebtn {
-    right:0;
-    background-color: white;
-    border:none;
-    font-family: "neodgm";
-    font-size:20px;
 }
 
 .metamask {
@@ -165,33 +141,15 @@
     border:none;
 }
 
-.modal2 {
-    position: absolute;
-    top: 40%;
-    left: 20%;
-    right: 20%;
-    bottom: 40%;
-    background-color: white;
-    border: 2px solid lightgray;
-    border-radius: 30px;
-}
 
 .modalcontent2 {
     font-family: 'neodgm';
     text-align: center;
-    padding:10px;
     display: flex;
     flex-direction: column;
-    margin: auto;
-    justify-content: center;
-    padding-top:5px;
+    padding-top: 0 !important;
 }
 
-.modalHeader2 {
-    text-align: right;
-    margin-right:5%;
-    margin-top:5%;
-}
 
 .nicknameinput {
     font-family: 'neodgm';
@@ -241,6 +199,8 @@
     border-radius: 10px;
     font-size:15px;
     padding:2px;
+    color:black;
+
 }
 
 
@@ -328,6 +288,7 @@
     font-size:20px;
     padding:8px;
     margin-right:5px;
+    color:black;
 }
 
 .btnSell {
@@ -347,6 +308,7 @@
     font-family: 'neodgm';
     font-size:20px;
     padding:8px;
+    color: black;
 }
 
 
@@ -357,33 +319,20 @@
 }
 
 
-.modal3 {
-    position: absolute;
-    top: 40%;
-    left: 20%;
-    right: 20%;
-    bottom: 40%;
-    background-color: white;
-    border: 2px solid lightgray;
-    border-radius: 30px;
-    z-index: 9999;
-}
-
 .modalcontent3 {
     font-family: 'neodgm';
     text-align: center;
-    padding:10px;
     display: flex;
     flex-direction: column;
-    margin: auto;
-    justify-content: center;
-    padding-top:5px;
+    padding-top: 0 !important;
 }
 
-.modalHeader3 {
-    text-align: right;
-    margin-right:5%;
-    margin-top:5%;
+.modalcontent4 {
+    font-family: 'neodgm';
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding-top: 0 !important;
 }
 
 .priceinput {
@@ -424,25 +373,12 @@
     margin-top:20px;
 }
 
-.modal5 {
-    position: absolute;
-    top: 40%;
-    left: 20%;
-    right: 20%;
-    bottom: 40%;
-    background-color: white;
-    border: 2px solid lightgray;
-    border-radius: 30px;
-}
-
 .modalcontent5 {
     font-family: 'neodgm';
     text-align: center;
-    padding:10px;
     display: flex;
     flex-direction: column;
-    margin: auto;
-    justify-content: center;
+    padding-top: 0 !important;
 }
 
 .logoutbtn {
@@ -453,6 +389,7 @@
     height: 30px;
     font-size: 15px;
     margin: auto;
+    color:black;
 }
 
 .backbtn {
@@ -468,4 +405,10 @@
 
 .btnCt {
     margin-top:10px;
+}
+
+.modalheader {
+    border: none !important;
+    font-family: 'neodgm';
+    padding-bottom:0 !important;
 }

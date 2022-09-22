@@ -13,8 +13,9 @@
     align-items: center;
     justify-content: space-between;
     margin:auto;
-    height:60px;
-    margin-bottom: 7px;
+    height:40px;
+    margin-top:5px;
+    /* margin-bottom: 7px; */
 }
 
 .footer_button {
@@ -28,36 +29,76 @@
 .footer_button img {
     display: block;
     margin: auto;
-    width:25px;
-    height: 25px;
+    width:20px;
+    height: 20px;
   }
 
 .footer_camera {
     display: flex;
     margin: auto;
-    height: 30px;
-    width: 30px;
-    padding-top:10px;
+    /* height: 30px; */
+    width: 31px;
+    padding-top:14px;
 }
 
 .footer_camerabutton {
-margin: auto;
-text-align: center;
-display: block;
-height: 35px;
+    text-align: center;
+    display: block;
+    position:fixed;
+    bottom:60px;
+    width:100%;
+    z-index:999;
+    left: 80%;
 }
 
 .circle {
-    box-shadow: 2px 2px 2px 2px gray;
+    /* box-shadow: 2px 2px 2px 2px gray; */
     background-color: #FFE969;
     border-radius: 50%;
-    height:50px;
-    width:50px;
+    height:60px;
+    width:60px;
     text-align: center;
     margin-top: -5px;
 }
 
 .icontext {
     margin-top:3px;
+    font-size: 10px;
+}
+
+.modalheader {
+    border: none !important;
+    font-family: 'neodgm';
+    padding-bottom: 0 !important;
+}
+
+.modalcontent {
+    font-family: 'neodgm';
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        padding-top: 0 !important;
+}
+.logoutbtn {
+    border: none;
+    border-radius: 20px;
+    background-color: #ffe969;
+    font-family: 'neodgm';
+    height: 30px;
     font-size: 15px;
+    margin: auto;
+    color: black;
+}
+.btnCt {
+    margin-top: 10px;
+}
+.backbtn {
+    border: none;
+    border-radius: 20px;
+    background-color: #D9D9D9;
+    font-family: 'neodgm';
+    height: 30px;
+    font-size: 15px;
+    margin: auto;
+    margin-right: 10px;
 }

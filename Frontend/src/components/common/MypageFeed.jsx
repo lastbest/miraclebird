@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import styles from "./MypageFeed.module.css"
-import Modal from 'react-modal';
+import Modal from "react-bootstrap/Modal";
 
 function MypageFeed () {
     const SEOSON_SELECT = [
@@ -47,7 +47,9 @@ function MypageFeed () {
         ]},
     ]
     let [idx, setIdx] = useState(0);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     return (
         <>
@@ -62,30 +64,36 @@ function MypageFeed () {
         </select>
         <div className={styles.feeds}>
             <div className={styles.list}>
-                <button className={styles.listbtn} onClick={()=>setModalIsOpen(true)}><img src="/list.png" className={styles.listicon}></img></button>
+                <button className={styles.listbtn} onClick={()=>handleShow()}><img src="/list.png" className={styles.listicon}></img></button>
             </div>
             <div className={styles.feedsImg}>
                 <img src={SEOSON_SELECT[idx].values[0].url} className={styles.feedImg}/>
             </div>
         </div>
 
-        <Modal isOpen={modalIsOpen} appElement={document.getElementById('root') || undefined} className={styles.modal}>
-            <div className={styles.modalHeader}> 
-            <button onClick={()=>setModalIsOpen(false)} className={styles.closebtn}>X</button>
-            </div>
-            <div className={styles.modalcontent}>
-            {
-            SEOSON_SELECT[idx].values.map((item) => {
-                return (
-                    <>
-                    <img src={item.url} className={styles.feedImg}/>
-                    <div className={styles.imgdate}>{item.date}</div>
-                    </>
-                )
-            })
-            }
-            </div>
- 
+        <Modal 
+        centered
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+        className={styles.dialog}>
+            <Modal.Header className={styles.modalheader} closeButton>
+            </Modal.Header>
+            <Modal.Body className={styles.body}>
+                <div className={styles.modalcontent}>
+                {
+                SEOSON_SELECT[idx].values.map((item) => {
+                    return (
+                        <>
+                        <img src={item.url} className={styles.feedImg}/>
+                        <div className={styles.imgdate}>{item.date}</div>
+                        </>
+                    )
+                })
+                }
+                </div>
+            </Modal.Body>
         </Modal>
         </>
     )

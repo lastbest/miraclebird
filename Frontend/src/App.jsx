@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styles from "./App.module.css";
 import Header from "./components/Base/Header";
@@ -17,6 +17,8 @@ import MiracleFeed from "./components/common/MiracleFeed";
 import MyPage from "./pages/MyPage";
 import Reinforce from "./pages/Reinforce";
 import Login from "./pages/Login";
+import "bootstrap/dist/css/bootstrap.min.css";
+import OAuth2RedirectHandler from "./oauth2/OAuth2RedirectHandler";
 
 function App() {
   return (
@@ -25,13 +27,16 @@ function App() {
         <Header className={styles.Header} />
         <div className={styles.Contents}>
           <Routes>
+            {/* <Route path="/*" element={<Store />}></Route> */}
             <Route path="/" element={<Home />}></Route>
+            <Route
+              path="/oauth2/redirect"
+              element={<OAuth2RedirectHandler />}></Route>
             <Route path="/login" element={<Login />}></Route>
-            <Route path="/store" element={<Store />}></Route>
             <Route path="/store" element={<Store />}></Route>
             <Route path="/camera" element={<Camera />}></Route>
             <Route path="/challenge" element={<Challenge />}></Route>
-            <Route path="/challenge/community" element={<Community />}></Route>
+            <Route path="/community" element={<Community />}></Route>
             <Route
               path="/challenge/community/create"
               element={<CreatePost />}></Route>
