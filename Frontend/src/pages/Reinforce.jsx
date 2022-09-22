@@ -9,6 +9,11 @@ import shimmerEffect from "../components/animation/shimmer2.json"
 import levelUp from "../components/animation/levelup2.json"
 import coin from "../components/animation/coin.json"
 import arrow from "../components/animation/arrow.json"
+import success from "../components/animation/success2.json";
+import fail from "../components/animation/fail.json";
+import crack from "../components/animation/crack.json";
+import fall from "../components/animation/fall.json";
+
 
 function Reinforce () {
     const navigate = useNavigate();
@@ -66,7 +71,7 @@ function Reinforce () {
     return (
         <>
         <button className={styles.backbtn} onClick={()=>{navigate("/mypage")}}><img alt="back" src="/back.png" className={styles.backicon} /></button>
-        {/* <Lottie animationData={lightEffectAniamition} loop={true}/> */}
+        
         <div className={styles.nftCt}>
             <div className={styles.nftImgCt}>
                 { address === "" ? 
@@ -97,27 +102,18 @@ function Reinforce () {
                 </>
                     }
                     <div className={styles.leveltext}>
-                    <div className={styles.numbertext}>{level}강</div>
+                    <div className={styles.numbertext}>
+                        <div>{level}</div>
+                        <div>강</div>
+                    </div>
                     <div className={styles.arrowCt}>
                         <Lottie animationData={arrow} loop={true} className={styles.arrows} />
                     </div>
-                    {/* <div className={styles.arrowoptions} >
-                        <div className={styles.arrowAnim}>
-                            <div className={styles.arrowSliding}>
-                                <div className={styles.arrow}></div>
-                            </div>
-                            <div className={styles.arrowSliding_delay1}>
-                                <div className={styles.arrow}></div>
-                            </div>
-                            <div className={styles.arrowSliding_delay2}>
-                                <div className={styles.arrow}></div>
-                            </div>
-                            <div className={styles.arrowSliding_delay3}>
-                                <div className={styles.arrow}></div>
-                            </div>
-                        </div>
-                    </div> */}
-                    <div className={styles.numbertext}>{level+1}강</div>
+
+                    <div className={styles.numbertext}>
+                        <div>{level+1}</div>
+                        <div>강</div>
+                    </div>
                 </div>
                 <div className={styles.levelbtnct}>
                     <button className={styles.levelbtn} onClick={upgradeBtn}>강화하기</button>
@@ -150,7 +146,11 @@ function Reinforce () {
             <Modal.Header className={styles.modalheader} closeButton>
             </Modal.Header>
             <Modal.Body className={styles.modalcontent} closeButton>
-                강화에 성공했습니다!
+                <div className={styles.successCardCt}>
+                    <Lottie animationData={success} className={styles.success} />
+                    <img alt="nft1" src={address} className={styles.successCard} />
+                </div>
+                {level+1}강 강화에 성공했습니다!
             </Modal.Body>
         </Modal>
 
@@ -164,6 +164,10 @@ function Reinforce () {
             <Modal.Header className={styles.modalheader} closeButton>
             </Modal.Header>
             <Modal.Body className={styles.modalcontent} closeButton>
+                <div className={styles.failCardCt}>
+                    <Lottie animationData={fail} loop={true} className={styles.fail} />
+                    <img alt="nft1" src={address} className={styles.failCard} />
+                </div>
                 강화에 실패했습니다.
             </Modal.Body>
         </Modal>
