@@ -49,7 +49,7 @@ public class LandmarkServiceImpl implements LandmarkService {
 
     @Override
     @Transactional
-    public void updateLandmarkSell(LandmarkDto landmarkDto, Long userIdx) throws Exception {
+    public void updateLandmark(LandmarkDto landmarkDto, Long userIdx) throws Exception {
         Landmark landmarkEntity = landmarkDao.getLandmark(landmarkDto.getLandmarkIdx());
 
         if (landmarkEntity.getUser().getUserIdx() == userIdx) {
@@ -57,9 +57,13 @@ public class LandmarkServiceImpl implements LandmarkService {
             landmarkEntity.setSellPrice(landmarkDto.getSellPrice());
             landmarkDao.saveLandmark(landmarkEntity);
         }
+        else if (landmarkEntity.getSelling() == true) {
+            landmarkEntity.setSelling(false);
+            landmarkEntity.setUser(userDao.getUserById(userIdx));
+            landmarkDao.saveLandmark(landmarkEntity);
+        }
         else {
             throw new Exception();
         }
     }
-
 }
