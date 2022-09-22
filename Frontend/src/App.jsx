@@ -20,6 +20,7 @@ import Login from "./pages/Login";
 import "bootstrap/dist/css/bootstrap.min.css";
 import OAuth2RedirectHandler from "./oauth2/OAuth2RedirectHandler";
 import UpdatePost from "./components/community/UpdatePost";
+import Deposit from "./pages/Deposit";
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
               element={<MiracleMorning />}></Route>
             <Route path="/challenge/health" element={<Health />}></Route>
             <Route path="/challenge/study" element={<Study />}></Route>
+            <Route path="/challenge/deposit" element={<Deposit />}></Route>
             <Route
               path="/challenge/morning/feed"
               element={<MiracleFeed />}></Route>
