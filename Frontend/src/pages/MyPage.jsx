@@ -319,11 +319,15 @@ function MyPage() {
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.modalcontent} closeButton>
           <img
-            alt="metamaskfox"
-            src="/MetaMaskFox.png"
-            className={styles.metamask}
+            alt="wallet"
+            src="/wallet.png"
+            className={styles.wallet}
           />
-          <button className={styles.metamaskbtn}>연결하기</button>
+          <button className={styles.walletbtn}>연결하기</button>
+          <div className={styles.walletAddress}>
+            <div className={styles.walletAddressText}>지갑 주소</div>
+            <div className={styles.walletText}>12345656777</div>
+          </div>
         </Modal.Body>
       </Modal>
 

@@ -19,6 +19,8 @@
     border-radius: 10px;
     font-size:15px;
     padding:2px;
+    color:black;
+    background-color: white;
 }
 
 .feeds {
