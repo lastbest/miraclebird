@@ -1,11 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
 import { select, geoPath, geoMercator } from "d3";
 import useResizeObserver from "./useResizeObserver";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { selectArea } from "../../store/area";
 import { selectLandmark } from "../../store/landmark";
 import "./GeoChart.css";
-import { useDispatch } from "react-redux";
 import spot1 from "./spot29170.json";
 import spot2 from "./spot29110.json";
 import spot3 from "./spot11710.json";
@@ -15,7 +15,6 @@ import styles from "./GeoChart.module.css";
 import LineChart from "./LineChart";
 import back from "../../assets/icon/GeoChart_Back.png";
 import back_1 from "../../assets/icon/GeoChart_Back1.png";
-
 
 /**
  * Component that renders a map of Germany.
@@ -37,7 +36,6 @@ function GeoChart({ data }) {
 
   // console.log(spot);
   useEffect(() => {
-
     const svg = select(svgRef.current);
     // use resized dimensions
     // but fall back to getBoundingClientRect, if no dimensions yet.
@@ -84,9 +82,7 @@ function GeoChart({ data }) {
       .transition()
       .attr("d", (feature) => pathGenerator(feature));
 
-
     if (area.name != "korea") {
-
       var mark = spot;
       for (var i = 0; i < spot.length; i++) {
         if (area.name == mark[i].name) {
@@ -164,7 +160,6 @@ function GeoChart({ data }) {
         .style("font-size", 15)
         .style("fill", "black")
         .transition();
-
     } else {
       svg.selectAll("mark").remove();
       svg.selectAll("text").remove();
