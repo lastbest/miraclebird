@@ -31,6 +31,14 @@
     margin-top:5%;
 }
 
+.dialog {
+    overflow-y: initial !important
+}
+
+.body {
+    overflow-y: scroll !important;
+    height: 400px;
+}
 .closebtn {
     right:0;
     background-color: white;
@@ -44,7 +52,6 @@
 .detail {
     text-align: left;
     vertical-align: middle;
-    margin-left: 10%;
 }
 
 
@@ -56,6 +63,8 @@
 }
 
 .reward {
+    margin-top: 5px;
+    margin-left: 15px;
     display: flex;
     flex-direction: row;
     text-align: left;
@@ -101,4 +110,8 @@
 
 .back:hover{
     box-shadow: #ffe969;
+}
+
+.price{
+    margin: auto;
 }

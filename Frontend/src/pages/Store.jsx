@@ -4,6 +4,7 @@ import GeoChart from "../components/map/GeoChart";
 import Korea from "../assets/json/Korea.json";
 import Seoul from "../assets/json/Seoul.json";
 import Gwangju from "../assets/json/Gwangju.json";
+import Gyeongbuk from "../assets/json/Gyeongbuk.json";
 import Jeju from "../assets/json/Jeju.json";
 import { useSelector } from "react-redux";
 
@@ -27,6 +28,12 @@ function Store() {
     return (
       <>
         <GeoChart data={Gwangju} />
+      </>
+    );
+  } else if (area.SIG_CD != null && area.SIG_CD.substr(0, 2) == "47") {
+    return (
+      <>
+        <GeoChart data={Gyeongbuk} />
       </>
     );
   } else if (area.SIG_CD != null && area.SIG_CD.substr(0, 2) == "50") {
