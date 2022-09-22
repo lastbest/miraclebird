@@ -10,9 +10,13 @@ const LineChart = () => {
   }, []);
   const svgRef = useRef();
   const data = [
-    { month: "09-18", value: 3.5 },
+    { month: "09-18", value: 1.1 },
     { month: "09-19", value: 2.1 },
-    { month: "09-20", value: 4.6 },
+    { month: "09-21", value: 3.6 },
+    { month: "09-22", value: 3.9 },
+    { month: "09-24", value: 4.9 },
+    { month: "09-24", value: 0.3 },
+    { month: "09-25", value: 0.2 },
   ];
   const firstPrice = data[0].value == null ? null : data[0].value;
   const minPrice = Math.min.apply(
@@ -31,7 +35,7 @@ const LineChart = () => {
   const currentPrice = data[data.length - 1].value;
   const makeGraph = () => {
     // setting canvas
-    const width = 210;
+    const width = 270;
     const height = 300;
     const margin = { top: 40, left: 40, bottom: 40, right: 40 };
 

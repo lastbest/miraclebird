@@ -6,11 +6,9 @@ import { useSelector } from "react-redux";
 import { selectArea } from "../../store/area";
 import { selectLandmark } from "../../store/landmark";
 import "./GeoChart.css";
-import spot1 from "./spot29170.json";
-import spot2 from "./spot29110.json";
-import spot3 from "./spot11710.json";
 import spot from "./spot.json";
-import Modal from "react-modal";
+
+import Modal from "react-bootstrap/Modal";
 import styles from "./GeoChart.module.css";
 import LineChart from "./LineChart";
 import back from "../../assets/icon/GeoChart_Back.png";
@@ -21,6 +19,10 @@ import back_1 from "../../assets/icon/GeoChart_Back1.png";
  */
 
 function GeoChart({ data }) {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const [isListHover, setIsListHover] = useState(false);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -118,7 +120,7 @@ function GeoChart({ data }) {
               desc: d.desc,
             })
           );
-          setModalIsOpen(true);
+          handleShow();
         })
         .attr("r", "10px")
         .attr("fill", "#1d4999")
@@ -153,7 +155,7 @@ function GeoChart({ data }) {
               desc: d.desc,
             })
           );
-          setModalIsOpen(true);
+          handleShow();
         })
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "central")
@@ -255,6 +257,44 @@ function GeoChart({ data }) {
         {selectedCountry !== null ? <div>{area.name}</div> : <div></div>}
         <svg ref={svgRef}></svg>
       </div>
+
+      <Modal
+        centered
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+        className={styles.dialog}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.body}>
+          <div className={styles.modalcontent}>
+            <img
+              src="/landmark_lotteworld.png"
+              alt="mm"
+              className={styles.picture}
+            />
+            <div className={styles.detail}>
+              <p>{landmark.name}</p>
+              <div className={styles.purchase}>
+                {landmark.desc != null ? (
+                  <div className={styles.desc}>{landmark.desc}</div>
+                ) : (
+                  <></>
+                )}
+
+                <LineChart className={styles.chart} />
+
+                <div className={styles.reward}>
+                  <img alt="coin" src="/mira.png" className={styles.coin}></img>
+                  <p className={styles.price}>300 MIRA</p>
+                  <button className={styles.btn}>구입</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+
       <Modal
         isOpen={modalIsOpen}
         appElement={document.getElementById("root") || undefined}

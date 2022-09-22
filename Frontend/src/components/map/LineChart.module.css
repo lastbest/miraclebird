@@ -21,6 +21,7 @@ svg text {
     border-radius: 10px;
     font-size: 13px;
     text-align: center;
+    margin: auto;
 }
 .span{
     font-size: 10px;

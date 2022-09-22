@@ -29,7 +29,9 @@ function Footer() {
 
         console.log(authenticated);
       })
-      .catch((error) => {});
+      .catch((error) => {
+        handleShow();
+      });
   }
   console.log(user);
 
@@ -177,7 +179,10 @@ function Footer() {
               <div className={styles.btnCt}>
                 <button
                   className={styles.backbtn}
-                  onClick={() => handleClose()}>
+                  onClick={() => {
+                    handleClose();
+                    navigate("/");
+                  }}>
                   돌아가기
                 </button>
                 <button
