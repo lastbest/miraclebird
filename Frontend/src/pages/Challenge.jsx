@@ -9,47 +9,54 @@ function Challenge() {
   return (
     <>
       <div className={styles.header}>
-        <p>챌린지</p>
-        <div className={styles.community}>
-          <button
-            onClick={() => {
-              document.location.href = "/challenge/community";
-            }}
-            className={styles.communitybtn}>
-            <img
-              alt="community"
-              src="/community.png"
-              className={styles.communityicon}
-            />
-            커뮤니티
-          </button>
+        <div className={styles.challengeCt}>
+          <img src="/challengehashtag.png" alt="hashtag" className={styles.hashtagicon}/>
+          <div>챌린지</div>
         </div>
+        <button className={styles.deposit} onClick={() => (navigate("/challenge/deposit"))}> 
+          <img src="/deposit.png" alt="deposit" className={styles.hashtagicon}/>
+          보증금
+        </button>
       </div>
       <div className={styles.containers}>
         <div className={styles.miraclemorning}>
-          <p>미라클모닝</p>
           <img
             alt="morning"
-            src="/miraclemorning.png"
-            onClick={() => (document.location = "/challenge/morning")}
+            src="/morning.png"
+            className={styles.morningicon}
           />
+          <div className={styles.morningtext}>Miracle Morning</div>
+          <div className={styles.morningdetail}>
+            미라클 모닝은 오전 4시부터 7시까지만 인증가능합니다.
+          </div>
+          <button onClick={() => (navigate("/challenge/morning"))} className={styles.morningsearchbtn}>둘러보기</button>
         </div>
         <div className={styles.health}>
-          <p>운동</p>
           <img
-            alt="health"
-            src="/new_health.png"
-            onClick={() => (document.location = "/challenge/health")}
-          />
-        </div>
+              alt="health"
+              src="/exercise.png"
+              className={styles.healthicon}
+            />
+            <div className={styles.healthtext}>Exercising</div>
+            <div className={styles.healthdetail}>
+              운동은 하루 한 번 인증가능합니다.
+            </div>
+            <button onClick={() => (navigate("/challenge/health"))} className={styles.healthsearchbtn}>둘러보기</button>
+          </div>
         <div className={styles.study}>
-          <p>스터디</p>
           <img
-            alt="study"
-            src="/new_study.png"
-            onClick={() => (document.location = "/challenge/study")}
-          />
+              alt="study"
+              src="/studying.png"
+              className={styles.studyicon}
+            />
+            <div className={styles.studytext}>Study</div>
+            <div className={styles.studydetail}>
+              스터디는 하루 한 번 인증가능합니다.
+            </div>
+            <button onClick={() => (navigate("/challenge/study"))} className={styles.studysearchbtn}>둘러보기</button>
         </div>
+        
+
       </div>
 
       <div className={styles.footer_camerabutton}>
