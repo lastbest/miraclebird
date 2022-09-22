@@ -1,5 +1,6 @@
 package com.ssafy.miraclebird.controller;
 
+import com.ssafy.miraclebird.dto.PostDto;
 import com.ssafy.miraclebird.dto.VerificationDto;
 import com.ssafy.miraclebird.service.VerificationService;
 import io.swagger.annotations.Api;
@@ -38,6 +39,19 @@ public class VerificationController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
+    @ApiOperation(value = "챌린지인증샷을 등록한다.", response = VerificationDto.class)
+    @PostMapping
+    public ResponseEntity<String> createPost(@RequestBody VerificationDto verificationDto) {
+        try {
+            verificationService.uploadVerification(verificationDto);
+        }
+        catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+        return new ResponseEntity<String>("success",HttpStatus.OK);
+    }
+
     @ApiOperation(value = "특정 챌린지 인증샷을 승인한다.", response = VerificationDto.class)
     @GetMapping("/approve/{verification_idx}")
     public ResponseEntity<VerificationDto> approveVerification(@PathVariable("verification_idx") Long verificationIdx) throws Exception {
@@ -64,5 +78,13 @@ public class VerificationController {
         }
 
         return new ResponseEntity<String>("verification delete success", HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "잔디잔디", response = VerificationDto.class)
+    @GetMapping("/heatmap/{user_idx}")
+    public ResponseEntity<List<VerificationDto>> getVerificationByPeriod() {
+        List<VerificationDto> result = verificationService.getVerificationByPeriod();
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }
