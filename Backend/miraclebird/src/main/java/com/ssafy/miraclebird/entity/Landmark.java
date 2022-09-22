@@ -27,6 +27,9 @@ public class Landmark {
     private String tokenId;
 
     @Column(nullable = true)
+    private String hash;
+
+    @Column(nullable = true)
     private String title;
 
     @Column(nullable = true)
