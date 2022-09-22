@@ -29,4 +29,14 @@ public class LandmarkDaoImpl implements LandmarkDao {
 
         return landmarkEntity;
     }
+
+    @Override
+    public void saveLandmark(Landmark landmark) throws Exception {
+        try {
+            landmarkRepository.save(landmark);
+        }
+        catch (Exception e) {
+            throw new Exception();
+        }
+    }
 }

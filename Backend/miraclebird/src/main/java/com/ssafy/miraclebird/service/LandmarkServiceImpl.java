@@ -22,10 +22,12 @@ import java.util.stream.Collectors;
 public class LandmarkServiceImpl implements LandmarkService {
 
     private final LandmarkDao landmarkDao;
+    private final UserDao userDao;
 
     @Autowired
-    public LandmarkServiceImpl(LandmarkDao landmarkDao) {
+    public LandmarkServiceImpl(LandmarkDao landmarkDao, UserDao userDao) {
         this.landmarkDao = landmarkDao;
+        this.userDao = userDao;
     }
 
     @Override
@@ -41,6 +43,21 @@ public class LandmarkServiceImpl implements LandmarkService {
             return landmarkDto;
         }
         catch (Exception e) {
+            throw new Exception();
+        }
+    }
+
+    @Override
+    @Transactional
+    public void updateLandmarkSell(LandmarkDto landmarkDto, Long userIdx) throws Exception {
+        Landmark landmarkEntity = landmarkDao.getLandmark(landmarkDto.getLandmarkIdx());
+
+        if (landmarkEntity.getUser().getUserIdx() == userIdx) {
+            landmarkEntity.setSelling(landmarkDto.getSelling());
+            landmarkEntity.setSellPrice(landmarkDto.getSellPrice());
+            landmarkDao.saveLandmark(landmarkEntity);
+        }
+        else {
             throw new Exception();
         }
     }

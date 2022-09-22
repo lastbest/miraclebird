@@ -39,7 +39,7 @@ public class LandmarkDto {
 
     private Boolean selling;
 
-    private Boolean sellPrice;
+    private long sellPrice;
 
     private long userIdx;
 

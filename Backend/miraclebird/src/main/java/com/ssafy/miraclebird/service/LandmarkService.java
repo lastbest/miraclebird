@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface LandmarkService {
     LandmarkDto getLandmark(Long landmarkIdx) throws Exception;
+    void updateLandmarkSell(LandmarkDto landmarkDto, Long userIdx) throws Exception;
 }

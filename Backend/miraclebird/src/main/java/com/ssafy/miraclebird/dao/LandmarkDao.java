@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface LandmarkDao {
     Landmark getLandmark(Long landmarkIdx) throws Exception;
-
+    void saveLandmark(Landmark landmark) throws Exception;
 }

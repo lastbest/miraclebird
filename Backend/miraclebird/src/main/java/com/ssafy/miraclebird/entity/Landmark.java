@@ -51,7 +51,7 @@ public class Landmark {
     private Boolean selling;
 
     @Column(nullable = true, name = "sell_price")
-    private Boolean sellPrice;
+    private long sellPrice;
 
     /* 연관관계 매핑 */
     @ManyToOne(fetch = FetchType.LAZY)
