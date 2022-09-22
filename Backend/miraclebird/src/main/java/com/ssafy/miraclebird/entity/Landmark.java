@@ -23,6 +23,15 @@ public class Landmark {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long landmarkIdx;
 
+    @Column(nullable = true)
+    private String province;
+
+    @Column(nullable = true)
+    private String city;
+
+    @Column(nullable = true, name = "dong_code")
+    private int dongCode;
+
     @Column(nullable = true, name = "token_id")
     private String tokenId;
 
@@ -40,6 +49,9 @@ public class Landmark {
 
     @Column(nullable = true)
     private Boolean selling;
+
+    @Column(nullable = true, name = "sell_price")
+    private Boolean sellPrice;
 
     /* 연관관계 매핑 */
     @ManyToOne(fetch = FetchType.LAZY)

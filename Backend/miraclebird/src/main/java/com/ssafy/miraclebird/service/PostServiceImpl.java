@@ -42,7 +42,7 @@ public class PostServiceImpl implements PostService {
 
             for (PostDto postDto : postDtoList) {
                 User userEntity = userDao.getUserById(postDto.getUserIdx());
-                postDto.setRole(userEntity.getRole());
+                postDto.setUserRole(userEntity.getRole());
             }
 
             return postDtoList;
