@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const landmarkSlice = createSlice({
   name: "landmark",
-  initialState: { value: { name: "", desc: "" } },
+  initialState: { value: { index: "", name: "", desc: "" } },
   reducers: {
     selectLandmark: (state, action) => {
       state.value = action.payload;

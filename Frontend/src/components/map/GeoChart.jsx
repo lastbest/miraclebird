@@ -22,10 +22,12 @@ function GeoChart({ data }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [show1, setShow1] = useState(false);
+  const handleClose1 = () => setShow1(false);
+  const handleShow1 = () => setShow1(true);
 
   const [isListHover, setIsListHover] = useState(false);
-
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [imgUrl, setImgUrl] = useState("");
   const area = useSelector((state) => state.area.value);
   const landmark = useSelector((state) => state.landmark.value);
   const dispatch = useDispatch();
@@ -36,9 +38,20 @@ function GeoChart({ data }) {
   const [selectedCountry, setSelectedCountry] = useState(null);
   // will be called initially and on every data change
 
-  // console.log(spot);
+  useEffect(() => {
+    if (area.name == "korea" || area.name == null) {
+      setSelectedCountry(null);
+      setIsListHover(false);
+    }
+  }, [area]);
+  useEffect(() => {
+    setImgUrl("/src/assets/landmark/" + landmark.index + ".png");
+  }, [landmark]);
+
   useEffect(() => {
     const svg = select(svgRef.current);
+
+    console.log(imgUrl);
     // use resized dimensions
     // but fall back to getBoundingClientRect, if no dimensions yet.
     const { width, height } =
@@ -114,8 +127,10 @@ function GeoChart({ data }) {
         })
         .on("click", (event, d) => {
           console.log(d.name);
+          setImgUrl("/src/assets/landmark/" + landmark.index + ".png");
           dispatch(
             selectLandmark({
+              index: d.index,
               name: d.name,
               desc: d.desc,
             })
@@ -149,8 +164,10 @@ function GeoChart({ data }) {
         })
         .on("click", (event, d) => {
           console.log(d.name);
+          setImgUrl("/src/assets/landmark/" + landmark.index + ".png");
           dispatch(
             selectLandmark({
+              index: d.index,
               name: d.name,
               desc: d.desc,
             })
@@ -223,8 +240,30 @@ function GeoChart({ data }) {
       .attr("fill", "blue");
   }, [data, dimensions, selectedCountry]);
 
+  const result = [];
+  for (var i = 0; i < spot.length; i++) {
+    for (var j = 0; j < spot[i].landmark.length; j++) {
+      var tempUrl = spot[i].landmark[j].index;
+      var tempUrl1 = "/src/assets/landmark/" + tempUrl + ".png";
+
+      result.push(
+        <div key={i}>
+          <img src={tempUrl1}></img>
+          <br />
+          {spot[i].landmark[j].name}
+        </div>
+      );
+    }
+  }
+
   return (
     <>
+      <div className={styles.upper}>
+        <button className={styles.connect} onClick={() => handleShow1()}>
+          전체보기
+        </button>
+      </div>
+
       {area.name == "korea" ? null : (
         <img
           src={isListHover ? back_1 : back}
@@ -252,12 +291,10 @@ function GeoChart({ data }) {
           }}
         />
       )}
-
       <div ref={wrapperRef} style={{ marginBottom: "2rem" }}>
         {selectedCountry !== null ? <div>{area.name}</div> : <div></div>}
         <svg ref={svgRef}></svg>
       </div>
-
       <Modal
         centered
         show={show}
@@ -265,14 +302,13 @@ function GeoChart({ data }) {
         backdrop="static"
         keyboard={false}
         className={styles.dialog}>
-        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Header className={styles.modalheader} closeButton>
+          {landmark.index}
+        </Modal.Header>
         <Modal.Body className={styles.body}>
           <div className={styles.modalcontent}>
-            <img
-              src="/landmark_lotteworld.png"
-              alt="mm"
-              className={styles.picture}
-            />
+            <img src={imgUrl} alt="mm" className={styles.picture} />
+
             <div className={styles.detail}>
               <p>{landmark.name}</p>
               <div className={styles.purchase}>
@@ -296,46 +332,16 @@ function GeoChart({ data }) {
       </Modal>
 
       <Modal
-        isOpen={modalIsOpen}
-        appElement={document.getElementById("root") || undefined}
-        className={styles.modal}>
-        <div className={styles.modalHeader}>
-          <button
-            onClick={() => setModalIsOpen(false)}
-            className={styles.closebtn}>
-            X
-          </button>
-        </div>
-        <div className={styles.modalcontent}>
-          {landmark.name == "롯데월드" ? (
-            <img
-              src="/landmark_lotteworld.png"
-              alt="mm"
-              className={styles.picture}
-            />
-          ) : (
-            <img src="/landmark_jnu.png" alt="mm" className={styles.picture} />
-          )}
-
-          <div className={styles.detail}>
-            <p>{landmark.name}</p>
-            <div className={styles.purchase}>
-              {landmark.desc != null ? (
-                <div className={styles.desc}>{landmark.desc}</div>
-              ) : (
-                <></>
-              )}
-
-              <LineChart className={styles.chart} />
-
-              <div className={styles.reward}>
-                <img alt="coin" src="/mira.png" className={styles.coin}></img>
-                <p>300 MIRA</p>
-                <button className={styles.btn}>구입</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        centered
+        show={show1}
+        onHide={handleClose1}
+        backdrop="static"
+        keyboard={false}
+        className={styles.dialog}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.body}>
+          <div className={styles.modalcontent}>{result}</div>
+        </Modal.Body>
       </Modal>
     </>
   );
