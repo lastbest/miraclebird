@@ -19,9 +19,9 @@
     border-radius: 20px;
     color: white;
     font-family: 'neodgm';
-    width:80px;
+    /* width:80px; */
     height:30px;
-    font-size: 18px;
+    /* font-size: 18px; */
     text-align: center;
 }
 
@@ -33,13 +33,13 @@
     flex-direction: column;
 }
 
-.metamask {
+.wallet {
     width:120px;
     margin: auto;
     margin-bottom: 10px;
 }
 
-.metamaskbtn {
+.walletbtn {
     border: none;
     border-radius: 20px;
     background-color: #ffe969 ;
@@ -48,6 +48,21 @@
     font-size: 20px;
     width:120px;
     margin: auto;
+    color:black;
+}
+
+.walletAddress {
+    margin: auto;
+}
+
+.walletAddressText {
+    font-size: 20px;
+    background-color: #ffe969;
+    width:120px;
+}
+
+.walletText {
+    font-size: 20px;
 }
 
 .profileupload {
@@ -200,7 +215,7 @@
     font-size:15px;
     padding:2px;
     color:black;
-
+    background-color: white;
 }
 
 
@@ -401,6 +416,7 @@
     font-size: 15px;
     margin: auto;
     margin-right:10px;
+    color:black;
 }
 
 .btnCt {
