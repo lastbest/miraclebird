@@ -19,9 +19,14 @@
 .createbtn {
     background-color: white;
     border:none;
+    margin-right:10px;
 }
 
 .pencilicon {
     width:25px;
     height:25px;
+}
+
+.communitytext {
+    font-size: 20px;
 }
