@@ -11,12 +11,13 @@
 
 .nftCt {
     width:80%;
+    height:50vh;
     margin:auto;
 }
 
 .nftImgCt {
-    width:90%;
-    height:90%;
+    width:250px;
+    height:250px;
     margin:auto;
     text-align: center;
 }
@@ -24,9 +25,9 @@
 .nftsCt {
    
     margin:auto;
-    margin-top:20px;
     /* overflow-y: initial !important; */
-    height:50%;
+    position: fixed;
+    bottom:50px;
 }
 
 .nftsImgCt {
@@ -34,11 +35,11 @@
     grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
     grid-gap: 15px;
     overflow-y: scroll;
-    height:30vh;
+    height:40vh;
 }
 
 .nfturl {
-    width:90%;
+    width:80%;
     margin: auto;
 }
 
@@ -75,6 +76,8 @@
 
 .numbertext {
   margin: auto;
+  display: flex;
+  flex-direction: row;
 }
 
 .arrowoptions {
@@ -94,62 +97,6 @@
   height:50px;
 }
 
-.arrowAnim {
-    /* width: 10%; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .arrow {
-    width: 3vw;
-    height: 3vw;
-    border: 1vw solid;
-    border-color: #0930a5  transparent transparent #0930a5 ;
-    transform: rotate(-45deg);
-  }
-  
-  
-  .arrowSliding {
-    position: absolute;
-    -webkit-animation: slide 4s linear infinite; 
-            animation: slide 4s linear infinite;
-  }
-  
-  .arrowSliding_delay1 {
-    position: absolute;
-    -webkit-animation: slide 4s linear infinite; 
-            animation: slide 4s linear infinite;
-    -webkit-animation-delay: 1s; 
-      animation-delay: 1s;
-  }
-  .arrowSliding_delay2 {
-    position: absolute;
-    -webkit-animation: slide 4s linear infinite; 
-            animation: slide 4s linear infinite;
-    -webkit-animation-delay: 2s; 
-      animation-delay: 2s;
-  }
-  .arrowSliding_delay3 {
-    position: absolute;
-    -webkit-animation: slide 4s linear infinite; 
-            animation: slide 4s linear infinite;
-    -webkit-animation-delay: 3s; 
-      animation-delay: 3s;
-  }
-  
-  @-webkit-keyframes slide {
-      0% { opacity:0; transform: translateX(15vw); }	
-     20% { opacity:1; transform: translateX(9vw); }	
-     80% { opacity:1; transform: translateX(-9vw); }	
-    100% { opacity:0; transform: translateX(-15vw); }	
-  }
-  @keyframes slide {
-      0% { opacity:0; transform: translateX(15vw); }	
-     20% { opacity:1; transform: translateX(9vw); }	
-     80% { opacity:1; transform: translateX(-9vw); }	
-    100% { opacity:0; transform: translateX(-15vw); }	
-  }
 
   .levelbtnct {
     /* margin-top:20px; */
@@ -179,7 +126,7 @@
     position: relative;
     transition: .4s;
     transform-style: preserve-3d;
-    margin-top: -200px;
+    margin-top: -250px;
     z-index: 0 !important;
   }	
 
@@ -209,15 +156,67 @@
 
   .shimmer {
     opacity: 80%;
+    width:250px;
+    height:250px;
     position: relative;
     z-index: 9999 !important;
   
   }
 
   .lottie {
-    height:200px;
+    width:250px;
+    height:250px;
   }
 
   .shimmereffect {
     border:20px;
   }
+
+  .effectCt {
+    width:30vh;
+    height:30vh;
+  }
+
+  .modalheader {
+    border: none !important;
+    font-family: 'neodgm';
+    padding-bottom:0 !important;
+  }
+
+  .modalcontent {
+    font-family: 'neodgm';
+    text-align: center;
+    font-size:20px;
+  }
+
+.successCardCt {
+  text-align: center;
+}
+
+  .success {
+    width:250px;
+    height:250px;
+    margin: auto;
+  }
+
+  .successCard {
+    width:200px;
+    height:200px;
+    margin-top:-250px;
+  }
+
+  .failCardCt {
+    text-align: center;
+  }
+  
+    .fail {
+      width:250px;
+      height:250px;
+      margin: auto;
+    }
+  
+    .failCard {
+      width:200px;
+      height:200px;
+      margin-top:-250px;
+    }
