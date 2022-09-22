@@ -13,6 +13,9 @@ import success from "../components/animation/success2.json";
 import fail from "../components/animation/fail.json";
 import crack from "../components/animation/crack.json";
 import fall from "../components/animation/fall.json";
+import Tooltip from "react-bootstrap/Tooltip";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import "./Reinforce.css"
 
 
 function Reinforce () {
@@ -70,7 +73,24 @@ function Reinforce () {
 
     return (
         <>
-        <button className={styles.backbtn} onClick={()=>{navigate("/mypage")}}><img alt="back" src="/back.png" className={styles.backicon} /></button>
+        <div className={styles.Header}>
+            <button className={styles.backbtn} onClick={()=>{navigate("/mypage")}}><img alt="back" src="/back.png" className={styles.backicon} /></button>
+            <OverlayTrigger 
+            placement="bottom"
+            overlay={
+                <Tooltip>
+                    <div className={styles.tooltiptext}><img alt="nft" src="/nftenhance.png" className={styles.nfticon}/>강화 확률</div>
+                    <div className={styles.tooltiptext}>1강 → 2강: 90%</div>
+                    <div className={styles.tooltiptext}>2강 → 3강: 75%</div>
+                    <div className={styles.tooltiptext}>3강 → 4강: 60%</div>
+                    <div className={styles.tooltiptext}>4강 → 5강: 45%</div>
+                    <div className={styles.tooltiptext}>5강 → 6강: 30%</div>
+                    <div className={styles.tooltiptext}>6강 → 7강: 10%</div>
+                </Tooltip>
+            }>
+                <img alt="notice" src="/attention.png" className={styles.noticeicon}/>
+            </OverlayTrigger>
+        </div>
         
         <div className={styles.nftCt}>
             <div className={styles.nftImgCt}>
@@ -102,13 +122,13 @@ function Reinforce () {
                 </>
                     }
                     <div className={styles.leveltext}>
-                    <div className={styles.numbertext}>
-                        <div>{level}</div>
-                        <div>강</div>
-                    </div>
-                    <div className={styles.arrowCt}>
-                        <Lottie animationData={arrow} loop={true} className={styles.arrows} />
-                    </div>
+                        <div className={styles.numbertext}>
+                            <div>{level}</div>
+                            <div>강</div>
+                            </div>
+                        <div className={styles.arrowCt}>
+                            <Lottie animationData={arrow} loop={true} className={styles.arrows} />
+                        </div>
 
                     <div className={styles.numbertext}>
                         <div>{level+1}</div>

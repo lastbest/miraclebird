@@ -1,7 +1,12 @@
+.Header {
+  display:flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
 .backbtn {
     background-color: white;
     border:none;
-    margin-top:10px;
 }
 
 .backicon {
@@ -9,33 +14,41 @@
     height:25px;
 }
 
-.nftCt {
-    width:80%;
-    height:50vh;
-    margin:auto;
+.noticeicon {
+  width:25px;
+  height:25px;
+  margin:auto;
+  margin-right: 5%;
 }
 
-.nftImgCt {
-    width:250px;
-    height:250px;
+.nftCt {
+    width:80%;
+    height:40vh;
     margin:auto;
-    text-align: center;
 }
 
 .nftsCt {
-   
     margin:auto;
-    /* overflow-y: initial !important; */
-    position: fixed;
+    position: absolute;
     bottom:50px;
+    overflow-y: scroll;
+    height:30vh;
 }
+
+.nftImgCt {
+    width:30vh;
+    height:30vh;
+    margin:auto;
+    text-align: center;
+    position:relative;
+}
+
 
 .nftsImgCt {
     display:grid;
     grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
     grid-gap: 15px;
-    overflow-y: scroll;
-    height:40vh;
+
 }
 
 .nfturl {
@@ -49,7 +62,7 @@
     width: 100%; 
     height: 100%;
 
-    backface-visibility: hidden;
+    /* backface-visibility: hidden; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -57,7 +70,7 @@
 }
 
 .background {
-    width:90%;
+    width:100%;
 }
 /* 
 .nfttext {
@@ -98,10 +111,6 @@
 }
 
 
-  .levelbtnct {
-    /* margin-top:20px; */
-  }
-
   .levelbtn {
     background-color: #0930a5;
     font-size:25px;
@@ -116,17 +125,16 @@
     width:30vh;
     height:30vh;
     perspective: 1200px;
-    position: relative;
-    margin:auto;
   }
 
   .card {
-    width:100%;
-    height:100%;
+    width:30vh;
+    height:30vh;
     position: relative;
     transition: .4s;
     transform-style: preserve-3d;
-    margin-top: -250px;
+    margin: auto;
+    margin-top: -30vh;
     z-index: 0 !important;
   }	
 
@@ -156,20 +164,16 @@
 
   .shimmer {
     opacity: 80%;
-    width:250px;
-    height:250px;
+    width:30vh;
+    height:30vh;
     position: relative;
     z-index: 9999 !important;
-  
+    margin:auto;
   }
 
   .lottie {
-    width:250px;
-    height:250px;
-  }
-
-  .shimmereffect {
-    border:20px;
+    width:200px;
+    height:200px;
   }
 
   .effectCt {
@@ -220,3 +224,16 @@
       height:200px;
       margin-top:-250px;
     }
+.leveltext, .levelbtnct {
+  height: 8vh;
+}
+
+.nfticon {
+  width:15px;
+  height:15px;
+  margin-right:3px;
+}
+
+.tooltiptext {
+  font-family: 'neodgm';
+}
