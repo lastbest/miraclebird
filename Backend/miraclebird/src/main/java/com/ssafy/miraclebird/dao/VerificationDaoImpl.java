@@ -1,6 +1,7 @@
 package com.ssafy.miraclebird.dao;
 
 
+import com.ssafy.miraclebird.entity.Post;
 import com.ssafy.miraclebird.entity.Verification;
 import com.ssafy.miraclebird.repository.VerificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,16 @@ public class VerificationDaoImpl implements VerificationDao {
     }
 
     @Override
+    public void saveVerification(Verification verification) throws Exception {
+        try {
+            verificationRepository.save(verification);
+        }
+        catch (Exception e) {
+            throw new Exception();
+        }
+    }
+
+    @Override
     public Verification approveVerification(long verificationIdx, long updateApproval) throws Exception {
         Verification verificationEntity = verificationRepository.getById(verificationIdx);
 
@@ -52,5 +63,9 @@ public class VerificationDaoImpl implements VerificationDao {
         }
     }
 
-
+    @Override
+    public List<Verification> getVerificationByPeriod() {
+        List<Verification> verificationEntity = verificationRepository.findAll();
+        return verificationEntity;
+    }
 }
