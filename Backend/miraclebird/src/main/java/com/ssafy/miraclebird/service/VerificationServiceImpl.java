@@ -48,7 +48,7 @@ public class VerificationServiceImpl implements VerificationService {
 
     @Override
     @Transactional
-    public void uploadVerification(VerificationDto verificationDto, Long userIdx) throws Exception {
+    public void uploadVerification(VerificationDto verificationDto) throws Exception {
         try {
             Verification verificationEntity = new Verification();
             verificationEntity.setChallenge(challengeDao.getChallengeById(verificationDto.getChallengeIdx()));

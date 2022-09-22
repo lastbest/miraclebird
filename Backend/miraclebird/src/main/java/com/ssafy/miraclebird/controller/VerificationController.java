@@ -41,9 +41,9 @@ public class VerificationController {
 
     @ApiOperation(value = "챌린지인증샷을 등록한다.", response = VerificationDto.class)
     @PostMapping
-    public ResponseEntity<String> createPost(@RequestBody VerificationDto verificationDto, @RequestParam("user_idx") Long userIdx) {
+    public ResponseEntity<String> createPost(@RequestBody VerificationDto verificationDto) {
         try {
-            verificationService.uploadVerification(verificationDto, userIdx);
+            verificationService.uploadVerification(verificationDto);
         }
         catch (Exception e) {
             throw new RuntimeException();
