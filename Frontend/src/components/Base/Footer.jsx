@@ -9,8 +9,6 @@ import { login } from "../../store/user";
 
 function Footer() {
   const navigate = useNavigate();
-  const [authenticated, setAuthenticated] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
 
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
@@ -23,11 +21,7 @@ function Footer() {
   function loadCurrentlyLoggedInUser() {
     getCurrentUser()
       .then((response) => {
-        setAuthenticated(true);
-        setCurrentUser(response);
         dispatch(login(response));
-
-        console.log(authenticated);
       })
       .catch((error) => {
         handleShow();
