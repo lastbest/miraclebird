@@ -13,7 +13,7 @@ import PostView from "./components/community/PostView";
 import MiracleMorning from "./pages/MiracleMorning";
 import Study from "./pages/Study";
 import Health from "./pages/Health";
-import MiracleFeed from "./components/common/MiracleFeed";
+import MiracleFeed from "./components/Feed/MiracleFeed";
 import MyPage from "./pages/MyPage";
 import Reinforce from "./pages/Reinforce";
 import Login from "./pages/Login";
@@ -22,6 +22,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import OAuth2RedirectHandler from "./oauth2/OAuth2RedirectHandler";
 import UpdatePost from "./components/community/UpdatePost";
 import Deposit from "./pages/Deposit";
+import HealthFeed from "./components/Feed/HealthFeed";
+import StudyFeed from "./components/Feed/StudyFeed";
 
 function App() {
   return (
@@ -55,6 +57,12 @@ function App() {
             <Route
               path="/challenge/morning/feed"
               element={<MiracleFeed />}></Route>
+            <Route
+              path="/challenge/health/feed"
+              element={<HealthFeed />}></Route>
+            <Route
+              path="/challenge/study/feed"
+              element={<StudyFeed />}></Route>
             <Route path="/mypage" element={<MyPage />}></Route>
             <Route path="/reinforce" element={<Reinforce />}></Route>
           </Routes>

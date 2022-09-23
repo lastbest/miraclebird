@@ -29,22 +29,23 @@ public class Landmark {
     @Column(nullable = true)
     private String hash;
 
-    @Column(nullable = true)
-    private String title;
-
-    @Column(nullable = true)
-    private String content;
-
     @Column(nullable = true, name = "star_force")
-    private int starForce;
+    private long starForce;
 
     @Column(nullable = true)
     private Boolean selling;
+
+    @Column(nullable = true, name = "sell_price")
+    private long sellPrice;
 
     /* 연관관계 매핑 */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userIdx")
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "landmarkInfoIdx")
+    private Landmark_Info landmarkInfo;
 
     @OneToMany(mappedBy = "landmark")
     List<Price> price = new ArrayList<>();

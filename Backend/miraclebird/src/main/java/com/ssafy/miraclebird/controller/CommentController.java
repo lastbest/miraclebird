@@ -28,7 +28,7 @@ public class CommentController {
 
     @ApiOperation(value = "post_idx에 해당하는 게시글의 전체 댓글 정보를 반환한다", response = List.class)
     @GetMapping("/{post_idx}")
-    public ResponseEntity<List<CommentDto>> getCommentALL(@PathVariable("post_idx") Long postIdx) {
+    public ResponseEntity<List<CommentDto>> getCommentAll(@PathVariable("post_idx") Long postIdx) {
         List<CommentDto> result = null;
 
         try {

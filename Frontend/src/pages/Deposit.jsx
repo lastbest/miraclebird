@@ -37,6 +37,9 @@ function Deposit () {
             <div className={styles.contextheader}>
                 챌린지 달성률 85% 이상 시 참가비 전액을 돌려드려요!
             </div>
+            <div className={styles.contextdetail}>
+                챌린지 인증 시 획득하는 MIRA의 양이 2배가 됩니다!
+            </div>
             <div className={styles.imgCt}>
                 <img alt="morning" src="/morning.png" className={styles.morningicon}/>
                 <img alt="health" src="/exercise.png" className={styles.healthicon}/>
