@@ -37,7 +37,7 @@ function Challenge() {
               src="/exercise.png"
               className={styles.healthicon}
             />
-            <div className={styles.healthtext}>Exercising</div>
+            <div className={styles.healthtext}>Exercise</div>
             <div className={styles.healthdetail}>
               운동은 하루 한 번 인증가능합니다.
             </div>

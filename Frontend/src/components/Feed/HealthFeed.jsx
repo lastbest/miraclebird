@@ -13,7 +13,7 @@ function HealthFeed () {
     return (
         <>
         <div className={styles.feedHeader}>
-            <button className={styles.backbtn} onClick={()=>(navigate('/challenge/health'))}><img alt="back" src="/back.png" className={styles.backicon} /> Health</button>
+            <button className={styles.backbtn} onClick={()=>(navigate('/challenge/health'))}><img alt="back" src="/back.png" className={styles.backicon} /> Exercise</button>
         </div>
         <div className={styles.feeds}>
             <div className={styles.feed}>

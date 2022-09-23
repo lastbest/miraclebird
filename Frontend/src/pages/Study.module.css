@@ -2,6 +2,7 @@
     background-color: white;
     border:none;
     margin-top:10px;
+    color:black;
 }
 
 .backicon {
@@ -67,4 +68,5 @@
     padding:5px;
     padding-left:10px;
     padding-right:10px;
+    color:black;
 }
