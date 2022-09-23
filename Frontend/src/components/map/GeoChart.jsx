@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { select, geoPath, geoMercator } from "d3";
 import useResizeObserver from "./useResizeObserver";
 import { useDispatch } from "react-redux";
@@ -31,6 +32,7 @@ function GeoChart({ data }) {
   const area = useSelector((state) => state.area.value);
   const landmark = useSelector((state) => state.landmark.value);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const svgRef = useRef();
   const wrapperRef = useRef();
@@ -259,7 +261,9 @@ function GeoChart({ data }) {
   return (
     <>
       <div className={styles.upper}>
-        <button className={styles.connect} onClick={() => handleShow1()}>
+        <button
+          className={styles.connect}
+          onClick={() => navigate("/landmark")}>
           전체보기
         </button>
       </div>
