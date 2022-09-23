@@ -1,10 +1,7 @@
 package com.ssafy.miraclebird.service;
 
 import com.ssafy.miraclebird.dao.*;
-import com.ssafy.miraclebird.dto.PostDto;
 import com.ssafy.miraclebird.dto.VerificationDto;
-import com.ssafy.miraclebird.entity.Challenge;
-import com.ssafy.miraclebird.entity.Post;
 import com.ssafy.miraclebird.entity.Verification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,12 +78,26 @@ public class VerificationServiceImpl implements VerificationService {
 
     @Override
     @Transactional
-    public List<VerificationDto> getVerificationByPeriod() {
-        List<Verification> verificationEntity = verificationDao.getVerificationByPeriod();
+    public List<VerificationDto> getVerificationByPeriod(Long userIdx, LocalDateTime startDate, LocalDateTime endDate) {
+        List<Verification> verificationEntity = verificationDao.getVerificationByPeriod(userIdx, startDate, endDate);
         List<VerificationDto> verificationDtos = new ArrayList<>();
         for (int i = 0; i < verificationEntity.size(); i++) {
             verificationDtos.add(VerificationDto.of(verificationEntity.get(i)));
         }
         return verificationDtos;
+    }
+
+    @Override
+    @Transactional
+    public List<String> getRankByCount() {
+        List<String> stringEntity = verificationDao.getRankByCount();
+        return stringEntity;
+    }
+
+    @Override
+    @Transactional
+    public List<String> getRankByStreak() {
+        List<String> stringEntity = verificationDao.getRankByStreak();
+        return stringEntity;
     }
 }

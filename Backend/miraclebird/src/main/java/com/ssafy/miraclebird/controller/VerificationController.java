@@ -1,6 +1,5 @@
 package com.ssafy.miraclebird.controller;
 
-import com.ssafy.miraclebird.dto.PostDto;
 import com.ssafy.miraclebird.dto.VerificationDto;
 import com.ssafy.miraclebird.service.VerificationService;
 import io.swagger.annotations.Api;
@@ -10,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -80,10 +81,30 @@ public class VerificationController {
         return new ResponseEntity<String>("verification delete success", HttpStatus.OK);
     }
 
-    @ApiOperation(value = "잔디잔디", response = VerificationDto.class)
+    @ApiOperation(value = "챌린지 참가내역(마이페이지 잔디) 가져오기", response = VerificationDto.class)
     @GetMapping("/heatmap/{user_idx}")
-    public ResponseEntity<List<VerificationDto>> getVerificationByPeriod() {
-        List<VerificationDto> result = verificationService.getVerificationByPeriod();
+    public ResponseEntity<List<VerificationDto>> getVerificationByPeriod(@PathVariable("user_idx") Long userIdx, @RequestParam("start_date") String startDate, @RequestParam("end_date") String endDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss.SSS");
+        LocalDateTime startDate_parsed = LocalDateTime.parse(startDate, formatter);
+        LocalDateTime endDate_parsed = LocalDateTime.parse(endDate, formatter);
+
+        List<VerificationDto> result = verificationService.getVerificationByPeriod(userIdx, startDate_parsed, endDate_parsed);
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @ApiOperation(value = "챌린지 성공 랭킹", response = VerificationDto.class)
+    @GetMapping("/ranking/")
+    public ResponseEntity<List<String>> getRankByCount() {
+        List<String> result = verificationService.getRankByCount();
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @ApiOperation(value = "챌린지 유지 랭킹", response = VerificationDto.class)
+    @GetMapping("/ranking/streak")
+    public ResponseEntity<List<String>> getRankByStreak() {
+        List<String> result = verificationService.getRankByStreak();
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }

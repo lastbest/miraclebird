@@ -1,21 +1,25 @@
 package com.ssafy.miraclebird.dao;
 
 
-import com.ssafy.miraclebird.entity.Post;
 import com.ssafy.miraclebird.entity.Verification;
 import com.ssafy.miraclebird.repository.VerificationRepository;
+import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
+import com.ssafy.miraclebird.securityOauth.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
 public class VerificationDaoImpl implements VerificationDao {
     private final VerificationRepository verificationRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public VerificationDaoImpl(VerificationRepository verificationRepository){
+    public VerificationDaoImpl(VerificationRepository verificationRepository, UserRepository userRepository){
         this.verificationRepository = verificationRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -64,8 +68,20 @@ public class VerificationDaoImpl implements VerificationDao {
     }
 
     @Override
-    public List<Verification> getVerificationByPeriod() {
-        List<Verification> verificationEntity = verificationRepository.findAll();
+    public List<Verification> getVerificationByPeriod(Long userIdx, LocalDateTime startDate, LocalDateTime endDate) {
+        User user = userRepository.getById(userIdx);
+        List<Verification> verificationEntity = verificationRepository.findByUserAndRegtimeBetween(user,startDate,endDate);
         return verificationEntity;
+    }
+
+    @Override
+    public List<String> getRankByCount() {
+        List<String> stringEntity = verificationRepository.getRankByCount();
+        return stringEntity;
+    }
+    @Override
+    public List<String> getRankByStreak() {
+        List<String> stringEntity = verificationRepository.getRankByStreak();
+        return stringEntity;
     }
 }
