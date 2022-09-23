@@ -71,6 +71,7 @@ public class LandmarkServiceImpl implements LandmarkService {
             landmarkEntity.setSelling(false);
             landmarkEntity.setUser(userDao.getUserById((long)1));
             landmarkDao.saveLandmark(landmarkEntity);
+
             landmarkEntity = landmarkDao.getLandmark(landmarkDto.getStarForce(), landmarkEntity.getLandmarkInfo().getLandmarkInfoIdx());
             landmarkEntity.setSelling(false);
             landmarkEntity.setUser(userDao.getUserById(userIdx));
