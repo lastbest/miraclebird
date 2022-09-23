@@ -1,7 +1,6 @@
 package com.ssafy.miraclebird.dao;
 
 
-import com.ssafy.miraclebird.entity.Post;
 import com.ssafy.miraclebird.entity.Verification;
 import com.ssafy.miraclebird.repository.VerificationRepository;
 import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
@@ -73,5 +72,16 @@ public class VerificationDaoImpl implements VerificationDao {
         User user = userRepository.getById(userIdx);
         List<Verification> verificationEntity = verificationRepository.findByUserAndRegtimeBetween(user,startDate,endDate);
         return verificationEntity;
+    }
+
+    @Override
+    public List<String> getRankByCount() {
+        List<String> stringEntity = verificationRepository.getRankByCount();
+        return stringEntity;
+    }
+    @Override
+    public List<String> getRankByStreak() {
+        List<String> stringEntity = verificationRepository.getRankByStreak();
+        return stringEntity;
     }
 }

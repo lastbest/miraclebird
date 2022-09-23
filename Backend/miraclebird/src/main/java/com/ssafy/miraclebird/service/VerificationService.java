@@ -1,7 +1,6 @@
 package com.ssafy.miraclebird.service;
 
 import com.ssafy.miraclebird.dto.VerificationDto;
-import com.ssafy.miraclebird.entity.Verification;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,4 +12,6 @@ public interface VerificationService {
     VerificationDto approveVerification(long verificationId, long updateApproval) throws Exception;
     void deleteVerificationInfo(long verificationId, long userId) throws Exception;
     List<VerificationDto> getVerificationByPeriod(Long userIdx, LocalDateTime startDate, LocalDateTime endDate);
+    List<String> getRankByCount();
+    List<String> getRankByStreak();
 }
