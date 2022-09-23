@@ -26,7 +26,7 @@ public class PostDto {
 
     private long userIdx;
 
-    private Role role;
+    private Role userRole;
 
     public static PostDto of(Post postEntity) {
         PostDto postDto = ModelMapperUtils.getModelMapper().map(postEntity, PostDto.class);
