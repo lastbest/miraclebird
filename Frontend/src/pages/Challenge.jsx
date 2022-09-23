@@ -29,7 +29,7 @@ function Challenge() {
           <div className={styles.morningdetail}>
             미라클 모닝은 오전 4시부터 7시까지만 인증가능합니다.
           </div>
-          <button onClick={() => (navigate("/challenge/morning"))} className={styles.morningsearchbtn}>둘러보기</button>
+          <button onClick={() => (navigate("/challenge/morning"))} className={styles.morningsearchbtn}>알아보기</button>
         </div>
         <div className={styles.health}>
           <img
@@ -41,7 +41,7 @@ function Challenge() {
             <div className={styles.healthdetail}>
               운동은 하루 한 번 인증가능합니다.
             </div>
-            <button onClick={() => (navigate("/challenge/health"))} className={styles.healthsearchbtn}>둘러보기</button>
+            <button onClick={() => (navigate("/challenge/health"))} className={styles.healthsearchbtn}>알아보기</button>
           </div>
         <div className={styles.study}>
           <img
@@ -53,7 +53,7 @@ function Challenge() {
             <div className={styles.studydetail}>
               스터디는 하루 한 번 인증가능합니다.
             </div>
-            <button onClick={() => (navigate("/challenge/study"))} className={styles.studysearchbtn}>둘러보기</button>
+            <button onClick={() => (navigate("/challenge/study"))} className={styles.studysearchbtn}>알아보기</button>
         </div>
         
 
