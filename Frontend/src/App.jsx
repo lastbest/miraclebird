@@ -17,6 +17,7 @@ import MiracleFeed from "./components/Feed/MiracleFeed";
 import MyPage from "./pages/MyPage";
 import Reinforce from "./pages/Reinforce";
 import Login from "./pages/Login";
+import Landmark from "./pages/Landmark";
 import "bootstrap/dist/css/bootstrap.min.css";
 import OAuth2RedirectHandler from "./oauth2/OAuth2RedirectHandler";
 import UpdatePost from "./components/community/UpdatePost";
@@ -38,18 +39,15 @@ function App() {
               element={<OAuth2RedirectHandler />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/store" element={<Store />}></Route>
+            <Route path="/landmark" element={<Landmark />}></Route>
             <Route path="/camera" element={<Camera />}></Route>
             <Route path="/challenge" element={<Challenge />}></Route>
             <Route path="/community" element={<Community />}></Route>
+            <Route path="/community/create" element={<CreatePost />}></Route>
             <Route
-              path="/community/create"
-              element={<CreatePost />}></Route>
-              <Route
               path="/community/update/:no"
               element={<UpdatePost />}></Route>
-            <Route
-              path="/community/:no"
-              element={<PostView />}></Route>
+            <Route path="/community/:no" element={<PostView />}></Route>
             <Route
               path="/challenge/morning"
               element={<MiracleMorning />}></Route>

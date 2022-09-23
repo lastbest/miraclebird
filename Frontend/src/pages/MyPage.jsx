@@ -164,7 +164,7 @@ function MyPage() {
       <div className={styles.profile}>
         <div className={styles.profileimg}>
           <img
-            src={Image}
+            src={user.information.imageUrl}
             className={styles.profileupload}
             onClick={() => {
               fileInput.current.click();
@@ -179,7 +179,7 @@ function MyPage() {
             ref={fileInput}
           />
           <div className={styles.nicknamebox}>
-            <div className={styles.nickname}>{credentials}</div>
+            <div className={styles.nickname}>{user.information.name}</div>
             <button className={styles.pencilbtn} onClick={handleShow2}>
               <img src="/pencil.png" alt="pencil" className={styles.pencil} />
             </button>
@@ -191,7 +191,7 @@ function MyPage() {
             <div className={styles.nfttext}>보유 NFT</div>
           </div>
           <div className={styles.detail2}>
-            <div className={styles.mira}>100</div>
+            <div className={styles.mira}>{user.information.mira}</div>
             <div className={styles.miratext}>보유 MIRA</div>
           </div>
           <div className={styles.detail3}>
@@ -318,11 +318,7 @@ function MyPage() {
         keyboard={false}>
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.modalcontent} closeButton>
-          <img
-            alt="wallet"
-            src="/wallet.png"
-            className={styles.wallet}
-          />
+          <img alt="wallet" src="/wallet.png" className={styles.wallet} />
           <button className={styles.walletbtn}>연결하기</button>
           <div className={styles.walletAddress}>
             <div className={styles.walletAddressText}>지갑 주소</div>
