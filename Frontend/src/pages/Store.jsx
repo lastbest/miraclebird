@@ -7,14 +7,18 @@ import Gwangju from "../assets/json/Gwangju.json";
 import Gyeongbuk from "../assets/json/Gyeongbuk.json";
 import Jeju from "../assets/json/Jeju.json";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { selectArea } from "../store/area";
 
 function Store() {
   const area = useSelector((state) => state.area.value);
+  const dispatch = useDispatch();
   let [alert, alertSet] = useState(false);
 
   useEffect(() => {
     let timer = setTimeout(() => {
       alertSet(true);
+      dispatch(selectArea({ name: "korea" }));
     }, 100);
   }, [alert]);
 
