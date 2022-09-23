@@ -135,8 +135,8 @@
 
 .detailCt {
     margin: auto;
-    margin-top: 50px;
-    margin-bottom:50px;
+    margin-top: 40px;
+    margin-bottom:40px;
     width:80%;
     border: 1px dashed lightgray;
     padding:10px;
@@ -156,4 +156,11 @@
 .detail2 {
     color: gray;
     font-size: 12px;
+}
+
+.contextdetail {
+    font-size: 15px;
+    word-break: keep-all;
+    color: #0930a5 ;
+    opacity: 80%;
 }
