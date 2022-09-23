@@ -25,6 +25,21 @@ public class LandmarkController {
         this.landmarkService = landmarkService;
     }
 
+    @ApiOperation(value = "user_idx가 소유한 전체 NFT랜드마크 정보를 반환한다.", response = List.class)
+    @GetMapping("/user/{user_idx}")
+    public ResponseEntity<List<LandmarkDto>> getLandmarkAll(@PathVariable("user_idx") Long userIdx) {
+        List<LandmarkDto> result = null;
+
+        try {
+            result = landmarkService.getLandmarkAll(userIdx);
+        }
+        catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
     @ApiOperation(value = "landmark_idx에 해당하는 NFT랜드마크 정보를 반환한다.", response = LandmarkDto.class)
     @GetMapping("/{landmark_idx}")
     public ResponseEntity<LandmarkDto> getLandmark(@PathVariable("landmark_idx") Long landmarkIdx) {

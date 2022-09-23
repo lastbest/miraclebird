@@ -25,7 +25,7 @@ public class PostController {
 
     @ApiOperation(value = "전체 게시글 정보를 반환한다.", response = List.class)
     @GetMapping
-    public ResponseEntity<List<PostDto>> getPostALL() {
+    public ResponseEntity<List<PostDto>> getPostAll() {
         List<PostDto> result = null;
 
         try {
@@ -51,7 +51,7 @@ public class PostController {
         return new ResponseEntity<String>("success",HttpStatus.OK);
     }
 
-    @ApiOperation(value = "post_idx 해당하는 게시글 정보를 반환한다.", response = PostDto.class)
+    @ApiOperation(value = "post_id에 해당하는 게시글 정보를 반환한다.", response = PostDto.class)
     @GetMapping("/{post_idx}")
     public ResponseEntity<PostDto> getPost(@PathVariable("post_idx") Long postIdx) {
         PostDto result = null;

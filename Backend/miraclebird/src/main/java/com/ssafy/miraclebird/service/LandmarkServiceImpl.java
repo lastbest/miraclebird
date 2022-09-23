@@ -32,6 +32,26 @@ public class LandmarkServiceImpl implements LandmarkService {
 
     @Override
     @Transactional
+    public List<LandmarkDto> getLandmarkAll(Long userIdx) throws Exception {
+        try {
+            List<Landmark> landmarkList = landmarkDao.getLandmarkAll(userIdx);
+            List<LandmarkDto> landmarkDtoList = landmarkList.stream().map(entity -> LandmarkDto.of(entity)).collect(Collectors.toList());
+
+            //for (LandmarkDto landmarkDto : landmarkDtoList) {
+            //
+            //    User userEntity = userDao.getUserById(postDto.getUserIdx());
+            //    postDto.setUserRole(userEntity.getRole());
+            //}
+
+            return landmarkDtoList;
+        }
+        catch (Exception e) {
+            throw new Exception();
+        }
+    }
+
+    @Override
+    @Transactional
     public LandmarkDto getLandmark(Long landmarkIdx) throws Exception{
         try {
             Landmark landmarkEntity = landmarkDao.getLandmark(landmarkIdx);
