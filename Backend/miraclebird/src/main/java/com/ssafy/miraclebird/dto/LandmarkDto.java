@@ -41,6 +41,18 @@ public class LandmarkDto {
 
     private long sellPrice;
 
+    private long landmarkInfoIdx;
+
+    private String landmarkProvince;
+
+    private String landmarkCity;
+
+    private int landmarkDongCode;
+
+    private String landmarkTitle;
+
+    private String landmarkContent;
+
     private long userIdx;
 
     private String userName;

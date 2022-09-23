@@ -1,13 +1,11 @@
 package com.ssafy.miraclebird.service;
 
-import com.ssafy.miraclebird.dao.CommentDao;
-import com.ssafy.miraclebird.dao.LandmarkDao;
-import com.ssafy.miraclebird.dao.PostDao;
-import com.ssafy.miraclebird.dao.UserDao;
+import com.ssafy.miraclebird.dao.*;
 import com.ssafy.miraclebird.dto.LandmarkDto;
 import com.ssafy.miraclebird.dto.PostDto;
 import com.ssafy.miraclebird.entity.Comment;
 import com.ssafy.miraclebird.entity.Landmark;
+import com.ssafy.miraclebird.entity.Landmark_Info;
 import com.ssafy.miraclebird.entity.Post;
 import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +20,13 @@ import java.util.stream.Collectors;
 public class LandmarkServiceImpl implements LandmarkService {
 
     private final LandmarkDao landmarkDao;
+    private final LandmarkInfoDao landmarkInfoDao;
     private final UserDao userDao;
 
     @Autowired
-    public LandmarkServiceImpl(LandmarkDao landmarkDao, UserDao userDao) {
+    public LandmarkServiceImpl(LandmarkDao landmarkDao, LandmarkInfoDao landmarkInfoDao, UserDao userDao) {
         this.landmarkDao = landmarkDao;
+        this.landmarkInfoDao = landmarkInfoDao;
         this.userDao = userDao;
     }
 
@@ -37,11 +37,14 @@ public class LandmarkServiceImpl implements LandmarkService {
             List<Landmark> landmarkList = landmarkDao.getLandmarkAll(userIdx);
             List<LandmarkDto> landmarkDtoList = landmarkList.stream().map(entity -> LandmarkDto.of(entity)).collect(Collectors.toList());
 
-            //for (LandmarkDto landmarkDto : landmarkDtoList) {
-            //
-            //    User userEntity = userDao.getUserById(postDto.getUserIdx());
-            //    postDto.setUserRole(userEntity.getRole());
-            //}
+            for (LandmarkDto landmarkDto : landmarkDtoList) {
+                Landmark_Info landmarkInfoEntity = landmarkInfoDao.getLandmarkInfo(landmarkDto.getLandmarkInfoIdx());
+                landmarkDto.setProvince(landmarkInfoEntity.getProvince());
+                landmarkDto.setCity(landmarkInfoEntity.getCity());
+                landmarkDto.setDongCode(landmarkInfoEntity.getDongCode());
+                landmarkDto.setTitle(landmarkInfoEntity.getTitle());
+                landmarkDto.setContent(landmarkInfoEntity.getContent());
+            }
 
             return landmarkDtoList;
         }
