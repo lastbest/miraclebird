@@ -6,10 +6,14 @@ import com.ssafy.miraclebird.service.VerificationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -82,8 +86,12 @@ public class VerificationController {
 
     @ApiOperation(value = "잔디잔디", response = VerificationDto.class)
     @GetMapping("/heatmap/{user_idx}")
-    public ResponseEntity<List<VerificationDto>> getVerificationByPeriod() {
-        List<VerificationDto> result = verificationService.getVerificationByPeriod();
+    public ResponseEntity<List<VerificationDto>> getVerificationByPeriod(@PathVariable("user_idx") Long userIdx, @RequestParam("start_date") String startDate, @RequestParam("end_date") String endDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss.SSS");
+        LocalDateTime startDate_parsed = LocalDateTime.parse(startDate, formatter);
+        LocalDateTime endDate_parsed = LocalDateTime.parse(endDate, formatter);
+
+        List<VerificationDto> result = verificationService.getVerificationByPeriod(userIdx, startDate_parsed, endDate_parsed);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }

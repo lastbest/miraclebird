@@ -81,8 +81,8 @@ public class VerificationServiceImpl implements VerificationService {
 
     @Override
     @Transactional
-    public List<VerificationDto> getVerificationByPeriod() {
-        List<Verification> verificationEntity = verificationDao.getVerificationByPeriod();
+    public List<VerificationDto> getVerificationByPeriod(Long userIdx, LocalDateTime startDate, LocalDateTime endDate) {
+        List<Verification> verificationEntity = verificationDao.getVerificationByPeriod(userIdx, startDate, endDate);
         List<VerificationDto> verificationDtos = new ArrayList<>();
         for (int i = 0; i < verificationEntity.size(); i++) {
             verificationDtos.add(VerificationDto.of(verificationEntity.get(i)));
