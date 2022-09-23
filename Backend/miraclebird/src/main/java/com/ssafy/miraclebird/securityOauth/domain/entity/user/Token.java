@@ -15,10 +15,10 @@ import javax.persistence.Table;
 public class Token extends DefaultTime {
 
     @Id
-    @Column(name = "user_email", length = 1024 , nullable = false)
+    @Column(name = "user_email", length = 50 , nullable = false)
     private String userEmail;
 
-    @Column(name = "refresh_token", length = 1024 , nullable = false)
+    @Column(name = "refresh_token", length = 200 , nullable = false)
     private String refreshToken;
 
     public Token(){}
