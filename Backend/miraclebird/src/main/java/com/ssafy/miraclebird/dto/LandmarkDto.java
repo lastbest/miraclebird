@@ -35,7 +35,7 @@ public class LandmarkDto {
 
     private String content;
 
-    private int starForce;
+    private long starForce;
 
     private Boolean selling;
 

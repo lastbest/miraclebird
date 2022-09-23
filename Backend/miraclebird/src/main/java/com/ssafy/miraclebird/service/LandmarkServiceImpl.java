@@ -36,6 +36,11 @@ public class LandmarkServiceImpl implements LandmarkService {
         try {
             Landmark landmarkEntity = landmarkDao.getLandmark(landmarkIdx);
             LandmarkDto landmarkDto = LandmarkDto.of(landmarkEntity);
+            landmarkDto.setTitle(landmarkEntity.getLandmarkInfo().getTitle());
+            landmarkDto.setContent(landmarkEntity.getLandmarkInfo().getContent());
+            landmarkDto.setProvince(landmarkEntity.getLandmarkInfo().getProvince());
+            landmarkDto.setCity(landmarkEntity.getLandmarkInfo().getCity());
+            landmarkDto.setDongCode(landmarkEntity.getLandmarkInfo().getDongCode());
             landmarkDto.setUserIdx(landmarkEntity.getUser().getUserIdx());
             landmarkDto.setUserName(landmarkEntity.getUser().getName());
             landmarkDto.setUserImageUrl(landmarkEntity.getUser().getImageUrl());
@@ -52,12 +57,21 @@ public class LandmarkServiceImpl implements LandmarkService {
     public void updateLandmark(LandmarkDto landmarkDto, Long userIdx) throws Exception {
         Landmark landmarkEntity = landmarkDao.getLandmark(landmarkDto.getLandmarkIdx());
 
-        if (landmarkEntity.getUser().getUserIdx() == userIdx) {
+        if (landmarkEntity.getUser().getUserIdx() == userIdx && landmarkEntity.getStarForce() == landmarkDto.getStarForce()) {
             landmarkEntity.setSelling(landmarkDto.getSelling());
             landmarkEntity.setSellPrice(landmarkDto.getSellPrice());
             landmarkDao.saveLandmark(landmarkEntity);
         }
-        else if (landmarkEntity.getSelling() == true) {
+        else if (landmarkEntity.getUser().getUserIdx() != userIdx && landmarkEntity.getStarForce() == landmarkDto.getStarForce() && landmarkEntity.getSelling() == true) {
+            landmarkEntity.setSelling(false);
+            landmarkEntity.setUser(userDao.getUserById(userIdx));
+            landmarkDao.saveLandmark(landmarkEntity);
+        }
+        else if (landmarkEntity.getUser().getUserIdx() == userIdx && landmarkEntity.getStarForce() != landmarkDto.getStarForce()) {
+            landmarkEntity.setSelling(false);
+            landmarkEntity.setUser(userDao.getUserById((long)1));
+            landmarkDao.saveLandmark(landmarkEntity);
+            landmarkEntity = landmarkDao.getLandmark(landmarkDto.getStarForce(), landmarkEntity.getLandmarkInfo().getLandmarkInfoIdx());
             landmarkEntity.setSelling(false);
             landmarkEntity.setUser(userDao.getUserById(userIdx));
             landmarkDao.saveLandmark(landmarkEntity);

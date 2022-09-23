@@ -23,29 +23,14 @@ public class Landmark {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long landmarkIdx;
 
-    @Column(nullable = true)
-    private String province;
-
-    @Column(nullable = true)
-    private String city;
-
-    @Column(nullable = true, name = "dong_code")
-    private int dongCode;
-
     @Column(nullable = true, name = "token_id")
     private String tokenId;
 
     @Column(nullable = true)
     private String hash;
 
-    @Column(nullable = true)
-    private String title;
-
-    @Column(nullable = true)
-    private String content;
-
     @Column(nullable = true, name = "star_force")
-    private int starForce;
+    private long starForce;
 
     @Column(nullable = true)
     private Boolean selling;
@@ -57,6 +42,10 @@ public class Landmark {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userIdx")
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "landmarkInfoIdx")
+    private Landmark_Info landmarkInfo;
 
     @OneToMany(mappedBy = "landmark")
     List<Price> price = new ArrayList<>();

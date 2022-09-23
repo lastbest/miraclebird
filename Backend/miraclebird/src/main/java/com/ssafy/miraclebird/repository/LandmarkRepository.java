@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LandmarkRepository extends JpaRepository<Landmark,Long>{
-
+    Landmark getByStarForceAndLandmarkInfo_LandmarkInfoIdx(Long starForce, Long landmarkInfoIdx);
 }

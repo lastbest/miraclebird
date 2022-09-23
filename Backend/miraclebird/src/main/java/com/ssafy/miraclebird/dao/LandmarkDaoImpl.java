@@ -31,6 +31,17 @@ public class LandmarkDaoImpl implements LandmarkDao {
     }
 
     @Override
+    public Landmark getLandmark(Long starForce, Long landmarkInfoIdx) throws Exception {
+        Landmark landmarkEntity = landmarkRepository.getByStarForceAndLandmarkInfo_LandmarkInfoIdx(starForce, landmarkInfoIdx);
+
+        if(landmarkEntity == null) {
+            System.out.println("있는데 뭐야??????????????");
+            throw new Exception();}
+
+        return landmarkEntity;
+    }
+
+    @Override
     public void saveLandmark(Landmark landmark) throws Exception {
         try {
             landmarkRepository.save(landmark);
