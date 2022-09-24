@@ -56,7 +56,7 @@ public class LandmarkController {
     }
 
     @ApiOperation(value = "landmark_idx에 해당하는 NFT랜드마크 정보(판매/구매하는 경우)를 수정한다.", response = String.class)
-    @PutMapping("/{landmark_idx}/sell")
+    @PutMapping("/{landmark_idx}")
     public ResponseEntity<String> updateLandmark(@PathVariable("landmark_idx") Long landmarkIdx, @RequestBody LandmarkDto landmarkDto, @RequestParam("user_idx") Long userIdx) {
         try {
             landmarkDto.setLandmarkIdx(landmarkIdx);

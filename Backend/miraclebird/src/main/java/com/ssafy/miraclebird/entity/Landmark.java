@@ -23,9 +23,6 @@ public class Landmark {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long landmarkIdx;
 
-    @Column(nullable = true, name = "token_id")
-    private String tokenId;
-
     @Column(nullable = true)
     private String hash;
 
