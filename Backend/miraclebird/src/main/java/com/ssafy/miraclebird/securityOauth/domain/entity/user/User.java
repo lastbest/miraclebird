@@ -39,12 +39,6 @@ public class User extends DefaultTime {
     @Column(nullable = false)
     private Boolean emailVerified = false;
 
-    @Column(nullable = true)
-    private String wallet;
-
-    @Column(nullable = true)
-    private long mira;
-
     @JsonIgnore
     private String password;
 
@@ -75,6 +69,9 @@ public class User extends DefaultTime {
     }
 
     /* 연관관계 매핑 */
+    @OneToOne(mappedBy = "user")
+    private Wallet wallet;
+
     @OneToMany(mappedBy = "user")
     List<Verification> verification = new ArrayList<>();
 

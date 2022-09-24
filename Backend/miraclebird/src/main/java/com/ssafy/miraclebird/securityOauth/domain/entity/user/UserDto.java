@@ -29,10 +29,6 @@ public class UserDto {
 
     private Boolean emailVerified = false;
 
-    private String wallet;
-
-    private long mira;
-
     private String password;
 
     private Provider provider;
