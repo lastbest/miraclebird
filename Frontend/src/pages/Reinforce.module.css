@@ -27,22 +27,22 @@
     margin:auto;
 }
 
-.nftsCt {
-    margin:auto;
-    position: absolute;
-    bottom:50px;
-    overflow-y: scroll;
-    height:30vh;
-}
-
 .nftImgCt {
     width:30vh;
     height:30vh;
     margin:auto;
     text-align: center;
-    position:relative;
+    /* position:relative; */
 }
 
+.nftsCt {
+    position: absolute;
+    bottom:50px;
+    width:90%;
+    overflow-y: scroll;
+    height:30vh;
+    margin: auto;
+}
 
 .nftsImgCt {
     display:grid;
@@ -207,6 +207,17 @@
     width:200px;
     height:200px;
     margin-top:-250px;
+  }
+
+  .successBtn {
+    border:none;
+    border-radius: 15px;
+    color: black;
+    padding:5px;
+    padding-left:10px;
+    padding-right:10px;
+    background-color: #ffe969 ;
+    margin-top:10px;
   }
 
   .failCardCt {

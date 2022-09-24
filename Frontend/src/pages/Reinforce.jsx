@@ -31,15 +31,18 @@ function Reinforce () {
     const handleClose2 = () => setShow2(false);
     const handleShow2 = () => setShow2(true);
 
+    const [imgIndex, setImgIndex] = useState("");
+    const [newImg, setNewImg] = useState("");
+
     const NFT_SELECT =[
-        {nfturl:'./nft1.png', nickname:'김싸피', nftname:'롯데타워 5강', nftdetail:'롯데타워(5강)은 어쩌구저쩌구', nftprice:'10', 'onsale':0, level:5,},
-        {nfturl:'./nft2.png', nickname:'이싸피', nftname:'롯데타워 1강', nftdetail:'롯데타워(1강)은 어쩌구저쩌구', nftprice:'12', 'onsale':1, level:1,},
-        {nfturl:'./nft1.png', nickname:'김싸피', nftname:'롯데타워 5강', nftdetail:'롯데타워(5강)은 어쩌구저쩌구', nftprice:'10', 'onsale':0, level:5,},
-        {nfturl:'./nft2.png', nickname:'이싸피', nftname:'롯데타워 1강', nftdetail:'롯데타워(1강)은 어쩌구저쩌구', nftprice:'12', 'onsale':1, level:1,},
-        {nfturl:'./nft1.png', nickname:'김싸피', nftname:'롯데타워 5강', nftdetail:'롯데타워(5강)은 어쩌구저쩌구', nftprice:'10', 'onsale':0, level:5,},
-        {nfturl:'./nft2.png', nickname:'이싸피', nftname:'롯데타워 1강', nftdetail:'롯데타워(1강)은 어쩌구저쩌구', nftprice:'12', 'onsale':1, level:1,},
-        {nfturl:'./nft1.png', nickname:'김싸피', nftname:'롯데타워 5강', nftdetail:'롯데타워(5강)은 어쩌구저쩌구', nftprice:'10', 'onsale':0, level:5,},
-        {nfturl:'./nft2.png', nickname:'이싸피', nftname:'롯데타워 1강', nftdetail:'롯데타워(1강)은 어쩌구저쩌구', nftprice:'12', 'onsale':1, level:1,},
+        {nfturl:'/src/assets/landmark/1_1.png', nickname:'김싸피', nftname:'롯데타워 5강', nftprice:'10', 'onsale':0, level:1, imgindex:1,},
+        {nfturl:'/src/assets/landmark/15_6.png', nickname:'이싸피', nftname:'롯데타워 1강', nftprice:'12', 'onsale':1, level:6, imgindex:15,},
+        {nfturl:'/src/assets/landmark/207_3.png', nickname:'김싸피', nftname:'롯데타워 5강', nftprice:'10', 'onsale':0, level:3, imgindex:207,},
+        {nfturl:'/src/assets/landmark/310_6.png', nickname:'이싸피', nftname:'롯데타워 1강', nftprice:'12', 'onsale':1, level:6, imgindex:310,},
+        {nfturl:'/src/assets/landmark/22_1.png', nickname:'김싸피', nftname:'롯데타워 5강', nftprice:'10', 'onsale':0, level:1,imgindex:22,},
+        {nfturl:'/src/assets/landmark/117_2.png', nickname:'이싸피', nftname:'롯데타워 1강', nftprice:'12', 'onsale':1, level:2, imgindex:117,},
+        {nfturl:'/src/assets/landmark/33_4.png', nickname:'김싸피', nftname:'롯데타워 5강', nftprice:'10', 'onsale':0, level:4, imgindex:33,},
+        {nfturl:'/src/assets/landmark/214_5.png', nickname:'이싸피', nftname:'롯데타워 1강', nftprice:'12', 'onsale':1, level:5, imgindex:214,},
     ]
     const cardEl = useRef();
     const onButtonClick = () => {
@@ -61,10 +64,12 @@ function Reinforce () {
             let random_num = Math.floor(Math.random()*101);
             setLoading(false);
             if (random_num <= upgradePercent[level]) {
-                handleShow()
+                handleShow();
+                setNewImg("/src/assets/landmark/" + imgIndex + "_" + (level+1) + ".png");
                 
                 return ;
             } else {
+                setNewImg("/src/assets/landmark/" + imgIndex + "_" + level + ".png");
                 handleShow2()
                 return ;
             }
@@ -115,7 +120,7 @@ function Reinforce () {
                     </div>
                     <div className={styles.card} ref={cardEl}>
                         <img alt="nft1" src={address} className={styles.selectnft} />
-                        <img alt="nft2" src="/silverback.png" className={styles.back} />
+                        {/* <img alt="nft2" src="/silverback.png" className={styles.back} /> */}
                     </div>
                 </div>
                 
@@ -149,7 +154,7 @@ function Reinforce () {
                 {
                     NFT_SELECT.map((nft, index) => {
                         return (
-                                <img alt="nft1" src={nft.nfturl} className={styles.nfturl} key={index} onClick={()=>(setAddress(nft.nfturl), setLevel(nft.level), setIdx(nft.index))} />
+                                <img alt="nft1" src={nft.nfturl} className={styles.nfturl} key={index} onClick={()=>(setAddress(nft.nfturl), setLevel(nft.level), setIdx(nft.index), setImgIndex(nft.imgindex))} />
                         )
                     })
                 }
@@ -163,15 +168,19 @@ function Reinforce () {
             backdrop="static"
             keyboard={false}
         >
-            <Modal.Header className={styles.modalheader} closeButton>
+            <Modal.Header className={styles.modalheader}>
             </Modal.Header>
-            <Modal.Body className={styles.modalcontent} closeButton>
+            <Modal.Body className={styles.modalcontent}>
                 <div className={styles.successCardCt}>
                     <Lottie animationData={success} className={styles.success} />
-                    <img alt="nft1" src={address} className={styles.successCard} />
+                    <img alt="nft1" src={newImg} className={styles.successCard} />
                 </div>
-                {level+1}강 강화에 성공했습니다!
+                <div>
+                    {level+1}강 강화에 성공했습니다!
+                </div>
+                <button className={styles.successBtn} onClick={handleClose}>확인</button>
             </Modal.Body>
+            <Modal.Footer className={styles.modalheader}></Modal.Footer>
         </Modal>
 
         <Modal
@@ -186,9 +195,12 @@ function Reinforce () {
             <Modal.Body className={styles.modalcontent} closeButton>
                 <div className={styles.failCardCt}>
                     <Lottie animationData={fail} loop={true} className={styles.fail} />
-                    <img alt="nft1" src={address} className={styles.failCard} />
+                    <img alt="nft1" src={newImg} className={styles.failCard} />
                 </div>
-                강화에 실패했습니다.
+                <div>
+                    강화에 실패했습니다.
+                </div>
+                <button className={styles.successBtn} onClick={handleClose2}>확인</button>
             </Modal.Body>
         </Modal>
         </>
