@@ -28,4 +28,9 @@ public class ChallengeDaoImpl implements ChallengeDao {
         Challenge challengeEntity = challengeRepository.getById(challengeIdx);
         return challengeEntity;
     }
+
+    @Override
+    public void saveChallenge(Challenge challenge) throws Exception {
+        challengeRepository.save(challenge);
+    }
 }

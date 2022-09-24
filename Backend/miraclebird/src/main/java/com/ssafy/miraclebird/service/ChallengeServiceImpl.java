@@ -37,4 +37,19 @@ public class ChallengeServiceImpl implements ChallengeService{
         ChallengeDto challengeDto = ChallengeDto.of(challengeEntity);
         return challengeDto;
     }
+
+    @Override
+    @Transactional
+    public void createChallenge(ChallengeDto challengeDto) throws Exception {
+        try {
+            Challenge challengeEntity = new Challenge();
+            challengeEntity.setTitle(challengeDto.getTitle());
+            challengeEntity.setContent(challengeDto.getContent());
+
+            challengeDao.saveChallenge(challengeEntity);
+        }
+        catch (Exception e) {
+            throw new Exception();
+        }
+    }
 }
