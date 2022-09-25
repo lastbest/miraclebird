@@ -16,7 +16,7 @@ function Footer() {
   useEffect(() => {
     loadCurrentlyLoggedInUser();
 
-    console.log(user);
+    console.log(localStorage.getItem("accessToken"));
   }, []);
   function loadCurrentlyLoggedInUser() {
     getCurrentUser()
