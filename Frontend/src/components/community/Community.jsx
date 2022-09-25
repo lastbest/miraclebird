@@ -9,13 +9,14 @@ function Community() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [postData, setPostDate] = useState(null);
+
   const mainApi = async () => {
     setLoading(true);
     try {
       const response = await fetch("http://j7c107.p.ssafy.io:8080/post", {
         method: "GET",
         headers: {
-          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+          Authorization: "Bearer " + localStorage.getItem("accessToken"),
         },
       });
       const result = await response.json();

@@ -25,7 +25,7 @@ const PostView = () => {
         {
           method: "GET",
           headers: {
-            Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+            Authorization: "Bearer " + localStorage.getItem("accessToken"),
           },
         }
       );
@@ -39,7 +39,7 @@ const PostView = () => {
       const response = await fetch("http://j7c107.p.ssafy.io:8080/auth/", {
         method: "GET",
         headers: {
-          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+          Authorization: "Bearer " + localStorage.getItem("accessToken"),
         },
       });
       const result = await response.json();
@@ -88,7 +88,8 @@ const PostView = () => {
                             url: "http://j7c107.p.ssafy.io:8080/post/",
                             method: "post",
                             headers: {
-                              Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                              Authorization:
+                                "Bearer " + localStorage.getItem("accessToken"),
                             },
                             params: {
                               // user_idx: user.information.userIdx,/
@@ -156,7 +157,8 @@ const PostView = () => {
                   url: "http://j7c107.p.ssafy.io:8080/post/" + data.postIdx,
                   method: "delete",
                   headers: {
-                    Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                    Authorization:
+                      "Bearer " + localStorage.getItem("accessToken"),
                   },
                   params: {
                     // user_idx: user.information.userIdx,/

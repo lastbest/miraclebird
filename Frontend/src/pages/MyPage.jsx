@@ -156,7 +156,7 @@ function MyPage() {
 
   return (
     <>
-      {loading ? <Loading /> : null}
+      {/* {loading ? <Loading /> : null}/ */}
       <div className={styles.btns}>
         <button className={styles.logout} onClick={() => handleShow5()}>
           로그아웃
