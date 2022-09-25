@@ -20,6 +20,10 @@ public class VerificationDto {
     private long challengeIdx;
     private long approval;
 
+    //인증샷 유저정보
+    private String name;
+    private String imageUrl;
+
     public static VerificationDto of(Verification missionEntity) {
         VerificationDto missionDto = ModelMapperUtils.getModelMapper().map(missionEntity, VerificationDto.class);
         return missionDto;

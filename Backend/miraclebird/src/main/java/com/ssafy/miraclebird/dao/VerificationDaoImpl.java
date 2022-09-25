@@ -35,6 +35,13 @@ public class VerificationDaoImpl implements VerificationDao {
     }
 
     @Override
+    public List<Verification> getVerificationByUser(long userIdx) {
+        User user = userRepository.getById(userIdx);
+        List<Verification> verificationEntity = verificationRepository.findByUser(user);
+        return verificationEntity;
+    }
+
+    @Override
     public void saveVerification(Verification verification) throws Exception {
         try {
             verificationRepository.save(verification);

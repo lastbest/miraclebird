@@ -8,6 +8,7 @@ import java.util.List;
 public interface VerificationService {
     List<VerificationDto> getVerificationALL();
     VerificationDto getVerificationById(long verificationId);
+    List<VerificationDto> getVerificationByUser(long userId);
     void uploadVerification(VerificationDto verificationDto) throws Exception ;
     VerificationDto approveVerification(long verificationId, long updateApproval) throws Exception;
     void deleteVerificationInfo(long verificationId, long userId) throws Exception;
