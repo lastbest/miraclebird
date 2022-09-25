@@ -10,11 +10,11 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class ChallengerDto {
-    private long challenger_idx;
+    private long challengerIdx;
 
-    private long user_idx;
+    private long user;
 
-    private long challenge_idx;
+    private long challenge;
 
     public static ChallengerDto of(Challenger missionEntity) {
         ChallengerDto missionDto = ModelMapperUtils.getModelMapper().map(missionEntity, ChallengerDto.class);
