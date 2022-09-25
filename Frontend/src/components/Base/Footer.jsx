@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./Footer.module.css";
 import { getCurrentUser } from "../../util/APIUtils";
 import Modal from "react-bootstrap/Modal";
@@ -12,7 +12,7 @@ function Footer() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
-
+  const location = useLocation();
   useEffect(() => {
     loadCurrentlyLoggedInUser();
 
@@ -24,7 +24,9 @@ function Footer() {
         dispatch(login(response));
       })
       .catch((error) => {
-        handleShow();
+        if (location.pathname != "/") {
+          handleShow();
+        }
       });
   }
   console.log(user);
@@ -34,7 +36,8 @@ function Footer() {
   const handleShow = () => setShow(true);
   return (
     <>
-      {user != null && user.check != "" ? (
+      {/* user != null && user.check != ""*/}
+      {true ? (
         <>
           <div className={styles.footer}>
             <div className={styles.footer_navbar}>

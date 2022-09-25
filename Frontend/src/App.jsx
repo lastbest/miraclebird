@@ -45,9 +45,9 @@ function App() {
             <Route path="/community" element={<Community />}></Route>
             <Route path="/community/create" element={<CreatePost />}></Route>
             <Route
-              path="/community/update/:no"
+              path="/community/update/:postIdx"
               element={<UpdatePost />}></Route>
-            <Route path="/community/:no" element={<PostView />}></Route>
+            <Route path="/community/:postIdx" element={<PostView />}></Route>
             <Route
               path="/challenge/morning"
               element={<MiracleMorning />}></Route>
@@ -60,9 +60,7 @@ function App() {
             <Route
               path="/challenge/health/feed"
               element={<HealthFeed />}></Route>
-            <Route
-              path="/challenge/study/feed"
-              element={<StudyFeed />}></Route>
+            <Route path="/challenge/study/feed" element={<StudyFeed />}></Route>
             <Route path="/mypage" element={<MyPage />}></Route>
             <Route path="/reinforce" element={<Reinforce />}></Route>
           </Routes>

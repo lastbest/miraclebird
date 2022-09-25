@@ -18,12 +18,15 @@ import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { login } from "../store/user";
+import { Loading } from "../components/Base/Loading";
 
 function MyPage() {
+  const [loading, setLoading] = useState(true);
   const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
 
+  useEffect(() => {}, []);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -153,6 +156,7 @@ function MyPage() {
 
   return (
     <>
+      {loading ? <Loading /> : null}
       <div className={styles.btns}>
         <button className={styles.logout} onClick={() => handleShow5()}>
           로그아웃
@@ -164,7 +168,11 @@ function MyPage() {
       <div className={styles.profile}>
         <div className={styles.profileimg}>
           <img
-            src={user.information.imageUrl}
+            src={
+              user.information.imageUrl != ""
+                ? user.information.imageUrl
+                : "src/assets/icon/profile_default.jpg"
+            }
             className={styles.profileupload}
             onClick={() => {
               fileInput.current.click();
@@ -191,7 +199,9 @@ function MyPage() {
             <div className={styles.nfttext}>보유 NFT</div>
           </div>
           <div className={styles.detail2}>
-            <div className={styles.mira}>{user.information.mira}</div>
+            <div className={styles.mira}>
+              {user.information.mira != null ? user.information.mira : 0}
+            </div>
             <div className={styles.miratext}>보유 MIRA</div>
           </div>
           <div className={styles.detail3}>
