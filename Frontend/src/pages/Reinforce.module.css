@@ -23,31 +23,40 @@
 
 .nftCt {
     width:80%;
-    height:40vh;
+    height:350px;
     margin:auto;
-}
-
-.nftImgCt {
-    width:30vh;
-    height:30vh;
-    margin:auto;
-    text-align: center;
     /* position:relative; */
 }
 
+.nftImgCt {
+    width:200px;
+    margin:auto;
+    text-align: center;
+
+}
+
+.fullCt {
+  display: flex;
+  flex-direction: column;
+  height: 88vh;
+  
+}
+
 .nftsCt {
-    position: absolute;
-    bottom:50px;
+    /* position: absolute; */
+    /* bottom:50px; */
     width:90%;
     overflow-y: scroll;
-    height:30vh;
+    flex: 1;
     margin: auto;
+    
 }
 
 .nftsImgCt {
     display:grid;
     grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
     grid-gap: 15px;
+    margin-bottom:30px;
 
 }
 
@@ -72,11 +81,10 @@
 .background {
     width:100%;
 }
-/* 
+
 .nfttext {
-    display:absolute;
-    margin-top:-50%;
-} */
+    font-size: 15px;
+}
 
 .leveltext {
     display:flex;
@@ -122,19 +130,19 @@
   }
 
   .flip {
-    width:30vh;
-    height:30vh;
+    width:200px;
+    height:200px;
     perspective: 1200px;
   }
 
   .card {
-    width:30vh;
-    height:30vh;
+    width:200px;
+    height:200px;
     position: relative;
     transition: .4s;
     transform-style: preserve-3d;
     margin: auto;
-    margin-top: -30vh;
+    margin-top: -200px;
     z-index: 0 !important;
   }	
 
@@ -164,8 +172,8 @@
 
   .shimmer {
     opacity: 80%;
-    width:30vh;
-    height:30vh;
+    width:200px;
+    height:200px;
     position: relative;
     z-index: 9999 !important;
     margin:auto;
@@ -177,8 +185,8 @@
   }
 
   .effectCt {
-    width:30vh;
-    height:30vh;
+    width:200px;
+    height:200px;
   }
 
   .modalheader {

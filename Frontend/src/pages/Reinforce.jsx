@@ -30,6 +30,9 @@ function Reinforce () {
     const [show2, setShow2] = useState(false);
     const handleClose2 = () => setShow2(false);
     const handleShow2 = () => setShow2(true);
+    const [show3, setShow3] = useState(false);
+    const handleClose3 = () => setShow3(false);
+    const handleShow3 = () => setShow3(true);
 
     const [imgIndex, setImgIndex] = useState("");
     const [newImg, setNewImg] = useState("");
@@ -55,29 +58,42 @@ function Reinforce () {
     }
 
     const upgradePercent = [
-        90,75,60,45,30,10
+        0,90,75,60,45,30,10
       ];
+    
+    const downgradePercent = [
+       0,0, 15, 40, 65, 80, 95
+    ];
+
 
     const upgradeBtn = () => {
         setLoading(true);
         setTimeout(()=>{
             let random_num = Math.floor(Math.random()*101);
             setLoading(false);
+            console.log(random_num, upgradePercent[level], downgradePercent[level])
             if (random_num <= upgradePercent[level]) {
                 handleShow();
                 setNewImg("/src/assets/landmark/" + imgIndex + "_" + (level+1) + ".png");
                 
                 return ;
             } else {
-                setNewImg("/src/assets/landmark/" + imgIndex + "_" + level + ".png");
-                handleShow2()
+                if (random_num <= downgradePercent[level]) {
+                    setNewImg("/src/assets/landmark/" + imgIndex + "_" + (level-1) + ".png");
+                    handleShow3()
                 return ;
+                } else if (random_num > downgradePercent[level]) {
+                    setNewImg("/src/assets/landmark/" + imgIndex + "_" + (level) + ".png");
+                    handleShow2()
+                return;
+                }
             }
         }, 2000)
     }
 
     return (
         <>
+        <div className={styles.fullCt}>
         <div className={styles.Header}>
             <button className={styles.backbtn} onClick={()=>{navigate("/mypage")}}><img alt="back" src="/back.png" className={styles.backicon} /></button>
             <OverlayTrigger 
@@ -103,6 +119,7 @@ function Reinforce () {
                 <>
                 <img alt="nft" src='/background.png' className={styles.background} />
                 <div className={styles.nfttext}>강화할 NFT를 선택해주세요!</div>
+                
                 </>
                 :
                 <>
@@ -160,6 +177,7 @@ function Reinforce () {
                 }
             </div>
         </div>
+        </div>
 
         <Modal
             centered
@@ -190,17 +208,38 @@ function Reinforce () {
             backdrop="static"
             keyboard={false}
         >
-            <Modal.Header className={styles.modalheader} closeButton>
+            <Modal.Header className={styles.modalheader}>
             </Modal.Header>
-            <Modal.Body className={styles.modalcontent} closeButton>
+            <Modal.Body className={styles.modalcontent}>
                 <div className={styles.failCardCt}>
                     <Lottie animationData={fail} loop={true} className={styles.fail} />
                     <img alt="nft1" src={newImg} className={styles.failCard} />
                 </div>
                 <div>
-                    강화에 실패했습니다.
+                    강화에 실패했습니다. <br></br>현재 상태가 유지됩니다.
                 </div>
                 <button className={styles.successBtn} onClick={handleClose2}>확인</button>
+            </Modal.Body>
+        </Modal>
+
+        <Modal
+            centered
+            show={show3}
+            onHide={handleClose3}
+            backdrop="static"
+            keyboard={false}
+        >
+            <Modal.Header className={styles.modalheader}>
+            </Modal.Header>
+            <Modal.Body className={styles.modalcontent}>
+                <div className={styles.failCardCt}>
+                    <Lottie animationData={fail} loop={true} className={styles.fail} />
+                    <img alt="nft1" src={newImg} className={styles.failCard} />
+                </div>
+                <div>
+                    강화에 실패했습니다. <br></br> {level-1}강으로 카드가 변경됩니다.
+                </div>
+                <button className={styles.successBtn} onClick={handleClose3}>확인</button>
             </Modal.Body>
         </Modal>
         </>
