@@ -1,22 +1,57 @@
-import React,{useEffect, useState} from "react";
-import styles from './Community.module.css'
+import React, { useEffect, useState } from "react";
+import styles from "./Community.module.css";
 import PostMain from "./PostMain";
-import PostList from "./PostList";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Loading } from "../Base/Loading";
+import { NOW_ACCESS_TOKEN } from "/src/constants";
 
-function Community () {
-    const navigate = useNavigate();
-    
-    return (
-        <>
-        <div className={styles.header}>
-            <button className={styles.backbtn} onClick={()=>{navigate("/")}}><img alt="back" src="/back.png" className={styles.backicon} /></button>
-            <div className={styles.communitytext}>커뮤니티</div>
-            <button className={styles.createbtn} onClick={()=>{navigate("/community/create")}}><img alt="pencil" src="/pencil.png" className={styles.pencilicon} /></button>
-        </div>
-        <PostMain />
-        </>
-    )
-};
+function Community() {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [postData, setPostDate] = useState(null);
+  const mainApi = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("http://j7c107.p.ssafy.io:8080/post", {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        },
+      });
+      const result = await response.json();
+      console.log("mainData", result);
+      setPostDate(result);
+      setLoading(false);
+    } catch (error) {
+      window.alert(error);
+    }
+  };
+  useEffect(() => {
+    mainApi();
+  }, []);
+  return (
+    <>
+      {loading ? <Loading /> : null}
+      <div className={styles.header}>
+        <button
+          className={styles.backbtn}
+          onClick={() => {
+            navigate("/");
+          }}>
+          <img alt="back" src="/back.png" className={styles.backicon} />
+        </button>
+        <div className={styles.communitytext}>커뮤니티</div>
+        <button
+          className={styles.createbtn}
+          onClick={() => {
+            navigate("/community/create");
+          }}>
+          <img alt="pencil" src="/pencil.png" className={styles.pencilicon} />
+        </button>
+      </div>
+      <PostMain postData={postData} />
+    </>
+  );
+}
 
 export default Community;
