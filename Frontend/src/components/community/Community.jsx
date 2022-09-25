@@ -11,7 +11,6 @@ function Community() {
   const [postData, setPostDate] = useState(null);
 
   const mainApi = async () => {
-    setLoading(true);
     try {
       console.log("community");
       console.log(localStorage.getItem("accessToken"));
@@ -29,30 +28,40 @@ function Community() {
       window.alert(error);
     }
   };
+
   useEffect(() => {
     mainApi();
   }, []);
   return (
     <>
-      {loading ? <Loading /> : null}
-      <div className={styles.header}>
-        <button
-          className={styles.backbtn}
-          onClick={() => {
-            navigate("/");
-          }}>
-          <img alt="back" src="/back.png" className={styles.backicon} />
-        </button>
-        <div className={styles.communitytext}>커뮤니티</div>
-        <button
-          className={styles.createbtn}
-          onClick={() => {
-            navigate("/community/create");
-          }}>
-          <img alt="pencil" src="/pencil.png" className={styles.pencilicon} />
-        </button>
-      </div>
-      <PostMain postData={postData} />
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <div className={styles.header}>
+            <button
+              className={styles.backbtn}
+              onClick={() => {
+                navigate("/");
+              }}>
+              <img alt="back" src="/back.png" className={styles.backicon} />
+            </button>
+            <div className={styles.communitytext}>커뮤니티</div>
+            <button
+              className={styles.createbtn}
+              onClick={() => {
+                navigate("/community/create");
+              }}>
+              <img
+                alt="pencil"
+                src="/pencil.png"
+                className={styles.pencilicon}
+              />
+            </button>
+          </div>
+          <PostMain postData={postData} />
+        </>
+      )}
     </>
   );
 }

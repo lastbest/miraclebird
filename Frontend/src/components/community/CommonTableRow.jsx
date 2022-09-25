@@ -1,14 +1,12 @@
-import React from 'react';
-import styles from './CommonTable.module.css'
+import React from "react";
+import styles from "./CommonTable.module.css";
 
-const CommonTableRow = ({ children }) => {
+const CommonTableRow = ({ children }, onClick) => {
   return (
-    <tr className={styles.tablerow}>
-      {
-        children
-      }
+    <tr className={styles.tablerow} onClick={onClick}>
+      {children}
     </tr>
-  )
-}
+  );
+};
 
 export default CommonTableRow;
