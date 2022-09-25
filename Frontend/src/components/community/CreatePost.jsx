@@ -3,7 +3,7 @@ import styles from "./CreatePost.module.css";
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { NOW_ACCESS_TOKEN } from "/src/constants";
+import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 
 function CreatePost() {
   const [userIdx, setUserIdx] = useState("");
@@ -13,7 +13,7 @@ function CreatePost() {
 
   const mainApi = async () => {
     try {
-      const response = await fetch("http://j7c107.p.ssafy.io:8080/auth/", {
+      const response = await fetch(API_BASE_URL + "/auth/", {
         method: "GET",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("accessToken"),
@@ -72,7 +72,7 @@ function CreatePost() {
           className={styles.submitbtn}
           onClick={() => {
             axios({
-              url: "http://j7c107.p.ssafy.io:8080/post/",
+              url: API_BASE_URL + "/post/",
               method: "post",
               headers: {
                 Authorization: "Bearer " + localStorage.getItem("accessToken"),

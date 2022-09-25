@@ -5,7 +5,6 @@ import html2canvas from "html2canvas";
 
 function Camera() {
   const webcamRef = React.useRef(null);
-  const [fileName, setFileName] = useState("");
   const [url, setUrl] = React.useState(null);
   const [imgurl, setImgUrl] = React.useState(null);
 
@@ -28,10 +27,8 @@ function Camera() {
       // new Date().getMinutes() +
       // new Date().getSeconds() +
       // ".png";
-      console.log(fileNametemp);
-      setFileName(fileNametemp);
       let formData = new FormData();
-      formData.append("uploadFile", file, fileName);
+      formData.append("uploadFile", file, fileNametemp);
       setImgUrl(formData);
 
       var photo = document.createElement("img");
