@@ -377,7 +377,7 @@ function MyPage() {
               onClick={() => {
                 handleClose2;
                 axios({
-                  url: API_BASE_URL + "/user/" + userData.user_idx,
+                  url: API_BASE_URL + "/user/" + userData.userIdx,
                   method: "put",
                   headers: {
                     Authorization: "Bearer " + NOW_ACCESS_TOKEN,
