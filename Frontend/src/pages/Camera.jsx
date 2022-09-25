@@ -6,7 +6,7 @@ import html2canvas from "html2canvas";
 function Camera() {
   const webcamRef = React.useRef(null);
   const [url, setUrl] = React.useState(null);
-  const [imgurl, setImgUrl] = React.useState(null);
+  const [imgurl, setImgUrl] = React.useState("");
 
   function takepicture() {
     const targetvideo = document.getElementById("screenshot_wrap");
@@ -17,8 +17,9 @@ function Camera() {
       for (let i = 0; i < decodImg.length; i++) {
         array.push(decodImg.charCodeAt(i));
       }
+
       const file = new Blob([new Uint8Array(array)], { type: "image/png" });
-      const fileNametemp = "img_test.png";
+      const fileName = "img_test.png";
       // "img_" +
       // new Date().getFullYear() +
       // (new Date().getMonth() + 1) +
@@ -28,14 +29,18 @@ function Camera() {
       // new Date().getSeconds() +
       // ".png";
       let formData = new FormData();
-      formData.append("uploadFile", file, fileNametemp);
+      formData.append("uploadFile", file, fileName);
       setImgUrl(formData);
 
+      console.log("imgurl", imgurl);
+      for (let value of formData.values()) {
+        console.log(value);
+      }
       var photo = document.createElement("img");
       photo.setAttribute("src", canvdata);
       photo.setAttribute("width", 256);
       photo.setAttribute("height", 256);
-      document.getElementById("frame").appendChild(photo);
+      //document.getElementById("frame").appendChild(photo);
     });
   }
 
@@ -44,12 +49,9 @@ function Camera() {
       const response = await fetch("https://j7c107.p.ssafy.io/image/upload", {
         method: "POST",
         headers: {
-          rocessData: false,
           "Content-Type": "multipart/form-data",
         },
-        data: {
-          uploadFile: imgurl,
-        },
+        data: imgurl,
       });
       const result = await response.json();
       console.log("mainData", result);
@@ -67,7 +69,6 @@ function Camera() {
   const capture = React.useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
     setUrl(imageSrc);
-    console.log(url);
   }, [webcamRef]);
 
   return (
@@ -96,7 +97,7 @@ function Camera() {
           <Webcam
             audio={false}
             className={styles.Camera}
-            screenshotFormat="image/jpeg"
+            screenshotFormat="image/png"
             ref={webcamRef}
             videoConstraints={videoConstraints}
           />

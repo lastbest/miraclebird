@@ -15,8 +15,6 @@ function Footer() {
   const location = useLocation();
   useEffect(() => {
     loadCurrentlyLoggedInUser();
-
-    console.log(localStorage.getItem("accessToken"));
   }, []);
   function loadCurrentlyLoggedInUser() {
     getCurrentUser()
@@ -37,7 +35,7 @@ function Footer() {
   return (
     <>
       {/* user != null && user.check != ""*/}
-      {user != null && user.check != "" ? (
+      {true ? (
         <>
           <div className={styles.footer}>
             <div className={styles.footer_navbar}>
