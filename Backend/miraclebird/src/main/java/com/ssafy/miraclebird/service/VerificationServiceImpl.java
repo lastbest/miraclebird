@@ -53,6 +53,21 @@ public class VerificationServiceImpl implements VerificationService {
 
     @Override
     @Transactional
+    public List<VerificationDto> getVerificationByUser(long userIdx) {
+        List<Verification> verificationEntity = verificationDao.getVerificationByUser(userIdx);
+        List<VerificationDto> verificationDtos = new ArrayList<>();
+        for (int i = 0; i < verificationEntity.size(); i++) {
+            User userEntity = verificationEntity.get(i).getUser();
+            VerificationDto verificationDto = VerificationDto.of(verificationEntity.get(i));
+            verificationDto.setName(userEntity.getName());
+            verificationDto.setImageUrl(userEntity.getImageUrl());
+            verificationDtos.add(verificationDto);
+        }
+        return verificationDtos;
+    }
+
+    @Override
+    @Transactional
     public void uploadVerification(VerificationDto verificationDto) throws Exception {
         try {
             Verification verificationEntity = new Verification();
@@ -80,8 +95,6 @@ public class VerificationServiceImpl implements VerificationService {
     @Transactional
     public void deleteVerificationInfo(long verificationId, long userId) throws Exception {
         verificationDao.deleteVerificationInfo(verificationId, userId);
-//        VerificationDto verificationDto = VerificationDto.of(verificationEntity);
-//        return verificationDto;
         return;
     }
 
