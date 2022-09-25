@@ -15,61 +15,55 @@ const PostList = (props) => {
     console.log(props.postData);
   }, [props.postData]);
 
+  let result = [];
+  for (var i = 0; i < props.postData.length; i++) {
+    var item = props.postData[i];
+    result.push(
+      <CommonTableRow key={item}>
+        <div className={styles.tableRow}>
+          {item.userRole == "USER" ? (
+            <CommonTableColumn className={styles.title}>
+              <Link
+                to={`/community/${item.postIdx}`}
+                className={styles.titletext2}>
+                [공지사항] {item.title}
+              </Link>
+            </CommonTableColumn>
+          ) : (
+            <CommonTableColumn className={styles.title}>
+              <Link
+                to={`/community/${item.postIdx}`}
+                className={styles.titletext}>
+                {item.title}
+              </Link>
+            </CommonTableColumn>
+          )}
+          <div className={styles.readCount}>
+            <img src="/view.png" alt="view" className={styles.viewicon} />
+            <div className={styles.counttext}>{item.hit}</div>
+          </div>
+        </div>
+        <div className={styles.tableRow2}>
+          <div className={styles.datename}>
+            <div className={styles.createDate}>
+              {item.regtime[0]}-{item.regtime[1]}-{item.regtime[2]}
+            </div>
+          </div>
+          <div className={styles.nickname}>
+            <img alt="profile" src="src/assets/icon/profile_default.jpg" />
+            회원{item.userIdx}
+          </div>
+          {/* <CommonTableColumn className={styles.no}>#{ item.no }</CommonTableColumn> */}
+        </div>
+      </CommonTableRow>
+    );
+  }
   return (
     <>
       <div className={styles.tableContainer}>
         <CommonTable headersName={[]}>
           {/* <CommonTable headersName={['No', '제목', '날짜', '♡']}> */}
-          {dataList
-            ? dataList.map((item, index) => {
-                return (
-                  <CommonTableRow key={index}>
-                    <div className={styles.tableRow}>
-                      {item.userRole == "USER" ? (
-                        <CommonTableColumn className={styles.title}>
-                          <Link
-                            to={`/community/${item.postIdx}`}
-                            className={styles.titletext2}>
-                            [공지사항] {item.title}
-                          </Link>
-                        </CommonTableColumn>
-                      ) : (
-                        <CommonTableColumn className={styles.title}>
-                          <Link
-                            to={`/community/${item.postIdx}`}
-                            className={styles.titletext}>
-                            {item.title}
-                          </Link>
-                        </CommonTableColumn>
-                      )}
-                      <div className={styles.readCount}>
-                        <img
-                          src="/view.png"
-                          alt="view"
-                          className={styles.viewicon}
-                        />
-                        <div className={styles.counttext}>{item.hit}</div>
-                      </div>
-                    </div>
-                    <div className={styles.tableRow2}>
-                      <div className={styles.datename}>
-                        <div className={styles.createDate}>
-                          {item.regtime[0]}-{item.regtime[1]}-{item.regtime[2]}
-                        </div>
-                      </div>
-                      <div className={styles.nickname}>
-                        <img
-                          alt="profile"
-                          src="src/assets/icon/profile_default.jpg"
-                        />
-                        회원{item.userIdx}
-                      </div>
-                      {/* <CommonTableColumn className={styles.no}>#{ item.no }</CommonTableColumn> */}
-                    </div>
-                  </CommonTableRow>
-                );
-              })
-            : ""}
+          {result}
         </CommonTable>
       </div>
     </>
