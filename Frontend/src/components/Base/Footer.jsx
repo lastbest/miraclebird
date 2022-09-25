@@ -35,7 +35,7 @@ function Footer() {
   return (
     <>
       {/* user != null && user.check != ""*/}
-      {true ? (
+      {user != null && user.check != "" ? (
         <>
           <div className={styles.footer}>
             <div className={styles.footer_navbar}>
