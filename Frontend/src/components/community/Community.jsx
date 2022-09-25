@@ -13,6 +13,8 @@ function Community() {
   const mainApi = async () => {
     setLoading(true);
     try {
+      console.log("community");
+      console.log(localStorage.getItem("accessToken"));
       const response = await fetch("http://j7c107.p.ssafy.io:8080/post", {
         method: "GET",
         headers: {
