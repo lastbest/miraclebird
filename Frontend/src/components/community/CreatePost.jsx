@@ -16,7 +16,7 @@ function CreatePost() {
       const response = await fetch(API_BASE_URL + "/auth/", {
         method: "GET",
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("accessToken"),
+          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
         },
       });
       const result = await response.json();
@@ -75,7 +75,7 @@ function CreatePost() {
               url: API_BASE_URL + "/post/",
               method: "post",
               headers: {
-                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+                Authorization: "Bearer " + NOW_ACCESS_TOKEN,
               },
               params: {
                 // user_idx: user.information.userIdx,/

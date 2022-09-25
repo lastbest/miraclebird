@@ -6,7 +6,6 @@ import WebCarousel from "../components/carousel/HomeWebCarousel";
 import Rank from "../components/common/Rank";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Loading } from "../components/Base/Loading";
 
 function Home() {
   const user = useSelector((state) => state.user.value);
@@ -51,7 +50,6 @@ function Home() {
                   }}
                 />
               </div>
-              <Loading></Loading>
             </div>
           ) : (
             <></>

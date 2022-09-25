@@ -18,7 +18,7 @@ function Community() {
       const response = await fetch(API_BASE_URL + "/post", {
         method: "GET",
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("accessToken"),
+          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
         },
       });
       const result = await response.json();

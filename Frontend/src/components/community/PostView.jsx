@@ -15,7 +15,6 @@ const PostView = () => {
   const { postIdx } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
-    console.log(NOW_ACCESS_TOKEN);
     mainApi();
   }, []);
   const mainApi = async () => {
@@ -23,7 +22,7 @@ const PostView = () => {
       const response = await fetch(API_BASE_URL + "/post/" + postIdx, {
         method: "GET",
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("accessToken"),
+          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
         },
       });
       const result = await response.json();
@@ -36,7 +35,7 @@ const PostView = () => {
       const response = await fetch(API_BASE_URL + "/auth/", {
         method: "GET",
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("accessToken"),
+          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
         },
       });
       const result = await response.json();
@@ -76,33 +75,9 @@ const PostView = () => {
                 {data.userIdx == userIdx ? (
                   <div>
                     <Link
-                      to={`/community/update/${data.no}`}
+                      to={`/community/update/${data.postIdx}`}
                       className={styles.titletext}>
-                      <button
-                        className={styles.updatebtn}
-                        onClick={() => {
-                          axios({
-                            url: API_BASE_URL + "/post/",
-                            method: "post",
-                            headers: {
-                              Authorization:
-                                "Bearer " + localStorage.getItem("accessToken"),
-                            },
-                            params: {
-                              // user_idx: user.information.userIdx,/
-                              user_idx: userIdx,
-                            },
-                            data: {
-                              title: title,
-                              content: content,
-                            },
-                          }).then((res) => {
-                            console.log(res.data);
-                          });
-                          navigate("/community");
-                        }}>
-                        수정
-                      </button>
+                      <button className={styles.updatebtn}>수정</button>
                     </Link>
                     <button
                       className={styles.deletebtn}
@@ -154,8 +129,7 @@ const PostView = () => {
                   url: API_BASE_URL + "/post/" + data.postIdx,
                   method: "delete",
                   headers: {
-                    Authorization:
-                      "Bearer " + localStorage.getItem("accessToken"),
+                    Authorization: "Bearer " + NOW_ACCESS_TOKEN,
                   },
                   params: {
                     // user_idx: user.information.userIdx,/

@@ -10,12 +10,8 @@ import { Link } from "react-router-dom";
 
 const PostList = (props) => {
   const [dataList, setDataList] = useState([]);
-  console.log("asd");
-  console.log(props.postData);
   useEffect(() => {
     setDataList(props.postData);
-
-    console.log("asd");
     console.log(props.postData);
   }, [props.postData]);
 

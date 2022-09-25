@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./MyPage.module.css";
 import Modal from "react-bootstrap/Modal";
 import CalendarHeatmap from "react-calendar-heatmap";
@@ -12,21 +12,43 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import MypageFeed from "../components/common/MypageFeed";
 import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { login } from "../store/user";
-import { Loading } from "../components/Base/Loading";
+
+import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
+import axios from "axios";
 
 function MyPage() {
+  const [userData, setUserData] = useState("");
   const [loading, setLoading] = useState(true);
   const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
 
-  useEffect(() => {}, []);
+  const mainApi = async () => {
+    try {
+      const response = await fetch(API_BASE_URL + "/auth/", {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        },
+      });
+      const result = await response.json();
+      console.log("mainData", result);
+      setUserData(result.information);
+    } catch (error) {
+      window.alert(error);
+    }
+  };
+
+  useEffect(() => {
+    mainApi();
+    console.log(userData);
+  }, []);
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -43,14 +65,11 @@ function MyPage() {
   const handleClose5 = () => setShow5(false);
   const handleShow5 = () => setShow5(true);
 
-  const [Image, setImage] = useState(
-    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-  );
+  const [Image, setImage] = useState("");
   const fileInput = useRef(null);
   let [write, setWrite] = useState("");
   let [sell, setSell] = useState("");
   let [sale, setSale] = useState("");
-  let [credentials, setCredentials] = useState("김싸피");
   let [idx, setIdx] = useState(0);
   const navigate = useNavigate();
 
@@ -58,9 +77,7 @@ function MyPage() {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
     } else {
-      setImage(
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-      );
+      setImage(userData.image_url);
       return;
     }
 
@@ -183,7 +200,6 @@ function MyPage() {
             style={{ display: "none" }}
             accept="image/jpg,impge/png,image/jpeg"
             name="profile_img"
-            onChange={onChange}
             ref={fileInput}
           />
           <div className={styles.nicknamebox}>
@@ -359,8 +375,21 @@ function MyPage() {
             />
             <button
               onClick={() => {
-                setCredentials((credentials = write));
                 handleClose2;
+                axios({
+                  url: API_BASE_URL + "/user/" + userData.user_idx,
+                  method: "put",
+                  headers: {
+                    Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                  },
+                  params: {
+                    // user_idx: user.information.userIdx,/
+                    name: write,
+                  },
+                }).then((res) => {
+                  console.log(res.data);
+                });
+                navigate("/mypage");
               }}
               className={styles.nicknamebtn}>
               변경하기
