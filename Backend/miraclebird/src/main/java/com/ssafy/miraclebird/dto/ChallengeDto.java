@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class ChallengeDto {
-    private long challenge_idx;
+    private long challengeIdx;
 
     private String title;
 

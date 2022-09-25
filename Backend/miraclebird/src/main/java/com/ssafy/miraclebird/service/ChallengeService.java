@@ -7,4 +7,5 @@ import java.util.List;
 public interface ChallengeService {
     List<ChallengeDto> getChallengeALL();
     ChallengeDto getChallengeById(long challengeId);
+    void createChallenge(ChallengeDto challengeDto) throws Exception;
 }

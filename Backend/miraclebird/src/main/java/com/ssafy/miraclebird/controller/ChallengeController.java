@@ -37,4 +37,17 @@ public class ChallengeController {
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
+    @ApiOperation(value = "특정 challenge의 정보를 등록한다.", response = ChallengeDto.class)
+    @PostMapping
+    public ResponseEntity<String> createChallenge(@RequestBody ChallengeDto challengeDto) {
+        try{
+            challengeService.createChallenge(challengeDto);
+        }
+        catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+        return new ResponseEntity<String>("success",HttpStatus.OK);
+    }
 }
