@@ -55,7 +55,7 @@ const PostView = () => {
       <button
         className={styles.backbtn}
         onClick={() => {
-          history.back();
+          navigate("/community")
         }}>
         <img alt="back" src="/back.png" className={styles.backicon} />
       </button>
