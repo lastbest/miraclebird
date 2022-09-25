@@ -8,6 +8,7 @@ import java.util.List;
 public interface ChallengerDao {
     List<Challenger> getChallengerALL();
     Challenger getChallengerById(long challengerIdx);
+    Challenger getIdByEntities(long challengeIdx,long userIdx);
     void addChallenger(Challenger challenger) throws Exception;
-    void deleteChallenger(Challenger challenger) throws Exception;
+    void deleteChallenger(Long challengerIdx) throws Exception;
 }

@@ -39,6 +39,14 @@ public class ChallengerController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
+    @ApiOperation(value = "특정 user가 특정 challenge에 참여 했으면 challenge_idx를, 참여하지 않았으면 -1을 반환한다.", response = ChallengerDto.class)
+    @GetMapping("/{challenge_idx}/{user_idx}")
+    public ResponseEntity<Long> getIdByEntities(@PathVariable("challenge_idx") Long challengeIdx,@PathVariable("user_idx") Long userIdx) {
+        Long result = challengerService.getIdByEntities(challengeIdx, userIdx);
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
     @ApiOperation(value = "유저와 챌린지 정보를 받아서 챌린지 참가", response = ChallengerDto.class)
     @PostMapping("/")
     public ResponseEntity<String> addChallenger(@RequestBody ChallengerDto challengerDto) {
@@ -50,20 +58,20 @@ public class ChallengerController {
         }
 
 
-        return new ResponseEntity<String>("success",HttpStatus.OK);
+        return new ResponseEntity<String>("challenger 참가 success",HttpStatus.OK);
     }
 
-    @ApiOperation(value = "유저와 챌린지 정보를 받아서 챌린지 참여 취소", response = ChallengerDto.class)
-    @DeleteMapping("/")
-    public ResponseEntity<String> deleteChallenger(@RequestBody ChallengerDto challengerDto) {
+    @ApiOperation(value = "challenger_idx를 받아서 챌린지 참여 취소", response = ChallengerDto.class)
+    @DeleteMapping("/{challenger_idx}")
+    public ResponseEntity<String> deleteChallenger(@PathVariable("challenger_idx") Long challengerIdx) {
         try {
-            challengerService.deleteChallenger(challengerDto);
+            challengerService.deleteChallenger(challengerIdx);
         }
         catch (Exception e) {
             throw new RuntimeException();
         }
 
 
-        return new ResponseEntity<String>("success",HttpStatus.OK);
+        return new ResponseEntity<String>("challenger 참여 취소 success",HttpStatus.OK);
     }
 }

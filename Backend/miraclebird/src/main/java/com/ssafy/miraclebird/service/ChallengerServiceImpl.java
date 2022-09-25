@@ -47,6 +47,16 @@ public class ChallengerServiceImpl implements ChallengerService{
 
     @Override
     @Transactional
+    public Long getIdByEntities(long challengeId, long userId) {
+        Challenger challengerEntity = challengerDao.getIdByEntities(challengeId,userId);
+        //널이면 -1 리턴
+        if(challengerEntity == null) return (long)-1;
+        long challengerIdx = challengerEntity.getChallengerIdx();
+        return challengerIdx;
+    }
+
+    @Override
+    @Transactional
     public void addChallenger(ChallengerDto challengerDto) throws Exception {
         try{
             Challenger challengerEntity = new Challenger();
@@ -61,12 +71,9 @@ public class ChallengerServiceImpl implements ChallengerService{
 
     @Override
     @Transactional
-    public void deleteChallenger(ChallengerDto challengerDto) throws Exception {
+    public void deleteChallenger(Long challengerIdx) throws Exception {
         try{
-            Challenger challengerEntity = new Challenger();
-            challengerEntity.setChallenge(challengeDao.getChallengeById(challengerDto.getChallenge()));
-            challengerEntity.setUser(userDao.getUserById(challengerDto.getUser()));
-            challengerDao.deleteChallenger(challengerEntity);
+            challengerDao.deleteChallenger(challengerIdx);
         }
         catch (Exception e) {
             throw new Exception();
