@@ -3,6 +3,7 @@ package com.ssafy.miraclebird.service;
 import com.ssafy.miraclebird.dao.*;
 import com.ssafy.miraclebird.dto.VerificationDto;
 import com.ssafy.miraclebird.entity.Verification;
+import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +31,11 @@ public class VerificationServiceImpl implements VerificationService {
         List<Verification> verificationEntity = verificationDao.getVerificationALL();
         List<VerificationDto> verificationDtos = new ArrayList<>();
         for (int i = 0; i < verificationEntity.size(); i++) {
-            verificationDtos.add(VerificationDto.of(verificationEntity.get(i)));
+            User userEntity = verificationEntity.get(i).getUser();
+            VerificationDto verificationDto = VerificationDto.of(verificationEntity.get(i));
+            verificationDto.setName(userEntity.getName());
+            verificationDto.setImageUrl(userEntity.getImageUrl());
+            verificationDtos.add(verificationDto);
         }
         return verificationDtos;
     }
@@ -39,7 +44,10 @@ public class VerificationServiceImpl implements VerificationService {
     @Transactional
     public VerificationDto getVerificationById(long verificationId) {
         Verification verificationEntity = verificationDao.getVerificationById(verificationId);
+        User userEntity = verificationEntity.getUser();
         VerificationDto verificationDto = VerificationDto.of(verificationEntity);
+        verificationDto.setName(userEntity.getName());
+        verificationDto.setImageUrl(userEntity.getImageUrl());
         return verificationDto;
     }
 
@@ -48,10 +56,11 @@ public class VerificationServiceImpl implements VerificationService {
     public void uploadVerification(VerificationDto verificationDto) throws Exception {
         try {
             Verification verificationEntity = new Verification();
-            verificationEntity.setChallenge(challengeDao.getChallengeById(verificationDto.getChallengeIdx()));
             verificationEntity.setRegtime(LocalDateTime.now());
             verificationEntity.setSelfie(verificationDto.getSelfie());
             verificationEntity.setUser(userDao.getUserById(verificationDto.getUserIdx()));
+            verificationEntity.setChallenge(challengeDao.getChallengeById(verificationDto.getChallengeIdx()));
+            verificationEntity.setApproval((long)0);    //초기값 0으로(미검토)
             verificationDao.saveVerification(verificationEntity);
         }
         catch (Exception e) {
