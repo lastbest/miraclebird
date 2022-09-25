@@ -3,7 +3,7 @@ import styles from "./Community.module.css";
 import PostMain from "./PostMain";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "../Base/Loading";
-import { NOW_ACCESS_TOKEN } from "/src/constants";
+import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 
 function Community() {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ function Community() {
     try {
       console.log("community");
       console.log(localStorage.getItem("accessToken"));
-      const response = await fetch("http://j7c107.p.ssafy.io:8080/post", {
+      const response = await fetch(API_BASE_URL + "/post", {
         method: "GET",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("accessToken"),

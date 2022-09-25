@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { NOW_ACCESS_TOKEN } from "/src/constants";
+import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import { useNavigate } from "react-router-dom";
 import profile_default from "../../assets/icon/profile_default.jpg";
 
@@ -20,15 +20,12 @@ const PostView = () => {
   }, []);
   const mainApi = async () => {
     try {
-      const response = await fetch(
-        "http://j7c107.p.ssafy.io:8080/post/" + postIdx,
-        {
-          method: "GET",
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("accessToken"),
-          },
-        }
-      );
+      const response = await fetch(API_BASE_URL + "/post/" + postIdx, {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("accessToken"),
+        },
+      });
       const result = await response.json();
       console.log("mainData", result);
       setData(result);
@@ -36,7 +33,7 @@ const PostView = () => {
       window.alert(error);
     }
     try {
-      const response = await fetch("http://j7c107.p.ssafy.io:8080/auth/", {
+      const response = await fetch(API_BASE_URL + "/auth/", {
         method: "GET",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("accessToken"),
@@ -85,7 +82,7 @@ const PostView = () => {
                         className={styles.updatebtn}
                         onClick={() => {
                           axios({
-                            url: "http://j7c107.p.ssafy.io:8080/post/",
+                            url: API_BASE_URL + "/post/",
                             method: "post",
                             headers: {
                               Authorization:
@@ -154,7 +151,7 @@ const PostView = () => {
               className={styles.deletedeletebtn}
               onClick={() => {
                 axios({
-                  url: "http://j7c107.p.ssafy.io:8080/post/" + data.postIdx,
+                  url: API_BASE_URL + "/post/" + data.postIdx,
                   method: "delete",
                   headers: {
                     Authorization:
