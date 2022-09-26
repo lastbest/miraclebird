@@ -66,8 +66,8 @@ public class CustomDefaultOAuth2UserService extends DefaultOAuth2UserService{
 
     private User updateExistingUser(User user, OAuth2UserInfo oAuth2UserInfo) {
 
-        user.updateName(oAuth2UserInfo.getName());
-        user.updateImageUrl(oAuth2UserInfo.getImageUrl());
+        //user.updateName(oAuth2UserInfo.getName());
+        //user.updateImageUrl(oAuth2UserInfo.getImageUrl());
 
         return userRepository.save(user);
     }
