@@ -24,6 +24,8 @@ public class WalletDto {
 
     private long etherCoin;
 
+    private long userIdx;
+
     public static WalletDto of(Wallet walletEntity) {
         WalletDto walletDto = ModelMapperUtils.getModelMapper().map(walletEntity, WalletDto.class);
 
