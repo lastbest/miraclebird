@@ -27,7 +27,7 @@ public class LandmarkDto {
 
     private int dongCode;
 
-    private String tokenId;
+    private long tokenId;
 
     private String hash;
 
@@ -40,6 +40,10 @@ public class LandmarkDto {
     private Boolean selling;
 
     private long sellPrice;
+
+    private String jsonPath;
+
+    private String imagePath;
 
     private long landmarkInfoIdx;
 

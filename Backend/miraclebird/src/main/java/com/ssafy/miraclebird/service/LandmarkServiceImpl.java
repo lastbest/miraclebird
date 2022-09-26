@@ -31,10 +31,32 @@ public class LandmarkServiceImpl implements LandmarkService {
     }
 
     @Override
-    @Transactional
-    public List<LandmarkDto> getLandmarkAll(Long userIdx) throws Exception {
+    public List<LandmarkDto> getLandmarkAllByDongCode(Long dongCode) throws Exception {
         try {
-            List<Landmark> landmarkList = landmarkDao.getLandmarkAll(userIdx);
+            List<Landmark> landmarkList = landmarkDao.getLandmarkAllByDongCode(dongCode);
+            List<LandmarkDto> landmarkDtoList = landmarkList.stream().map(entity -> LandmarkDto.of(entity)).collect(Collectors.toList());
+
+            for (LandmarkDto landmarkDto : landmarkDtoList) {
+                Landmark_Info landmarkInfoEntity = landmarkInfoDao.getLandmarkInfo(landmarkDto.getLandmarkInfoIdx());
+                landmarkDto.setProvince(landmarkInfoEntity.getProvince());
+                landmarkDto.setCity(landmarkInfoEntity.getCity());
+                landmarkDto.setDongCode(landmarkInfoEntity.getDongCode());
+                landmarkDto.setTitle(landmarkInfoEntity.getTitle());
+                landmarkDto.setContent(landmarkInfoEntity.getContent());
+            }
+
+            return landmarkDtoList;
+        }
+        catch (Exception e) {
+            throw new Exception();
+        }
+    }
+
+    @Override
+    @Transactional
+    public List<LandmarkDto> getLandmarkAllByUser(Long userIdx) throws Exception {
+        try {
+            List<Landmark> landmarkList = landmarkDao.getLandmarkAllByUser(userIdx);
             List<LandmarkDto> landmarkDtoList = landmarkList.stream().map(entity -> LandmarkDto.of(entity)).collect(Collectors.toList());
 
             for (LandmarkDto landmarkDto : landmarkDtoList) {
@@ -83,7 +105,10 @@ public class LandmarkServiceImpl implements LandmarkService {
             landmarkEntity.setSelling(true);
             landmarkEntity.setSellPrice(landmarkDto.getSellPrice());
             landmarkEntity.setStarForce(landmarkDto.getStarForce());
-            //landmarkEntity.setLandmarkInfo(landmarkInfoDao.getLandmarkInfo(landmarkDto.getLandmarkInfoIdx()));
+            landmarkEntity.setTokenId(landmarkDto.getTokenId());
+            landmarkEntity.setJsonPath(landmarkDto.getJsonPath());
+            landmarkEntity.setImagePath(landmarkDto.getImagePath());
+            landmarkEntity.setLandmarkInfo(landmarkInfoDao.getLandmarkInfo(landmarkDto.getLandmarkInfoIdx()));
             landmarkEntity.setUser(userDao.getUserById(userIdx));
             landmarkDao.saveLandmark(landmarkEntity);
         }

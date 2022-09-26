@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface LandmarkRepository extends JpaRepository<Landmark,Long>{
+    List<Landmark> findAllByLandmarkInfo_DongCode(Long dongCode);
     List<Landmark> findAllByUser_UserIdx(Long userIdx);
     Landmark getByStarForceAndLandmarkInfo_LandmarkInfoIdx(Long starForce, Long landmarkInfoIdx);
 }
