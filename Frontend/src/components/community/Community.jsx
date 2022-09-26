@@ -11,59 +11,58 @@ function Community() {
   const [postData, setPostDate] = useState(null);
 
   const mainApi = async () => {
-    try {
+    try 
       console.log("community");
-      console.log(localStorage.getItem("accessToken"));
-      const response = await fetch(API_BASE_URL + "/post", {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-        },
-      });
-      const result = await response.json();
-      console.log("mainData", result);
-      setPostDate(result);
-      setLoading(false);
-    } catch (error) {
-      window.alert(error);
-    }
-  };
+    const response = await fetch(API_BASE_URL + "/post", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    });
+    const result = await response.json();
+    console.log("mainData", result);
+    setPostDate(result);
+    setLoading(false);
+  } catch (error) {
+    window.alert(error);
+  }
+};
 
-  useEffect(() => {
-    mainApi();
-  }, []);
-  return (
-    <>
-      {loading ? (
-        <Loading />
-      ) : (
-        <>
-          <div className={styles.header}>
-            <button
-              className={styles.backbtn}
-              onClick={() => {
-                navigate("/");
-              }}>
-              <img alt="back" src="/back.png" className={styles.backicon} />
-            </button>
-            <div className={styles.communitytext}>커뮤니티</div>
-            <button
-              className={styles.createbtn}
-              onClick={() => {
-                navigate("/community/create");
-              }}>
-              <img
-                alt="pencil"
-                src="/pencil.png"
-                className={styles.pencilicon}
-              />
-            </button>
-          </div>
-          <PostMain postData={postData} />
-        </>
-      )}
-    </>
-  );
+useEffect(() => {
+  mainApi();
+}, []);
+return (
+  <>
+    {loading ? (
+      <Loading />
+    ) : (
+      <>
+        <div className={styles.header}>
+          <button
+            className={styles.backbtn}
+            onClick={() => {
+              navigate("/");
+            }}>
+            <img alt="back" src="/back.png" className={styles.backicon} />
+          </button>
+          <div className={styles.communitytext}>커뮤니티</div>
+          <button
+            className={styles.createbtn}
+            onClick={() => {
+              navigate("/community/create");
+            }}>
+            <img
+              alt="pencil"
+              src="/pencil.png"
+              className={styles.pencilicon}
+            />
+          </button>
+        </div>
+        <PostMain postData={postData} />
+      </>
+    )}
+  </>
+);
 }
 
 export default Community;
