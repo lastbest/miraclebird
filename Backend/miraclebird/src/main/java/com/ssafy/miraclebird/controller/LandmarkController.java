@@ -2,6 +2,7 @@ package com.ssafy.miraclebird.controller;
 
 import com.ssafy.miraclebird.dto.LandmarkDto;
 import com.ssafy.miraclebird.dto.PostDto;
+import com.ssafy.miraclebird.entity.Landmark;
 import com.ssafy.miraclebird.service.LandmarkService;
 import com.ssafy.miraclebird.service.PostService;
 import io.swagger.annotations.Api;
@@ -42,15 +43,17 @@ public class LandmarkController {
 
     @ApiOperation(value = "새로운 랜드마크를 등록한다.", response = String.class)
     @PostMapping
-    public ResponseEntity<String> createLandmark(@RequestBody LandmarkDto landmarkDto, @RequestParam("user_idx") Long userIdx) {
+    public ResponseEntity<LandmarkDto> createLandmark(@RequestBody LandmarkDto landmarkDto, @RequestParam("user_idx") Long userIdx) {
+        LandmarkDto result = null;
+
         try {
-            landmarkService.createLandmark(landmarkDto, userIdx);
+            result = landmarkService.createLandmark(landmarkDto, userIdx);
         }
         catch (Exception e) {
             throw new RuntimeException();
         }
 
-        return new ResponseEntity<String>("success",HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @ApiOperation(value = "해당 구역에 존재하는 NFT랜드마크 정보를 반환한다.", response = List.class)

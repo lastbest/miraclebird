@@ -63,12 +63,14 @@ public class LandmarkDaoImpl implements LandmarkDao {
     }
 
     @Override
-    public void saveLandmark(Landmark landmark) throws Exception {
+    public Landmark saveLandmark(Landmark landmark) throws Exception {
         try {
             landmarkRepository.save(landmark);
         }
         catch (Exception e) {
             throw new Exception();
         }
+
+        return landmark;
     }
 }
