@@ -6,6 +6,7 @@ import com.ssafy.miraclebird.entity.Post;
 import java.util.List;
 
 public interface LandmarkDao {
+    List<Landmark> getLandmarkAll() throws Exception;
     List<Landmark> getLandmarkAllByDongCode(Long dongCode) throws Exception;
     List<Landmark> getLandmarkAllByUser(Long userIdx) throws Exception;
     Landmark getLandmark(Long landmarkIdx) throws Exception;
