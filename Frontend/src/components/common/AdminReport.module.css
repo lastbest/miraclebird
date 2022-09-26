@@ -38,6 +38,16 @@
     padding-right:10px;
     color:black;
 }
+.outBtn {
+    border: none;
+    background-color: #0930a5  ;
+    border-radius: 15px;
+    margin-right:10px;
+    padding:5px;
+    padding-left:10px;
+    padding-right:10px;
+    color:white;
+}
 
 .post {
     width:90%;

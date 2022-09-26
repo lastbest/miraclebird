@@ -48,6 +48,7 @@ function AdminReport () {
                     <div className={styles.btnCt}>
                         <button className={styles.passBtn}>보류</button>
                         <button className={styles.deleteBtn}>삭제</button>
+                        <button className={styles.outBtn}>탈퇴</button>
                     </div>
             </Modal.Body>
             <Modal.Footer className={styles.modalheader}></Modal.Footer>
