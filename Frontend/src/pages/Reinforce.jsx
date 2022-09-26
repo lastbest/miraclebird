@@ -237,7 +237,7 @@ function Reinforce () {
                     <img alt="nft1" src={newImg} className={styles.failCard} />
                 </div>
                 <div>
-                    강화에 실패했습니다. <br></br> {level-1}강으로 카드가 변경됩니다.
+                    강화에 실패했습니다. <br></br> {level-1}강으로 등급이 하락됩니다.
                 </div>
                 <button className={styles.successBtn} onClick={handleClose3}>확인</button>
             </Modal.Body>

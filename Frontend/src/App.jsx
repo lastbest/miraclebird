@@ -24,6 +24,7 @@ import UpdatePost from "./components/community/UpdatePost";
 import Deposit from "./pages/Deposit";
 import HealthFeed from "./components/Feed/HealthFeed";
 import StudyFeed from "./components/Feed/StudyFeed";
+import Admin from "./pages/Admin";
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
             <Route path="/challenge/study/feed" element={<StudyFeed />}></Route>
             <Route path="/mypage" element={<MyPage />}></Route>
             <Route path="/reinforce" element={<Reinforce />}></Route>
+            <Route path="/admin" element={<Admin />}></Route>
           </Routes>
         </div>
         <Footer className={styles.Footer} />
