@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.zip.DataFormatException;
 
 @Service
 public class LandmarkServiceImpl implements LandmarkService {
@@ -31,6 +32,7 @@ public class LandmarkServiceImpl implements LandmarkService {
     }
 
     @Override
+    @Transactional
     public List<LandmarkDto> getLandmarkAll() throws Exception {
         try {
             List<Landmark> landmarkList = landmarkDao.getLandmarkAll();
@@ -53,6 +55,7 @@ public class LandmarkServiceImpl implements LandmarkService {
     }
 
     @Override
+    @Transactional
     public List<LandmarkDto> getLandmarkAllByDongCode(Long dongCode) throws Exception {
         try {
             List<Landmark> landmarkList = landmarkDao.getLandmarkAllByDongCode(dongCode);
@@ -120,7 +123,8 @@ public class LandmarkServiceImpl implements LandmarkService {
     }
 
     @Override
-    public void createLandmark(LandmarkDto landmarkDto, Long userIdx) throws Exception {
+    @Transactional
+    public LandmarkDto createLandmark(LandmarkDto landmarkDto, Long userIdx) throws Exception {
         try {
             Landmark landmarkEntity = new Landmark();
             landmarkEntity.setHash(landmarkDto.getHash());
@@ -132,7 +136,10 @@ public class LandmarkServiceImpl implements LandmarkService {
             landmarkEntity.setImagePath(landmarkDto.getImagePath());
             landmarkEntity.setLandmarkInfo(landmarkInfoDao.getLandmarkInfo(landmarkDto.getLandmarkInfoIdx()));
             landmarkEntity.setUser(userDao.getUserById(userIdx));
-            landmarkDao.saveLandmark(landmarkEntity);
+            landmarkEntity = landmarkDao.saveLandmark(landmarkEntity);
+            landmarkDto = LandmarkDto.of(landmarkEntity);
+
+            return landmarkDto;
         }
         catch (Exception e) {
             throw new Exception();

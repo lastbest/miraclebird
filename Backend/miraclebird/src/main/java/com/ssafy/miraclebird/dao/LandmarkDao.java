@@ -11,5 +11,5 @@ public interface LandmarkDao {
     List<Landmark> getLandmarkAllByUser(Long userIdx) throws Exception;
     Landmark getLandmark(Long landmarkIdx) throws Exception;
     Landmark getLandmark(Long starForce, Long landmarkInfoIdx) throws Exception;
-    void saveLandmark(Landmark landmark) throws Exception;
+    Landmark saveLandmark(Landmark landmark) throws Exception;
 }
