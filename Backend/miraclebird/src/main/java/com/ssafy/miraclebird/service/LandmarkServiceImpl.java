@@ -31,6 +31,28 @@ public class LandmarkServiceImpl implements LandmarkService {
     }
 
     @Override
+    public List<LandmarkDto> getLandmarkAll() throws Exception {
+        try {
+            List<Landmark> landmarkList = landmarkDao.getLandmarkAll();
+            List<LandmarkDto> landmarkDtoList = landmarkList.stream().map(entity -> LandmarkDto.of(entity)).collect(Collectors.toList());
+
+            for (LandmarkDto landmarkDto : landmarkDtoList) {
+                Landmark_Info landmarkInfoEntity = landmarkInfoDao.getLandmarkInfo(landmarkDto.getLandmarkInfoIdx());
+                landmarkDto.setProvince(landmarkInfoEntity.getProvince());
+                landmarkDto.setCity(landmarkInfoEntity.getCity());
+                landmarkDto.setDongCode(landmarkInfoEntity.getDongCode());
+                landmarkDto.setTitle(landmarkInfoEntity.getTitle());
+                landmarkDto.setContent(landmarkInfoEntity.getContent());
+            }
+
+            return landmarkDtoList;
+        }
+        catch (Exception e) {
+            throw new Exception();
+        }
+    }
+
+    @Override
     public List<LandmarkDto> getLandmarkAllByDongCode(Long dongCode) throws Exception {
         try {
             List<Landmark> landmarkList = landmarkDao.getLandmarkAllByDongCode(dongCode);

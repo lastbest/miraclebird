@@ -20,6 +20,13 @@ public class LandmarkDaoImpl implements LandmarkDao {
     }
 
     @Override
+    public List<Landmark> getLandmarkAll() throws Exception {
+        List<Landmark> landmarkList = landmarkRepository.findAll();
+
+        return landmarkList;
+    }
+
+    @Override
     public List<Landmark> getLandmarkAllByDongCode(Long dongCode) throws Exception {
         List<Landmark> landmarkList = landmarkRepository.findAllByLandmarkInfo_DongCode(dongCode);
 
