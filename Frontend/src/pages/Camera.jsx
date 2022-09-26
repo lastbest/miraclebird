@@ -2,24 +2,25 @@ import React, { useState } from "react";
 import Webcam from "react-webcam";
 import styles from "./Camera.module.css";
 import html2canvas from "html2canvas";
+import axios from "axios";
 
 function Camera() {
   const webcamRef = React.useRef(null);
   const [url, setUrl] = React.useState(null);
-  const [imgurl, setImgUrl] = React.useState("");
+  const [imgurl, setImgUrl] = useState(undefined);
 
   function takepicture() {
     const targetvideo = document.getElementById("screenshot_wrap");
     html2canvas(targetvideo).then((xcanvas) => {
       const canvdata = xcanvas.toDataURL("image/png");
-      const decodImg = atob(canvdata.split(",")[1]);
+      const decodImg = window.atob(canvdata.split(",")[1]);
       let array = [];
       for (let i = 0; i < decodImg.length; i++) {
         array.push(decodImg.charCodeAt(i));
       }
 
       const file = new Blob([new Uint8Array(array)], { type: "image/png" });
-      const fileName = "img_test.png";
+      const fileName = "test.png";
       // "img_" +
       // new Date().getFullYear() +
       // (new Date().getMonth() + 1) +
@@ -29,36 +30,42 @@ function Camera() {
       // new Date().getSeconds() +
       // ".png";
       let formData = new FormData();
+      console.log("file", file)
       formData.append("uploadFile", file, fileName);
+      console.log(formData)
       setImgUrl(formData);
 
       console.log("imgurl", imgurl);
-      for (let value of formData.values()) {
+      console.log("imgurl.length", imgurl.length);
+      for (let value of formData.size) {
         console.log(value);
       }
+
       var photo = document.createElement("img");
       photo.setAttribute("src", canvdata);
       photo.setAttribute("width", 256);
       photo.setAttribute("height", 256);
-      //document.getElementById("frame").appendChild(photo);
+      document.getElementById("frame").appendChild(photo);
     });
   }
 
-  const savepicture = async () => {
-    try {
-      const response = await fetch("https://j7c107.p.ssafy.io/image/upload", {
-        method: "POST",
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        data: imgurl,
-      });
-      const result = await response.json();
-      console.log("mainData", result);
-    } catch (error) {
-      window.alert(error);
-    }
-  };
+  function savepicture() {
+    axios({
+      url: "https://j7c107.p.ssafy.io/image/upload",
+      method: "POST",
+      headers: {
+        "Content-Type": "multipart/form-data",
+        processData: false,
+      },
+      data: imgurl,
+    }).then((res) => {
+      console.log(res.data);
+    }).catch((err) => {
+      alert(err);
+      console.log(err);
+    });
+
+  }
 
   const videoConstraints = {
     width: 256,
