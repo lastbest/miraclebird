@@ -35,6 +35,15 @@ public class Landmark {
     @Column(nullable = true, name = "sell_price")
     private long sellPrice;
 
+    @Column(nullable = true, name = "token_id")
+    private long tokenId;
+
+    @Column(nullable = true, name = "json_path")
+    private String jsonPath;
+
+    @Column(nullable = true, name = "image_path")
+    private String imagePath;
+
     /* 연관관계 매핑 */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userIdx")
