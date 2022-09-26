@@ -1,12 +1,13 @@
 import React from 'react';
 import { useRef, useState } from 'react';
-import COMMON_ABI from '../common/ABI';
+import COMMON_ABI from '../../common/ABI';
 import Modal from "react-bootstrap/Modal";
 import axios from 'axios';
 import Web3 from 'web3';
-import getAddressFrom from '../util/AddressExtractor';
+import getAddressFrom from '../../util/AddressExtractor';
 import { NFTStorage } from 'nft.storage';
 import { Form, FormikProvider, useFormik } from 'formik';
+import styles from "./LandmarkRegistration.module.css"
 
 const client = new NFTStorage({ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDk0MTM5RkNDZmFFMkU5NDg0Q0VlZWM5YjZGZTViQWE1MUZiQjNEMGYiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY2NDA5NjE1ODQ2NCwibmFtZSI6Ik1pcmFjbGUgQmlyZCJ9.rQfvLFypmPXA7AzEOGCjS3lOEwCW1boihucZZ53U_hQ' })
 
@@ -133,7 +134,7 @@ function LandmarkRegistration() {
     }
 
     return (
-        <div className="App">
+        <div className={styles.contentCt}>
             <div >주소: {}</div>
             <br/><br/>
             <input value={itemName}
@@ -175,6 +176,7 @@ function LandmarkRegistration() {
                         label="개인키"
                         onChange={handlePrivKey}
                         value={privKey}
+                        placeholder="개인키를 입력하세요"
                       />
                     </div>
 
