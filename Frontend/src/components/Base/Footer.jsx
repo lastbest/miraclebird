@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./Footer.module.css";
 import { getCurrentUser } from "../../util/APIUtils";
 import Modal from "react-bootstrap/Modal";
@@ -12,11 +12,9 @@ function Footer() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
-
+  const location = useLocation();
   useEffect(() => {
     loadCurrentlyLoggedInUser();
-
-    console.log(user);
   }, []);
   function loadCurrentlyLoggedInUser() {
     getCurrentUser()
@@ -24,7 +22,9 @@ function Footer() {
         dispatch(login(response));
       })
       .catch((error) => {
-        handleShow();
+        if (location.pathname != "/") {
+          handleShow();
+        }
       });
   }
   console.log(user);
@@ -34,6 +34,7 @@ function Footer() {
   const handleShow = () => setShow(true);
   return (
     <>
+      {/* user != null && user.check != ""*/}
       {user != null && user.check != "" ? (
         <>
           <div className={styles.footer}>
@@ -84,7 +85,8 @@ function Footer() {
                         SIG_CD: "",
                       })
                     );
-                    navigate("/community");
+                    // navigate("/community");
+                    document.location.href = "community";
                   }}
                 />
                 <div className={styles.icontext}>커뮤니티</div>

@@ -1,5 +1,7 @@
+import { style } from "d3";
 import React, { useState, useEffect } from "react";
 import spot from "../components/map/spot.json";
+import styles from "./Landmark.module.css";
 
 function Landmark() {
   const [si, setSi] = useState("-");
@@ -23,17 +25,15 @@ function Landmark() {
     for (var j = 0; j < spot[i].landmark.length; j++) {
       var tempUrl = spot[i].landmark[j].index;
       var tempUrl1 = "/src/assets/landmark/" + tempUrl + ".png";
-      if (spot[i].name == gu) {
-        result.push(
-          <div key={i}>
-            <img src={tempUrl1}></img>
-            <br />
-            {spot[i].landmark[j].name}
-            <br />
-            {spot[i].name}
-          </div>
-        );
-      }
+      result.push(
+        <div key={i}>
+          {spot[i].landmark[j].name}({spot[i].name})
+          <br />
+          <img src={tempUrl1} className={styles.landmarkImg}></img>
+          <br />
+          <br />
+        </div>
+      );
     }
   }
   useEffect(() => {}, [si, result]);
@@ -45,23 +45,21 @@ function Landmark() {
     for (var j = 0; j < spot[i].landmark.length; j++) {
       var tempUrl = spot[i].landmark[j].index;
       var tempUrl1 = "/src/assets/landmark/" + tempUrl + ".png";
-      if (spot[i].name == gu) {
-        result.push(
-          <div key={i}>
-            <img src={tempUrl1}></img>
-            <br />
-            {spot[i].landmark[j].name}
-            <br />
-            {spot[i].name}
-          </div>
-        );
-      }
+      result.push(
+        <div key={i}>
+          {spot[i].landmark[j].name}({spot[i].name})
+          <br />
+          <img src={tempUrl1} className={styles.landmarkImg}></img>
+          <br />
+          <br />
+        </div>
+      );
     }
   }
   console.log(gu);
   return (
     <>
-      <select>
+      {/* <select>
         <option key="seoul" value="서울특별시">
           서울특별시
         </option>
@@ -92,9 +90,8 @@ function Landmark() {
         <option key="50000" value="성동구">
           성동구
         </option>
-      </select>
-      {gu}
-      {result}
+      </select> */}
+      <div className={styles.container}>{result}</div>
     </>
   );
 }

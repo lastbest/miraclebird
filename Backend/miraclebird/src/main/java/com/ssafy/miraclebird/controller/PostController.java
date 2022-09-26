@@ -38,7 +38,7 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @ApiOperation(value = "새로운 게시글을 등록한다.", response = PostDto.class)
+    @ApiOperation(value = "새로운 게시글을 등록한다.", response = String.class)
     @PostMapping
     public ResponseEntity<String> createPost(@RequestBody PostDto postDto, @RequestParam("user_idx") Long userIdx) {
         try {

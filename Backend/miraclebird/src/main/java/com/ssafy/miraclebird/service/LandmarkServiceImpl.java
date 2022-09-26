@@ -76,6 +76,23 @@ public class LandmarkServiceImpl implements LandmarkService {
     }
 
     @Override
+    public void createLandmark(LandmarkDto landmarkDto, Long userIdx) throws Exception {
+        try {
+            Landmark landmarkEntity = new Landmark();
+            landmarkEntity.setHash(landmarkDto.getHash());
+            landmarkEntity.setSelling(true);
+            landmarkEntity.setSellPrice(landmarkDto.getSellPrice());
+            landmarkEntity.setStarForce(landmarkDto.getStarForce());
+            //landmarkEntity.setLandmarkInfo(landmarkInfoDao.getLandmarkInfo(landmarkDto.getLandmarkInfoIdx()));
+            landmarkEntity.setUser(userDao.getUserById(userIdx));
+            landmarkDao.saveLandmark(landmarkEntity);
+        }
+        catch (Exception e) {
+            throw new Exception();
+        }
+    }
+
+    @Override
     @Transactional
     public void updateLandmark(LandmarkDto landmarkDto, Long userIdx) throws Exception {
         Landmark landmarkEntity = landmarkDao.getLandmark(landmarkDto.getLandmarkIdx());

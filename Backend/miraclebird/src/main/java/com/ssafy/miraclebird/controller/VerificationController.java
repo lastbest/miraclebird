@@ -39,6 +39,13 @@ public class VerificationController {
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+    @ApiOperation(value = "특정 유저의 챌린지인증샷의 정보를 반환한다.", response = VerificationDto.class)
+    @GetMapping("/user")
+    public ResponseEntity<List<VerificationDto>> getVerificationByUser(@RequestParam Long userIdx) {
+        List<VerificationDto> result = verificationService.getVerificationByUser(userIdx);
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
 
     @ApiOperation(value = "챌린지인증샷을 등록한다.", response = VerificationDto.class)
     @PostMapping

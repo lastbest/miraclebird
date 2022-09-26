@@ -63,6 +63,7 @@ function LandmarkRegistration() {
       });
     const { errors, touched, handleSubmit, handleReset, getFieldProps } = formik;
 
+    // URI Json 생성
     async function createURI() {
         const metadata = await client.store({
             name: itemName,
@@ -73,6 +74,7 @@ function LandmarkRegistration() {
         setUri(`https://${metadata.ipnft}.ipfs.nftstorage.link/metadata.json`)
     }
 
+    // NFT 등록
     async function addItem() {
         const address = getAddressFrom(privKey.startsWith("0x") ? privKey : "0x" + privKey);
         console.log("address", address);
