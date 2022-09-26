@@ -1,6 +1,5 @@
 package com.ssafy.miraclebird.entity;
 
-import com.ssafy.miraclebird.dto.ChallengeDto;
 import com.ssafy.miraclebird.dto.ReportDto;
 import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
 import com.ssafy.miraclebird.util.ModelMapperUtils;
@@ -30,13 +29,9 @@ public class Report {
     private String description;
 
     /* 연관관계 매핑 */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reporter")
-    private User reporter;
+    private long reporter;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "suspect")
-    private User suspect;
+    private long suspect;
 
     public static Report of(ReportDto reportDto) {
         Report reportEntity = ModelMapperUtils.getModelMapper().map(reportDto, Report.class);
