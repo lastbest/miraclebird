@@ -85,7 +85,8 @@ function Footer() {
                         SIG_CD: "",
                       })
                     );
-                    navigate("/community");
+                    // navigate("/community");
+                    document.location.href = "community";
                   }}
                 />
                 <div className={styles.icontext}>커뮤니티</div>

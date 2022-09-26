@@ -253,16 +253,16 @@ function MyPage() {
               return `color-scale-${value.count}`;
             }}
 
-            // tooltipDataAttrs={(value) => {
-            //     if (!value || !value.date) {
-            //     return null;
-            //     }
-            //     return {
-            //     "data-tip": `${value.date} has count: ${
-            //         value.count
-            //     }`,
-            //     };
-            // }}
+          // tooltipDataAttrs={(value) => {
+          //     if (!value || !value.date) {
+          //     return null;
+          //     }
+          //     return {
+          //     "data-tip": `${value.date} has count: ${
+          //         value.count
+          //     }`,
+          //     };
+          // }}
           />
           {/* <ReactTooltip className={styles.tooltip} /> */}
         </div>
@@ -389,7 +389,7 @@ function MyPage() {
                 }).then((res) => {
                   console.log(res.data);
                 });
-                navigate("/mypage");
+                document.location.href = "/mypage";
               }}
               className={styles.nicknamebtn}>
               변경하기
