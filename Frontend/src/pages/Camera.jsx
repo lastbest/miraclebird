@@ -78,7 +78,9 @@ function Camera() {
     setUrl(imageSrc);
   }, [webcamRef]);
 
+
   return (
+    <>
     <div>
       {url != null ? (
         <img
@@ -99,6 +101,11 @@ function Camera() {
             <div className={styles.timestamp}>
               <p>2022-09-22 11:35</p>
             </div>
+            <div className={styles.themText}>
+              {them === 1 ? "미라클 모닝" : ""}
+              {them === 2 ? "운동" : ""}
+              {them === 3 ? "스터디" : ""}
+            </div>
           </div>
         ) : (
           <Webcam
@@ -111,14 +118,24 @@ function Camera() {
         )}
       </div>
 
+      <div className={styles.btnCt}>
+          <button className={`challengeBtn ${them === 1 ? 'active' : ''}`} onClick={()=>(setThem(1))}>미라클모닝</button>
+          <button className={`challengeBtn ${them === 2 ? 'active' : ''}`} onClick={()=>(setThem(2))}>운동</button>
+          <button className={`reportBtn ${them === 3 ? 'active' : ''}`} onClick={()=>(setThem(3))}>스터디</button>
+      </div>
+
       <div className={styles.camera_footer}>
         {url == null ? (
           <div>
             <img
               className={styles.shot}
-              src="src/assets/icon/shot_icon.png"
+              src="/camera-lens.png"
               onClick={() => {
-                capture();
+                if (them === 0) {
+                  handleShow();
+                } else {
+                  capture();
+                } 
               }}></img>
           </div>
         ) : (
@@ -126,10 +143,11 @@ function Camera() {
             <div>
               <img
                 className={styles.shot}
-                src="src/assets/icon/save_icon.png"
+                src="/download.png"
                 onClick={() => {
                   takepicture();
                   savepicture();
+                  
                 }}></img>
             </div>
           </div>
@@ -137,6 +155,23 @@ function Camera() {
         <div id="frame" className="frame"></div>
       </div>
     </div>
+    
+    <Modal
+          centered
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+      >
+          <Modal.Header className={styles.modalheader} closeButton>
+          </Modal.Header>
+          <Modal.Body className={styles.modalcontent}>
+              챌린지 카테고리를 선택해주세요!
+          </Modal.Body>
+          <Modal.Footer className={styles.modalheader}></Modal.Footer>
+      </Modal>
+
+    </>
   );
 }
 
