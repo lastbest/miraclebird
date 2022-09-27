@@ -90,11 +90,11 @@ public class User extends DefaultTime {
     @OneToMany(mappedBy = "user")
     List<Transaction> transaction = new ArrayList<>();
 
-    @OneToMany(mappedBy = "reporter")
-    List<Report> reporter = new ArrayList<>();
-
-    @OneToMany(mappedBy = "suspect")
-    List<Report> suspect = new ArrayList<>();
+//    @OneToMany(mappedBy = "reporter")
+//    List<Report> reporter = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "suspect")
+//    List<Report> suspect = new ArrayList<>();
 
     public static User of(UserDto userDto) {
         User userEntity = ModelMapperUtils.getModelMapper().map(userDto, User.class);

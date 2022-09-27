@@ -31,9 +31,9 @@ public class ReportServiceImpl implements ReportService{
         List<Report> reportList = reportDao.getReportALL();
 
         List<ReportDto> reportDtoList = reportList.stream().map(entity -> ReportDto.of(entity)).collect(Collectors.toList());
-        for (ReportDto reportDto : reportDtoList) {
-            reportDto.setReporter();
-        }
+//        for (ReportDto reportDto : reportDtoList) {
+//            reportDto.setReporter();
+//        }
         return reportDtoList;
         //=============
 //        System.out.println("여기1");

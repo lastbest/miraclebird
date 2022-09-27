@@ -29,8 +29,10 @@ public class Report {
     private String description;
 
     /* 연관관계 매핑 */
+    @Column(nullable = false)
     private long reporter;
 
+    @Column(nullable = false)
     private long suspect;
 
     public static Report of(ReportDto reportDto) {

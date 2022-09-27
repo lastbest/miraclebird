@@ -22,9 +22,7 @@ public class ReportDto {
 //    private String suspectName;
 
     public static ReportDto of(Report missionEntity) {
-        System.out.println("여기리포트디티오");
         ReportDto missionDto = ModelMapperUtils.getModelMapper().map(missionEntity, ReportDto.class);
-        System.out.println("여기 리포트디티오2");
         return missionDto;
     }
 }
