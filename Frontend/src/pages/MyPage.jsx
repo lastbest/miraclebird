@@ -63,7 +63,7 @@ function MyPage() {
           });
       })
       .catch((error) => {
-        window.alert(error);
+        console.log(error);
       });
   };
 
@@ -209,9 +209,11 @@ function MyPage() {
         <div className={styles.profileimg}>
           <img
             src={
-              user.information.imageUrl != ""
-                ? user.information.imageUrl
-                : "src/assets/icon/profile_default.jpg"
+              user.information.imageUrl == "" ||
+              user.information.imageUrl == undefined ||
+              user.information.imageUrl == null
+                ? "src/assets/icon/profile_default.jpg"
+                : user.information.imageUrl
             }
             className={styles.profileupload}
             onClick={() => {
