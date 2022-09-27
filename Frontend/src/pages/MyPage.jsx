@@ -27,29 +27,49 @@ const BLOCKCHAIN_URL = "http://20.196.209.2:8545";
 function MyPage() {
   const [userData, setUserData] = useState("");
   const [loading, setLoading] = useState(true);
+  const [wallet, setWallet] = useState("");
+  const [flag, setFlag] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
+  const [tempKey, setTempKey] = useState("");
 
   const mainApi = async () => {
-    try {
-      const response = await fetch(API_BASE_URL + "/auth/", {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-        },
+    axios({
+      url: API_BASE_URL + "/auth/",
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        console.log("mainData", res.data.information);
+        setUserData(res.data.information);
+        return res;
+      })
+      .then((res) => {
+        axios({
+          url: API_BASE_URL + "/wallet/" + res.data.information.userIdx,
+          method: "get",
+          headers: {
+            Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+          },
+        })
+          .then((res) => {
+            setWallet(res.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        window.alert(error);
       });
-      const result = await response.json();
-      console.log("mainData", result);
-      setUserData(result.information);
-    } catch (error) {
-      window.alert(error);
-    }
   };
 
   useEffect(() => {
     mainApi();
-    console.log(userData);
+    console.log(wallet);
   }, []);
 
   const [show, setShow] = useState(false);
@@ -345,22 +365,70 @@ function MyPage() {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}>
-        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Header className={styles.modalheader}></Modal.Header>
         <Modal.Body className={styles.modalcontent} closeButton>
           <img alt="wallet" src="/wallet.png" className={styles.wallet} />
-          <button
-            className={styles.walletbtn}
-            onClick={() => {
-              var web3 = new Web3(BLOCKCHAIN_URL);
-              var privateKey = web3.eth.accounts.create();
-              console.log(privateKey);
-            }}>
-            지갑 생성
-          </button>
-          <div className={styles.walletAddress}>
-            <div className={styles.walletAddressText}>지갑 주소</div>
-            <div className={styles.walletText}>12345656777</div>
-          </div>
+          {(wallet.walletAddress == undefined || wallet.walletAddress == "") &&
+          tempKey == "" ? (
+            <button
+              className={styles.walletbtn}
+              onClick={(e) => {
+                e.preventDefault();
+                var web3 = new Web3(BLOCKCHAIN_URL);
+                var privateKey = web3.eth.accounts.create();
+                console.log(privateKey);
+                console.log(userData.userIdx);
+                console.log(privateKey.address);
+                axios({
+                  url: API_BASE_URL + "/wallet",
+                  method: "post",
+                  headers: {
+                    Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                  },
+                  data: {
+                    userIdx: userData.userIdx,
+                    walletAddress: privateKey.address,
+                  },
+                }).then((res) => {
+                  setTempKey(privateKey.privateKey);
+                  console.log(tempKey);
+                });
+              }}>
+              지갑 생성
+            </button>
+          ) : (
+            <div className={styles.walletAddress}>
+              {wallet.walletAddress == undefined ? (
+                <div className={styles.keyText}>
+                  꼭 저장해주세요 ㅎㅅㅎ{tempKey}
+                  <button
+                    onClick={() => {
+                      setTempKey(tempKey);
+                      handleClose();
+                      document.location.href = "/mypage";
+                    }}
+                    className={styles.walletCheckbtn}>
+                    확인
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <div className={styles.walletAddressText}>지갑 주소</div>
+                  <div className={styles.walletText}>
+                    {wallet.walletAddress}
+                  </div>
+                  <button
+                    onClick={() => {
+                      handleClose();
+                      setFlag(true);
+                    }}
+                    className={styles.walletCheckbtn}>
+                    확인
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </Modal.Body>
       </Modal>
 
