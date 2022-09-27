@@ -56,4 +56,6 @@ public class Landmark {
     @OneToMany(mappedBy = "landmark")
     List<Price> price = new ArrayList<>();
 
+    @OneToMany(mappedBy = "landmark")
+    List<Mynft> mynft = new ArrayList<>();
 }

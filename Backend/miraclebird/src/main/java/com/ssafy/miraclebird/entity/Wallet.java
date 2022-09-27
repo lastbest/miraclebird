@@ -38,6 +38,9 @@ public class Wallet {
     @JoinColumn(name = "userIdx", unique = true)
     private User user;
 
+    @OneToMany(mappedBy = "wallet")
+    List<Mynft> mynft = new ArrayList<>();
+
     public static Wallet of(WalletDto walletDto) {
         Wallet walletEntity = ModelMapperUtils.getModelMapper().map(walletDto, Wallet.class);
 
