@@ -29,11 +29,13 @@ public class Report {
     private String description;
 
     /* 연관관계 매핑 */
-    @Column(nullable = false)
-    private long reporter;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userIdx")
+    private User user;
 
-    @Column(nullable = false)
-    private long suspect;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "verificationIdx")
+    private Verification verification;
 
     public static Report of(ReportDto reportDto) {
         Report reportEntity = ModelMapperUtils.getModelMapper().map(reportDto, Report.class);

@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/report")
-@Api("챌린지 미션 관련 REST V1")
+@Api("챌린지 인증샷 신고 관련 REST V1")
 public class ReportController {
     private final ReportService reportService;
 
@@ -24,10 +24,15 @@ public class ReportController {
 
     @ApiOperation(value = "모든 Report의 정보를 반환한다.", response = ReportDto.class)
     @GetMapping("/")
-    public ResponseEntity<List<ReportDto>> getReportALL() {
-        List<ReportDto> result = reportService.getReportALL();
+    public ResponseEntity<List<ReportDto>> getReportALL() throws Exception {
+        try{
+            List<ReportDto> result = reportService.getReportALL();
 
-        return ResponseEntity.status(HttpStatus.OK).body(result);
+            return ResponseEntity.status(HttpStatus.OK).body(result);
+        }
+            catch (Exception e) {
+            throw new Exception();
+        }
     }
 
     @ApiOperation(value = "특정 Report의 정보를 반환한다.", response = ReportDto.class)

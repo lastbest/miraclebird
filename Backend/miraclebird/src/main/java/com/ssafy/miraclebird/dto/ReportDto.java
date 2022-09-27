@@ -14,12 +14,12 @@ import lombok.*;
 public class ReportDto {
     private long reportIdx;
     private String description;
-    private long reporter;
-    private long suspect;
+    private long userIdx;
+    private long verificationIdx;
 
     //유저정보
-//    private String reporterName;
-//    private String suspectName;
+    private String reporterName;
+    private String suspectName;
 
     public static ReportDto of(Report missionEntity) {
         ReportDto missionDto = ModelMapperUtils.getModelMapper().map(missionEntity, ReportDto.class);
