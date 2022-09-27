@@ -50,9 +50,9 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     @Transactional
-    public WalletDto getWallet(Long walletIdx) throws Exception{
+    public WalletDto getWallet(Long userIdx) throws Exception{
         try {
-            Wallet walletEntity = walletDao.getWallet(walletIdx);
+            Wallet walletEntity = walletDao.getWallet(userIdx);
             WalletDto walletDto = WalletDto.of(walletEntity);
 
             return walletDto;
@@ -64,7 +64,7 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     @Transactional
-    public void createWallet(WalletDto walletDto, Long userIdx) throws Exception {
+    public Wallet createWallet(WalletDto walletDto) throws Exception {
         try {
             Wallet walletEntity = new Wallet();
             User userEntity = userDao.getUserById(walletDto.getUserIdx());
@@ -74,6 +74,8 @@ public class WalletServiceImpl implements WalletService {
             walletEntity.setEtherCoin(0);
             walletEntity.setMiraToken(0);
             walletDao.saveWallet(walletEntity);
+
+            return walletEntity;
         }
         catch (Exception e) {
             throw new Exception();
@@ -82,7 +84,7 @@ public class WalletServiceImpl implements WalletService {
 
 //    @Override
 //    @Transactional
-//    public void updateWallet(WalletDto walletDto, Long userIdx) throws Exception {
+//    public void updateWallet(WalletDto walletDto) throws Exception {
 //        Wallet walletEntity = walletDao.getWallet(walletDto.getWalletIdx());
 //
 //        if (walletEntity.getUser().getUserIdx() == userIdx) {
@@ -98,15 +100,9 @@ public class WalletServiceImpl implements WalletService {
     @Override
     @Transactional
     public void deleteWallet(Long walletIdx, Long userIdx) throws Exception {
-        Wallet walletEntity = walletDao.getWallet(walletIdx);
+        Wallet walletEntity = walletDao.getWalletById(walletIdx);
 
         if (walletEntity.getUser().getUserIdx() == userIdx) {
-            List<Comment> commentList = commentDao.getCommentAll(walletIdx);
-
-            for(Comment comment : commentList) {
-                commentDao.deleteComment(comment.getCommentIdx());
-            }
-
             walletDao.deleteWallet(walletIdx);
         }
         else {

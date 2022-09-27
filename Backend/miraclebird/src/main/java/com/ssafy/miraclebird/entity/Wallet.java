@@ -4,10 +4,7 @@ import com.ssafy.miraclebird.dto.PostDto;
 import com.ssafy.miraclebird.dto.WalletDto;
 import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
 import com.ssafy.miraclebird.util.ModelMapperUtils;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -45,5 +42,10 @@ public class Wallet {
         Wallet walletEntity = ModelMapperUtils.getModelMapper().map(walletDto, Wallet.class);
 
         return walletEntity;
+    }
+
+    @Override
+    public String toString(){
+        return "success wallet_idx : " + walletIdx + ", wallet_address : " + walletAddress + ", mira_token : " + miraToken + ", ether_coin : " + etherCoin + ", userIdx : " + user.getUserIdx();
     }
 }
