@@ -12,6 +12,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,6 +44,12 @@ public class Verification {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challengeIdx")
     private Challenge challenge;
+
+    @OneToMany(mappedBy = "verification")
+    List<Report> report = new ArrayList<>();
+
+    @OneToMany(mappedBy = "verification")
+    List<VerificationLike> verificationLikes = new ArrayList<>();
 
     public static Verification of(VerificationDto verificationDto) {
         Verification verificationEntity = ModelMapperUtils.getModelMapper().map(verificationDto, Verification.class);

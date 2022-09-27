@@ -61,7 +61,7 @@ public class VerificationController {
     }
 
     @ApiOperation(value = "특정 챌린지 인증샷을 승인한다.", response = VerificationDto.class)
-    @GetMapping("/approve/{verification_idx}")
+    @PutMapping("/approve/{verification_idx}")
     public ResponseEntity<VerificationDto> approveVerification(@PathVariable("verification_idx") Long verificationIdx) throws Exception {
         VerificationDto result = verificationService.approveVerification(verificationIdx, 1);
 
@@ -69,7 +69,7 @@ public class VerificationController {
     }
 
     @ApiOperation(value = "특정 챌린지 인증샷을 거절한다.", response = VerificationDto.class)
-    @GetMapping("/decline/{verification_idx}")
+    @PutMapping("/decline/{verification_idx}")
     public ResponseEntity<VerificationDto> declineVerification(@PathVariable("verification_idx") Long verificationIdx) throws Exception {
         VerificationDto result = verificationService.approveVerification(verificationIdx, 2);
 
