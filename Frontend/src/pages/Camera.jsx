@@ -11,10 +11,6 @@ function Camera() {
   const webcamRef = React.useRef(null);
   const [url, setUrl] = React.useState(null);
   const [imgurl, setImgUrl] = useState(undefined);
-  const [them, setThem] = useState(0);
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -145,24 +141,6 @@ function Camera() {
       
 
         <div className={styles.camera_footer}>
-          <div className={styles.btnCt}>
-            <button
-              className={`challengeBtn ${them === 1 ? "active" : ""}`}
-              onClick={() => setThem(1)}>
-              미라클모닝
-            </button>
-            <button
-              className={`challengeBtn ${them === 2 ? "active" : ""}`}
-              onClick={() => setThem(2)}>
-              운동
-            </button>
-            <button
-              className={`reportBtn ${them === 3 ? "active" : ""}`}
-              onClick={() => setThem(3)}>
-              스터디
-            </button>
-          </div>
-
           {url == null ? (
             <div>
               <img
