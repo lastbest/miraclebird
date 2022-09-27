@@ -2,6 +2,7 @@ package com.ssafy.miraclebird.service;
 
 import com.ssafy.miraclebird.dao.*;
 import com.ssafy.miraclebird.dto.MynftDto;
+import com.ssafy.miraclebird.dto.PostDto;
 import com.ssafy.miraclebird.entity.Comment;
 import com.ssafy.miraclebird.entity.Landmark;
 import com.ssafy.miraclebird.entity.Mynft;
@@ -31,12 +32,13 @@ public class MynftServiceImpl implements MynftService {
 
     @Override
     @Transactional
-    public MynftDto getMynft(Long mynftIdx) throws Exception{
+    public List<MynftDto> getMynft(Long userIdx) throws Exception{
         try {
-            Mynft mynftEntity = mynftDao.getMynft(mynftIdx);
-            MynftDto mynftDto = MynftDto.of(mynftEntity);
+            List<Mynft> mynftList = mynftDao.getMynftAll(userIdx);
+//            MynftDto mynftDto = MynftDto.of(mynftEntity);
+            List<MynftDto> MynftDtoList = mynftList.stream().map(entity -> MynftDto.of(entity)).collect(Collectors.toList());
 
-            return mynftDto;
+            return MynftDtoList;
         }
         catch (Exception e) {
             throw new Exception();

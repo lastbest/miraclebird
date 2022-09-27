@@ -36,13 +36,13 @@ public class MynftController {
         return new ResponseEntity<String>("success",HttpStatus.OK);
     }
 
-    @ApiOperation(value = "mynft_id에 해당하는 게시글 정보를 반환한다.", response = MynftDto.class)
-    @GetMapping("/{mynft_idx}")
-    public ResponseEntity<MynftDto> getMynft(@PathVariable("mynft_idx") Long mynftIdx) {
-        MynftDto result = null;
+    @ApiOperation(value = "특정 유저가 소유한 NFT 목록을 반환한다.", response = MynftDto.class)
+    @GetMapping("/{user_idx}")
+    public ResponseEntity<List<MynftDto>> getMynft(@PathVariable("user_idx") Long userIdx) {
+        List<MynftDto> result = null;
 
         try {
-            result = mynftService.getMynft(mynftIdx);
+            result = mynftService.getMynft(userIdx);
         }
         catch (Exception e) {
             throw new RuntimeException();
@@ -51,7 +51,7 @@ public class MynftController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @ApiOperation(value = "mynft_idx에 해당하는 게시글 정보를 삭제한다.", response = String.class)
+    @ApiOperation(value = "mynft_idx 에 해당하는 소유목록 삭제한다.", response = String.class)
     @DeleteMapping("/{mynft_idx}")
     public ResponseEntity<String> deleteMynft(@PathVariable("mynft_idx") Long mynftIdx, @RequestParam("user_idx") Long userIdx) {
         try {
