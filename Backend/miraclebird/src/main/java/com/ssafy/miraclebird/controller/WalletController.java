@@ -25,9 +25,9 @@ public class WalletController {
 
     @ApiOperation(value = "새로운 지갑을 등록한다.", response = String.class)
     @PostMapping
-    public ResponseEntity<String> createWallet(@RequestBody WalletDto walletDto, @RequestParam("user_idx") Long userIdx) {
+    public ResponseEntity<String> createWallet(@RequestBody WalletDto walletDto) {
         try {
-            walletService.createWallet(walletDto, userIdx);
+            walletService.createWallet(walletDto);
         }
         catch (Exception e) {
             throw new RuntimeException();
