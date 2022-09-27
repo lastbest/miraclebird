@@ -98,15 +98,9 @@ public class WalletServiceImpl implements WalletService {
     @Override
     @Transactional
     public void deleteWallet(Long walletIdx, Long userIdx) throws Exception {
-        Wallet walletEntity = walletDao.getWallet(walletIdx);
+        Wallet walletEntity = walletDao.getWalletById(walletIdx);
 
         if (walletEntity.getUser().getUserIdx() == userIdx) {
-            List<Comment> commentList = commentDao.getCommentAll(walletIdx);
-
-            for(Comment comment : commentList) {
-                commentDao.deleteComment(comment.getCommentIdx());
-            }
-
             walletDao.deleteWallet(walletIdx);
         }
         else {
