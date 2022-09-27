@@ -11,6 +11,15 @@ function Camera() {
   const webcamRef = React.useRef(null);
   const [url, setUrl] = React.useState(null);
   const [imgurl, setImgUrl] = useState(undefined);
+  const [share, setShare] = useState(false)
+
+  const onCheckedElement = (checked) => {
+    if (checked) {
+        setShare(true)
+    } else if (!checked) {
+      setShare(false)
+    }
+};
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -114,6 +123,7 @@ function Camera() {
               {them === 2 ? <div className={styles.themText2}>#운동</div> : ""}
               {them === 3 ? <div className={styles.themText3}>#헬스</div> : ""}
             </div>
+
           </div>
         ) : (
           <>
@@ -156,6 +166,12 @@ function Camera() {
             </div>
           ) : (
             <div>
+              <div className={styles.share}>
+                공유하시겠습니까?
+              <label className={styles.inputBox}>
+                <input name="chkbox" type="checkbox" className={styles.boxs} onChange={e => {onCheckedElement(e.target.checked)}}></input><div>공유하기</div>
+              </label>
+              </div>
               <div>
                 <img
                   className={styles.shot}
@@ -163,6 +179,7 @@ function Camera() {
                   onClick={() => {
                     takepicture();
                     savepicture();
+                    console.log({share})
                   }}></img>
               </div>
             </div>

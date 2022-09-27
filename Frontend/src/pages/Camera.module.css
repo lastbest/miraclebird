@@ -135,3 +135,15 @@
   margin-top: 10px;
     
 }
+
+.share {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.inputBox {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 15px;
+}
