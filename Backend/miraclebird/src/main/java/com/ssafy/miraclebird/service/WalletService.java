@@ -7,7 +7,7 @@ import java.util.List;
 public interface WalletService {
 //    List<WalletDto> getWalletAll() throws Exception;
     WalletDto getWallet(Long userIdx) throws Exception;
-    void createWallet(WalletDto walletDto, Long userIdx) throws Exception;
-//    void updateWallet(WalletDto walletDto, Long userIdx) throws Exception;
+    void createWallet(WalletDto walletDto) throws Exception;
+//    void updateWallet(WalletDto walletDto) throws Exception;
     void deleteWallet(Long walletIdx, Long userIdx) throws Exception;
 }

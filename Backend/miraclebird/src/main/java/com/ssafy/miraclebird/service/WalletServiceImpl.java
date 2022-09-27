@@ -64,7 +64,7 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     @Transactional
-    public void createWallet(WalletDto walletDto, Long userIdx) throws Exception {
+    public void createWallet(WalletDto walletDto) throws Exception {
         try {
             Wallet walletEntity = new Wallet();
             User userEntity = userDao.getUserById(walletDto.getUserIdx());
@@ -82,7 +82,7 @@ public class WalletServiceImpl implements WalletService {
 
 //    @Override
 //    @Transactional
-//    public void updateWallet(WalletDto walletDto, Long userIdx) throws Exception {
+//    public void updateWallet(WalletDto walletDto) throws Exception {
 //        Wallet walletEntity = walletDao.getWallet(walletDto.getWalletIdx());
 //
 //        if (walletEntity.getUser().getUserIdx() == userIdx) {
