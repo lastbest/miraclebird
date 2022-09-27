@@ -7,129 +7,117 @@
 
 .miraclemorning {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin: auto;
     width:250px;
-    height:200px;
+    height:120px;
     background-color: #fffb847e ;
-    text-align: center;
     margin-bottom:20px;
+}
+
+.morningTitle {
+    font-size:15px;
 }
 
 .morningtext {
     font-size:20px;
     margin:auto;
-    margin-top:10px;
-    margin-bottom:5px;
+    text-align: left;
+    width:60%;
 }
 
 .morningicon {
     margin:auto;
     width:40px;
     height:40px;
-}
-
-.morningsearchbtn {
-    background-color: #00000000;
-    border: 2px solid #FFE969;
-    border-radius: 20px;
-    color:black;
-    width:40%;
-    margin:auto;
+    margin-left:0;
 }
 
 .morningdetail {
-    margin: auto;
     width:90%;
     font-size: 10px;
     word-break: keep-all;
     margin-top:5px;
     margin-bottom:10px;
+    color: gray;
 }
 
 .health {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin: auto;
     width:250px;
-    height:200px;
+    height:120px;
     background-color: #058af056 ;
-    text-align: center;
     margin-bottom: 20px;
 }
 
 .healthtext {
     font-size:20px;
     margin:auto;
-    margin-top:10px;
-    margin-bottom:5px;
+    text-align: left;
+    width:60%;
 }
+
+.healthTitle {
+    font-size:15px;
+}
+
 
 .healthicon {
     margin:auto;
     width:40px;
     height:40px;
+    margin-left:0;
 }
 
-.healthsearchbtn {
-    background-color: #00000000;
-    border: 2px solid #38a5f8  ;
-    border-radius: 20px;
-    color:black;
-    width:40%;
-    margin:auto;
-}
 
 .healthdetail {
-    margin: auto;
     width:90%;
     font-size: 10px;
     word-break: keep-all;
     margin-top:5px;
     margin-bottom:10px;
+    color: gray;
 }
 
 
 .study {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin: auto;
     width:250px;
-    height:200px;
+    height:120px;
     background-color: #d0fff7b9  ;
-    text-align: center;
     margin-bottom:20px;
 }
 
 .studytext {
     font-size:20px;
     margin:auto;
-    margin-top:10px;
-    margin-bottom:5px;
+    text-align: left;
+    width:60%;
+}
+
+.studyTitle {
+    font-size:15px;
 }
 
 .studyicon {
     margin:auto;
     width:40px;
     height:40px;
+    margin-left:0;
 }
 
-.studysearchbtn {
-    background-color: #00000000;
-    border: 2px solid #a3f7e9   ;
-    border-radius: 20px;
-    color:black;
-    width:40%;
-    margin:auto;
-}
 
 .studydetail {
-    margin: auto;
     width:90%;
     font-size: 10px;
     word-break: keep-all;
     margin-top:5px;
     margin-bottom:10px;
+    color: gray;
 }
 
 .deposit {
@@ -140,8 +128,9 @@
     margin-right:0;
     background-color: white  ;
     color: black;
-    border:none;
-    /* border-bottom: 1px solid #0930a5; */
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    font-size:15px;
 }
 
 .header {
@@ -163,6 +152,12 @@
 .hashtagicon {
     width:25px;
     height: 25px;
+    margin-right:5px;
+}
+
+.dollaricon {
+    width:20px;
+    height: 20px;
     margin-right:5px;
 }
 
@@ -193,3 +188,8 @@
     text-align: center;
     margin-top: -5px;
   }
+
+.next {
+    width:10px;
+    height: 10px;
+}
