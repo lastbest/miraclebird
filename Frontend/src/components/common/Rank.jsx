@@ -7,11 +7,15 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
+import RankDay from "./RankDay";
+import RankCount from "./RankCount"
+import "./Rank.css"
 
 SwiperCore.use([Navigation, Pagination, Autoplay])
 
 function Rank() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [rank, setRank] = useState(0);
 
     return (
         <>
@@ -19,52 +23,20 @@ function Rank() {
             <div className={styles.header}>
                 <div className={styles.rankcontainer}>
                     <img alt="rank" src="/rank.png" className={styles.rankicon}/>
+
                     <div className={styles.ranktext} onClick={()=>setModalIsOpen(true)}>챌린지 랭킹</div>
                 </div>
             </div>
+            <div className={styles.text}>
+                이번 시즌 실시간 챌린지 랭킹
+            </div>
             <div className={styles.slidecontainer}>
-                <Swiper
-                spaceBetween={50}
-                slidesPerView={1}
-                pagination={{ clickable: true }}
-                autoplay={{delay:5000}}
-                >
-                    <SwiperSlide className={styles.slide}>
-                        <p className={styles.maintext}>챌린지 지속일</p>
-                        <div className={styles.medalcontainer}>
-                            <div className={styles.silver}>
-                                <img alt="silver" src='./silver.png' />
-                                <p className={styles.slidetext}>김싸피</p>
-                            </div>
-                            <div className={styles.gold}>
-                                <img alt="gold" src='./gold.png' />
-                                <p className={styles.slidetext}>이싸피</p>
-                            </div>
-                            <div className={styles.bronze}>
-                                <img alt="bronze" src='./bronze.png' />
-                                <p className={styles.slidetext}>최싸피</p>
-                            </div>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide className={styles.slide}>
-                        <p className={styles.maintext}>챌린지 최다 인증</p>
-                        <div className={styles.medalcontainer}>
-                            <div className={styles.silver}>
-                                <img alt="silver" src='./silver.png' />
-                                <p className={styles.slidetext}>김싸피</p>
-                            </div>
-                            <div className={styles.gold}>
-                                <img alt="gold" src='./gold.png' />
-                                <p className={styles.slidetext}>이싸피</p>
-                            </div>
-                            <div className={styles.bronze}>
-                                <img alt="bronze" src='./bronze.png' />
-                                <p className={styles.slidetext}>최싸피</p>
-                            </div>
-                        </div>
-                    </SwiperSlide>
-
-                </Swiper>
+                <div className={styles.btnCt}>
+                    <button onClick={()=>(setRank(0))} className={`rankbtn ${rank === 0 ? 'rankactive' : ''}`}>지속일</button>
+                    <button onClick={()=>(setRank(1))} className={`rankbtn ${rank === 1 ? 'rankactive' : ''}`}>최다인증</button> 
+                </div>
+                { rank === 0 ? <RankDay /> : "" }
+                { rank === 1 ? <RankCount /> : "" }
             </div>
         </div>
         <div className={styles.content2}>
