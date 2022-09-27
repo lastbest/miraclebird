@@ -52,7 +52,6 @@
 }
 
 .walletAddress {
-    margin: auto;
 }
 
 .walletAddressText {
@@ -427,4 +426,15 @@
     border: none !important;
     font-family: 'neodgm';
     padding-bottom:0 !important;
+}
+
+.walletCheckbtn{
+    font-family: 'neodgm';
+        background-color: #ffe969;
+        border: none;
+        border-radius: 20px;
+        width: 80px;
+        height: 30px;
+        margin: auto;
+        float: right;
 }

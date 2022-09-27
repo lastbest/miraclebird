@@ -25,6 +25,7 @@ function Landmark() {
     for (var j = 0; j < spot[i].landmark.length; j++) {
       var tempUrl = spot[i].landmark[j].index;
       var tempUrl1 = "/src/assets/landmark/" + tempUrl + ".png";
+
       result.push(
         <div key={i}>
           {spot[i].landmark[j].name}({spot[i].name})
