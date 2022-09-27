@@ -5,7 +5,7 @@ import com.ssafy.miraclebird.dto.MynftDto;
 import java.util.List;
 
 public interface MynftService {
-    MynftDto getMynft(Long mynftIdx) throws Exception;
+    List<MynftDto> getMynft(Long userIdx) throws Exception;
     void createMynft(MynftDto mynftDto, Long userIdx) throws Exception;
     void deleteMynft(Long mynftIdx, Long userIdx) throws Exception;
 }
