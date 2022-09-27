@@ -11,6 +11,15 @@ function Camera() {
   const webcamRef = React.useRef(null);
   const [url, setUrl] = React.useState(null);
   const [imgurl, setImgUrl] = useState(undefined);
+  const [share, setShare] = useState(false)
+
+  const onCheckedElement = (checked) => {
+    if (checked) {
+        setShare(true)
+    } else if (!checked) {
+      setShare(false)
+    }
+};
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -88,8 +97,40 @@ function Camera() {
 
   return (
     <>
-      <div>
-        {url != null ? (
+    <div>
+      {url != null ? (
+        <div className={styles.headerCt}>
+          <img
+          className={styles.back}
+          src="src/assets/icon/back_icon.png"
+          onClick={() => {
+            setUrl(null);
+          }}></img>
+          <div className={styles.headerText}>카메라</div>
+        </div>
+        
+      ) : (
+        <></>
+      )}
+      <div className={styles.shotDiv}>
+        {url ? (
+          <div id="screenshot_wrap" className={styles.screenshot_wrap}>
+            <div className={styles.screenshot}>
+              <img src={url} alt="Screenshot" />
+            </div>
+            <div className={styles.watermark}>MIRACLE BIRD</div>
+            <div className={styles.timestamp}>
+              <p>2022-09-22 11:35</p>
+            </div>
+            <div >
+              {them === 1 ? <div className={styles.themText1}>#미라클 모닝</div> : ""}
+              {them === 2 ? <div className={styles.themText2}>#운동</div> : ""}
+              {them === 3 ? <div className={styles.themText3}>#헬스</div> : ""}
+            </div>
+
+          </div>
+        ) : (
+          <>
           <div className={styles.headerCt}>
             <img
               className={styles.back}
@@ -191,12 +232,19 @@ function Camera() {
             </div>
           ) : (
             <div>
+              <div className={styles.share}>
+                공유하시겠습니까?
+              <label className={styles.inputBox}>
+                <input name="chkbox" type="checkbox" className={styles.boxs} onChange={e => {onCheckedElement(e.target.checked)}}></input><div>공유하기</div>
+              </label>
+              </div>
               <div>
                 <img
                   className={styles.shot}
                   src="/download.png"
                   onClick={() => {
                     savepicture();
+                    console.log({share})
                   }}></img>
               </div>
             </div>
