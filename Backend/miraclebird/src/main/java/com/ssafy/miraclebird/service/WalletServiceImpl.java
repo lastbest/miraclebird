@@ -50,9 +50,9 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     @Transactional
-    public WalletDto getWallet(Long walletIdx) throws Exception{
+    public WalletDto getWallet(Long userIdx) throws Exception{
         try {
-            Wallet walletEntity = walletDao.getWallet(walletIdx);
+            Wallet walletEntity = walletDao.getWallet(userIdx);
             WalletDto walletDto = WalletDto.of(walletEntity);
 
             return walletDto;
