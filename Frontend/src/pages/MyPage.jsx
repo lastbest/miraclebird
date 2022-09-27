@@ -17,9 +17,12 @@ import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { login } from "../store/user";
+import Web3 from "web3";
 
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import axios from "axios";
+
+const BLOCKCHAIN_URL = "http://20.196.209.2:8545";
 
 function MyPage() {
   const [userData, setUserData] = useState("");
@@ -253,16 +256,16 @@ function MyPage() {
               return `color-scale-${value.count}`;
             }}
 
-          // tooltipDataAttrs={(value) => {
-          //     if (!value || !value.date) {
-          //     return null;
-          //     }
-          //     return {
-          //     "data-tip": `${value.date} has count: ${
-          //         value.count
-          //     }`,
-          //     };
-          // }}
+            // tooltipDataAttrs={(value) => {
+            //     if (!value || !value.date) {
+            //     return null;
+            //     }
+            //     return {
+            //     "data-tip": `${value.date} has count: ${
+            //         value.count
+            //     }`,
+            //     };
+            // }}
           />
           {/* <ReactTooltip className={styles.tooltip} /> */}
         </div>
@@ -345,7 +348,15 @@ function MyPage() {
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.modalcontent} closeButton>
           <img alt="wallet" src="/wallet.png" className={styles.wallet} />
-          <button className={styles.walletbtn}>연결하기</button>
+          <button
+            className={styles.walletbtn}
+            onClick={() => {
+              var web3 = new Web3(BLOCKCHAIN_URL);
+              var privateKey = web3.eth.accounts.create();
+              console.log(privateKey);
+            }}>
+            지갑 생성
+          </button>
           <div className={styles.walletAddress}>
             <div className={styles.walletAddressText}>지갑 주소</div>
             <div className={styles.walletText}>12345656777</div>
