@@ -88,6 +88,10 @@ function MyPage() {
   const handleClose5 = () => setShow5(false);
   const handleShow5 = () => setShow5(true);
 
+  const [show6, setShow6] = useState(false);
+  const handleClose6 = () => setShow6(false);
+  const handleShow6 = () => setShow6(true);
+
   const [Image, setImage] = useState("");
   const fileInput = useRef(null);
   let [write, setWrite] = useState("");
@@ -360,7 +364,11 @@ function MyPage() {
       <div className={styles.challengeCt}>
         <MypageFeed />
       </div>
-
+      <div>
+        <button className={styles.userDelete} onClick={() => handleShow6()}>
+          회원탈퇴
+        </button>
+      </div>
       <Modal
         centered
         show={show}
@@ -379,7 +387,7 @@ function MyPage() {
                 var web3 = new Web3(BLOCKCHAIN_URL);
                 var privateKey = web3.eth.accounts.create();
                 console.log(privateKey);
-                console.log(userData.userIdx);
+                console.log(userData);
                 console.log(privateKey.address);
                 axios({
                   url: API_BASE_URL + "/wallet",
@@ -566,6 +574,69 @@ function MyPage() {
                 navigate("/");
               }}>
               로그아웃
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        centered
+        show={show6}
+        onHide={handleClose6}
+        backdrop="static"
+        keyboard={false}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent5} closeButton>
+          탈퇴 시 사용자의 지갑도 함께 삭제됩니다.
+          <br />
+          탈퇴하겠습니까
+          <div className={styles.btnCt}>
+            <button className={styles.backbtn} onClick={() => handleClose5()}>
+              돌아가기
+            </button>
+            <button
+              className={styles.logoutbtn}
+              onClick={() => {
+                axios({
+                  url: API_BASE_URL + "/wallet/" + wallet.walletIdx,
+                  method: "delete",
+                  headers: {
+                    Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                  },
+                  params: {
+                    user_idx: userData.userIdx,
+                  },
+                })
+                  .then((res) => {
+                    setWallet(res.data);
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
+
+                // axios({
+                //   url: API_BASE_URL + "/auth/",
+                //   method: "delete",
+                //   headers: {
+                //     Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                //   },
+                // })
+                //   .then((res) => {
+                //     setWallet(res.data);
+                //   })
+                //   .catch((error) => {
+                //     console.log(error);
+                //   });
+
+                // localStorage.removeItem("accessToken");
+                // localStorage.removeItem("refreshToken");
+                // console.log(document.cookie);
+                // dispatch(login(null));
+                // removeCookie("refreshToken", { path: "/" });
+                // handleClose6();
+
+                navigate("/");
+              }}>
+              회원탈퇴
             </button>
           </div>
         </Modal.Body>
