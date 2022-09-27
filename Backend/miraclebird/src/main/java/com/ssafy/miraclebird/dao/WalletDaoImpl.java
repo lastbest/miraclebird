@@ -29,6 +29,14 @@ public class WalletDaoImpl implements WalletDao {
 //    }
 
     @Override
+    public Wallet getWalletById(Long walletIdx) throws Exception {
+        Wallet walletEntity = walletRepository.getById(walletIdx);
+        if(walletEntity == null)
+            throw new Exception();
+
+        return walletEntity;
+    }
+    @Override
     public Wallet getWallet(Long userIdx) throws Exception {
         User userEntity = userRepository.getById(userIdx);
 //        Wallet walletEntity = walletRepository.getById(userEntity.getwa);
