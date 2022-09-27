@@ -50,4 +50,16 @@ public class VerificationLikeDaoImpl implements VerificationLikeDao {
     public void saveVerificationLike(VerificationLike verificationLike) throws Exception {
         verificationLikeRepository.save(verificationLike);
     }
+    @Override
+    public void deleteVerificationLike(long verificationIdx, long userIdx) throws Exception {
+        try {
+            Verification verification = verificationRepository.getById(verificationIdx);
+            User user = userRepository.getById(userIdx);
+
+            verificationLikeRepository.deleteByVerificationAndUser(verification, user);
+        }
+        catch (Exception e) {
+            throw new Exception();
+        }
+    }
 }

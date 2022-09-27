@@ -8,5 +8,6 @@ public interface VerificationLikeService {
 //    List<VerificationLikeDto> getVerificationLikeALL() throws Exception;
     VerificationLikeDto getVerificationLikeById(long verificationLikeId);
     boolean getVerificationLikeByUser(long verificationId, long userId);
-    void createVerificationLike(VerificationLikeDto verificationLikeDto) throws Exception;
+    void createVerificationLike(long verificationId, long userId) throws Exception;
+    void deleteVerificationLike(long verificationId, long userId) throws Exception;
 }

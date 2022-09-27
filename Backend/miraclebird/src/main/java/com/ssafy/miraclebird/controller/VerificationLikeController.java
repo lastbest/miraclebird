@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/verificationLike")
-@Api("챌린지 인증샷 신고 관련 REST V1")
+@Api("챌린지 인증샷 좋아요 관련 REST V1")
 public class VerificationLikeController {
     private final VerificationLikeService verificationLikeService;
 
@@ -52,11 +52,24 @@ public class VerificationLikeController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
-    @ApiOperation(value = "특정 verificationLike의 정보를 등록한다.", response = VerificationLikeDto.class)
-    @PostMapping
-    public ResponseEntity<String> createVerificationLike(@RequestBody VerificationLikeDto verificationLikeDto) {
+    @ApiOperation(value = "특정 게시물에 좋아요를 누른다.", response = VerificationLikeDto.class)
+    @PostMapping("/{verification_idx}")
+    public ResponseEntity<String> createVerificationLike(@PathVariable("verification_idx") Long verificationIdx, @RequestParam("user_idx") Long userIdx) {
         try{
-            verificationLikeService.createVerificationLike(verificationLikeDto);
+            verificationLikeService.createVerificationLike(verificationIdx, userIdx);
+        }
+        catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+        return new ResponseEntity<String>("success",HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "특정 게시물에 좋아요를 취소한다.", response = VerificationLikeDto.class)
+    @DeleteMapping("/{verification_idx}")
+    public ResponseEntity<String> removeVerificationLike(@PathVariable("verification_idx") Long verificationIdx, @RequestParam("user_idx") Long userIdx) {
+        try{
+            verificationLikeService.deleteVerificationLike(verificationIdx, userIdx);
         }
         catch (Exception e) {
             throw new RuntimeException();

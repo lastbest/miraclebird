@@ -63,17 +63,37 @@ public class VerificationLikeServiceImpl implements VerificationLikeService{
 
     @Override
     @Transactional
-    public void createVerificationLike(VerificationLikeDto verificationLikeDto) throws Exception {
+    public void createVerificationLike(long verificationId, long userId) throws Exception {
         try {
             VerificationLike verificationLikeEntity = new VerificationLike();
 
-            User user = userDao.getUserById(verificationLikeDto.getUserIdx());
-            Verification verification = verificationDao.getVerificationById(verificationLikeDto.getVerificationIdx());
+            User user = userDao.getUserById(userId);
+            Verification verification = verificationDao.getVerificationById(verificationId);
 
             verificationLikeEntity.setUser(user);
             verificationLikeEntity.setVerification(verification);
 
             verificationLikeDao.saveVerificationLike(verificationLikeEntity);
+        }
+        catch (Exception e) {
+            throw new Exception();
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteVerificationLike(long verificationId, long userId) throws Exception {
+        try {
+//            VerificationLike verificationLikeEntity = new VerificationLike();
+//
+//            User user = userDao.getUserById(userId);
+//            Verification verification = verificationDao.getVerificationById(verificationId);
+//
+//            verificationLikeEntity.setUser(user);
+//            verificationLikeEntity.setVerification(verification);
+//
+//            verificationLikeDao.saveVerificationLike(verificationLikeEntity);
+            verificationLikeDao.deleteVerificationLike(verificationId,userId);
         }
         catch (Exception e) {
             throw new Exception();

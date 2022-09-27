@@ -9,4 +9,5 @@ public interface VerificationLikeDao {
     VerificationLike getVerificationLikeById(long verificationLikeIdx);
     boolean getVerificationLikeByUser(long verificationIdx, long userIdx);
     void saveVerificationLike(VerificationLike verificationLike) throws Exception;
+    void deleteVerificationLike(long verificationIdx, long userIdx) throws Exception;
 }
