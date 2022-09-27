@@ -25,6 +25,20 @@
     text-align: center;
 }
 
+.userDelete {
+    margin: 20px 50px 60px 50px;
+    background-color: #0930a5;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-family: 'neodgm';
+    /* width:80px; */
+    height: 30px;
+    /* font-size: 18px; */
+    text-align: center;
+    float: right;
+}
+
 
 .modalcontent {
     font-family: 'neodgm';
