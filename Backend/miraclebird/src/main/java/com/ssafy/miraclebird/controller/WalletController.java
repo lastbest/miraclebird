@@ -1,6 +1,7 @@
 package com.ssafy.miraclebird.controller;
 
 import com.ssafy.miraclebird.dto.WalletDto;
+import com.ssafy.miraclebird.entity.Wallet;
 import com.ssafy.miraclebird.service.WalletService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,13 +28,14 @@ public class WalletController {
     @PostMapping
     public ResponseEntity<String> createWallet(@RequestBody WalletDto walletDto) {
         try {
-            walletService.createWallet(walletDto);
+            Wallet wallet = walletService.createWallet(walletDto);
+            return new ResponseEntity<String>(wallet.toString(),HttpStatus.OK);
         }
         catch (Exception e) {
             throw new RuntimeException();
         }
 
-        return new ResponseEntity<String>("success",HttpStatus.OK);
+//        return new ResponseEntity<String>("여기로가면 안됨",HttpStatus.OK);
     }
 
     @ApiOperation(value = "user_id에 해당하는 지갑 정보를 반환한다.", response = WalletDto.class)

@@ -64,7 +64,7 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     @Transactional
-    public void createWallet(WalletDto walletDto) throws Exception {
+    public Wallet createWallet(WalletDto walletDto) throws Exception {
         try {
             Wallet walletEntity = new Wallet();
             User userEntity = userDao.getUserById(walletDto.getUserIdx());
@@ -74,6 +74,8 @@ public class WalletServiceImpl implements WalletService {
             walletEntity.setEtherCoin(0);
             walletEntity.setMiraToken(0);
             walletDao.saveWallet(walletEntity);
+
+            return walletEntity;
         }
         catch (Exception e) {
             throw new Exception();
