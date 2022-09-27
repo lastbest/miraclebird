@@ -1,0 +1,27 @@
+.medalcontainer {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top:15px;
+}
+.slidetext {
+    margin-top:0;
+}
+
+.silver {
+    margin-top:23px;
+}
+
+.bronze {
+    margin-top:35px;
+}
+
+.gold {
+    margin-left:30px;
+    margin-right:30px;
+}
+
+.medalcontainer img {
+    width:40px;
+    height:40px;
+}
