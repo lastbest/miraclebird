@@ -1,5 +1,6 @@
 package com.ssafy.miraclebird.dao;
 
+import com.ssafy.miraclebird.entity.Landmark;
 import com.ssafy.miraclebird.entity.Post;
 import com.ssafy.miraclebird.entity.Price;
 import com.ssafy.miraclebird.repository.PostRepository;
@@ -17,6 +18,13 @@ public class PriceDaoImpl implements PriceDao {
     @Autowired
     public PriceDaoImpl(PriceRepository priceRepository) {
         this.priceRepository = priceRepository;
+    }
+
+    @Override
+    public List<Price> getPriceAllByLandmark(Long landmarkIdx) throws Exception {
+        List<Price> priceList = priceRepository.findAllByLandmark_landmarkIdx(landmarkIdx);
+
+        return priceList;
     }
 
     @Override

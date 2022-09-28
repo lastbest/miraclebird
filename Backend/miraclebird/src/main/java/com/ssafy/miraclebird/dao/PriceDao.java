@@ -6,5 +6,6 @@ import com.ssafy.miraclebird.entity.Price;
 import java.util.List;
 
 public interface PriceDao {
+    List<Price> getPriceAllByLandmark(Long landmarkIdx) throws Exception;
     void savePrice(Price price) throws Exception;
 }
