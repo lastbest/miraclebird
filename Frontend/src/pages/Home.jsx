@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styles from "./Home.module.css";
 import { BrowserView, MobileView } from "react-device-detect";
 import HomeCarousel from "../components/carousel/HomeCarousel";
@@ -24,18 +24,18 @@ function Home() {
           <WebCarousel className={styles.carousel} />
           <div className={styles.infoCt}>
             <div className={styles.btnCt}>
-              <button className={`homebtn ${state === 0 ? 'homeactive' : ''}`} onClick={()=>(setState(0))}>챌린지</button>
-              <button className={`homebtn ${state === 1 ? 'homeactive' : ''}`} onClick={()=>(setState(1))}>NFT</button>
+              <button className={`homebtn ${state === 0 ? 'homeactive' : ''}`} onClick={() => (setState(0))}>챌린지</button>
+              <button className={`homebtn ${state === 1 ? 'homeactive' : ''}`} onClick={() => (setState(1))}>NFT</button>
             </div>
             <div>
-              { state === 0 ?  <HomeChallenge /> : <HomeNFT />}
+              {state === 0 ? <HomeChallenge /> : <HomeNFT />}
             </div>
           </div>
           <Rank />
 
 
 
-          {user == null && user.check == "" ? (
+          {user != null && user.check != "" ? (
             <div className={styles.footer_camerabutton2}>
               <div className={styles.circle2}>
                 <img
@@ -48,7 +48,6 @@ function Home() {
                 />
               </div>
             </div>
-    
           ) : (
             <></>
           )}
@@ -59,11 +58,11 @@ function Home() {
           <WebCarousel className={styles.carousel} />
           <div className={styles.infoCt}>
             <div className={styles.btnCt}>
-              <button className={`homebtn ${state === 0 ? 'homeactive' : ''}`} onClick={()=>(setState(0))}>챌린지</button>
-              <button className={`homebtn ${state === 1 ? 'homeactive' : ''}`} onClick={()=>(setState(1))}>NFT</button>
+              <button className={`homebtn ${state === 0 ? 'homeactive' : ''}`} onClick={() => (setState(0))}>챌린지</button>
+              <button className={`homebtn ${state === 1 ? 'homeactive' : ''}`} onClick={() => (setState(1))}>NFT</button>
             </div>
             <div>
-              { state === 0 ?  <HomeChallenge /> : <HomeNFT />}
+              {state === 0 ? <HomeChallenge /> : <HomeNFT />}
             </div>
           </div>
           <Rank />

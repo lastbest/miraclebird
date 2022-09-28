@@ -261,6 +261,33 @@ function GeoChart({ data }) {
   return (
     <>
       <div className={styles.upper}>
+        {area.name == "korea" ? null : (
+          <img
+            src={isListHover ? back_1 : back}
+            className={styles.back}
+            onMouseOver={() => setIsListHover(true)}
+            onMouseOut={() => setIsListHover(false)}
+            onClick={() => {
+              console.log(area.SIG_CD);
+              if (area.SIG_CD.length == 2) {
+                setSelectedCountry(null);
+                dispatch(
+                  selectArea({
+                    name: "korea",
+                    SIG_CD: "",
+                  })
+                );
+              } else {
+                dispatch(
+                  selectArea({
+                    name: "korea",
+                    SIG_CD: "",
+                  })
+                );
+              }
+            }}
+          />
+        )}
         <button
           className={styles.connect}
           onClick={() => navigate("/landmark")}>
@@ -268,33 +295,7 @@ function GeoChart({ data }) {
         </button>
       </div>
 
-      {area.name == "korea" ? null : (
-        <img
-          src={isListHover ? back_1 : back}
-          className={styles.back}
-          onMouseOver={() => setIsListHover(true)}
-          onMouseOut={() => setIsListHover(false)}
-          onClick={() => {
-            console.log(area.SIG_CD);
-            if (area.SIG_CD.length == 2) {
-              setSelectedCountry(null);
-              dispatch(
-                selectArea({
-                  name: "korea",
-                  SIG_CD: "",
-                })
-              );
-            } else {
-              dispatch(
-                selectArea({
-                  name: "korea",
-                  SIG_CD: "",
-                })
-              );
-            }
-          }}
-        />
-      )}
+
       <div ref={wrapperRef} style={{ marginBottom: "2rem" }}>
         {selectedCountry !== null ? <div>{area.name}</div> : <div></div>}
         <svg ref={svgRef}></svg>
