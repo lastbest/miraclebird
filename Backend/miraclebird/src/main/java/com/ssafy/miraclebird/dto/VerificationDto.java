@@ -16,6 +16,7 @@ public class VerificationDto {
     private long verificationIdx;
     private LocalDateTime regtime;
     private String selfie;
+    private Boolean share;
     private long userIdx;
     private long challengeIdx;
     private long approval;

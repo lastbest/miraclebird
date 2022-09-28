@@ -36,6 +36,9 @@ public class Verification {
     @Column(nullable = true)
     private String selfie;
 
+    @Column(nullable = true)
+    private Boolean share;
+
     /* 연관관계 매핑 */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userIdx")

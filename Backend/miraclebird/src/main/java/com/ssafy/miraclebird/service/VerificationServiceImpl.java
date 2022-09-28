@@ -76,6 +76,7 @@ public class VerificationServiceImpl implements VerificationService {
             verificationEntity.setUser(userDao.getUserById(verificationDto.getUserIdx()));
             verificationEntity.setChallenge(challengeDao.getChallengeById(verificationDto.getChallengeIdx()));
             verificationEntity.setApproval((long)0);    //초기값 0으로(미검토)
+            verificationEntity.setShare(verificationDto.getShare());
             verificationDao.saveVerification(verificationEntity);
         }
         catch (Exception e) {
