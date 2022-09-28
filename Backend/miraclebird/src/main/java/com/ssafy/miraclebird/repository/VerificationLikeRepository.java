@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface VerificationLikeRepository extends JpaRepository<VerificationLike,Long> {
     boolean existsByVerificationAndUser(Verification verification, User user);
     void deleteByVerificationAndUser(Verification verification, User user);
+    long countAllByVerification(Verification verification);
 }

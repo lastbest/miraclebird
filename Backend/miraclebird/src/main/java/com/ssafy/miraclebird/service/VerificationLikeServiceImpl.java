@@ -60,6 +60,12 @@ public class VerificationLikeServiceImpl implements VerificationLikeService{
         boolean result = verificationLikeDao.getVerificationLikeByUser(verificationId, userId);
         return result;
     }
+    @Override
+    @Transactional
+    public long getVerificationLikeByVerification(long verificationId) {
+        long result = verificationLikeDao.getVerificationLikeByVerification(verificationId);
+        return result;
+    }
 
     @Override
     @Transactional
