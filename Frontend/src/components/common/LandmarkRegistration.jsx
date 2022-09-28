@@ -100,7 +100,7 @@ function LandmarkRegistration() {
               setTokenId(tokenId);
 
               // landmark minting
-              axios("http://j7c107.p.ssafy.io:8080"+ "/landmark", {
+              axios(API_BASE_URL+ "/landmark", {
                 method: "POST",
                 params: {
                   user_idx: 1,
@@ -130,7 +130,7 @@ function LandmarkRegistration() {
               .catch((err) => console.log("Item update error", err));
 
               // add admin nft
-              axios("http://j7c107.p.ssafy.io:8080"+ "/mynft", {
+              axios(API_BASE_URL+ "/mynft", {
                 method: "POST",
                 params: {
                   user_idx: 1,
