@@ -307,7 +307,6 @@ function GeoChart({ data }) {
         keyboard={false}
         className={styles.dialog}>
         <Modal.Header className={styles.modalheader} closeButton>
-          {landmark.index}
         </Modal.Header>
         <Modal.Body className={styles.body}>
           <div className={styles.modalcontent}>
@@ -333,6 +332,7 @@ function GeoChart({ data }) {
             </div>
           </div>
         </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
 
       <Modal

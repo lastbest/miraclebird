@@ -7,7 +7,7 @@ import styles from "./Login.module.css";
 function Login() {
   return (
     <div className={styles.container}>
-      <div className={styles.text}>로그인</div>
+      <div className={styles.text}>카카오톡으로 로그인</div>
       <BrowserView>
         <div className="App">
           <a href={KAKAO_AUTH_URL}>
