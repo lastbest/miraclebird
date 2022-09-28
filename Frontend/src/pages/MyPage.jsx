@@ -78,7 +78,7 @@ function MyPage() {
       .then((res) => {
         console.log("mainData", res.data);
         setNftData(res.data);
-
+        console.log(nftData);
         return res;
       }).catch((error) => {
         console.log(error);
@@ -328,56 +328,52 @@ function MyPage() {
             slidesPerView={1}
             navigation
             className={styles.swiper}>
-            {nftData.map((nft, index) => {
+            {nftData.map(item => {
               return (
-                useEffect(() => {
-                  setSale(nft.nftprice);
-                }),
-                (
-                  <SwiperSlide className={styles.nftslide}>
-                    <div className={styles.nftImgContainer}>
+                <SwiperSlide className={styles.nftslide} key={item}>
+                  <div className={styles.nftImgContainer}>
+                    <img
+                      alt="nft1"
+                      src={item.imagePath}
+                      className={styles.nfturl}
+                    />
+                  </div>
+                  <div className={styles.nftcard}>
+                    <div className={styles.nftname}>{item.nftname}</div>
+                    <div className={styles.nftdetail}>{item.nftdetail}</div>
+                    <div className={styles.miraprice}>
                       <img
-                        alt="nft1"
-                        src={nft.imagePath}
-                        className={styles.nfturl}
+                        alt="mira"
+                        src="/mira.png"
+                        className={styles.miraicon}
                       />
+                      <div className={styles.nftprice}>{item.nftprice}</div>
                     </div>
-                    <div className={styles.nftcard}>
-                      <div className={styles.nftname}>{nft.nftname}</div>
-                      <div className={styles.nftdetail}>{nft.nftdetail}</div>
-                      <div className={styles.miraprice}>
-                        <img
-                          alt="mira"
-                          src="/mira.png"
-                          className={styles.miraicon}
-                        />
-                        <div className={styles.nftprice}>{nft.nftprice}</div>
-                      </div>
-                      <div className={styles.btnContainer}>
+                    <div className={styles.btnContainer}>
+                      <button
+                        className={styles.btnReinforce}
+                        onClick={() => {
+                          navigate("/reinforce");
+                        }}>
+                        강화
+                      </button>
+                      {item.onsale === 0 ? (
                         <button
-                          className={styles.btnReinforce}
-                          onClick={() => {
-                            navigate("/reinforce");
-                          }}>
-                          강화
+                          className={styles.btnSell}
+                          onClick={() => handleShow3()}>
+                          판매
                         </button>
-                        {nft.onsale === 0 ? (
-                          <button
-                            className={styles.btnSell}
-                            onClick={() => handleShow3()}>
-                            판매
-                          </button>
-                        ) : (
-                          <button
-                            className={styles.btnonsale}
-                            onClick={() => handleShow4(true)}>
-                            판매중
-                          </button>
-                        )}
-                      </div>
+                      ) : (
+                        <button
+                          className={styles.btnonsale}
+                          onClick={() => handleShow4(true)}>
+                          판매중
+                        </button>
+                      )}
                     </div>
-                  </SwiperSlide>
-                )
+                  </div>
+                </SwiperSlide>
+
               );
             })}
           </Swiper>
