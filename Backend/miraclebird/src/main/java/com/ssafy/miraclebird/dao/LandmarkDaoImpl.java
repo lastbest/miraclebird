@@ -41,6 +41,13 @@ public class LandmarkDaoImpl implements LandmarkDao {
     }
 
     @Override
+    public List<Landmark> getLandmarkAllByLandmarkInfoIdx(Long landmarkInfoIdx) throws Exception {
+        List<Landmark> landmarkList = landmarkRepository.findAllByLandmarkInfo_LandmarkInfoIdx(landmarkInfoIdx);
+
+        return landmarkList;
+    }
+
+    @Override
     public Landmark getLandmark(Long landmarkIdx) throws Exception {
         Landmark landmarkEntity = landmarkRepository.getById(landmarkIdx);
 

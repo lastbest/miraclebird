@@ -51,4 +51,16 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
+    @ApiOperation(value = "user_idx에 해당하는 유저 정보를 삭제한다.", response = String.class)
+    @DeleteMapping("/{user_idx}")
+    public ResponseEntity<String> deleteUser(@PathVariable("user_idx") Long userIdx) {
+        try {
+            //userService.deleteUser(userIdx);
+        }
+        catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+        return new ResponseEntity<String>("success", HttpStatus.OK);
+    }
 }
