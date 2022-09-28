@@ -87,7 +87,7 @@ function LandmarkRegistration() {
       web3.eth.accounts.wallet.add(sender);
       console.log(web3.eth.accounts.wallet);
       web3.eth.defaultAccount = sender.address;
-      console.log("defaultAccount ::", web3.eth.defaultAccount);
+      console.log("defaultAccount :", web3.eth.defaultAccount);
 
       const senderAddress = web3.eth.defaultAccount;
       const landmarkNft = new web3.eth.Contract(
