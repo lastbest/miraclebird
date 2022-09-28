@@ -22,7 +22,7 @@ function Footer() {
         dispatch(login(response));
       })
       .catch((error) => {
-        if (location.pathname != "/") {
+        if (location.pathname != "/" && location.pathname != "/store") {
           handleShow();
         }
       });
@@ -150,7 +150,7 @@ function Footer() {
                   src="/new_earth.png"
                   className={styles.footer_store}
                   onClick={() => {
-                    handleShow();
+                    navigate("/store");
                   }}
                 />
                 <div className={styles.icontext}>스토어</div>

@@ -214,8 +214,8 @@ function MyPage() {
           <img
             src={
               user.information.imageUrl == "" ||
-              user.information.imageUrl == undefined ||
-              user.information.imageUrl == null
+                user.information.imageUrl == undefined ||
+                user.information.imageUrl == null
                 ? "src/assets/icon/profile_default.jpg"
                 : user.information.imageUrl
             }
@@ -282,16 +282,16 @@ function MyPage() {
               return `color-scale-${value.count}`;
             }}
 
-            // tooltipDataAttrs={(value) => {
-            //     if (!value || !value.date) {
-            //     return null;
-            //     }
-            //     return {
-            //     "data-tip": `${value.date} has count: ${
-            //         value.count
-            //     }`,
-            //     };
-            // }}
+          // tooltipDataAttrs={(value) => {
+          //     if (!value || !value.date) {
+          //     return null;
+          //     }
+          //     return {
+          //     "data-tip": `${value.date} has count: ${
+          //         value.count
+          //     }`,
+          //     };
+          // }}
           />
           {/* <ReactTooltip className={styles.tooltip} /> */}
         </div>
@@ -578,7 +578,7 @@ function MyPage() {
                 dispatch(login(null));
                 removeCookie("refreshToken", { path: "/" });
                 handleClose5();
-                navigate("/");
+                document.location.href = "/";
               }}>
               로그아웃
             </button>
