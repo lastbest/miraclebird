@@ -84,7 +84,7 @@ function LandmarkRegistration() {
             console.log("defaultAccount ::", web3.eth.defaultAccount);
       
             const senderAddress = web3.eth.defaultAccount;
-            const landmarkNft = new web3.eth.Contract(COMMON_ABI.CONTRACT_ABI.NFT_ABI, "0xF2b6ff1fCFC5A1e5eE9243BD7D3F919186b9DF33");
+            const landmarkNft = new web3.eth.Contract(COMMON_ABI.CONTRACT_ABI.NFT_ABI, "0xbAA307454c09B84d53ae2f40D410329178D31484");
 
             // NFT creation
             const response = await landmarkNft.methods.mintNFT(uri).send({ from: senderAddress, gas: 3000000 });
@@ -133,7 +133,7 @@ function LandmarkRegistration() {
                 },
                 data: {
                   "landmarkIdx": landmarkIdx,
-                  "walletIdx": 2
+                  "walletIdx": 1
                 },
                 headers: {
                   Authorization: "Bearer "  + NOW_ACCESS_TOKEN,
