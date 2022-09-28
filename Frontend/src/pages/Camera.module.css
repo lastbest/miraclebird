@@ -1,11 +1,33 @@
 .Camera{
   width: 100%;
 }
+
+.Camera2{
+  width: 80%;
+}
+
+.cameraBrowser {
+  text-align: center;
+}
+
 .screenshot_wrap{
   /* margin: 10px auto; */
   /* border: 1px solid #000000; */
   position: relative;
+  text-align: center;
 }
+
+.screenshot_wrap2{
+  /* margin: 10px auto; */
+  /* border: 1px solid #000000; */
+  position: relative;
+}
+
+.screenshot2{
+  width: 100%;
+  text-align: center;
+}
+
 .screenshot{
     width: 100%;
       vertical-align: middle;
@@ -30,6 +52,26 @@
   right: 3%;
   /* transform: translate(80%, 0%); */
   }
+  .timestamp2{
+    padding: 5px 10px;
+    color:white;
+    font-size: 20px;
+    text-align: left;
+    position: absolute;
+    bottom: 8%;
+    left: 10%;
+  }
+  
+  .watermark2{
+    padding-top: 5px;
+    color:white;
+    font-size: 20px;
+    text-align: center;
+    position: absolute;
+    top:0%;
+    right: 13%;
+    /* transform: translate(80%, 0%); */
+    }
 
 .shot{
   width: 40px;
@@ -89,6 +131,39 @@
   bottom: 5%;
   left: 3%;
   background-color: #38a5f8 ;
+}
+
+.themText1_2{
+  padding: 0px 5px;
+  color:black;
+  font-size: 20px;
+  position: absolute;
+  text-align: left;
+  bottom: 5%;
+  left: 13%;
+  background-color: #ffe969 ;
+}
+
+.themText2_2{
+  padding: 0px 5px;
+  color:black;
+  font-size: 20px;
+  position: absolute;
+  text-align: left;
+  bottom: 5%;
+  left: 13%;
+  background-color: #38a5f8 ;
+}
+
+.themText3_2{
+  padding: 0px 5px;
+  color:black;
+  font-size: 20px;
+  position: absolute;
+  text-align: left;
+  bottom: 5%;
+  left: 13%;
+  background-color: #a3f7e9 ;
 }
 
 .themText3{

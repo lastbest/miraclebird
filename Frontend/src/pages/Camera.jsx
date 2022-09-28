@@ -5,6 +5,7 @@ import html2canvas from "html2canvas";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import "./Camera.css";
+import { BrowserView, MobileView } from "react-device-detect";
 
 function Camera() {
   const [them, setThem] = useState();
@@ -113,6 +114,42 @@ function Camera() {
         )}
         <div className={styles.shotDiv}>
           {url ? (
+            <>
+            <BrowserView>
+            <div id="screenshot_wrap" className={styles.screenshot_wrap2}>
+              <div className={styles.screenshot2}>
+                <img src={url} alt="Screenshot" />
+              </div>
+              <div className={styles.watermark2}>MIRACLE BIRD</div>
+              <div className={styles.timestamp2}>
+                <p>
+                  {new Date().getFullYear()}-
+                  {("0" + (new Date().getMonth() + 1)).slice(-2)}-
+                  {("0" + (new Date().getDate() + 1)).slice(-2) + " "}
+                  {("0" + new Date().getHours()).slice(-2)}:
+                  {("0" + new Date().getMinutes()).slice(-2)}
+                </p>
+              </div>
+              <div>
+                {them === 1 ? (
+                  <div className={styles.themText1_2}>#미라클 모닝</div>
+                ) : (
+                  ""
+                )}
+                {them === 2 ? (
+                  <div className={styles.themText2_2}>#운동</div>
+                ) : (
+                  ""
+                )}
+                {them === 3 ? (
+                  <div className={styles.themText3_2}>#스터디</div>
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
+            </BrowserView>
+            <MobileView>
             <div id="screenshot_wrap" className={styles.screenshot_wrap}>
               <div className={styles.screenshot}>
                 <img src={url} alt="Screenshot" />
@@ -145,6 +182,8 @@ function Camera() {
                 )}
               </div>
             </div>
+            </MobileView>
+            </>
           ) : (
             <>
               <div className={styles.headerCt}>
@@ -154,13 +193,26 @@ function Camera() {
                   onClick={() => history.back()}></img>
                 <div className={styles.headerText}>카메라</div>
               </div>
-              <Webcam
-                audio={false}
-                className={styles.Camera}
-                screenshotFormat="image/png"
-                ref={webcamRef}
-                videoConstraints={videoConstraints}
-              />
+              <BrowserView>
+              <div className={styles.cameraBrowser}>
+                  <Webcam
+                    audio={false}
+                    className={styles.Camera2}
+                    screenshotFormat="image/png"
+                    ref={webcamRef}
+                    videoConstraints={videoConstraints}
+                  />
+              </div>
+              </BrowserView>
+              <MobileView>
+                <Webcam
+                  audio={false}
+                  className={styles.Camera}
+                  screenshotFormat="image/png"
+                  ref={webcamRef}
+                  videoConstraints={videoConstraints}
+                />
+              </MobileView>
               <div className={styles.cateText}>카테고리를 선택해주세요.</div>
               <div className={styles.btnCt}>
                 <button
