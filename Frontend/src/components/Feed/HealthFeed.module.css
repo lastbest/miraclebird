@@ -61,3 +61,25 @@
     display: flex;
     flex-direction: row;
 }
+
+.heartIcon {
+    width:20px;
+    height: 20px;
+    margin-right: 3px;
+}
+
+.heartbtn {
+    background-color: white;
+    border: none;
+    color:black;
+}
+
+.lottie {
+    width: 250px;
+    margin: auto;
+    margin-top: -250px;
+}
+
+.picture2 {
+    width: 250px;
+}

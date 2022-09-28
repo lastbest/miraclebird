@@ -82,13 +82,12 @@ function MiracleFeed () {
                     <div>2022/09/08</div>
                 </div>
                 <div>
+                    <button className={styles.heartbtn} onClick={()=>(heartBtn())}>
                     { like ?
                     <img alt="heart" src="/heartcolor.png" className={styles.heartIcon} />
                     :
                     <img alt="heart" src="/heart.png" className={styles.heartIcon} />
-                    }
-                    
-                    <button className={styles.heartbtn} onClick={()=>(heartBtn())}>좋아요</button>
+                    } 좋아요</button>
                 </div>
             </Modal.Body>
             <Modal.Footer className={styles.modalheader}>
