@@ -18,7 +18,7 @@ function LandmarkRegistration() {
     const [itemName, setItemName] = useState('');
     const [title, setTitle] = useState('');
     const [landmarkInfoIdx, setLandmarkInfoIdx] = useState('');
-    const [landmarkIdx, setLandmarkIdx] = useState(1);
+    // const [landmarkIdx, setLandmarkIdx] = useState('');
     const [description, setDescription] = useState('');
     const [tokenId, setTokenId] = useState('');
     const [uri, setUri] = useState('');
@@ -26,6 +26,7 @@ function LandmarkRegistration() {
     const [price, setPrice] = useState('');
     const [starforce, setStarforce] = useState('');
     const [privKey, setPrivKey] = useState('');
+    const landmarkIdx = 0;
 
     // SSAFY Network
     const web3 = new Web3(new Web3.providers.HttpProvider(`http://20.196.209.2:8545`));
@@ -84,7 +85,7 @@ function LandmarkRegistration() {
             console.log("defaultAccount ::", web3.eth.defaultAccount);
       
             const senderAddress = web3.eth.defaultAccount;
-            const landmarkNft = new web3.eth.Contract(COMMON_ABI.CONTRACT_ABI.NFT_ABI, "0xbAA307454c09B84d53ae2f40D410329178D31484");
+            const landmarkNft = new web3.eth.Contract(COMMON_ABI.CONTRACT_ABI.NFT_ABI, "0xC56BB2f4b8352aF8D3d1456048ABa4F051d33a5a");
 
             // NFT creation
             const response = await landmarkNft.methods.mintNFT(uri).send({ from: senderAddress, gas: 3000000 });
@@ -120,8 +121,11 @@ function LandmarkRegistration() {
               } 
             )
               .then((result) => {
-                console.log(result);
-                setLandmarkIdx(result.data.landmarkIdx)
+                console.log(result.data);
+                console.log(result.data.landmarkIdx);
+                const landmarkIdx = result.data.landmarkIdx;
+                console.log(landmarkIdx)
+                
               })
               .catch((err) => console.log("Item update error", err));
 
@@ -142,9 +146,10 @@ function LandmarkRegistration() {
             )
               .then((result) => {
                 console.log(result);
+                console.log(landmarkIdx)
                 alert(tokenId + "번째 NFT가 생성되었습니다")
               })
-              .catch((err) => console.log("My NFT update error", err));
+              .catch((err) => console.log(landmarkIdx, "My NFT update error", err));
 
             });
           } catch (err) {
