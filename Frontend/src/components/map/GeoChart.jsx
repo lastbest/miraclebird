@@ -258,6 +258,12 @@ function GeoChart({ data }) {
     }
   }
 
+  // 판매누르는순간 관리자에게로 전송
+  // 구매누르면 관리자가 주는걸로
+  // async function purchase 
+
+
+
   return (
     <>
       <div className={styles.upper}>
@@ -308,7 +314,6 @@ function GeoChart({ data }) {
         keyboard={false}
         className={styles.dialog}>
         <Modal.Header className={styles.modalheader} closeButton>
-          {landmark.index}
         </Modal.Header>
         <Modal.Body className={styles.body}>
           <div className={styles.modalcontent}>
@@ -334,6 +339,7 @@ function GeoChart({ data }) {
             </div>
           </div>
         </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
 
       <Modal

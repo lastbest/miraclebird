@@ -379,33 +379,40 @@ function MyPage() {
         <Modal.Body className={styles.modalcontent} closeButton>
           <img alt="wallet" src="/wallet.png" className={styles.wallet} />
           {(wallet.walletAddress == undefined || wallet.walletAddress == "") &&
-            tempKey == "" ? (
-            <button
-              className={styles.walletbtn}
-              onClick={(e) => {
-                e.preventDefault();
-                var web3 = new Web3(BLOCKCHAIN_URL);
-                var privateKey = web3.eth.accounts.create();
-                console.log(privateKey);
-                console.log(userData);
-                console.log(privateKey.address);
-                axios({
-                  url: API_BASE_URL + "/wallet",
-                  method: "post",
-                  headers: {
-                    Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-                  },
-                  data: {
-                    userIdx: userData.userIdx,
-                    walletAddress: privateKey.address,
-                  },
-                }).then((res) => {
-                  setTempKey(privateKey.privateKey);
-                  console.log(tempKey);
-                });
-              }}>
-              지갑 생성
-            </button>
+          tempKey == "" ? (
+            <>
+            <div className={styles.buttonCt}>
+              <button onClick={()=>(handleClose())} className={styles.closebtn}>
+                닫기
+              </button>
+              <button
+                className={styles.walletbtn}
+                onClick={(e) => {
+                  e.preventDefault();
+                  var web3 = new Web3(BLOCKCHAIN_URL);
+                  var privateKey = web3.eth.accounts.create();
+                  console.log(privateKey);
+                  console.log(userData);
+                  console.log(privateKey.address);
+                  axios({
+                    url: API_BASE_URL + "/wallet",
+                    method: "post",
+                    headers: {
+                      Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                    },
+                    data: {
+                      userIdx: userData.userIdx,
+                      walletAddress: privateKey.address,
+                    },
+                  }).then((res) => {
+                    setTempKey(privateKey.privateKey);
+                    console.log(tempKey);
+                  });
+                }}>
+                지갑 생성
+              </button>
+            </div>
+            </>
           ) : (
             <div className={styles.walletAddress}>
               {wallet.walletAddress == undefined ? (
