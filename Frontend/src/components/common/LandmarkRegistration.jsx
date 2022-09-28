@@ -134,14 +134,22 @@ function LandmarkRegistration() {
             .then((result) => {
               console.log(result.data);
               console.log(result.data.landmarkIdx);
-              const landmarkIdx = result.data.landmarkIdx
-              setTimeout(()=>{
+              const landmarkIdx = result.data.landmarkIdx;
+              setTimeout(() => {
                 setLandmarkIdx(landmarkIdx);
-              },1000)
-              console.log(landmarkIdx)
+              }, 1000);
+              console.log(landmarkIdx);
+              alert(tokenId + "번째 NFT가 생성되었습니다 저장해주세요");
             })
             .catch((err) => console.log("Item update error", err));
-                  // add admin nft
+        });
+    } catch (err) {
+      console.log("ERROR while adding item", err);
+    }
+  }
+
+  async function addMyNFT() {
+    // add admin nft
     axios(API_BASE_URL + "/mynft", {
       method: "POST",
       params: {
@@ -158,17 +166,9 @@ function LandmarkRegistration() {
       .then((result) => {
         console.log(result);
         console.log(landmarkIdx);
-        alert(tokenId + "번째 NFT가 생성되었습니다");
+        alert("저장되었습니다");
       })
       .catch((err) => console.log(landmarkIdx, "My NFT update error", err));
-        });
-    } catch (err) {
-      console.log("ERROR while adding item", err);
-    }
-  }
-
-  async function addMyNFT() {
-    
   }
 
   return (
@@ -260,6 +260,14 @@ function LandmarkRegistration() {
               </button>
             </Form>
           </FormikProvider>
+          <button
+            size="large"
+            variant="contained"
+            sx={{ ml: 3, width: "20%", fontSize: 16 }}
+            onClick={addMyNFT}
+          >
+            저장
+          </button>
         </div>
       ) : (
         <div>uri가 생성되지 않았습니다</div>
