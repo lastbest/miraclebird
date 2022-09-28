@@ -40,18 +40,19 @@
   
 }
 .camera_footer{
-  width: 100%;
+  width:500px;
   position: fixed;
-    bottom: 50px;
-    margin: auto;
-    overflow: hidden;
-    margin-bottom: 20px;
+  bottom: 50px;
+  margin: auto;
+  overflow: hidden;
+  margin-bottom: 20px;
+  text-align: center;
 }
-.camera_footer div{
+/* .camera_footer div{
   float: left;
   width: 100%;
   text-align: center;
-}
+} */
 .back{
   position: absolute;
   float: left;
