@@ -25,7 +25,6 @@ import Deposit from "./pages/Deposit";
 import HealthFeed from "./components/Feed/HealthFeed";
 import StudyFeed from "./components/Feed/StudyFeed";
 import Admin from "./pages/Admin";
-import { BrowserView, MobileView } from "react-device-detect";
 
 function App() {
   return (

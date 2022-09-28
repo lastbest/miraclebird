@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Challenge.module.css";
 import { useNavigate } from "react-router-dom";
+import { BrowserView, MobileView } from "react-device-detect";
 
 function Challenge() {
   const navigate = useNavigate();
@@ -65,19 +66,36 @@ function Challenge() {
           <img alt="study" src="/note.png" className={styles.studyicon} />
         </div>
       </div>
+      
+      <MobileView>
+        <div className={styles.footer_camerabutton}>
+          <div className={styles.circle}>
+            <img
+              alt="camera"
+              src="/new_camera.png"
+              className={styles.footer_camera}
+              onClick={() => {
+                navigate("/camera");
+              }}
+            />
+          </div>
+        </div>
+      </MobileView>
 
-      <div className={styles.footer_camerabutton}>
-        <div className={styles.circle}>
+      <BrowserView>
+      <div className={styles.footer_camerabutton2}>
+        <div className={styles.circle2}>
           <img
             alt="camera"
             src="/new_camera.png"
-            className={styles.footer_camera}
+            className={styles.footer_camera2}
             onClick={() => {
               navigate("/camera");
             }}
           />
         </div>
       </div>
+      </BrowserView>
     </>
   );
 }

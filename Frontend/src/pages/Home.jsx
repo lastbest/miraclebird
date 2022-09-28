@@ -34,19 +34,21 @@ function Home() {
           <Rank />
 
 
-          {user != null && user.check != "" ? (
-            <div className={styles.footer_camerabutton}>
-              <div className={styles.circle}>
+
+          {user == null && user.check == "" ? (
+            <div className={styles.footer_camerabutton2}>
+              <div className={styles.circle2}>
                 <img
                   alt="camera"
                   src="/new_camera.png"
-                  className={styles.footer_camera}
+                  className={styles.footer_camera2}
                   onClick={() => {
                     navigate("/camera");
                   }}
                 />
               </div>
             </div>
+    
           ) : (
             <></>
           )}
