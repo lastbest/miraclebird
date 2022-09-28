@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/verificationLike")
+@RequestMapping("/verificationlike")
 @Api("챌린지 인증샷 좋아요 관련 REST V1")
 public class VerificationLikeController {
     private final VerificationLikeService verificationLikeService;
