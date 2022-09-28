@@ -3,6 +3,7 @@ package com.ssafy.miraclebird.dao;
 import com.ssafy.miraclebird.entity.Landmark;
 import com.ssafy.miraclebird.entity.Post;
 import com.ssafy.miraclebird.entity.Price;
+import com.ssafy.miraclebird.repository.LandmarkRepository;
 import com.ssafy.miraclebird.repository.PostRepository;
 import com.ssafy.miraclebird.repository.PriceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,13 @@ import java.util.List;
 public class PriceDaoImpl implements PriceDao {
 
     private final PriceRepository priceRepository;
+    private final LandmarkRepository landmarkRepository;
+
 
     @Autowired
-    public PriceDaoImpl(PriceRepository priceRepository) {
+    public PriceDaoImpl(PriceRepository priceRepository, LandmarkRepository landmarkRepository) {
         this.priceRepository = priceRepository;
+        this.landmarkRepository = landmarkRepository;
     }
 
     @Override

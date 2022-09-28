@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,10 +31,20 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
+    @Transactional
     public List<PriceDto> getPriceAllByLandmark(Long landmarkIdx) throws Exception {
         try {
-            List<Price> PriceList = priceDao.getPriceAllByLandmark(landmarkIdx);
-            List<PriceDto> priceDtoList = PriceList.stream().map(entity -> PriceDto.of(entity)).collect(Collectors.toList());
+            long landmarkInfoIdx = landmarkDao.getLandmark(landmarkIdx).getLandmarkInfo().getLandmarkInfoIdx();
+            List<Landmark> landmarkList = landmarkDao.getLandmarkAllByLandmarkInfoIdx(landmarkInfoIdx);
+            List<Price> priceList = new ArrayList<>();
+
+            for (Landmark landmark : landmarkList) {
+                List<Price> list = priceDao.getPriceAllByLandmark(landmark.getLandmarkIdx());
+                priceList.addAll(list);
+
+            }
+
+            List<PriceDto> priceDtoList = priceList.stream().map(entity -> PriceDto.of(entity)).collect(Collectors.toList());
 
             return priceDtoList;
         }
