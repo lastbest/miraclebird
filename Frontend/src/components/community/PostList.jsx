@@ -21,7 +21,7 @@ const PostList = (props) => {
     result.push(
       <CommonTableRow key={item}>
         <div className={styles.tableRow}>
-          {item.userRole == "USER" ? (
+          {item.userRole == "ADMIN" ? (
             <CommonTableColumn className={styles.title}>
               <Link
                 to={`/community/${item.postIdx}`}

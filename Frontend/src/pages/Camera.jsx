@@ -117,74 +117,74 @@ function Camera() {
         <div className={styles.shotDiv}>
           {url ? (
             <>
-            <BrowserView>
-            <div id="screenshot_wrap" className={styles.screenshot_wrap2}>
-              <div className={styles.screenshot2}>
-                <img src={url} alt="Screenshot" />
-              </div>
-              <div className={styles.watermark2}>MIRACLE BIRD</div>
-              <div className={styles.timestamp2}>
-                <p>
-                  {new Date().getFullYear()}-
-                  {("0" + (new Date().getMonth() + 1)).slice(-2)}-
-                  {("0" + (new Date().getDate() + 1)).slice(-2) + " "}
-                  {("0" + new Date().getHours()).slice(-2)}:
-                  {("0" + new Date().getMinutes()).slice(-2)}
-                </p>
-              </div>
-              <div>
-                {them === 1 ? (
-                  <div className={styles.themText1_2}>#미라클 모닝</div>
-                ) : (
-                  ""
-                )}
-                {them === 2 ? (
-                  <div className={styles.themText2_2}>#운동</div>
-                ) : (
-                  ""
-                )}
-                {them === 3 ? (
-                  <div className={styles.themText3_2}>#스터디</div>
-                ) : (
-                  ""
-                )}
-              </div>
-            </div>
-            </BrowserView>
-            <MobileView>
-            <div id="screenshot_wrap" className={styles.screenshot_wrap}>
-              <div className={styles.screenshot}>
-                <img src={url} alt="Screenshot" />
-              </div>
-              <div className={styles.watermark}>MIRACLE BIRD</div>
-              <div className={styles.timestamp}>
-                <p>
-                  {new Date().getFullYear()}-
-                  {("0" + (new Date().getMonth() + 1)).slice(-2)}-
-                  {("0" + (new Date().getDate() + 1)).slice(-2) + " "}
-                  {("0" + new Date().getHours()).slice(-2)}:
-                  {("0" + new Date().getMinutes()).slice(-2)}
-                </p>
-              </div>
-              <div>
-                {them === 1 ? (
-                  <div className={styles.themText1}>#미라클 모닝</div>
-                ) : (
-                  ""
-                )}
-                {them === 2 ? (
-                  <div className={styles.themText2}>#운동</div>
-                ) : (
-                  ""
-                )}
-                {them === 3 ? (
-                  <div className={styles.themText3}>#스터디</div>
-                ) : (
-                  ""
-                )}
-              </div>
-            </div>
-            </MobileView>
+              <BrowserView>
+                <div id="screenshot_wrap" className={styles.screenshot_wrap2}>
+                  <div className={styles.screenshot2}>
+                    <img src={url} alt="Screenshot" />
+                  </div>
+                  <div className={styles.watermark2}>MIRACLE BIRD</div>
+                  <div className={styles.timestamp2}>
+                    <p>
+                      {new Date().getFullYear()}-
+                      {("0" + (new Date().getMonth() + 1)).slice(-2)}-
+                      {("0" + (new Date().getDate() + 1)).slice(-2) + " "}
+                      {("0" + new Date().getHours()).slice(-2)}:
+                      {("0" + new Date().getMinutes()).slice(-2)}
+                    </p>
+                  </div>
+                  <div>
+                    {them === 1 ? (
+                      <div className={styles.themText1_2}>#미라클 모닝</div>
+                    ) : (
+                      ""
+                    )}
+                    {them === 2 ? (
+                      <div className={styles.themText2_2}>#운동</div>
+                    ) : (
+                      ""
+                    )}
+                    {them === 3 ? (
+                      <div className={styles.themText3_2}>#스터디</div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+              </BrowserView>
+              <MobileView>
+                <div id="screenshot_wrap" className={styles.screenshot_wrap}>
+                  <div className={styles.screenshot}>
+                    <img src={url} alt="Screenshot" />
+                  </div>
+                  <div className={styles.watermark}>MIRACLE BIRD</div>
+                  <div className={styles.timestamp}>
+                    <p>
+                      {new Date().getFullYear()}-
+                      {("0" + (new Date().getMonth() + 1)).slice(-2)}-
+                      {("0" + (new Date().getDate() + 1)).slice(-2) + " "}
+                      {("0" + new Date().getHours()).slice(-2)}:
+                      {("0" + new Date().getMinutes()).slice(-2)}
+                    </p>
+                  </div>
+                  <div>
+                    {them === 1 ? (
+                      <div className={styles.themText1}>#미라클 모닝</div>
+                    ) : (
+                      ""
+                    )}
+                    {them === 2 ? (
+                      <div className={styles.themText2}>#운동</div>
+                    ) : (
+                      ""
+                    )}
+                    {them === 3 ? (
+                      <div className={styles.themText3}>#스터디</div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+              </MobileView>
             </>
           ) : (
             <>
@@ -196,15 +196,19 @@ function Camera() {
                 <div className={styles.headerText}>카메라</div>
               </div>
               <BrowserView>
-              <div className={styles.cameraBrowser}>
+                <div className={styles.cameraBrowser}>
                   <Webcam
                     audio={false}
                     className={styles.Camera2}
                     screenshotFormat="image/png"
                     ref={webcamRef}
-                    videoConstraints={videoConstraints}
+                    videoConstraints={{
+                      width: 256,
+                      height: 256,
+                      facingMode: isFacingMode ? "user" : "environment"
+                    }}
                   />
-              </div>
+                </div>
               </BrowserView>
               <MobileView>
                 <Webcam
@@ -212,7 +216,11 @@ function Camera() {
                   className={styles.Camera}
                   screenshotFormat="image/png"
                   ref={webcamRef}
-                  videoConstraints={videoConstraints}
+                  videoConstraints={{
+                    width: 256,
+                    height: 256,
+                    facingMode: isFacingMode ? "user" : "environment"
+                  }}
                 />
               </MobileView>
               <div className={styles.cateText}>카테고리를 선택해주세요.</div>
@@ -236,88 +244,92 @@ function Camera() {
             </>
           )}
         </div>
-        
-        <MobileView>
-        <div className={styles.camera_footer}>
-          {url == null ? (
-            <div>
-              <img
-                src="src/assets/icon/switchCamera.png" onClick={() => {
-                  setIsFacingMode(!isFacingMode);
-                }}></img>
-              <img
-                className={styles.shot}
-                src="/camera-lens.png"
-                onClick={() => {
-                  if (them === 0) {
-                    handleShow();
-                  } else {
-                    capture();
-                  }
-                  setTimeout(() => takepicture(), 10);
-                }}></img>
 
-            </div>
-          ) : (
-            <div>
-              <div className={styles.share}>
-                공유하시겠습니까?
-                <label className={styles.inputBox}>
-                  <input name="chkbox" type="checkbox" className={styles.boxs} onChange={e => { onCheckedElement(e.target.checked) }}></input><div>공유하기</div>
-                </label>
-              </div>
+        <MobileView>
+          <div className={styles.camera_footer}>
+            {url == null ? (
               <div>
                 <img
-                  className={styles.shot}
-                  src="/download.png"
-                  onClick={() => {
-                    savepicture();
-                    console.log({ share })
+                  src="src/assets/icon/switchCamera.png" onClick={() => {
+                    setIsFacingMode(!isFacingMode);
                   }}></img>
+                <img
+                  className={styles.shot}
+                  src="/camera-lens.png"
+                  onClick={() => {
+                    if (them === 0) {
+                      handleShow();
+                    } else {
+                      capture();
+                    }
+                    setTimeout(() => takepicture(), 10);
+                  }}></img>
+
               </div>
-            </div>
-          )}
-          <div id="frame" className="frame"></div>
-        </div>
+            ) : (
+              <div>
+                <div className={styles.share}>
+                  공유하시겠습니까?
+                  <label className={styles.inputBox}>
+                    <input name="chkbox" type="checkbox" className={styles.boxs} onChange={e => { onCheckedElement(e.target.checked) }}></input><div>공유하기</div>
+                  </label>
+                </div>
+                <div>
+                  <img
+                    className={styles.shot}
+                    src="/download.png"
+                    onClick={() => {
+                      savepicture();
+                      console.log({ share })
+                    }}></img>
+                </div>
+              </div>
+            )}
+            <div id="frame" className="frame"></div>
+          </div>
         </MobileView>
 
         <BrowserView>
-        <div className={styles.camera_footer2}>
-          {url == null ? (
-            <div>
-              <img
-                className={styles.shot}
-                src="/camera-lens.png"
-                onClick={() => {
-                  if (them === 0) {
-                    handleShow();
-                  } else {
-                    capture();
-                  }
-                  setTimeout(() => takepicture(), 10);
-                }}></img>
-            </div>
-          ) : (
-            <div>
-              <div className={styles.share}>
-                공유하시겠습니까?
-              <label className={styles.inputBox}>
-                <input name="chkbox" type="checkbox" className={styles.boxs} onChange={e => {onCheckedElement(e.target.checked)}}></input><div>공유하기</div>
-              </label>
-              </div>
+          <div className={styles.camera_footer2}>
+            {url == null ? (
               <div>
                 <img
+                  src="src/assets/icon/switchCamera.png" onClick={() => {
+                    setIsFacingMode(!isFacingMode);
+                  }}></img>
+                <img
                   className={styles.shot}
-                  src="/download.png"
+                  src="/camera-lens.png"
                   onClick={() => {
-                    savepicture();
-                    console.log({share})
+                    if (them === 0) {
+                      handleShow();
+                    } else {
+                      capture();
+                    }
+                    setTimeout(() => takepicture(), 10);
                   }}></img>
               </div>
-            </div>
-          )}
-          <div id="frame" className="frame"></div>
-        </div>
+            ) : (
+              <div>
+                <div className={styles.share}>
+                  공유하시겠습니까?
+                  <label className={styles.inputBox}>
+                    <input name="chkbox" type="checkbox" className={styles.boxs} onChange={e => { onCheckedElement(e.target.checked) }}></input><div>공유하기</div>
+                  </label>
+                </div>
+                <div>
+                  <img
+                    className={styles.shot}
+                    src="/download.png"
+                    onClick={() => {
+                      savepicture();
+                      console.log({ share })
+                    }}></img>
+                </div>
+              </div>
+            )}
+            <div id="frame" className="frame"></div>
+          </div>
         </BrowserView>
 
       </div>
