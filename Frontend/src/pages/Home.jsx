@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Home.module.css";
 import { BrowserView, MobileView } from "react-device-detect";
 import HomeCarousel from "../components/carousel/HomeCarousel";
@@ -10,12 +10,12 @@ import "./Home.css"
 import HomeChallenge from "../components/common/HomeChallenge";
 import HomeNFT from "../components/common/HomeNFT";
 
-
 function Home() {
   const user = useSelector((state) => state.user.value);
   const navigate = useNavigate();
 
   const [state, setState] = useState(0);
+
 
   return (
     <>

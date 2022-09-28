@@ -26,6 +26,7 @@ const BLOCKCHAIN_URL = "http://20.196.209.2:8545";
 
 function MyPage() {
   const [userData, setUserData] = useState("");
+  const [nftData, setNftData] = useState("");
   const [loading, setLoading] = useState(true);
   const [wallet, setWallet] = useState("");
   const [flag, setFlag] = useState(false);
@@ -66,6 +67,22 @@ function MyPage() {
       .catch((error) => {
         console.log(error);
       });
+
+    axios({
+      url: API_BASE_URL + "/landmark/user/" + 1,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        console.log("mainData", res.data);
+        setNftData(res.data);
+
+        return res;
+      }).catch((error) => {
+        console.log(error);
+      })
   };
 
   useEffect(() => {
@@ -311,7 +328,7 @@ function MyPage() {
             slidesPerView={1}
             navigation
             className={styles.swiper}>
-            {NFT_SELECT.map((nft, index) => {
+            {nftData.map((nft, index) => {
               return (
                 useEffect(() => {
                   setSale(nft.nftprice);
@@ -321,7 +338,7 @@ function MyPage() {
                     <div className={styles.nftImgContainer}>
                       <img
                         alt="nft1"
-                        src={nft.nfturl}
+                        src={nft.imagePath}
                         className={styles.nfturl}
                       />
                     </div>
