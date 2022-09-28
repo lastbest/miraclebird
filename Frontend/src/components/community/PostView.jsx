@@ -69,8 +69,8 @@ const PostView = () => {
               </div>
               <div className={styles.postInfoSub}>
                 <div className={styles.postInfoName}>
-                  <img alt="profile" src={profile_default} />
-                  {data.userIdx}
+                  {data.image_url == null ? <img alt="profile" src={profile_default} /> : <img alt="profile" src={data.image_url} />}
+                  {data.name}
                 </div>
                 {data.userIdx == userIdx ? (
                   <div>

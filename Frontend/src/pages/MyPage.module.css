@@ -72,6 +72,11 @@
 
 .walletText {
     font-size: 20px;
+    word-wrap: break-word;
+}
+.keyText{
+    font-size: 10px;
+
 }
 
 .profileupload {
@@ -449,6 +454,22 @@
     float: right;
     color:black;
 }
+.copybtn{
+        font-family: 'neodgm';
+            background-color: #0930a5;
+            border: none;
+            border-radius: 20px;
+            width: 80px;
+            height: 30px;
+            float: right;
+            color: white;
+            margin: 20px;
+}
+.btnDiv{
+    float: right;
+    display: flex;
+    flex-direction: row;
+}
 
 .buttonCt {
     display: flex;
@@ -462,5 +483,4 @@
     border:none;
     border-radius: 20px;
     margin-right: 10px;
-    
 }

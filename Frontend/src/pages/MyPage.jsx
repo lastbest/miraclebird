@@ -33,6 +33,7 @@ function MyPage() {
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
   const [tempKey, setTempKey] = useState("");
+  const keyRef = useRef(null);
 
   const mainApi = async () => {
     axios({
@@ -100,6 +101,11 @@ function MyPage() {
   let [idx, setIdx] = useState(0);
   const navigate = useNavigate();
 
+  function copyToClip(e) {
+    keyRef.current.select();
+    document.execCommand("copy");
+    e.target.focus();
+  }
   const onChange = (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
@@ -379,54 +385,77 @@ function MyPage() {
         <Modal.Body className={styles.modalcontent} closeButton>
           <img alt="wallet" src="/wallet.png" className={styles.wallet} />
           {(wallet.walletAddress == undefined || wallet.walletAddress == "") &&
-          tempKey == "" ? (
+            tempKey == "" ? (
             <>
-            <div className={styles.buttonCt}>
-              <button onClick={()=>(handleClose())} className={styles.closebtn}>
-                닫기
-              </button>
-              <button
-                className={styles.walletbtn}
-                onClick={(e) => {
-                  e.preventDefault();
-                  var web3 = new Web3(BLOCKCHAIN_URL);
-                  var privateKey = web3.eth.accounts.create();
-                  console.log(privateKey);
-                  console.log(userData);
-                  console.log(privateKey.address);
-                  axios({
-                    url: API_BASE_URL + "/wallet",
-                    method: "post",
-                    headers: {
-                      Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-                    },
-                    data: {
-                      userIdx: userData.userIdx,
-                      walletAddress: privateKey.address,
-                    },
-                  }).then((res) => {
-                    setTempKey(privateKey.privateKey);
-                    console.log(tempKey);
-                  });
-                }}>
-                지갑 생성
-              </button>
-            </div>
+              <div className={styles.buttonCt}>
+                <button onClick={() => (handleClose())} className={styles.closebtn}>
+                  닫기
+                </button>
+                <button
+                  className={styles.walletbtn}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    var web3 = new Web3(BLOCKCHAIN_URL);
+                    var privateKey = web3.eth.accounts.create();
+                    console.log(privateKey);
+                    console.log(userData);
+                    console.log(privateKey.address);
+                    axios({
+                      url: API_BASE_URL + "/wallet",
+                      method: "post",
+                      headers: {
+                        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                      },
+                      data: {
+                        userIdx: userData.userIdx,
+                        walletAddress: privateKey.address,
+                      },
+                    }).then((res) => {
+                      setTempKey(privateKey.privateKey);
+                      console.log(tempKey);
+                    });
+                  }}>
+                  지갑 생성
+                </button>
+              </div>
             </>
           ) : (
             <div className={styles.walletAddress}>
               {wallet.walletAddress == undefined ? (
-                <div className={styles.keyText}>
-                  꼭 저장해주세요 ㅎㅅㅎ{tempKey}
-                  <button
-                    onClick={() => {
-                      setTempKey(tempKey);
-                      handleClose();
-                      document.location.href = "/mypage";
-                    }}
-                    className={styles.walletCheckbtn}>
-                    확인
-                  </button>
+                <div className={styles.walletText}>
+                  <strong>경고!</strong>
+                  <p className={styles.keyText}>
+                    1. 지갑 비밀키를 잃어버리지 마세요! 한 번 잃어버리면 복구 할
+                    수 없습니다.<br />
+                    2. 공유하지 마세요! 비밀키가 악위적인 사이트에 노출되면
+                    당신의 자산이 유실될 수 있습니다.<br />
+                    3. 백업을 만들어 두세요! 종이에 적어서 오프라인으로
+                    관리하세요.
+                  </p>
+
+                  <div className={styles.btnDiv}>
+
+                    <textarea ref={keyRef} value={tempKey}>
+                    </textarea>
+                    {document.queryCommandSupported("copy") && (
+                      <button
+                        onClick={copyToClip}
+                        className={styles.copybtn}>
+                        복사
+                      </button>
+                    )}
+                    <button
+                      onClick={() => {
+                        setTempKey(tempKey);
+                        handleClose();
+                        document.location.href = "/mypage";
+                      }}
+                      className={styles.walletCheckbtn}>
+                      확인
+                    </button>
+
+                  </div>
+
                 </div>
               ) : (
                 <div>
