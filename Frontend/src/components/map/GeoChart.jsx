@@ -258,6 +258,12 @@ function GeoChart({ data }) {
     }
   }
 
+  // 판매누르는순간 관리자에게로 전송
+  // 구매누르면 관리자가 주는걸로
+  // async function purchase 
+
+
+
   return (
     <>
       <div className={styles.upper}>
