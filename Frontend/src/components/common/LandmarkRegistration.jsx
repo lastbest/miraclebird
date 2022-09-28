@@ -92,7 +92,7 @@ function LandmarkRegistration() {
       const senderAddress = web3.eth.defaultAccount;
       const landmarkNft = new web3.eth.Contract(
         COMMON_ABI.CONTRACT_ABI.NFT_ABI,
-        "0xC56BB2f4b8352aF8D3d1456048ABa4F051d33a5a"
+        "0x846Fb159457716752A20aB72f881Bbf75860C82A"
       );
 
       // NFT creation
