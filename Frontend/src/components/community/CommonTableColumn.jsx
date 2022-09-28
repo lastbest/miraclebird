@@ -1,14 +1,14 @@
 import React from 'react';
 import styles from './CommonTable.module.css'
 
-const CommonTableColumn = ({ children }) => {
+const CommonTableColumn = ({ children, onClick }) => {
   return (
     <>
-    <td className={styles.tablecolumn}>
-      {
-        children
-      }
-    </td>
+      <td className={styles.tablecolumn} onClick={onClick}>
+        {
+          children
+        }
+      </td>
     </>
   )
 }

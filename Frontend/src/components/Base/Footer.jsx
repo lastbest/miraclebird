@@ -86,7 +86,7 @@ function Footer() {
                       })
                     );
                     // navigate("/community");
-                    document.location.href = "community";
+                    document.location.href = "/community";
                   }}
                 />
                 <div className={styles.icontext}>커뮤니티</div>

@@ -6,7 +6,7 @@ import CommonTableRow from "./CommonTableRow";
 import { postList } from "./PostData";
 
 import styles from "./PostList.module.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const PostList = (props) => {
   const [dataList, setDataList] = useState([]);
@@ -22,21 +22,28 @@ const PostList = (props) => {
       <CommonTableRow key={item}>
         <div className={styles.tableRow}>
           {item.userRole == "ADMIN" ? (
-            <CommonTableColumn className={styles.title}>
+            <tr className={styles.title} onClick={() => {
+              console.log("click");
+              Navigate(`/community/${item.postIdx}`);
+            }}>
               <Link
                 to={`/community/${item.postIdx}`}
                 className={styles.titletext2}>
                 [공지사항] {item.title}
               </Link>
-            </CommonTableColumn>
+            </tr>
           ) : (
-            <CommonTableColumn className={styles.title}>
+            <tr className={styles.title} onClick={() => {
+
+              console.log("click");
+              Navigate(`/community/${item.postIdx}`);
+            }}>
               <Link
                 to={`/community/${item.postIdx}`}
                 className={styles.titletext}>
                 {item.title}
               </Link>
-            </CommonTableColumn>
+            </tr>
           )}
           <div className={styles.readCount}>
             <img src="/view.png" alt="view" className={styles.viewicon} />
@@ -50,8 +57,9 @@ const PostList = (props) => {
             </div>
           </div>
           <div className={styles.nickname}>
-            <img alt="profile" src="src/assets/icon/profile_default.jpg" />
-            회원{item.userIdx}
+            {item.image_url == null ? <img alt="profile" src="src/assets/icon/profile_default.jpg" /> : <img alt="profile" src={item.image_url} />}
+
+            {item.name}
           </div>
           {/* <CommonTableColumn className={styles.no}>#{ item.no }</CommonTableColumn> */}
         </div>
