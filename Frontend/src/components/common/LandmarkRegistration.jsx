@@ -29,7 +29,7 @@ function LandmarkRegistration() {
     const landmarkIdx = 0;
 
     // SSAFY Network
-    const web3 = new Web3(new Web3.providers.HttpProvider(`http://20.196.209.2:8545`));
+    const web3 = new Web3(new Web3.providers.HttpProvider(`ws://20.196.209.2:6174`));
 
     // 아이템 업로드 핸들링
     const handleItem = (event) => {
