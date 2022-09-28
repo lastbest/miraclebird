@@ -65,7 +65,7 @@ function StudyFeed () {
             <Modal.Header className={styles.modalheader} closeButton>
             </Modal.Header>
             <Modal.Body className={styles.modalcontent} closeButton>
-                <img src="/study.jpg" alt="mm" className={styles.picture2} />
+                <img src="/study.jpg" alt="mm" className={styles.picture2}  onDoubleClick={()=>(heartBtn())}/>
                 { loading ? 
                 <div>
                     <Lottie animationData={heartEffect} className={styles.lottie} loop={false} />

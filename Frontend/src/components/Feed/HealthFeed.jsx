@@ -65,7 +65,7 @@ function HealthFeed () {
             <Modal.Header closeButton className={styles.modalheader}>
             </Modal.Header>
             <Modal.Body className={styles.modalcontent}>
-                <img src="/health.jpg" alt="mm" className={styles.picture2} />
+                <img src="/health.jpg" alt="mm" className={styles.picture2}  onDoubleClick={()=>(heartBtn())} />
                 { loading ? 
                 <div>
                     <Lottie animationData={heartEffect} className={styles.lottie} loop={false} />
