@@ -11,10 +11,9 @@ import lombok.*;
 @ToString
 public class ChallengerDto {
     private long challengerIdx;
-
     private long user;
-
     private long challenge;
+    private boolean deposit;
 
     public static ChallengerDto of(Challenger missionEntity) {
         ChallengerDto missionDto = ModelMapperUtils.getModelMapper().map(missionEntity, ChallengerDto.class);

@@ -62,6 +62,7 @@ public class ChallengerServiceImpl implements ChallengerService{
             Challenger challengerEntity = new Challenger();
             challengerEntity.setChallenge(challengeDao.getChallengeById(challengerDto.getChallenge()));
             challengerEntity.setUser(userDao.getUserById(challengerDto.getUser()));
+            challengerEntity.setDeposit(challengerDto.isDeposit());
             challengerDao.addChallenger(challengerEntity);
         }
         catch (Exception e) {
