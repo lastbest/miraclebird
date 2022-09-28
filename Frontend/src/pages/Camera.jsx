@@ -12,14 +12,15 @@ function Camera() {
   const [url, setUrl] = React.useState(null);
   const [imgurl, setImgUrl] = useState(undefined);
   const [share, setShare] = useState(false)
+  const [isFacingMode, setIsFacingMode] = useState(false);
 
   const onCheckedElement = (checked) => {
     if (checked) {
-        setShare(true)
+      setShare(true)
     } else if (!checked) {
       setShare(false)
     }
-};
+  };
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -87,7 +88,7 @@ function Camera() {
   const videoConstraints = {
     width: 256,
     height: 256,
-    facingMode: "user",
+    facingMode: "user"
   };
 
   const capture = React.useCallback(() => {
@@ -97,8 +98,8 @@ function Camera() {
 
   return (
     <>
-    <div>
-      {url != null ? (
+      <div>
+        {url != null ? (
           <div className={styles.headerCt}>
             <img
               className={styles.back}
@@ -107,6 +108,7 @@ function Camera() {
                 setUrl(null);
               }}></img>
             <div className={styles.headerText}>카메라</div>
+
           </div>
         ) : (
           <></>
@@ -159,7 +161,11 @@ function Camera() {
                 className={styles.Camera}
                 screenshotFormat="image/png"
                 ref={webcamRef}
-                videoConstraints={videoConstraints}
+                videoConstraints={{
+                  width: 256,
+                  height: 256,
+                  facingMode: isFacingMode ? "user" : "environment"
+                }}
               />
               <div className={styles.cateText}>카테고리를 선택해주세요.</div>
               <div className={styles.btnCt}>
@@ -187,6 +193,10 @@ function Camera() {
           {url == null ? (
             <div>
               <img
+                src="src/assets/icon/switchCamera.png" onClick={() => {
+                  setIsFacingMode(!isFacingMode);
+                }}></img>
+              <img
                 className={styles.shot}
                 src="/camera-lens.png"
                 onClick={() => {
@@ -197,14 +207,15 @@ function Camera() {
                   }
                   setTimeout(() => takepicture(), 10);
                 }}></img>
+
             </div>
           ) : (
             <div>
               <div className={styles.share}>
                 공유하시겠습니까?
-              <label className={styles.inputBox}>
-                <input name="chkbox" type="checkbox" className={styles.boxs} onChange={e => {onCheckedElement(e.target.checked)}}></input><div>공유하기</div>
-              </label>
+                <label className={styles.inputBox}>
+                  <input name="chkbox" type="checkbox" className={styles.boxs} onChange={e => { onCheckedElement(e.target.checked) }}></input><div>공유하기</div>
+                </label>
               </div>
               <div>
                 <img
@@ -212,7 +223,7 @@ function Camera() {
                   src="/download.png"
                   onClick={() => {
                     savepicture();
-                    console.log({share})
+                    console.log({ share })
                   }}></img>
               </div>
             </div>
