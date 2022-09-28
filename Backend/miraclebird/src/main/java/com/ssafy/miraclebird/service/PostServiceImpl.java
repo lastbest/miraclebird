@@ -43,6 +43,8 @@ public class PostServiceImpl implements PostService {
             for (PostDto postDto : postDtoList) {
                 User userEntity = userDao.getUserById(postDto.getUserIdx());
                 postDto.setUserRole(userEntity.getRole());
+                postDto.setName(userEntity.getName());
+                postDto.setImage_url(userEntity.getImageUrl());
             }
 
             return postDtoList;
@@ -57,8 +59,12 @@ public class PostServiceImpl implements PostService {
     public PostDto getPost(Long postIdx) throws Exception{
         try {
             Post postEntity = postDao.getPost(postIdx);
+            User userEntity = postEntity.getUser();
             postEntity.setHit(postEntity.getHit()+1);
             PostDto postDto = PostDto.of(postEntity);
+            postDto.setUserRole(userEntity.getRole());
+            postDto.setName(userEntity.getName());
+            postDto.setImage_url(userEntity.getImageUrl());
 
             return postDto;
         }
