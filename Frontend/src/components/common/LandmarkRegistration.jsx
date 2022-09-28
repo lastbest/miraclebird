@@ -141,8 +141,7 @@ function LandmarkRegistration() {
               console.log(landmarkIdx)
             })
             .catch((err) => console.log("Item update error", err));
-        });
-        // add admin nft
+                  // add admin nft
     axios(API_BASE_URL + "/mynft", {
       method: "POST",
       params: {
@@ -162,6 +161,7 @@ function LandmarkRegistration() {
         alert(tokenId + "번째 NFT가 생성되었습니다");
       })
       .catch((err) => console.log(landmarkIdx, "My NFT update error", err));
+        });
     } catch (err) {
       console.log("ERROR while adding item", err);
     }
