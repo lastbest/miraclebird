@@ -30,4 +30,7 @@ public class Challenger {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challengeIdx")
     private Challenge challenge;
+
+    @Column
+    private boolean deposit;
 }
