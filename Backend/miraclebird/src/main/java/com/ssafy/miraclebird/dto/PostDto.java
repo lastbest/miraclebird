@@ -28,6 +28,10 @@ public class PostDto {
 
     private Role userRole;
 
+    private String name;
+
+    private String image_url;
+
     public static PostDto of(Post postEntity) {
         PostDto postDto = ModelMapperUtils.getModelMapper().map(postEntity, PostDto.class);
 
