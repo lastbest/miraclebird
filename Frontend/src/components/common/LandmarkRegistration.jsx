@@ -18,7 +18,7 @@ function LandmarkRegistration() {
     const [itemName, setItemName] = useState('');
     const [title, setTitle] = useState('');
     const [landmarkInfoIdx, setLandmarkInfoIdx] = useState('');
-    // const [landmarkIdx, setLandmarkIdx] = useState('');
+    const [landmarkIdx, setLandmarkIdx] = useState('');
     const [description, setDescription] = useState('');
     const [tokenId, setTokenId] = useState('');
     const [uri, setUri] = useState('');
@@ -26,7 +26,6 @@ function LandmarkRegistration() {
     const [price, setPrice] = useState('');
     const [starforce, setStarforce] = useState('');
     const [privKey, setPrivKey] = useState('');
-    const landmarkIdx = 0;
 
     // SSAFY Network
     const web3 = new Web3(new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain/`));
@@ -123,7 +122,7 @@ function LandmarkRegistration() {
               .then((result) => {
                 console.log(result.data);
                 console.log(result.data.landmarkIdx);
-                const landmarkIdx = result.data.landmarkIdx;
+                setLandmarkIdx(result.data.landmarkIdx)
                 console.log(landmarkIdx)
                 
               })
