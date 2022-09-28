@@ -32,7 +32,7 @@ function HealthFeed () {
     return (
         <>
         <div className={styles.feedHeader}>
-            <button className={styles.backbtn} onClick={()=>(navigate('/challenge/health'))}><img alt="back" src="/back.png" className={styles.backicon} /> Exercise</button>
+            <button className={styles.backbtn} onClick={()=>(navigate('/challenge/health'))}><img alt="back" src="/back.png" className={styles.backicon} /> Exercising</button>
         </div>
         <div className={styles.feeds}>
             <div className={styles.feed}>

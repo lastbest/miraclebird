@@ -5,6 +5,15 @@
     color:black;
 }
 
+.feedbtn {
+    background-color: white;
+    border:none;
+    margin-top:10px;
+    color:black;
+    margin-right:10px;
+}
+
+
 .backicon {
     width:25px;
     height:25px;
@@ -28,7 +37,7 @@
 .reward {
     display: flex;
     flex-direction: row;
-    text-align: left;
+    justify-content: center;
     margin-bottom:10px;
 }
 
@@ -36,17 +45,27 @@
     margin-bottom:2px;
     margin-top:0;
     font-size: 15px;
+    word-break:keep-all;
+}
+
+.subtext2 {
+    margin-bottom:2px;
+    margin-top:20px;
+    font-size: 15px;
+    word-break:keep-all;
+    color:lightgray;
+    text-align: center;
+
 }
 
 .titletext {
     margin-top:10px;
-    font-size: 18px;
+    font-size: 20px;
     margin-bottom:2px;
-    background-color: #fffb847e  ;
     padding:2px;
-    width:100px;
     text-align: center;
     color:black;
+    font-weight: bold;
 }
 
 .coin {
@@ -69,4 +88,27 @@
     padding-left:10px;
     padding-right:10px;
     color:black;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.detailCt {
+    width:300px;
+    height: 300px;
+    background: linear-gradient(#fffb847e, #fffff67e);
+    border-radius: 50px;
+    text-align: center;
+    margin: auto;
+    display: table;
+}
+
+.maintext {
+    width:80%;
+    margin: auto;
+    display: table-cell;
+    vertical-align: middle;
 }
