@@ -465,9 +465,6 @@
             color: white;
             margin: 20px;
 }
-.textArea{
-    block-size: auto;
-}
 .btnDiv{
     float: right;
     display: flex;
