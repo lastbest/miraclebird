@@ -134,8 +134,13 @@ function LandmarkRegistration() {
             .then((result) => {
               console.log(result.data);
               console.log(result.data.landmarkIdx);
-              setLandmarkIdx(result.data.landmarkIdx);
-              console.log(landmarkIdx);
+              const landmarkIdx = result.data.landmarkIdx
+              setLandmarkIdx(landmarkIdx);
+              setTimeout(()=>{
+                setLandmarkIdx(landmarkIdx);
+          
+              },1000)
+              console.log(landmarkIdx)
             })
             .catch((err) => console.log("Item update error", err));
         });
