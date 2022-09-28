@@ -234,7 +234,8 @@ function Camera() {
             </>
           )}
         </div>
-
+        
+        <MobileView>
         <div className={styles.camera_footer}>
           {url == null ? (
             <div>
@@ -271,6 +272,47 @@ function Camera() {
           )}
           <div id="frame" className="frame"></div>
         </div>
+        </MobileView>
+
+        <BrowserView>
+        <div className={styles.camera_footer2}>
+          {url == null ? (
+            <div>
+              <img
+                className={styles.shot}
+                src="/camera-lens.png"
+                onClick={() => {
+                  if (them === 0) {
+                    handleShow();
+                  } else {
+                    capture();
+                  }
+                  setTimeout(() => takepicture(), 10);
+                }}></img>
+            </div>
+          ) : (
+            <div>
+              <div className={styles.share}>
+                공유하시겠습니까?
+              <label className={styles.inputBox}>
+                <input name="chkbox" type="checkbox" className={styles.boxs} onChange={e => {onCheckedElement(e.target.checked)}}></input><div>공유하기</div>
+              </label>
+              </div>
+              <div>
+                <img
+                  className={styles.shot}
+                  src="/download.png"
+                  onClick={() => {
+                    savepicture();
+                    console.log({share})
+                  }}></img>
+              </div>
+            </div>
+          )}
+          <div id="frame" className="frame"></div>
+        </div>
+        </BrowserView>
+
       </div>
 
       <Modal
