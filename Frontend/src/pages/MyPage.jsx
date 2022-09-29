@@ -60,36 +60,32 @@ function MyPage() {
             <div className={styles.nftdetail}>{item.nftdetail}</div>
             <div className={styles.miraprice}>
               <img alt="mira" src="/mira.png" className={styles.miraicon} />
-              <div className={styles.nftprice}>{item.nftprice}</div>
+              <div className={styles.nftprice}> {item.sellPrice} MIRA</div>
             </div>
             <div className={styles.btnContainer}>
-              
               {item.onsale === 0 ? (
                 <>
-                <button
-                className={styles.btnReinforce}
-                onClick={() => {
-                  navigate("/reinforce");
-                }}>
-                  강화
-                </button>
-                <button
-                  className={styles.btnSell}
-                  onClick={() => handleShow3()}>
-                  판매
-                </button>
+                  <button
+                    className={styles.btnReinforce}
+                    onClick={() => {
+                      navigate("/reinforce");
+                    }}>
+                    강화
+                  </button>
+                  <button
+                    className={styles.btnSell}
+                    onClick={() => handleShow3()}>
+                    판매
+                  </button>
                 </>
               ) : (
                 <>
-                <button
-                className={styles.btnReinforce2}>
-                  강화
-                </button>
-                <button
-                  className={styles.btnonsale}
-                  onClick={() => handleShow4(true)}>
-                  판매중
-                </button>
+                  <button className={styles.btnReinforce2}>강화</button>
+                  <button
+                    className={styles.btnonsale}
+                    onClick={() => handleShow4(true)}>
+                    판매중
+                  </button>
                 </>
               )}
             </div>
@@ -333,7 +329,7 @@ function MyPage() {
           </div>
           <div className={styles.detail2}>
             <div className={styles.mira}>
-              {wallet.miraToken == undefined ? 0 : wallet.mira}
+              {wallet.miraToken == undefined ? 0 : wallet.miraToken}
             </div>
             <div className={styles.miratext}>보유 MIRA</div>
           </div>
@@ -469,7 +465,10 @@ function MyPage() {
                   </p>
 
                   <div className={styles.btnDiv}>
-                    <textarea ref={keyRef} value={tempKey}></textarea>
+                    <textarea
+                      ref={keyRef}
+                      value={tempKey}
+                      className={styles.textarea}></textarea>
                     {document.queryCommandSupported("copy") && (
                       <button onClick={copyToClip} className={styles.copybtn}>
                         복사
