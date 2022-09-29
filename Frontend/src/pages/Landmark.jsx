@@ -40,9 +40,10 @@ function Landmark() {
                 { item.userName === "김관리" ?
                      <div className={styles.sellnow}>지금 구매하세요!</div>
                     :
-                    <>
-                    <div>OWNER BY</div><div className={styles.name}>{item.userName}</div>
-                    </>
+                    <div className={styles.textCt}>
+                    <div className={styles.text1}>OWNER BY</div>
+                    <div className={styles.name}>{item.userName}</div>
+                    </div>
                   }
                 
                 </div>
