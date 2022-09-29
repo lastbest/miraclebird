@@ -20,6 +20,7 @@ function Landmark() {
     { key: "11170", value: "용산구" },
     { key: "11200", value: "성동구" },
   ];
+
   let result = [];
   for (var i = 0; i < spot.length; i++) {
     for (var j = 0; j < spot[i].landmark.length; j++) {
@@ -37,6 +38,7 @@ function Landmark() {
       );
     }
   }
+
   useEffect(() => {}, [si, result]);
   var len = result.length;
   for (var i = 0; i < len; i++) {

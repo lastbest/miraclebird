@@ -5,6 +5,7 @@ import html2canvas from "html2canvas";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import "./Camera.css";
+import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import { BrowserView, MobileView } from "react-device-detect";
 
 function Camera() {
@@ -12,14 +13,37 @@ function Camera() {
   const webcamRef = React.useRef(null);
   const [url, setUrl] = React.useState(null);
   const [imgurl, setImgUrl] = useState(undefined);
-  const [share, setShare] = useState(false)
+  const [share, setShare] = useState(false);
   const [isFacingMode, setIsFacingMode] = useState(false);
+  const [data, setData] = useState({});
+  const [fileName, setFileName] = useState("");
+  const [time, setTime] = useState("");
 
+  const mainApi = async () => {
+    axios({
+      url: API_BASE_URL + "/auth/",
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        console.log("mainData", res.data.information);
+        setData(res.data.information);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    mainApi();
+  }, []);
   const onCheckedElement = (checked) => {
     if (checked) {
-      setShare(true)
+      setShare(true);
     } else if (!checked) {
-      setShare(false)
+      setShare(false);
     }
   };
 
@@ -38,34 +62,32 @@ function Camera() {
       }
 
       const file = new Blob([new Uint8Array(array)], { type: "image/png" });
-      const fileName = "test.png";
-      // "img_" +
-      // new Date().getFullYear() +
-      // (new Date().getMonth() + 1) +
-      // new Date().getDate() +
-      // new Date().getHours() +
-      // new Date().getMinutes() +
-      // new Date().getSeconds() +
-      // ".png";
+      const nowTime =
+        new Date().getFullYear() +
+        ("0" + (new Date().getMonth() + 1)).slice(-2) +
+        ("0" + new Date().getDate()).slice(-2) +
+        ("0" + new Date().getHours()).slice(-2) +
+        ("0" + new Date().getMinutes()).slice(-2) +
+        ("0" + new Date().getSeconds()).slice(-2);
+      const tempName =
+        "img_" + data.userIdx + "_" + them + "_" + nowTime + ".png";
       let formData = new FormData();
-      formData.append("uploadFile", file, fileName);
+      setTime(nowTime);
+      setFileName("https://j7c107.p.ssafy.io/images/" + tempName);
+      formData.append("uploadFile", file, tempName);
       setImgUrl(formData);
       console.log(formData);
-      for (let value of formData.size) {
-        console.log(value);
-      }
 
       var photo = document.createElement("img");
       photo.setAttribute("src", canvdata);
       photo.setAttribute("width", 256);
       photo.setAttribute("height", 256);
-      document.getElementById("frame").appendChild(photo);
     });
   }
 
   useEffect(() => {
     takepicture();
-  }, []);
+  }, [url]);
 
   function savepicture() {
     axios({
@@ -84,13 +106,38 @@ function Camera() {
         alert(err);
         console.log(err);
       });
+    console.log(them, time, fileName, data.userIdx, share);
+    var t =
+      new Date().getFullYear() +
+      "-" +
+      ("0" + (new Date().getMonth() + 1)).slice(-2) +
+      "-" +
+      ("0" + new Date().getDate()).slice(-2) +
+      "T" +
+      ("0" + new Date().getHours()).slice(-2) +
+      ":" +
+      ("0" + new Date().getMinutes()).slice(-2) +
+      ":" +
+      ("0" + new Date().getSeconds()).slice(-2);
+    console.log("t", t);
+    axios({
+      url: API_BASE_URL + "/verification",
+      method: "post",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+      data: {
+        approval: 0,
+        challengeIdx: them,
+        selfie: fileName,
+        userIdx: data.userIdx,
+        share: share ? 1 : 0,
+        regtime: t,
+      },
+    }).then((res) => {
+      console.log(res.data);
+    });
   }
-
-  const videoConstraints = {
-    width: 256,
-    height: 256,
-    facingMode: "user"
-  };
 
   const capture = React.useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -102,15 +149,21 @@ function Camera() {
       <div>
         {url != null ? (
           <div className={styles.headerCt}>
-
+            <img
+              className={styles.backIcon}
+              src="src/assets/icon/back_icon.png"
+              onClick={() => {
+                setUrl(null);
+                setImgUrl(undefined);
+              }}></img>
             <img
               className={styles.switchbtn}
-              src="src/assets/icon/switchCamera.png" onClick={() => {
+              src="src/assets/icon/switchCamera.png"
+              onClick={() => {
                 setIsFacingMode(!isFacingMode);
               }}></img>
 
             <div className={styles.headerText}>카메라</div>
-
           </div>
         ) : (
           <></>
@@ -128,7 +181,7 @@ function Camera() {
                     <p>
                       {new Date().getFullYear()}-
                       {("0" + (new Date().getMonth() + 1)).slice(-2)}-
-                      {("0" + (new Date().getDate() + 1)).slice(-2) + " "}
+                      {("0" + new Date().getDate()).slice(-2) + " "}
                       {("0" + new Date().getHours()).slice(-2)}:
                       {("0" + new Date().getMinutes()).slice(-2)}
                     </p>
@@ -162,7 +215,7 @@ function Camera() {
                     <p>
                       {new Date().getFullYear()}-
                       {("0" + (new Date().getMonth() + 1)).slice(-2)}-
-                      {("0" + (new Date().getDate() + 1)).slice(-2) + " "}
+                      {("0" + new Date().getDate()).slice(-2) + " "}
                       {("0" + new Date().getHours()).slice(-2)}:
                       {("0" + new Date().getMinutes()).slice(-2)}
                     </p>
@@ -194,10 +247,10 @@ function Camera() {
                   className={styles.backIcon}
                   src="src/assets/icon/back_icon.png"
                   onClick={() => history.back()}></img>
-
                 <img
                   className={styles.switchbtn}
-                  src="src/assets/icon/switchCamera.png" onClick={() => {
+                  src="src/assets/icon/switchCamera.png"
+                  onClick={() => {
                     setIsFacingMode(!isFacingMode);
                   }}></img>
                 <div className={styles.headerText}>카메라</div>
@@ -212,7 +265,7 @@ function Camera() {
                     videoConstraints={{
                       width: 256,
                       height: 256,
-                      facingMode: isFacingMode ? "user" : "environment"
+                      facingMode: isFacingMode ? "user" : "environment",
                     }}
                   />
                 </div>
@@ -226,7 +279,7 @@ function Camera() {
                   videoConstraints={{
                     width: 256,
                     height: 256,
-                    facingMode: isFacingMode ? "user" : "environment"
+                    facingMode: isFacingMode ? "user" : "environment",
                   }}
                 />
               </MobileView>
@@ -256,7 +309,6 @@ function Camera() {
           <div className={styles.camera_footer}>
             {url == null ? (
               <div>
-
                 <img
                   className={styles.shot}
                   src="/camera-lens.png"
@@ -268,14 +320,20 @@ function Camera() {
                     }
                     setTimeout(() => takepicture(), 10);
                   }}></img>
-
               </div>
             ) : (
               <div>
                 <div className={styles.share}>
                   공유하시겠습니까?
                   <label className={styles.inputBox}>
-                    <input name="chkbox" type="checkbox" className={styles.boxs} onChange={e => { onCheckedElement(e.target.checked) }}></input><div>공유하기</div>
+                    <input
+                      name="chkbox"
+                      type="checkbox"
+                      className={styles.boxs}
+                      onChange={(e) => {
+                        onCheckedElement(e.target.checked);
+                      }}></input>
+                    <div>공유하기</div>
                   </label>
                 </div>
                 <div>
@@ -284,7 +342,7 @@ function Camera() {
                     src="/download.png"
                     onClick={() => {
                       savepicture();
-                      console.log({ share })
+                      console.log({ share });
                     }}></img>
                 </div>
               </div>
@@ -298,10 +356,6 @@ function Camera() {
             {url == null ? (
               <div>
                 <img
-                  src="src/assets/icon/switchCamera.png" onClick={() => {
-                    setIsFacingMode(!isFacingMode);
-                  }}></img>
-                <img
                   className={styles.shot}
                   src="/camera-lens.png"
                   onClick={() => {
@@ -318,7 +372,14 @@ function Camera() {
                 <div className={styles.share}>
                   공유하시겠습니까?
                   <label className={styles.inputBox}>
-                    <input name="chkbox" type="checkbox" className={styles.boxs} onChange={e => { onCheckedElement(e.target.checked) }}></input><div>공유하기</div>
+                    <input
+                      name="chkbox"
+                      type="checkbox"
+                      className={styles.boxs}
+                      onChange={(e) => {
+                        onCheckedElement(e.target.checked);
+                      }}></input>
+                    <div>공유하기</div>
                   </label>
                 </div>
                 <div>
@@ -327,7 +388,7 @@ function Camera() {
                     src="/download.png"
                     onClick={() => {
                       savepicture();
-                      console.log({ share })
+                      console.log({ share });
                     }}></img>
                 </div>
               </div>
@@ -335,7 +396,6 @@ function Camera() {
             <div id="frame" className="frame"></div>
           </div>
         </BrowserView>
-
       </div>
 
       <Modal
