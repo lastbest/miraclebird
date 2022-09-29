@@ -23,10 +23,13 @@ import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import axios from "axios";
 import seasonInfo from "./season.json";
 
+import COMMON_ABI from "../common/ABI";
+import getAddressFrom from "../util/AddressExtractor";
+
 const BLOCKCHAIN_URL = "http://20.196.209.2:8545";
 
 function MyPage() {
-  const [userData, setUserData] = useState("");
+  const [userData, setUserData] = useState('');
   const [wallet, setWallet] = useState("");
   const [nftData, setNftData] = useState("");
   const [challengeData, setChallengeData] = useState("");
@@ -40,6 +43,67 @@ function MyPage() {
   const [nftMap, setNftMap] = useState("");
   const [season, setSeason] = useState(1);
   const [challengeMap, setChallengeMap] = useState("");
+  
+  const [tokenBalance, setTokenBalance] = useState(0);
+  const [privKey, setPrivKey] = useState("");
+
+  // SSAFY Network
+  const web3 = new Web3(
+    new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain2/`)
+  );
+
+  // call Mira Token
+  const callMiraToken = new web3.eth.Contract(
+    COMMON_ABI.CONTRACT_ABI.ERC_ABI,
+    "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+  );
+  
+  // 관리자 계정의 miratoken 조회로 해놓음 balanceof안의 주소를 user계좌로 바꾸면 됨
+  async function getTokenBalance() {
+    const response = await callMiraToken.methods
+    .balanceOf("0x52aEdCe8c99d769C9896A518Cb5927744F5da32b")
+    .call();
+    setTokenBalance(response);
+  }
+
+  useEffect(() => {
+    getTokenBalance()
+  }, [])
+
+
+  useEffect(() => {
+    async function data() {
+      await axios({
+        url: API_BASE_URL + "/auth/",
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        },
+        })
+        .then((res) => {
+          setUserData(res.data.information);
+          axios({
+            url: API_BASE_URL + "/wallet/" + res.data.information.userIdx,
+            method: "get",
+            headers: {
+              Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+            },
+          })
+            .then((res) => {
+              setWallet(res.data);
+              console.log(wallet);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        })
+        
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    data()
+  }, []);
 
   useEffect(() => {
     console.log("userDate", userData);
@@ -64,7 +128,7 @@ function MyPage() {
       .catch((error) => {
         console.log(error);
       });
-  }, [userData]);
+  }, []);
 
   useEffect(() => {
     console.log("challengeData", challengeData);
@@ -108,6 +172,23 @@ function MyPage() {
     console.log("wallet", wallet);
   }, [wallet]);
 
+   // my nft
+   useEffect(() => {
+    axios({
+      url: API_BASE_URL + "/landmark/user/" + userData.userIdx,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        setNftData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [])
+
   useEffect(() => {
     console.log("nftData", nftData);
     var result = [];
@@ -126,7 +207,7 @@ function MyPage() {
               <div className={styles.nftprice}> {item.sellPrice} MIRA</div>
             </div>
             <div className={styles.btnContainer}>
-              {item.onsale === 0 ? (
+              {item.selling === false ? (
                 <>
                   <button
                     className={styles.btnReinforce}
@@ -155,60 +236,10 @@ function MyPage() {
     setNftMap(result);
   }, [nftData]);
 
-  const mainApi = async () => {
-    await axios({
-      url: API_BASE_URL + "/auth/",
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-      },
-    })
-      .then((res) => {
-        setUserData(res.data.information);
-        return res;
-      })
-      .then((res) => {
-        axios({
-          url: API_BASE_URL + "/wallet/" + res.data.information.userIdx,
-          method: "get",
-          headers: {
-            Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-          },
-        })
-          .then((res) => {
-            setWallet(res.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    await axios({
-      url: API_BASE_URL + "/landmark/user/" + 1,
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-      },
-    })
-      .then((res) => {
-        setNftData(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    mainApi();
-    console.log(wallet);
-  }, []);
-
   useEffect(() => {
     console.log("season", season);
   }, [season]);
+
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -310,6 +341,61 @@ function MyPage() {
     },
   ];
 
+
+  // nft 판매 권한을 관리자에게 넘긴다
+  async function ApproveItem() {
+    const address = getAddressFrom(
+      privKey.startsWith("0x") ? privKey : "0x" + privKey
+    );
+    console.log("address", address);
+    if (!address) return;
+    try {
+      const sender = web3.eth.accounts.privateKeyToAccount(privKey);
+      web3.eth.accounts.wallet.add(sender);
+      console.log(web3.eth.accounts.wallet);
+      web3.eth.defaultAccount = sender.address;
+      console.log("defaultAccount :", web3.eth.defaultAccount);
+
+      const senderAddress = web3.eth.defaultAccount;
+      const approveNft = new web3.eth.Contract(
+        COMMON_ABI.CONTRACT_ABI.NFT_ABI,
+        "0xED71ceA7Ae66892792c2E3d86156B29A71a1677a"
+      );
+      
+      // approve할 관리자주소와 nft의 토큰아이디를 입력 임시로 1
+      const response = await approveNft.methods
+        .approve('0x52aEdCe8c99d769C9896A518Cb5927744F5da32b', 1)
+        .send({ from: senderAddress, gas: 3000000 });
+      console.log(response);
+
+      // db에 가격 변경 및 selling 여부 변경
+    axios(API_BASE_URL + "/landmark/26", {
+      method: "PUT",
+      params: {
+        user_idx: 2,
+      },
+      data: {
+        "sellPrice": sell,
+        "selling": 1,
+        // 해당 아이템의 스타포스 임의로 1
+        "starForce": 1
+      },
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => console.log("Edit Price error", err));
+    } catch (err) {
+      console.log("ERROR while Approving item", err);
+    }
+    return(
+      <div></div>
+    )
+}
+
   return (
     <>
       {/* {loading ? <Loading /> : null}/ */}
@@ -357,7 +443,7 @@ function MyPage() {
           </div>
           <div className={styles.detail2}>
             <div className={styles.mira}>
-              {wallet.miraToken == undefined ? 0 : wallet.miraToken}
+              {tokenBalance}
             </div>
             <div className={styles.miratext}>보유 MIRA</div>
           </div>
@@ -597,11 +683,21 @@ function MyPage() {
                 setSell(event.target.value);
               }}
             />
-            <button
-              onClick={() => {
-                console.log(sell);
-                handleClose3;
+            <input
+              autoComplete="privKey"
+              name="privKey"
+              className={styles.priceinput}
+              placeholder="개인키"
+              onInput={(event) => {
+                setPrivKey(event.target.value);
               }}
+            />
+            <button
+              // onClick={() => {
+              //   console.log(sell);
+              //   handleClose3;
+              // }}
+              onClick = {ApproveItem}
               className={styles.sellbtn}>
               판매하기
             </button>
