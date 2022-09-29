@@ -413,12 +413,18 @@ const ABI = {
     ERC_ABI: [
       [
         {
+          inputs: [],
+          payable: false,
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
           anonymous: false,
           inputs: [
             {
               indexed: true,
               internalType: "address",
-              name: "owner",
+              name: "tokenOwner",
               type: "address",
             },
             {
@@ -430,13 +436,7 @@ const ABI = {
             {
               indexed: false,
               internalType: "uint256",
-              name: "oldAmount",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "amount",
+              name: "tokens",
               type: "uint256",
             },
           ],
@@ -444,40 +444,61 @@ const ABI = {
           type: "event",
         },
         {
-          anonymous: false,
+          constant: false,
           inputs: [
             {
-              indexed: true,
-              internalType: "address",
-              name: "from",
-              type: "address",
-            },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "to",
-              type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "amount",
-              type: "uint256",
-            },
-          ],
-          name: "Transfer",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
               internalType: "address",
               name: "spender",
               type: "address",
             },
             {
+              internalType: "uint256",
+              name: "tokens",
+              type: "uint256",
+            },
+          ],
+          name: "approve",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "success",
+              type: "bool",
+            },
+          ],
+          payable: false,
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          constant: false,
+          inputs: [
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "tokens",
+              type: "uint256",
+            },
+          ],
+          name: "transfer",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "success",
+              type: "bool",
+            },
+          ],
+          payable: false,
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
               indexed: true,
               internalType: "address",
               name: "from",
@@ -492,7 +513,7 @@ const ABI = {
             {
               indexed: false,
               internalType: "uint256",
-              name: "amount",
+              name: "tokens",
               type: "uint256",
             },
           ],
@@ -500,10 +521,57 @@ const ABI = {
           type: "event",
         },
         {
+          constant: false,
           inputs: [
             {
               internalType: "address",
-              name: "owner",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "tokens",
+              type: "uint256",
+            },
+          ],
+          name: "transferFrom",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "success",
+              type: "bool",
+            },
+          ],
+          payable: false,
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          constant: true,
+          inputs: [],
+          name: "_totalSupply",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          payable: false,
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          constant: true,
+          inputs: [
+            {
+              internalType: "address",
+              name: "tokenOwner",
               type: "address",
             },
             {
@@ -516,42 +584,20 @@ const ABI = {
           outputs: [
             {
               internalType: "uint256",
-              name: "",
+              name: "remaining",
               type: "uint256",
             },
           ],
+          payable: false,
           stateMutability: "view",
           type: "function",
         },
         {
+          constant: true,
           inputs: [
             {
               internalType: "address",
-              name: "spender",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "amount",
-              type: "uint256",
-            },
-          ],
-          name: "approve",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "account",
+              name: "tokenOwner",
               type: "address",
             },
           ],
@@ -559,14 +605,165 @@ const ABI = {
           outputs: [
             {
               internalType: "uint256",
-              name: "",
+              name: "balance",
               type: "uint256",
             },
           ],
+          payable: false,
           stateMutability: "view",
           type: "function",
         },
         {
+          constant: true,
+          inputs: [],
+          name: "decimals",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          payable: false,
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          constant: true,
+          inputs: [],
+          name: "name",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          payable: false,
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          constant: true,
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "a",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "b",
+              type: "uint256",
+            },
+          ],
+          name: "safeAdd",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "c",
+              type: "uint256",
+            },
+          ],
+          payable: false,
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          constant: true,
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "a",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "b",
+              type: "uint256",
+            },
+          ],
+          name: "safeDiv",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "c",
+              type: "uint256",
+            },
+          ],
+          payable: false,
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          constant: true,
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "a",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "b",
+              type: "uint256",
+            },
+          ],
+          name: "safeMul",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "c",
+              type: "uint256",
+            },
+          ],
+          payable: false,
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          constant: true,
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "a",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "b",
+              type: "uint256",
+            },
+          ],
+          name: "safeSub",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "c",
+              type: "uint256",
+            },
+          ],
+          payable: false,
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          constant: true,
+          inputs: [],
+          name: "symbol",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          payable: false,
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          constant: true,
           inputs: [],
           name: "totalSupply",
           outputs: [
@@ -576,60 +773,8 @@ const ABI = {
               type: "uint256",
             },
           ],
+          payable: false,
           stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "recipient",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "amount",
-              type: "uint256",
-            },
-          ],
-          name: "transfer",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "spender",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "recipient",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "amount",
-              type: "uint256",
-            },
-          ],
-          name: "transferFrom",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "nonpayable",
           type: "function",
         },
       ],

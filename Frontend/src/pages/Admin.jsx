@@ -7,7 +7,6 @@ import AdminReport from "../components/common/AdminReport";
 import ABI from '../common/ABI';
 import Web3 from 'web3';
 import getAddressFrom from '../util/AddressExtractor';
-import { Form, FormikProvider, useFormik } from "formik";
 // import axios from 'axios';
 
 
@@ -15,7 +14,7 @@ import { Form, FormikProvider, useFormik } from "formik";
 function Admin() {
   const [view, setView] = useState(1);
   const [privKey, setPrivKey] = useState('');
-  const web3 = new Web3(new Web3.providers.HttpProvider(`http://52.141.42.92:8545`));
+  const web3 = new Web3(new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain2/`));
 
   const handlePrivKey = (e) => {
     setPrivKey(e.target.value);
@@ -31,27 +30,47 @@ function Admin() {
 
       const sender = web3.eth.accounts.privateKeyToAccount(privKey);
       web3.eth.accounts.wallet.add(sender);
-      console.log(web3.eth.accounts.wallet);
+      console.log("wallet",web3.eth.accounts.wallet);
       web3.eth.defaultAccount = sender.address;
       console.log("defaultAccount ::", web3.eth.defaultAccount);
-      console.log(sender);
+      console.log("sender",sender);
 
       const senderAddress = web3.eth.defaultAccount;
-      const sendmira = new web3.eth.Contract(
+      console.log("senderAddress", senderAddress);
+      
+      const sendMira = new web3.eth.Contract(
         ABI.CONTRACT_ABI.ERC_ABI,
-        "0x52aEdCe8c99d769C9896A518Cb5927744F5da32b"
+        "0x2cF81C7B6339cCB0e443b7A51cD6E701D91C92dD"
       );
+      sendMira.methods.transfer("0xD86B88fCfabFD13FA64F2D8026Ef692370A0d191", 5)
+        .send({
+          from: senderAddress,
+          gas: 3000000
+        }).then(receipt=>{console.log("receipt::::",receipt)});
 
-      const response = await sendmira.methods
-        .transfer("0xD86B88fCfabFD13FA64F2D8026Ef692370A0d191", 5)
-        .send({ from: senderAddress, gas: 3000000 });
-      console.log("=============")
-      console.log(response);
-      console.log("=============")
+      // const response = await sendMira.methods
+      //   .transfer("0xD86B88fCfabFD13FA64F2D8026Ef692370A0d191", 5)
+      //   .send({ from: senderAddress, gas: 3000000 });
+      // console.log("=============")
+      
+      // console.log("여기",response);
+      // console.log("=============")
+      // await sendMira
+      //   .getPastEvents("Transfer", { fromBlock: "latest" })
+      //   .then((result) => {
+      //     console.log("await sendMira getPastEvents", result);
+      //     const evt = result.slice(-1);
+      //     console.log(evt);
+
+          
+        
+
+      //   })
       
       
 
     } catch (error) {
+      console.log(error)
       
     }
     
@@ -98,14 +117,7 @@ function Admin() {
                   placeholder="개인키를 입력하세요"
                 />
               </div>
-              <button
-                size="large"
-                variant="contained"
-                sx={{ ml: 3, width: "20%", fontSize: 16 }}
-                onClick={transferToken}
-              >
-                NFT 생성
-              </button>
+              
             
         
         

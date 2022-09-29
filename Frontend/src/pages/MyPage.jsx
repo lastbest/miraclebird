@@ -26,17 +26,82 @@ const BLOCKCHAIN_URL = "http://20.196.209.2:8545";
 
 function MyPage() {
   const [userData, setUserData] = useState("");
-  const [loading, setLoading] = useState(true);
   const [wallet, setWallet] = useState("");
+  const [nftData, setNftData] = useState("");
+
   const [flag, setFlag] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
   const [tempKey, setTempKey] = useState("");
   const keyRef = useRef(null);
+  let [nftMap, setNftMap] = useState("");
+
+  useEffect(() => {
+    console.log("userDate", userData);
+  }, [userData]);
+
+  useEffect(() => {
+    console.log("userDate", wallet);
+  }, [wallet]);
+
+  useEffect(() => {
+    console.log("nftData", nftData);
+    var result = [];
+    for (var i = 0; i < nftData.length; i++) {
+      var item = nftData[i];
+      result.push(
+        <SwiperSlide className={styles.nftslide} key={i}>
+          <div className={styles.nftImgContainer}>
+            <img alt="nft1" src={item.imagePath} className={styles.nfturl} />
+          </div>
+          <div className={styles.nftcard}>
+            <div className={styles.nftname}>{item.nftname}</div>
+            <div className={styles.nftdetail}>{item.nftdetail}</div>
+            <div className={styles.miraprice}>
+              <img alt="mira" src="/mira.png" className={styles.miraicon} />
+              <div className={styles.nftprice}>{item.nftprice}</div>
+            </div>
+            <div className={styles.btnContainer}>
+              
+              {item.onsale === 0 ? (
+                <>
+                <button
+                className={styles.btnReinforce}
+                onClick={() => {
+                  navigate("/reinforce");
+                }}>
+                  강화
+                </button>
+                <button
+                  className={styles.btnSell}
+                  onClick={() => handleShow3()}>
+                  판매
+                </button>
+                </>
+              ) : (
+                <>
+                <button
+                className={styles.btnReinforce2}>
+                  강화
+                </button>
+                <button
+                  className={styles.btnonsale}
+                  onClick={() => handleShow4(true)}>
+                  판매중
+                </button>
+                </>
+              )}
+            </div>
+          </div>
+        </SwiperSlide>
+      );
+    }
+    setNftMap(result);
+  }, [nftData]);
 
   const mainApi = async () => {
-    axios({
+    await axios({
       url: API_BASE_URL + "/auth/",
       method: "GET",
       headers: {
@@ -62,6 +127,23 @@ function MyPage() {
           .catch((error) => {
             console.log(error);
           });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    await axios({
+      url: API_BASE_URL + "/landmark/user/" + 1,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        console.log("mainData", res.data);
+        setNftData(res.data);
+
+        console.log(result);
       })
       .catch((error) => {
         console.log(error);
@@ -220,8 +302,8 @@ function MyPage() {
           <img
             src={
               user.information.imageUrl == "" ||
-                user.information.imageUrl == undefined ||
-                user.information.imageUrl == null
+              user.information.imageUrl == undefined ||
+              user.information.imageUrl == null
                 ? "src/assets/icon/profile_default.jpg"
                 : user.information.imageUrl
             }
@@ -246,12 +328,12 @@ function MyPage() {
         </div>
         <div className={styles.profiledetail}>
           <div className={styles.detail1}>
-            <div className={styles.nftnumber}>3</div>
+            <div className={styles.nftnumber}>{nftData.length}</div>
             <div className={styles.nfttext}>보유 NFT</div>
           </div>
           <div className={styles.detail2}>
             <div className={styles.mira}>
-              {user.information.mira != null ? user.information.mira : 0}
+              {wallet.miraToken == undefined ? 0 : wallet.mira}
             </div>
             <div className={styles.miratext}>보유 MIRA</div>
           </div>
@@ -288,16 +370,16 @@ function MyPage() {
               return `color-scale-${value.count}`;
             }}
 
-          // tooltipDataAttrs={(value) => {
-          //     if (!value || !value.date) {
-          //     return null;
-          //     }
-          //     return {
-          //     "data-tip": `${value.date} has count: ${
-          //         value.count
-          //     }`,
-          //     };
-          // }}
+            // tooltipDataAttrs={(value) => {
+            //     if (!value || !value.date) {
+            //     return null;
+            //     }
+            //     return {
+            //     "data-tip": `${value.date} has count: ${
+            //         value.count
+            //     }`,
+            //     };
+            // }}
           />
           {/* <ReactTooltip className={styles.tooltip} /> */}
         </div>
@@ -311,58 +393,7 @@ function MyPage() {
             slidesPerView={1}
             navigation
             className={styles.swiper}>
-            {NFT_SELECT.map((nft, index) => {
-              return (
-                useEffect(() => {
-                  setSale(nft.nftprice);
-                }),
-                (
-                  <SwiperSlide className={styles.nftslide}>
-                    <div className={styles.nftImgContainer}>
-                      <img
-                        alt="nft1"
-                        src={nft.nfturl}
-                        className={styles.nfturl}
-                      />
-                    </div>
-                    <div className={styles.nftcard}>
-                      <div className={styles.nftname}>{nft.nftname}</div>
-                      <div className={styles.nftdetail}>{nft.nftdetail}</div>
-                      <div className={styles.miraprice}>
-                        <img
-                          alt="mira"
-                          src="/mira.png"
-                          className={styles.miraicon}
-                        />
-                        <div className={styles.nftprice}>{nft.nftprice}</div>
-                      </div>
-                      <div className={styles.btnContainer}>
-                        <button
-                          className={styles.btnReinforce}
-                          onClick={() => {
-                            navigate("/reinforce");
-                          }}>
-                          강화
-                        </button>
-                        {nft.onsale === 0 ? (
-                          <button
-                            className={styles.btnSell}
-                            onClick={() => handleShow3()}>
-                            판매
-                          </button>
-                        ) : (
-                          <button
-                            className={styles.btnonsale}
-                            onClick={() => handleShow4(true)}>
-                            판매중
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                )
-              );
-            })}
+            {nftMap}
           </Swiper>
         </div>
       </div>
@@ -385,10 +416,12 @@ function MyPage() {
         <Modal.Body className={styles.modalcontent} closeButton>
           <img alt="wallet" src="/wallet.png" className={styles.wallet} />
           {(wallet.walletAddress == undefined || wallet.walletAddress == "") &&
-            tempKey == "" ? (
+          tempKey == "" ? (
             <>
               <div className={styles.buttonCt}>
-                <button onClick={() => (handleClose())} className={styles.closebtn}>
+                <button
+                  onClick={() => handleClose()}
+                  className={styles.closebtn}>
                   닫기
                 </button>
                 <button
@@ -426,21 +459,19 @@ function MyPage() {
                   <strong>경고!</strong>
                   <p className={styles.keyText}>
                     1. 지갑 비밀키를 잃어버리지 마세요! 한 번 잃어버리면 복구 할
-                    수 없습니다.<br />
+                    수 없습니다.
+                    <br />
                     2. 공유하지 마세요! 비밀키가 악위적인 사이트에 노출되면
-                    당신의 자산이 유실될 수 있습니다.<br />
+                    당신의 자산이 유실될 수 있습니다.
+                    <br />
                     3. 백업을 만들어 두세요! 종이에 적어서 오프라인으로
                     관리하세요.
                   </p>
 
                   <div className={styles.btnDiv}>
-
-                    <textarea ref={keyRef} value={tempKey}>
-                    </textarea>
+                    <textarea ref={keyRef} value={tempKey}></textarea>
                     {document.queryCommandSupported("copy") && (
-                      <button
-                        onClick={copyToClip}
-                        className={styles.copybtn}>
+                      <button onClick={copyToClip} className={styles.copybtn}>
                         복사
                       </button>
                     )}
@@ -453,9 +484,7 @@ function MyPage() {
                       className={styles.walletCheckbtn}>
                       확인
                     </button>
-
                   </div>
-
                 </div>
               ) : (
                 <div>

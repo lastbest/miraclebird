@@ -71,7 +71,8 @@ public class VerificationServiceImpl implements VerificationService {
     public void uploadVerification(VerificationDto verificationDto) throws Exception {
         try {
             Verification verificationEntity = new Verification();
-            verificationEntity.setRegtime(LocalDateTime.now());
+//            verificationEntity.setRegtime(LocalDateTime.now());
+            verificationEntity.setRegtime(verificationDto.getRegtime());
             verificationEntity.setSelfie(verificationDto.getSelfie());
             verificationEntity.setUser(userDao.getUserById(verificationDto.getUserIdx()));
             verificationEntity.setChallenge(challengeDao.getChallengeById(verificationDto.getChallengeIdx()));

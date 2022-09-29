@@ -12,5 +12,6 @@ import java.util.List;
 public interface LandmarkRepository extends JpaRepository<Landmark,Long>{
     List<Landmark> findAllByLandmarkInfo_DongCode(Long dongCode);
     List<Landmark> findAllByUser_UserIdx(Long userIdx);
+    List<Landmark> findAllByLandmarkInfo_LandmarkInfoIdx(Long landmarkInfoIdx);
     Landmark getByStarForceAndLandmarkInfo_LandmarkInfoIdx(Long starForce, Long landmarkInfoIdx);
 }

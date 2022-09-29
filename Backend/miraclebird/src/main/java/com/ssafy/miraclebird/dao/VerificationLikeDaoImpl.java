@@ -47,6 +47,13 @@ public class VerificationLikeDaoImpl implements VerificationLikeDao {
     }
 
     @Override
+    public long getVerificationLikeByVerification(long verificationIdx) {
+        Verification verification = verificationRepository.getById(verificationIdx);
+        long result = verificationLikeRepository.countAllByVerification(verification);
+        return result;
+    }
+
+    @Override
     public void saveVerificationLike(VerificationLike verificationLike) throws Exception {
         verificationLikeRepository.save(verificationLike);
     }
