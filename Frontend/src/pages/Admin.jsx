@@ -1,64 +1,71 @@
-import React, { useState } from "react";
-// import { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import styles from "./Admin.module.css";
 import "./Admin.css";
 import AdminChallenge from "../components/common/AdminChallenge";
+import styles1 from "../components/common/AdminChallenge.module.css";
+import Modal from "react-bootstrap/Modal";
 import AdminReport from "../components/common/AdminReport";
-import ABI from '../common/ABI';
-import Web3 from 'web3';
-import getAddressFrom from '../util/AddressExtractor';
-// import axios from 'axios';
+import LandmarkRegistration from "../components/common/LandmarkRegistration";
+import axios from "axios";
+import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
+import getAddressFrom from "../util/AddressExtractor";
 
-
+import ABI from "../common/ABI";
+import Web3 from "web3";
 
 function Admin() {
   const [view, setView] = useState(1);
-  const [privKey, setPrivKey] = useState('');
-  const web3 = new Web3(new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain2/`));
+  const [challengeData, setChallengeData] = useState("");
+  const [challengeMap, setChallengeMap] = useState("");
+  const [approval, setApproval] = useState("");
 
-  const handlePrivKey = (e) => {
-    setPrivKey(e.target.value);
-  };
+  const [img, setImg] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [date, setDate] = useState();
+  const [category, setCategory] = useState();
+  const [verificationIdx, setVerificationIdx] = useState("");
+  const [userIdx, setUserIdx] = useState("");
+  const [wallet, setWallet] = useState();
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const [privKey, setPrivKey] = useState("");
+  const web3 = new Web3(
+    new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain2/`)
+  );
 
   async function transferToken() {
-    const address = getAddressFrom(
-      privKey.startsWith("0x") ? privKey : "0x" + privKey
-    );
-
-    if (!address) return;
     try {
-
-      const sender = web3.eth.accounts.privateKeyToAccount(privKey);
+      const sender = web3.eth.accounts.privateKeyToAccount(
+        "0x474d486a4009e752f6608594385a4676ce85ffe359221b210875516c02047ab3"
+      );
       web3.eth.accounts.wallet.add(sender);
-      console.log("wallet",web3.eth.accounts.wallet);
+      console.log("wallet", web3.eth.accounts.wallet);
       web3.eth.defaultAccount = sender.address;
       console.log("defaultAccount ::", web3.eth.defaultAccount);
-      console.log("sender",sender);
-
+      console.log("sender", sender);
       const senderAddress = web3.eth.defaultAccount;
       console.log("senderAddress", senderAddress);
-      
       const sendMira = new web3.eth.Contract(
         ABI.CONTRACT_ABI.ERC_ABI,
         "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
       );
-
       // const response = sendMira.methods.transfer("0xD86B88fCfabFD13FA64F2D8026Ef692370A0d191", 5)
       //                                     .send({
       //     from: senderAddress,
       //     gas: 3000000
       //   }).then(receipt=>{console.log("receipt::::",receipt)});
-
-        const response = await sendMira.methods
-        .transfer("0xD86B88fCfabFD13FA64F2D8026Ef692370A0d191", 5)
+      const response = await sendMira.methods
+        .transfer(wallet, 3)
         .send({ from: senderAddress, gas: 3000000 });
-        console.log(response);
-
+      console.log(response);
       // const response = await sendMira.methods
       //   .transfer("0xD86B88fCfabFD13FA64F2D8026Ef692370A0d191", 5)
       //   .send({ from: senderAddress, gas: 3000000 });
       // console.log("=============")
-      
+
       // console.log("여기",response);
       // console.log("=============")
       // await sendMira
@@ -67,20 +74,105 @@ function Admin() {
       //     console.log("await sendMira getPastEvents", result);
       //     const evt = result.slice(-1);
       //     console.log(evt);
-
-          
-        
-
       //   })
-      
-      
-
     } catch (error) {
-      console.log(error)
-      
+      console.log(error);
     }
-    
   }
+
+  useEffect(() => {
+    console.log("challengeData", challengeData);
+    var temp = [];
+    for (var i = 0; i < challengeData.length; i++) {
+      const item = challengeData[i];
+      if (item.approval != 0) continue;
+      temp.push(
+        <div
+          className={styles1.post}
+          onClick={() => (
+            setImg(item.selfie),
+            setNickname(item.name),
+            setDate(item.regtime),
+            setVerificationIdx(item.verificationIdx),
+            setCategory(item.challengeIdx),
+            setApproval(item.approval),
+            setUserIdx(item.userIdx),
+            handleShow()
+          )}>
+          {item.name} |{" "}
+          {item.regtime[0] + "-" + item.regtime[1] + "-" + item.regtime[2]} |{" "}
+          {item.challengeIdx === 1 ? "미라클모닝" : ""}
+          {item.challengeIdx === 2 ? "헬스" : ""}
+          {item.challengeIdx === 3 ? "스터디" : ""}
+        </div>
+      );
+    }
+    setChallengeMap(temp);
+  }, [challengeData]);
+
+  useEffect(() => {
+    var temp = [];
+    for (var i = 0; i < challengeData.length; i++) {
+      const item = challengeData[i];
+      temp.push();
+    }
+  }, [setChallengeMap]);
+
+  useEffect(() => {
+    axios({
+      url: API_BASE_URL + "/verification/",
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        setChallengeData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (approval != 0) {
+      setApproval(0);
+    }
+    axios({
+      url: API_BASE_URL + "/verification/",
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        setChallengeData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [approval]);
+
+  useEffect(() => {
+    axios({
+      url: API_BASE_URL + "/wallet/" + userIdx,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        setPrivKey(res.data.walletAddress);
+        setWallet(res.data.walletAddress);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userIdx]);
+
+  useEffect(() => {
+    console.log(wallet);
+  }, [wallet]);
 
   return (
     <>
@@ -100,34 +192,78 @@ function Admin() {
           onClick={() => setView(3)}>
           민팅
         </button>
-        <button
-          onClick={transferToken}> 
-          test
-        </button>
       </div>
       <div className={styles.component}>
-        {view === 1 ? <AdminChallenge /> : ""}
-        {view === 2 ? <AdminReport /> : ""}
-        {view === 3 ? <LandmarkRegistration /> : ""}
+        {view === 1 && (
+          <>
+            <div className={styles1.postCt}>{challengeMap}</div>
+          </>
+        )}
+        {view === 2 && <AdminReport />}
+        {view === 3 && <LandmarkRegistration />}
       </div>
-
-      <div>
-          
-            
-              <div direction="row" sx={{ mt: 3 }}>
-                <textarea
-                  type="text"
-                  label="개인키"
-                  onChange={handlePrivKey}
-                  value={privKey}
-                  placeholder="개인키를 입력하세요"
-                />
-              </div>
-              
-            
-        
-        
-        </div>
+      <Modal
+        centered
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}>
+        <Modal.Header
+          className={styles1.modalheader}
+          closeButton></Modal.Header>
+        <Modal.Body className={styles1.modalcontent}>
+          <img alt="post" src={img} className={styles1.postImg} />
+          <div className={styles1.text}>
+            {nickname} {date}
+          </div>
+          <div className={styles1.btnCt}>
+            <button
+              className={styles1.accessBtn}
+              onClick={() => {
+                axios({
+                  url:
+                    API_BASE_URL + "/verification/approve/" + verificationIdx,
+                  method: "put",
+                  headers: {
+                    Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                  },
+                })
+                  .then((res) => {
+                    setApproval(1);
+                    transferToken();
+                    handleClose();
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
+              }}>
+              승인
+            </button>
+            <button
+              className={styles1.deleteBtn}
+              onClick={() => {
+                axios({
+                  url:
+                    API_BASE_URL + "/verification/decline/" + verificationIdx,
+                  method: "put",
+                  headers: {
+                    Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                  },
+                })
+                  .then((res) => {
+                    setApproval(2);
+                    handleClose();
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
+              }}>
+              거절
+            </button>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className={styles1.modalheader}></Modal.Footer>
+      </Modal>
     </>
   );
 }
