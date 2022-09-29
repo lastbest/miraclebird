@@ -101,6 +101,20 @@ public class LandmarkController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
+    @ApiOperation(value = "landmark_info_idx에 해당하는 NFT랜드마크 정보를 반환한다.", response = LandmarkDto.class)
+    @GetMapping("/landmarkinfoidx/{landmark_info_idx}")
+    public ResponseEntity getLandmarkByInfo(@PathVariable("landmark_info_idx") Long landmarkInfoIdx) {
+        List<LandmarkDto> result = null;
+        try {
+            result = landmarkService.getLandmarkAllByLandmarkInfoIdx(landmarkInfoIdx);
+        }
+        catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
     @ApiOperation(value = "landmark_idx에 해당하는 NFT랜드마크 정보(판매/구매하는 경우)를 수정한다.", response = String.class)
     @PutMapping("/{landmark_idx}")
     public ResponseEntity<String> updateLandmark(@PathVariable("landmark_idx") Long landmarkIdx, @RequestBody LandmarkDto landmarkDto, @RequestParam("user_idx") Long userIdx) {
