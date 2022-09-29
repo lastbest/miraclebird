@@ -1,7 +1,9 @@
 package com.ssafy.miraclebird.dao;
 
+import com.ssafy.miraclebird.entity.Landmark;
 import com.ssafy.miraclebird.entity.Mynft;
 import com.ssafy.miraclebird.entity.Wallet;
+import com.ssafy.miraclebird.repository.LandmarkRepository;
 import com.ssafy.miraclebird.repository.MynftRepository;
 import com.ssafy.miraclebird.repository.WalletRepository;
 import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
@@ -17,12 +19,14 @@ public class MynftDaoImpl implements MynftDao {
     private final MynftRepository mynftRepository;
     private final WalletRepository walletRepository;
     private final UserRepository userRepository;
+    private final LandmarkRepository landmarkRepository;
 
     @Autowired
-    public MynftDaoImpl(MynftRepository mynftRepository, WalletRepository walletRepository, UserRepository userRepository) {
+    public MynftDaoImpl(MynftRepository mynftRepository, WalletRepository walletRepository, UserRepository userRepository, LandmarkRepository landmarkRepository) {
         this.mynftRepository = mynftRepository;
         this.walletRepository = walletRepository;
         this.userRepository = userRepository;
+        this.landmarkRepository = landmarkRepository;
     }
 
     @Override
@@ -45,6 +49,17 @@ public class MynftDaoImpl implements MynftDao {
             throw new Exception();
 
         return mynftList;
+    }
+
+    @Override
+    public Mynft getMynftByLandmark(Long landmarkIdx) throws Exception {
+        Landmark landmark = landmarkRepository.getById(landmarkIdx);
+        Mynft mynftEntity = mynftRepository.findByLandmark(landmark);
+
+        if(mynftEntity == null)
+            throw new Exception();
+
+        return mynftEntity;
     }
 
     @Override
