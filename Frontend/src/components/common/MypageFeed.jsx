@@ -2,13 +2,9 @@ import React, { useState } from "react";
 import styles from "./MypageFeed.module.css";
 import Modal from "react-bootstrap/Modal";
 
-function MypageFeed() {
+function MypageFeed(props) {
   const SEOSON_SELECT = [
     {
-      key: 0,
-      season: 1,
-      startDate: "2022-09-01",
-      dialogendDate: "2022-09-31",
       values: [
         { date: "2022-09-03", count: 1, url: "./miraclemorning.png" },
         { date: "2022-09-04", count: 2, url: "./health.jpg" },
@@ -22,10 +18,6 @@ function MypageFeed() {
       ],
     },
     {
-      key: 1,
-      season: 2,
-      startDate: "2022-10-01",
-      endDate: "2022-10-31",
       values: [
         { date: "2022-10-03", count: 1, url: "./study.jpg" },
         { date: "2022-10-04", count: 2, url: "./health.jpg" },
@@ -42,10 +34,6 @@ function MypageFeed() {
       ],
     },
     {
-      key: 2,
-      season: 3,
-      startDate: "2022-11-01",
-      endDate: "2022-11-30",
       values: [
         { date: "2022-11-03", count: 1, url: "./health.jpg" },
         { date: "2022-11-04", count: 2, url: "./study.jpg" },
