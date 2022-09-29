@@ -296,6 +296,7 @@
 }
 
 .miraicon {
+    margin-right: 10px;
     width:30px;
     height:30px;
 }
@@ -346,7 +347,7 @@
 .btnonsale {
     border: none;
     border-radius: 15px;
-    background-color: #D9D9D9;
+    background-color: #ffe969  ;
     font-family: 'neodgm';
     font-size:20px;
     padding:8px;
@@ -471,13 +472,15 @@
 .copybtn{
         font-family: 'neodgm';
             background-color: #0930a5;
-            border: none;
-            border-radius: 20px;
-            width: 80px;
-            height: 30px;
-            float: right;
+    border: none;
+        border-radius: 20px;
+        width: 80px;
+        height: 30px;
+        margin: auto;
+        float: right;
             color: white;
-            margin: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
 }
 .btnDiv{
     float: right;
@@ -497,4 +500,14 @@
     border:none;
     border-radius: 20px;
     margin-right: 10px;
+}
+
+.textarea{
+    width: 80%;
+        height: 100px;
+        padding: 10px;
+        box-sizing: border-box;
+        border: none;
+        font-size: 16px;
+        resize: none;
 }

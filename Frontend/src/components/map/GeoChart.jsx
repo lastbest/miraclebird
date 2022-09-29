@@ -16,6 +16,10 @@ import back from "../../assets/icon/GeoChart_Back.png";
 import back_1 from "../../assets/icon/GeoChart_Back1.png";
 
 import Web3 from "web3";
+import axios from "axios";
+import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
+import COMMON_ABI from "../../common/ABI";
+
 
 /**
  * Component that renders a map of Germany.
@@ -40,6 +44,15 @@ function GeoChart({ data }) {
   const wrapperRef = useRef();
   const dimensions = useResizeObserver(wrapperRef);
   const [selectedCountry, setSelectedCountry] = useState(null);
+
+  const [landmarkInfoIdx, setLandmarkInfoIdx] = useState(1);
+  const [sellingItem, setSellingItem] = useState(1);
+  const [sellingToken, setSellingToken] = useState(1);
+  const user = useSelector((state) => state.user.value);
+  const [buyerIdx, setBuyerIdx] = useState(1);
+  const [buyerAddress, setBuyerAddress] = useState('');
+  const [sellerIdx, setSellerIdx] = useState(1);
+  const [sellerAddress, setSellerAddress] = useState('');
   // will be called initially and on every data change
 
   // SSAFY Network
@@ -136,6 +149,7 @@ function GeoChart({ data }) {
         })
         .on("click", (event, d) => {
           console.log(d.name);
+          setLandmarkInfoIdx(d.index)
           setImgUrl("/src/assets/landmark/" + landmark.index + ".png");
           dispatch(
             selectLandmark({
@@ -265,18 +279,135 @@ function GeoChart({ data }) {
     }
   }
 
-  // 판매누르는순간 관리자에게로 전송
+  useEffect(() => {
+    console.log(landmarkInfoIdx)
+    axios(API_BASE_URL + "/landmark/landmarkinfoidx/" + landmarkInfoIdx, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((result) => {
+        console.log(result.data);
+        result.data.map((item) => {
+          if (item.selling === true) {
+            setSellingItem(item.landmarkIdx)
+            setSellingToken(item.tokenId)
+            setSellerIdx(item.userIdx)
+          }
+        })
+        console.log(sellingItem)
+        console.log(sellingToken)
+      })
+      .catch((err) => console.log(landmarkInfoIdx, "Get error", err));
+  })
+
+  useEffect(() => {
+    axios(API_BASE_URL + "/wallet/" + sellerIdx, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        console.log(res.data);
+        const sellerWalletData = res.data;
+        setSellerAddress(sellerWalletData.walletAddress)
+      })
+      .catch((err) => console.log("Get seller data error", err));
+  })
+
+  useEffect(() => {
+    setBuyerIdx(user.information.userIdx)
+    axios(API_BASE_URL + "/wallet/" + buyerIdx, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        console.log(res.data);
+        const buyerWalletData = res.data;
+        setBuyerAddress(buyerWalletData.walletAddress)
+      })
+      .catch((err) => console.log("Get buyer data error", err));
+  })
+
+  // 구매
+  const Purchase = () => {
+    console.log(user);
+    console.log(sellingItem)
+    console.log(sellingToken)
+    console.log(landmarkInfoIdx)
+    
+    const sender = web3.eth.accounts.privateKeyToAccount('0x474d486a4009e752f6608594385a4676ce85ffe359221b210875516c02047ab3');
+    web3.eth.accounts.wallet.add(sender);
+    console.log(web3.eth.accounts.wallet);
+    web3.eth.defaultAccount = sender.address;
+    console.log("defaultAccount :", web3.eth.defaultAccount);
+    const senderAddress = web3.eth.defaultAccount;
+
+    const sendLandmarkNft = new web3.eth.Contract(
+        COMMON_ABI.CONTRACT_ABI.NFT_ABI,
+        "0xED71ceA7Ae66892792c2E3d86156B29A71a1677a"
+      );
+    
+    console.log("sellerAccount :", sellerAddress)
+    console.log("senderAccount :", senderAddress)
+    console.log("buyerAccount :", buyerAddress)
+    const response = sendLandmarkNft.methods
+      .safeTransferFrom(sellerAddress, buyerAddress, sellingToken)
+      .send({ from: senderAddress, gas: 3000000 });
+    console.log(response);
+
+    // put landmark
+    axios(API_BASE_URL + "/landmark/" + sellingItem, {
+      method: "PUT",
+      params: {
+        user_idx: buyerIdx,
+      },
+      data: {
+        // 해당 아이템이 구매된 가격 임의로 5
+        "sellPrice": 5,
+        "selling": 0,
+        // 해당 아이템의 스타포스 임의로 1
+        "starForce": 1
+      },
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        console.log(res)
+        // put my nft
+        axios(API_BASE_URL + "/mynft/" + sellingItem, {
+          method: "PUT",
+          params: {
+            user_idx: buyerIdx,
+          },
+          headers: {
+            Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+          },
+        })
+          .then((res) => {
+            console.log(res)
+            alert("구매에 성공했습니다. 마이페이지를 확인해주세요.")
+
+          })
+          .catch((err) => console.log("My NFT PUT error", err));
+
+      })
+      .catch((err) => console.log("Purchase error", err));
 
 
-  // 구매누르면 관리자가 주는걸로
-  // const Purchase = ((nft비용, nft번호)) => {
-    // 구매자가 판매자에게 토큰 전송
+    // 구매자가 판매자에게 권한 넘김
     // 만약 트랜잭션성공되었다면
-    // 관리자에게 권한이 이전된 판매자의 nft를 구매자에게 transfer
-
-
-
-  // } 
+    // 관리자에게 권한이 이전된 판매자의 nft를 구매자에게 transfer 판매자 -> 구매자
+    return(
+      <div>
+      </div>
+    )
+  }
 
 
 
@@ -349,7 +480,7 @@ function GeoChart({ data }) {
                 <div className={styles.reward}>
                   <img alt="coin" src="/mira.png" className={styles.coin}></img>
                   <p className={styles.price}>300 MIRA</p>
-                  <button className={styles.btn}>구입</button>
+                  <button className={styles.btn} onClick={Purchase}>구입</button>
                 </div>
               </div>
             </div>

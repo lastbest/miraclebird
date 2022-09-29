@@ -21,6 +21,7 @@ import Web3 from "web3";
 
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import axios from "axios";
+import seasonInfo from "./season.json";
 
 const BLOCKCHAIN_URL = "http://20.196.209.2:8545";
 
@@ -28,6 +29,7 @@ function MyPage() {
   const [userData, setUserData] = useState("");
   const [wallet, setWallet] = useState("");
   const [nftData, setNftData] = useState("");
+  const [challengeData, setChallengeData] = useState("");
 
   const [flag, setFlag] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
@@ -35,14 +37,75 @@ function MyPage() {
   const dispatch = useDispatch();
   const [tempKey, setTempKey] = useState("");
   const keyRef = useRef(null);
-  let [nftMap, setNftMap] = useState("");
+  const [nftMap, setNftMap] = useState("");
+  const [season, setSeason] = useState(1);
+  const [challengeMap, setChallengeMap] = useState("");
 
   useEffect(() => {
     console.log("userDate", userData);
+
+    var startdate = seasonInfo[0].startDate + "_00:00:00.000";
+    var enddate = seasonInfo[0].endDate + "_23:59:59.000";
+
+    axios({
+      url: API_BASE_URL + "/verification/heatmap/" + userData.userIdx,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+      params: {
+        start_date: startdate,
+        end_date: enddate,
+      },
+    })
+      .then((res) => {
+        setChallengeData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [userData]);
 
   useEffect(() => {
-    console.log("userDate", wallet);
+    console.log("challengeData", challengeData);
+    const tempChallengeMap = {
+      values: [],
+    };
+    var pre = "";
+    var count = 1;
+    if (challengeData.length != 0) {
+      pre =
+        challengeData[0].regtime[0] +
+        "-" +
+        challengeData[0].regtime[1] +
+        "-" +
+        challengeData[0].regtime[2];
+    }
+    console.log(pre);
+    for (var i = 1; i < challengeData.length; i++) {
+      var now =
+        challengeData[i].regtime[0] +
+        "-" +
+        challengeData[i].regtime[1] +
+        "-" +
+        challengeData[i].regtime[2];
+      if (pre == now) {
+        count++;
+      } else {
+        tempChallengeMap.values.push({ data: pre, count: count });
+        pre = now;
+        count = 1;
+      }
+    }
+    if (challengeData.length != 0) {
+      tempChallengeMap.values.push({ data: pre, count: count });
+    }
+    console.log(tempChallengeMap);
+    setChallengeMap(tempChallengeMap);
+  }, [challengeData]);
+
+  useEffect(() => {
+    console.log("wallet", wallet);
   }, [wallet]);
 
   useEffect(() => {
@@ -60,36 +123,28 @@ function MyPage() {
             <div className={styles.nftdetail}>{item.nftdetail}</div>
             <div className={styles.miraprice}>
               <img alt="mira" src="/mira.png" className={styles.miraicon} />
-              <div className={styles.nftprice}>{item.nftprice}</div>
+              <div className={styles.nftprice}> {item.sellPrice} MIRA</div>
             </div>
             <div className={styles.btnContainer}>
-              
               {item.onsale === 0 ? (
                 <>
-                <button
-                className={styles.btnReinforce}
-                onClick={() => {
-                  navigate("/reinforce");
-                }}>
-                  강화
-                </button>
-                <button
-                  className={styles.btnSell}
-                  onClick={() => handleShow3()}>
-                  판매
-                </button>
+                  <button
+                    className={styles.btnReinforce}
+                    onClick={() => {
+                      navigate("/reinforce");
+                    }}>
+                    강화
+                  </button>
+                  <button
+                    className={styles.btnSell}
+                    onClick={() => handleShow3()}>
+                    판매
+                  </button>
                 </>
               ) : (
                 <>
-                <button
-                className={styles.btnReinforce2}>
-                  강화
-                </button>
-                <button
-                  className={styles.btnonsale}
-                  onClick={() => handleShow4(true)}>
-                  판매중
-                </button>
+                  <button className={styles.btnReinforce2}>강화</button>
+                  <button className={styles.btnonsale}>판매중</button>
                 </>
               )}
             </div>
@@ -109,7 +164,6 @@ function MyPage() {
       },
     })
       .then((res) => {
-        console.log("mainData", res.data.information);
         setUserData(res.data.information);
         return res;
       })
@@ -140,10 +194,7 @@ function MyPage() {
       },
     })
       .then((res) => {
-        console.log("mainData", res.data);
         setNftData(res.data);
-
-        console.log(result);
       })
       .catch((error) => {
         console.log(error);
@@ -154,6 +205,10 @@ function MyPage() {
     mainApi();
     console.log(wallet);
   }, []);
+
+  useEffect(() => {
+    console.log("season", season);
+  }, [season]);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -207,10 +262,6 @@ function MyPage() {
 
   const SEOSON_SELECT = [
     {
-      key: 0,
-      season: 1,
-      startDate: "2022-09-01",
-      endDate: "2022-09-31",
       values: [
         { date: "2022-09-03", count: 1 },
         { date: "2022-09-04", count: 2 },
@@ -224,10 +275,6 @@ function MyPage() {
       ],
     },
     {
-      key: 1,
-      season: 2,
-      startDate: "2022-10-01",
-      endDate: "2022-10-31",
       values: [
         { date: "2022-10-03", count: 1 },
         { date: "2022-10-04", count: 2 },
@@ -244,10 +291,6 @@ function MyPage() {
       ],
     },
     {
-      key: 2,
-      season: 3,
-      startDate: "2022-11-01",
-      endDate: "2022-11-30",
       values: [
         { date: "2022-11-03", count: 1 },
         { date: "2022-11-04", count: 2 },
@@ -264,25 +307,6 @@ function MyPage() {
         { date: "2022-11-22", count: 1 },
         { date: "2022-11-23", count: 3 },
       ],
-    },
-  ];
-
-  const NFT_SELECT = [
-    {
-      nfturl: "./nft1.png",
-      nickname: "김싸피",
-      nftname: "롯데타워 5강",
-      nftdetail: "롯데타워(5강)은 어쩌구저쩌구",
-      nftprice: "10",
-      onsale: 0,
-    },
-    {
-      nfturl: "./nft2.png",
-      nickname: "이싸피",
-      nftname: "롯데타워 1강",
-      nftdetail: "롯데타워(1강)은 어쩌구저쩌구",
-      nftprice: "12",
-      onsale: 1,
     },
   ];
 
@@ -333,7 +357,7 @@ function MyPage() {
           </div>
           <div className={styles.detail2}>
             <div className={styles.mira}>
-              {wallet.miraToken == undefined ? 0 : wallet.mira}
+              {wallet.miraToken == undefined ? 0 : wallet.miraToken}
             </div>
             <div className={styles.miratext}>보유 MIRA</div>
           </div>
@@ -346,10 +370,10 @@ function MyPage() {
       <div>
         <select
           className={styles.selectBox}
-          onChange={(e) => setIdx(e.target.value)}>
-          {SEOSON_SELECT.map((item) => {
+          onChange={(e) => setSeason(e.target.value)}>
+          {seasonInfo.map((item) => {
             return (
-              <option key={item.key} value={item.key}>
+              <option key={item.season} value={item.season}>
                 시즌 {item.season}
               </option>
             );
@@ -358,11 +382,11 @@ function MyPage() {
 
         <div className={styles.heatmapcontainer}>
           <CalendarHeatmap
-            startDate={SEOSON_SELECT[idx].startDate}
-            endDate={SEOSON_SELECT[idx].endDate}
+            startDate={seasonInfo[season - 1].startDate}
+            endDate={seasonInfo[season - 1].endDate}
             horizontal={false}
             showMonthLabels={false}
-            values={SEOSON_SELECT[idx].values}
+            values={SEOSON_SELECT[season - 1].values}
             classForValue={(value) => {
               if (!value) {
                 return "color-empty";
@@ -430,9 +454,9 @@ function MyPage() {
                     e.preventDefault();
                     var web3 = new Web3(BLOCKCHAIN_URL);
                     var privateKey = web3.eth.accounts.create();
-                    console.log(privateKey);
-                    console.log(userData);
-                    console.log(privateKey.address);
+                    // console.log(privateKey);
+                    // console.log(userData);
+                    // console.log(privateKey.address);
                     axios({
                       url: API_BASE_URL + "/wallet",
                       method: "post",
@@ -445,7 +469,6 @@ function MyPage() {
                       },
                     }).then((res) => {
                       setTempKey(privateKey.privateKey);
-                      console.log(tempKey);
                     });
                   }}>
                   지갑 생성
@@ -469,7 +492,10 @@ function MyPage() {
                   </p>
 
                   <div className={styles.btnDiv}>
-                    <textarea ref={keyRef} value={tempKey}></textarea>
+                    <textarea
+                      ref={keyRef}
+                      value={tempKey}
+                      className={styles.textarea}></textarea>
                     {document.queryCommandSupported("copy") && (
                       <button onClick={copyToClip} className={styles.copybtn}>
                         복사

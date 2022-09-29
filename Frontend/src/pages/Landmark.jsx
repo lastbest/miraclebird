@@ -4,6 +4,7 @@ import styles from "./Landmark.module.css";
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import axios from "axios";
 import optionsJSON from "./options.json";
+import Modal from "react-bootstrap/Modal";
 
 function Landmark() {
   const [si, setSi] = useState("지역");
@@ -14,6 +15,10 @@ function Landmark() {
   const [nftData, setNftData] = useState("");
   const [options, setOptions] = useState("");
 
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   useEffect(() => {
     console.log("nftData", nftData);
     var result = [];
@@ -21,15 +26,43 @@ function Landmark() {
       var item = nftData[i];
       if (gu == "구역" || item.dongCode == gu) {
         result.push(
-          <div key={i}>
-            <img src={item.imagePath} className={styles.landmarkImg}></img>
-            <br />
-            {item.title} (+{item.starForce})
-            <br />
-            소유자 {item.userName}
-            <br />
-            {item.province} ({item.landmarkCity})
-            <br />
+          <div className={styles.flip}>
+            <div key={i} className={styles.card}>
+              <div className={styles.front}>
+                <img src={item.imagePath} className={styles.landmarkImg}></img>
+                <div className={styles.nftTitle}>
+                  <div>{item.title} </div>
+                  <img src="/star.png" alt="star" className={styles.starIcon} />
+                  <div>{item.starForce}</div>
+                </div>
+                
+                <div className={styles.nftOwner}>
+                { item.userName === "김관리" ?
+                     <div className={styles.sellnow}>지금 구매하세요!</div>
+                    :
+                    <div className={styles.textCt}>
+                    <div className={styles.text1}>OWNER BY</div>
+                    <div className={styles.name}>{item.userName}</div>
+                    </div>
+                  }
+                
+                </div>
+                <div className={styles.priceCt}>
+                  <img src="/dollar.png" alt="dollar" className={styles.dollarIcon} /> {item.sellPrice}
+                </div>
+              </div>
+              <div className={styles.back}>
+                <div className={styles.nftArea}>
+                  {item.province} {item.landmarkCity}
+                </div>
+                <div className={styles.nftTitle2}>
+                  {item.title}
+                </div>
+                <div className={styles.buttonCt}>
+                    <button className={styles.buyBtn} onClick={handleShow} >구매하기</button>
+                </div>
+              </div>
+            </div>
           </div>
         );
       }
@@ -107,7 +140,8 @@ function Landmark() {
 
   return (
     <>
-      <select
+    <div className={styles.selectCt}>
+      <select className={styles.selectbox1}
         onChange={(e) => {
           setSi(e.target.value);
         }}>
@@ -127,13 +161,34 @@ function Landmark() {
           제주특별자치도
         </option>
       </select>
-      <select
+      <select className={styles.selectbox2}
         onChange={(e) => {
           setGu(e.target.value);
         }}>
         {options}
-      </select>
+      </select>     
+    </div>
       <div className={styles.container}>{nftMap}</div>
+
+
+      <Modal
+            centered
+            show={show}
+            onHide={handleClose}
+            backdrop="static"
+            keyboard={false}
+        >
+            <Modal.Header className={styles.modalheader}>
+            </Modal.Header>
+            <Modal.Body className={styles.modalcontent}>
+                <div>구매하시겠습니까?</div>
+                <div className={styles.modalbtns}>
+                  <button className={styles.closeBtn} onClick={handleClose}>취소</button>
+                  <button className={styles.buyBtn} onClick={handleClose}>구매하기</button>
+                </div>
+            </Modal.Body>
+            <Modal.Footer className={styles.modalheader}></Modal.Footer>
+        </Modal>
     </>
   );
 }
