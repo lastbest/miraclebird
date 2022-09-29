@@ -322,6 +322,17 @@
     color:black;
 }
 
+.btnReinforce2 {
+    border: none;
+    border-radius: 15px;
+    background-color: lightgray;
+    font-family: 'neodgm';
+    font-size:20px;
+    padding:8px;
+    margin-right:5px;
+    color:gray;
+}
+
 .btnSell {
     border: none;
     border-radius: 15px;
