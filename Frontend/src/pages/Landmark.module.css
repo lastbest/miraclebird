@@ -2,7 +2,7 @@
 .landmarkImg{
   width: 80%;
   margin:auto;
-  margin-top:10px;
+  margin-top:5px;
   margin-bottom:15px;
 }
 
@@ -100,7 +100,6 @@
 
 .nftTitle {
   font-size:18px;
-  margin-bottom:5px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -152,13 +151,9 @@
 }
 
 .name {
-  margin-left: 5px;
   /* background-color: #ffe969; */
   border-style: none none  double none;
   border-color: #ffe969;
-
-  padding-left:4px;
-  padding-right:4px;
 }
 
 .modalheader {
@@ -179,4 +174,8 @@
 
 .modalbtns {
   text-align: right;
+}
+
+.text1 {
+  font-size: 12px;
 }
