@@ -144,11 +144,7 @@ function MyPage() {
               ) : (
                 <>
                   <button className={styles.btnReinforce2}>강화</button>
-                  <button
-                    className={styles.btnonsale}
-                    >
-                    판매중
-                  </button>
+                  <button className={styles.btnonsale}>판매중</button>
                 </>
               )}
             </div>

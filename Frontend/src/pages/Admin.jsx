@@ -8,6 +8,7 @@ import AdminReport from "../components/common/AdminReport";
 import LandmarkRegistration from "../components/common/LandmarkRegistration";
 import axios from "axios";
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
+import Web3 from "web3";
 
 function Admin() {
   const [view, setView] = useState(1);
@@ -15,8 +16,20 @@ function Admin() {
   const [challengeMap, setChallengeMap] = useState("");
   const [approval, setApproval] = useState("");
 
+  const [img, setImg] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [date, setDate] = useState();
+  const [category, setCategory] = useState();
+  const [verificationIdx, setVerificationIdx] = useState("");
+  const [userIdx, setUserIdx] = useState("");
+  const [wallet, setWallet] = useState();
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   useEffect(() => {
-    console.log(challengeData);
+    console.log("challengeData", challengeData);
     var temp = [];
     for (var i = 0; i < challengeData.length; i++) {
       const item = challengeData[i];
@@ -51,7 +64,6 @@ function Admin() {
       const item = challengeData[i];
       temp.push();
     }
-    console.log(temp);
   }, [setChallengeMap]);
 
   useEffect(() => {
@@ -88,16 +100,26 @@ function Admin() {
         console.log(error);
       });
   }, [approval]);
-  const [img, setImg] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [date, setDate] = useState();
-  const [category, setCategory] = useState();
-  const [verificationIdx, setVerificationIdx] = useState("");
-  const [userIdx, setUserIdx] = useState("");
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  useEffect(() => {
+    axios({
+      url: API_BASE_URL + "/wallet/" + userIdx,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        setWallet(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userIdx]);
+
+  useEffect(() => {
+    console.log(wallet);
+  }, [wallet]);
 
   return (
     <>
