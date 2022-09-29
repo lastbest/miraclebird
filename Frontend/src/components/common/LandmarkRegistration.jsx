@@ -31,7 +31,7 @@ function LandmarkRegistration() {
 
   // SSAFY Network
   const web3 = new Web3(
-    new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain/`)
+    new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain2/`)
   );
 
   // 아이템 업로드 핸들링
@@ -92,7 +92,7 @@ function LandmarkRegistration() {
       const senderAddress = web3.eth.defaultAccount;
       const landmarkNft = new web3.eth.Contract(
         COMMON_ABI.CONTRACT_ABI.NFT_ABI,
-        "0x846Fb159457716752A20aB72f881Bbf75860C82A"
+        "0xED71ceA7Ae66892792c2E3d86156B29A71a1677a"
       );
 
       // NFT creation
