@@ -31,6 +31,7 @@ function Admin() {
             setVerificationIdx(item.verificationIdx),
             setCategory(item.challengeIdx),
             setApproval(item.approval),
+            setUserIdx(item.userIdx),
             handleShow()
           )}>
           {item.name} |{" "}
@@ -68,6 +69,7 @@ function Admin() {
         console.log(error);
       });
   }, []);
+
   useEffect(() => {
     if (approval != 0) {
       setApproval(0);
@@ -86,13 +88,14 @@ function Admin() {
         console.log(error);
       });
   }, [approval]);
-
   const [img, setImg] = useState("");
   const [nickname, setNickname] = useState("");
   const [date, setDate] = useState();
   const [category, setCategory] = useState();
-  const [show, setShow] = useState(false);
   const [verificationIdx, setVerificationIdx] = useState("");
+  const [userIdx, setUserIdx] = useState("");
+
+  const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
