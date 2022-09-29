@@ -8,15 +8,10 @@ function RankCount () {
 
     const mainApi = async () => {
         try {
-        //   console.log("home");
           const response = await fetch(API_BASE_URL + "/verification/ranking/", {
-            method: "GET",
-            headers: {
-              Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-            },
+            method: "GET"
           });
           const rankingresult = await response.json();
-        //   console.log("mainData", rankingresult);
           setNickname(rankingresult)
         } catch (error) {
           window.alert(error);
