@@ -398,11 +398,6 @@ function GeoChart({ data }) {
 
       })
       .catch((err) => console.log("Purchase error", err));
-
-
-    // 구매자가 판매자에게 권한 넘김
-    // 만약 트랜잭션성공되었다면
-    // 관리자에게 권한이 이전된 판매자의 nft를 구매자에게 transfer 판매자 -> 구매자
     return(
       <div>
       </div>
