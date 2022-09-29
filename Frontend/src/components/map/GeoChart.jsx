@@ -15,6 +15,8 @@ import LineChart from "./LineChart";
 import back from "../../assets/icon/GeoChart_Back.png";
 import back_1 from "../../assets/icon/GeoChart_Back1.png";
 
+import Web3 from "web3";
+
 /**
  * Component that renders a map of Germany.
  */
@@ -39,6 +41,11 @@ function GeoChart({ data }) {
   const dimensions = useResizeObserver(wrapperRef);
   const [selectedCountry, setSelectedCountry] = useState(null);
   // will be called initially and on every data change
+
+  // SSAFY Network
+  const web3 = new Web3(
+    new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain/`)
+  );
 
   useEffect(() => {
     if (area.name == "korea" || area.name == null) {
@@ -259,8 +266,17 @@ function GeoChart({ data }) {
   }
 
   // 판매누르는순간 관리자에게로 전송
+
+
   // 구매누르면 관리자가 주는걸로
-  // async function purchase 
+  // const Purchase = ((nft비용, nft번호)) => {
+    // 구매자가 판매자에게 토큰 전송
+    // 만약 트랜잭션성공되었다면
+    // 관리자에게 권한이 이전된 판매자의 nft를 구매자에게 transfer
+
+
+
+  // } 
 
 
 
