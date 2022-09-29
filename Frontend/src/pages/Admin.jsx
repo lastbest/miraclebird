@@ -8,6 +8,9 @@ import AdminReport from "../components/common/AdminReport";
 import LandmarkRegistration from "../components/common/LandmarkRegistration";
 import axios from "axios";
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
+import getAddressFrom from "../util/AddressExtractor";
+
+import ABI from "../common/ABI";
 import Web3 from "web3";
 
 function Admin() {
@@ -27,6 +30,55 @@ function Admin() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [privKey, setPrivKey] = useState("");
+  const web3 = new Web3(
+    new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain2/`)
+  );
+
+  async function transferToken() {
+    try {
+      const sender = web3.eth.accounts.privateKeyToAccount(
+        "0x474d486a4009e752f6608594385a4676ce85ffe359221b210875516c02047ab3"
+      );
+      web3.eth.accounts.wallet.add(sender);
+      console.log("wallet", web3.eth.accounts.wallet);
+      web3.eth.defaultAccount = sender.address;
+      console.log("defaultAccount ::", web3.eth.defaultAccount);
+      console.log("sender", sender);
+      const senderAddress = web3.eth.defaultAccount;
+      console.log("senderAddress", senderAddress);
+      const sendMira = new web3.eth.Contract(
+        ABI.CONTRACT_ABI.ERC_ABI,
+        "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+      );
+      // const response = sendMira.methods.transfer("0xD86B88fCfabFD13FA64F2D8026Ef692370A0d191", 5)
+      //                                     .send({
+      //     from: senderAddress,
+      //     gas: 3000000
+      //   }).then(receipt=>{console.log("receipt::::",receipt)});
+      const response = await sendMira.methods
+        .transfer(wallet, 3)
+        .send({ from: senderAddress, gas: 3000000 });
+      console.log(response);
+      // const response = await sendMira.methods
+      //   .transfer("0xD86B88fCfabFD13FA64F2D8026Ef692370A0d191", 5)
+      //   .send({ from: senderAddress, gas: 3000000 });
+      // console.log("=============")
+
+      // console.log("여기",response);
+      // console.log("=============")
+      // await sendMira
+      //   .getPastEvents("Transfer", { fromBlock: "latest" })
+      //   .then((result) => {
+      //     console.log("await sendMira getPastEvents", result);
+      //     const evt = result.slice(-1);
+      //     console.log(evt);
+      //   })
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
     console.log("challengeData", challengeData);
@@ -110,7 +162,8 @@ function Admin() {
       },
     })
       .then((res) => {
-        setWallet(res.data);
+        setPrivKey(res.data.walletAddress);
+        setWallet(res.data.walletAddress);
       })
       .catch((error) => {
         console.log(error);
@@ -177,6 +230,7 @@ function Admin() {
                 })
                   .then((res) => {
                     setApproval(1);
+                    transferToken();
                     handleClose();
                   })
                   .catch((error) => {
