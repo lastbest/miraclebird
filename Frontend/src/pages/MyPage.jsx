@@ -63,25 +63,34 @@ function MyPage() {
               <div className={styles.nftprice}>{item.nftprice}</div>
             </div>
             <div className={styles.btnContainer}>
-              <button
+              
+              {item.onsale === 0 ? (
+                <>
+                <button
                 className={styles.btnReinforce}
                 onClick={() => {
                   navigate("/reinforce");
                 }}>
-                강화
-              </button>
-              {item.onsale === 0 ? (
+                  강화
+                </button>
                 <button
                   className={styles.btnSell}
                   onClick={() => handleShow3()}>
                   판매
                 </button>
+                </>
               ) : (
+                <>
+                <button
+                className={styles.btnReinforce2}>
+                  강화
+                </button>
                 <button
                   className={styles.btnonsale}
                   onClick={() => handleShow4(true)}>
                   판매중
                 </button>
+                </>
               )}
             </div>
           </div>
