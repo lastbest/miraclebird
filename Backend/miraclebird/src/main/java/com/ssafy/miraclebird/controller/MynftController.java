@@ -63,4 +63,17 @@ public class MynftController {
 
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
+
+    @ApiOperation(value = "landmark_idx 에 해당하는 소유권을 user_idx로 변경한다.", response = String.class)
+    @PutMapping("/{landmark_idx}")
+    public ResponseEntity<String> updateMynft(@PathVariable("landmark_idx") Long landmarkIdx, @RequestParam("user_idx") Long userIdx) {
+        try {
+            mynftService.updateMynft(landmarkIdx, userIdx);
+        }
+        catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+        return new ResponseEntity<String>("success", HttpStatus.OK);
+    }
 }

@@ -22,12 +22,14 @@ public class MynftServiceImpl implements MynftService {
     private final MynftDao mynftDao;
     private final LandmarkDao landmarkDao;
     private final WalletDao walletDao;
+    private final UserDao userDao;
 
     @Autowired
-    public MynftServiceImpl(MynftDao mynftDao, LandmarkDao landmarkDao, WalletDao walletDao) {
+    public MynftServiceImpl(MynftDao mynftDao, LandmarkDao landmarkDao, WalletDao walletDao, UserDao userDao) {
         this.mynftDao = mynftDao;
         this.landmarkDao = landmarkDao;
         this.walletDao = walletDao;
+        this.userDao = userDao;
     }
 
     @Override
@@ -75,6 +77,22 @@ public class MynftServiceImpl implements MynftService {
             mynftDao.deleteMynft(mynftIdx);
         }
         else {
+            throw new Exception();
+        }
+    }
+
+    @Override
+    @Transactional
+    public void updateMynft(Long landmarkIdx, Long userIdx) throws Exception {
+        try {
+            Mynft mynftEntity = mynftDao.getMynftByLandmark(landmarkIdx);
+            User userEntity = userDao.getUserById(userIdx);
+            Wallet walletEntity = userEntity.getWallet();
+
+            mynftEntity.setWallet(walletEntity);
+            mynftDao.saveMynft(mynftEntity);
+        }
+        catch (Exception e) {
             throw new Exception();
         }
     }
