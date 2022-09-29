@@ -40,13 +40,19 @@ function Admin() {
       
       const sendMira = new web3.eth.Contract(
         ABI.CONTRACT_ABI.ERC_ABI,
-        "0x2cF81C7B6339cCB0e443b7A51cD6E701D91C92dD"
+        "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
       );
-      sendMira.methods.transfer("0xD86B88fCfabFD13FA64F2D8026Ef692370A0d191", 5)
-        .send({
-          from: senderAddress,
-          gas: 3000000
-        }).then(receipt=>{console.log("receipt::::",receipt)});
+
+      // const response = sendMira.methods.transfer("0xD86B88fCfabFD13FA64F2D8026Ef692370A0d191", 5)
+      //                                     .send({
+      //     from: senderAddress,
+      //     gas: 3000000
+      //   }).then(receipt=>{console.log("receipt::::",receipt)});
+
+        const response = await sendMira.methods
+        .transfer("0xD86B88fCfabFD13FA64F2D8026Ef692370A0d191", 5)
+        .send({ from: senderAddress, gas: 3000000 });
+        console.log(response);
 
       // const response = await sendMira.methods
       //   .transfer("0xD86B88fCfabFD13FA64F2D8026Ef692370A0d191", 5)
