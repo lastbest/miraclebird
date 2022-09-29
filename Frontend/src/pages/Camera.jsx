@@ -7,9 +7,10 @@ import Modal from "react-bootstrap/Modal";
 import "./Camera.css";
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import { BrowserView, MobileView } from "react-device-detect";
+import { useNavigate } from "react-router-dom";
 
 function Camera() {
-  const [them, setThem] = useState();
+  const [them, setThem] = useState(0);
   const webcamRef = React.useRef(null);
   const [url, setUrl] = React.useState(null);
   const [imgurl, setImgUrl] = useState(undefined);
@@ -18,7 +19,7 @@ function Camera() {
   const [data, setData] = useState({});
   const [fileName, setFileName] = useState("");
   const [time, setTime] = useState("");
-
+  const navigate = useNavigate();
   const mainApi = async () => {
     axios({
       url: API_BASE_URL + "/auth/",
@@ -50,6 +51,9 @@ function Camera() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [show2, setShow2] = useState(false);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = () => setShow2(true);
 
   function takepicture() {
     const targetvideo = document.getElementById("screenshot_wrap");
@@ -342,7 +346,7 @@ function Camera() {
                     src="/download.png"
                     onClick={() => {
                       savepicture();
-                      console.log({ share });
+                      handleShow2();
                     }}></img>
                 </div>
               </div>
@@ -388,7 +392,7 @@ function Camera() {
                     src="/download.png"
                     onClick={() => {
                       savepicture();
-                      console.log({ share });
+                      handleShow2();
                     }}></img>
                 </div>
               </div>
@@ -409,6 +413,30 @@ function Camera() {
           챌린지 카테고리를 선택해주세요!
         </Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
+      </Modal>
+
+      <Modal
+        centered
+        show={show2}
+        onHide={handleClose2}
+        backdrop="static"
+        keyboard={false}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent5} closeButton>
+          사진이 추가되었습니다.
+          <div className={styles.btnCt}>
+            <button
+              className={styles.morebtn}
+              onClick={() => {
+                document.location.href = "/camera";
+              }}>
+              한장 더
+            </button>
+            <button className={styles.backbtn} onClick={() => navigate("/")}>
+              돌아가기
+            </button>
+          </div>
+        </Modal.Body>
       </Modal>
     </>
   );

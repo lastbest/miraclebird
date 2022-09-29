@@ -1,100 +1,139 @@
-import { style } from "d3";
 import React, { useState, useEffect } from "react";
 import spot from "../components/map/spot.json";
 import styles from "./Landmark.module.css";
+import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
+import axios from "axios";
+import optionsJSON from "./options.json";
 
 function Landmark() {
-  const [si, setSi] = useState("-");
-  const [gu, setGu] = useState("용산구");
-  const [filter, setFilter] = useState("-");
+  const [si, setSi] = useState("지역");
+  const [gu, setGu] = useState("구역");
+  const [filter, setFilter] = useState("");
 
-  const options = [
-    { key: "seoul", value: "서울특별시" },
-    { key: "29000", value: "광주광역시" },
-    { key: "47000", value: "경상북도" },
-    { key: "50000", value: "제주특별자치도" },
-  ];
-  const seoul = [
-    { key: "11110", Filterlue: "종로구" },
-    { key: "11140", value: "중구" },
-    { key: "11170", value: "용산구" },
-    { key: "11200", value: "성동구" },
-  ];
+  const [nftMap, setNftMap] = useState("");
+  const [nftData, setNftData] = useState("");
+  const [options, setOptions] = useState("");
 
-  let result = [];
-  for (var i = 0; i < spot.length; i++) {
-    for (var j = 0; j < spot[i].landmark.length; j++) {
-      var tempUrl = spot[i].landmark[j].index;
-      var tempUrl1 = "/src/assets/landmark/" + tempUrl + ".png";
+  useEffect(() => {
+    console.log("nftData", nftData);
+    var result = [];
+    for (var i = 0; i < nftData.length; i++) {
+      var item = nftData[i];
+      if (gu == "구역" || item.dongCode == gu) {
+        result.push(
+          <div key={i}>
+            <img src={item.imagePath} className={styles.landmarkImg}></img>
+            <br />
+            {item.title} (+{item.starForce})
+            <br />
+            소유자 {item.userName}
+            <br />
+            {item.province} ({item.landmarkCity})
+            <br />
+          </div>
+        );
+      }
+    }
+    setNftMap(result);
+  }, [nftData]);
 
-      result.push(
-        <div key={i}>
-          {spot[i].landmark[j].name}({spot[i].name})
-          <br />
-          <img src={tempUrl1} className={styles.landmarkImg}></img>
-          <br />
-          <br />
-        </div>
+  useEffect(() => {
+    console.log(gu);
+    axios({
+      url: API_BASE_URL + "/landmark",
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        console.log("mainData", res.data);
+        setNftData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    var result = [];
+
+    for (var i = 0; i < nftData.length; i++) {
+      var item = nftData[i];
+      if (gu == "구역" || item.dongCode == gu) {
+        result.push(
+          <div key={i}>
+            <img src={item.imagePath} className={styles.landmarkImg}></img>
+            <br />
+            {item.title} (+{item.starForce})
+            <br />
+            소유자 {item.userName}
+            <br />
+            {item.province} ({item.landmarkCity})
+            <br />
+          </div>
+        );
+      }
+    }
+    setNftMap(result);
+  }, [gu]);
+
+  useEffect(() => {
+    console.log(si);
+
+    var tempOptions = [];
+    var json = [];
+    if (si == "지역") {
+      json = optionsJSON[0];
+    } else if (si == "서울특별시") {
+      json = optionsJSON[1];
+    } else if (si == "광주광역시") {
+      json = optionsJSON[2];
+    } else if (si == "경상북도") {
+      json = optionsJSON[3];
+    } else if (si == "제주특별자치도") {
+      json = optionsJSON[4];
+    }
+    for (var i = 0; i < json.gu.length; i++) {
+      var item = json.gu[i];
+      tempOptions.push(
+        <option key={item.SIG_CD} value={item.SIG_CD}>
+          {item.name}
+        </option>
       );
     }
-  }
-
-  useEffect(() => {}, [si, result]);
-  var len = result.length;
-  for (var i = 0; i < len; i++) {
-    result.pop();
-  }
-  for (var i = 0; i < spot.length; i++) {
-    for (var j = 0; j < spot[i].landmark.length; j++) {
-      var tempUrl = spot[i].landmark[j].index;
-      var tempUrl1 = "/src/assets/landmark/" + tempUrl + ".png";
-      result.push(
-        <div key={i}>
-          {spot[i].landmark[j].name}({spot[i].name})
-          <br />
-          <img src={tempUrl1} className={styles.landmarkImg}></img>
-          <br />
-          <br />
-        </div>
-      );
+    if (si == "지역") {
+      setGu("구역");
     }
-  }
-  console.log(gu);
+    setOptions(tempOptions);
+  }, [si]);
+
   return (
     <>
-      {/* <select>
-        <option key="seoul" value="서울특별시">
+      <select
+        onChange={(e) => {
+          setSi(e.target.value);
+        }}>
+        <option key="0" value="지역">
+          지역
+        </option>
+        <option key="1" value="서울특별시">
           서울특별시
         </option>
-        <option key="29000" value="광주광역시">
+        <option key="2" value="광주광역시">
           광주광역시
         </option>
-        <option key="47000" value="경상북도">
+        <option key="3" value="경상북도">
           경상북도
         </option>
-        <option key="50000" value="제주특별자치도">
+        <option key="4" value="제주특별자치도">
           제주특별자치도
         </option>
       </select>
-
       <select
         onChange={(e) => {
           setGu(e.target.value);
         }}>
-        <option key="11110" value="종로구">
-          종로구
-        </option>
-        <option key="29000" value="중구">
-          중구
-        </option>
-        <option key="47000" value="용산구">
-          용산구
-        </option>
-        <option key="50000" value="성동구">
-          성동구
-        </option>
-      </select> */}
-      <div className={styles.container}>{result}</div>
+        {options}
+      </select>
+      <div className={styles.container}>{nftMap}</div>
     </>
   );
 }

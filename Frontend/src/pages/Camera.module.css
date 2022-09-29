@@ -241,3 +241,36 @@
   width: 40px;
   height: 40px;
 }
+
+.btnCt {
+  margin: auto;
+}
+.morebtn{
+    border: none;
+      border-radius: 20px;
+      background-color: #ffe969;
+      font-family: 'neodgm';
+      height: 30px;
+      font-size: 15px;
+      margin: 10px;
+      color: black;
+}
+
+.backbtn {
+  border: none;
+  border-radius: 20px;
+  background-color: #D9D9D9;
+  font-family: 'neodgm';
+  height: 30px;
+  font-size: 15px;
+  margin:10px;
+  margin-right: 10px;
+  color: black;
+}
+.modalcontent5 {
+  font-family: 'neodgm';
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  padding-top: 0 !important;
+}
