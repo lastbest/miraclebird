@@ -40,6 +40,8 @@ function GeoChart({ data }) {
   const wrapperRef = useRef();
   const dimensions = useResizeObserver(wrapperRef);
   const [selectedCountry, setSelectedCountry] = useState(null);
+
+  const [landmarkIdx, setLandmarkIdx] = useState(0);
   // will be called initially and on every data change
 
   // SSAFY Network
@@ -136,6 +138,7 @@ function GeoChart({ data }) {
         })
         .on("click", (event, d) => {
           console.log(d.name);
+          setLandmarkIdx(d.index)
           setImgUrl("/src/assets/landmark/" + landmark.index + ".png");
           dispatch(
             selectLandmark({
@@ -269,14 +272,20 @@ function GeoChart({ data }) {
 
 
   // 구매누르면 관리자가 주는걸로
-  // const Purchase = ((nft비용, nft번호)) => {
+  const Purchase = () => {
+    console.log(landmarkIdx)
+
     // 구매자가 판매자에게 토큰 전송
     // 만약 트랜잭션성공되었다면
     // 관리자에게 권한이 이전된 판매자의 nft를 구매자에게 transfer
+    return(
+      <div>
+        hello
+      </div>
+    )
 
 
-
-  // } 
+  }
 
 
 
@@ -349,7 +358,7 @@ function GeoChart({ data }) {
                 <div className={styles.reward}>
                   <img alt="coin" src="/mira.png" className={styles.coin}></img>
                   <p className={styles.price}>300 MIRA</p>
-                  <button className={styles.btn}>구입</button>
+                  <button className={styles.btn} onClick={Purchase}>구입</button>
                 </div>
               </div>
             </div>
