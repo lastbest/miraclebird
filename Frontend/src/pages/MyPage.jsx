@@ -530,6 +530,13 @@ function MyPage() {
       <div className={styles.nftContainer}>
         <div className={styles.text1}>보유 NFT</div>
         <div className={styles.nftImg}>
+          { nftData.length === 0 ?
+          <div className={styles.nonenft}>
+           <div className={styles.gostoreText}>NFT를 구매해보세요!</div>
+           <button onClick={()=>(navigate("/store"))} className={styles.gostore}> 구매하러가기</button>
+          </div>
+        :
+        <div></div>}
           <Swiper
             modules={Navigation}
             spaceBetween={50}
