@@ -345,7 +345,7 @@ function GeoChart({ data }) {
         setBuyerAddress(buyerWalletData.walletAddress);
       })
       .catch((err) => console.log("Get buyer data error", err));
-  }, []);
+  });
 
   const callMiraToken = new web3.eth.Contract(
     COMMON_ABI.CONTRACT_ABI.ERC_ABI,
@@ -415,63 +415,61 @@ function GeoChart({ data }) {
         setTransactionHash(response2.transactionHash);
 
         if (response2.status === true) {
-
-        // put landmark db
-        axios(API_BASE_URL + "/landmark/" + sellingItem, {
-          method: "PUT",
-          params: {
-            user_idx: buyerIdx,
-          },
-          data: {
-            sellPrice: sellingPrice,
-            selling: 0,
-            starForce: sellingStarForce,
-          },
-          headers: {
-            Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-          },
-        })
-          .then((res) => {
-            console.log(res);
-            // put my nft db
-            axios(API_BASE_URL + "/mynft/" + sellingItem, {
-              method: "PUT",
-              params: {
-                user_idx: buyerIdx,
-              },
-              headers: {
-                Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-              },
-            })
-              .then((res) => {
-                console.log(res);
-              })
-              .catch((err) => console.log("My NFT PUT error", err));
-
-            // price update db
-            axios(API_BASE_URL + "/price", {
-              method: "POST",
-              headers: {
-                Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-              },
-              data: {
-                gasPrice: "string",
-                hash: transactionHash,
-                landmarkIdx: sellingItem,
-                sellPrice: sellingPrice,
-                userFrom: sellerAddress,
-                userTo: buyerAddress,
-              },
-            })
-              .then((res) => {
-                console.log(res);
-                alert("구매되었습니다 마이페이지를 확인하세요")
-              })
-              .catch((err) => console.log("Update Price error", err));
+          // put landmark db
+          axios(API_BASE_URL + "/landmark/" + sellingItem, {
+            method: "PUT",
+            params: {
+              user_idx: buyerIdx,
+            },
+            data: {
+              sellPrice: sellingPrice,
+              selling: 0,
+              starForce: sellingStarForce,
+            },
+            headers: {
+              Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+            },
           })
-          .catch((err) => console.log("Purchase error", err));
-        }
-        else {
+            .then((res) => {
+              console.log(res);
+              // put my nft db
+              axios(API_BASE_URL + "/mynft/" + sellingItem, {
+                method: "PUT",
+                params: {
+                  user_idx: buyerIdx,
+                },
+                headers: {
+                  Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                },
+              })
+                .then((res) => {
+                  console.log(res);
+                })
+                .catch((err) => console.log("My NFT PUT error", err));
+
+              // price update db
+              axios(API_BASE_URL + "/price", {
+                method: "POST",
+                headers: {
+                  Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                },
+                data: {
+                  gasPrice: "string",
+                  hash: transactionHash,
+                  landmarkIdx: sellingItem,
+                  sellPrice: sellingPrice,
+                  userFrom: sellerAddress,
+                  userTo: buyerAddress,
+                },
+              })
+                .then((res) => {
+                  console.log(res);
+                  alert("구매되었습니다 마이페이지를 확인하세요");
+                })
+                .catch((err) => console.log("Update Price error", err));
+            })
+            .catch((err) => console.log("Purchase error", err));
+        } else {
           alert("NFT가 구매되지 않았습니다. 관리자에게 문의하세요");
         }
       }
@@ -483,13 +481,12 @@ function GeoChart({ data }) {
 
   // nft purchase
   const Purchase = () => {
-
     if (tokenBalance >= sellingPrice) {
       SendMira();
     } else {
       alert("미라토큰이 부족합니다");
     }
-    setShow2(false)
+    setShow2(false);
     return <div></div>;
   };
 
@@ -525,8 +522,7 @@ function GeoChart({ data }) {
         )}
         <button
           className={styles.connect}
-          onClick={() => navigate("/landmark")}
-        >
+          onClick={() => navigate("/landmark")}>
           전체보기
         </button>
       </div>
@@ -541,8 +537,7 @@ function GeoChart({ data }) {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
-        className={styles.dialog}
-      >
+        className={styles.dialog}>
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.body}>
           <div className={styles.modalcontent}>
@@ -579,8 +574,7 @@ function GeoChart({ data }) {
         onHide={handleClose1}
         backdrop="static"
         keyboard={false}
-        className={styles.dialog}
-      >
+        className={styles.dialog}>
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.body}>
           <div className={styles.modalcontent}>{result}</div>
@@ -593,8 +587,7 @@ function GeoChart({ data }) {
         onHide={handleClose2}
         backdrop="static"
         keyboard={false}
-        className={styles.modal2}
-      >
+        className={styles.modal2}>
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.modalcontent2} closeButton>
           <div className={styles.privKeychange}>개인키 입력</div>
@@ -612,8 +605,7 @@ function GeoChart({ data }) {
               onClick={(e) => {
                 handleClose2(e);
               }}
-              className={styles.privKeybtn}
-            >
+              className={styles.privKeybtn}>
               구매하기
             </button>
           </div>
