@@ -547,3 +547,13 @@
     font-family: 'neodgm';
     text-align: center;
 }
+
+.adminpage {
+    border: none;
+    background-color: #ffe969 ;
+    border-radius: 20px;
+    font-family: 'neodgm';
+    height: 30px;
+    margin-right: 10px;
+    color: black;
+}
