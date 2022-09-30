@@ -445,7 +445,6 @@ function GeoChart({ data }) {
             })
               .then((res) => {
                 console.log(res);
-                alert("구매되었습니다 마이페이지를 확인하세요")
               })
               .catch((err) => console.log("My NFT PUT error", err));
 
@@ -466,6 +465,7 @@ function GeoChart({ data }) {
             })
               .then((res) => {
                 console.log(res);
+                alert("구매되었습니다 마이페이지를 확인하세요")
               })
               .catch((err) => console.log("Update Price error", err));
           })
