@@ -124,4 +124,10 @@ public class VerificationServiceImpl implements VerificationService {
         List<String> stringEntity = verificationDao.getRankByStreak();
         return stringEntity;
     }
+    @Override
+    @Transactional
+    public long getStreakByUserIdx(Long userIdx) {
+        long result = verificationDao.getStreakByUserIdx(userIdx);
+        return result;
+    }
 }

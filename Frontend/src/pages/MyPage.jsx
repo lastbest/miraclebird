@@ -35,6 +35,7 @@ function MyPage() {
   const [wallet, setWallet] = useState("");
   const [nftData, setNftData] = useState("");
   const [challengeData, setChallengeData] = useState("");
+  const [keepDate, setKeepDate] = useState("");
 
   const [flag, setFlag] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
@@ -115,7 +116,7 @@ function MyPage() {
   }, [userData]);
 
   useEffect(() => {
-    console.log("userDate", userData);
+    console.log("userData", userData);
 
     var startdate = seasonInfo[0].startDate + "_00:00:00.000";
     var enddate = seasonInfo[0].endDate + "_23:59:59.000";
@@ -193,6 +194,23 @@ function MyPage() {
     })
       .then((res) => {
         setNftData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userData]);
+
+  useEffect(() => {
+    axios({
+      url: API_BASE_URL + "/verification/streak/" + userData.userIdx,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        setKeepDate(res.data);
+        // console.log('keep',keepDate)
       })
       .catch((error) => {
         console.log(error);
@@ -324,6 +342,7 @@ function MyPage() {
       })
         .then((res) => {
           console.log(res);
+          alert("판매중으로 변경되었습니다")
         })
         .catch((err) => console.log("Edit Price error", err));
     } catch (err) {
@@ -343,8 +362,7 @@ function MyPage() {
     e.preventDefault();
     ApproveItem();
     setShow3(false);
-    alert("판매중으로 변경되었습니다");
-  };
+  }
   const handleShow3 = (tokenId, starForce, landmarkIdx, e) => {
     e.preventDefault();
     setShow3(true);

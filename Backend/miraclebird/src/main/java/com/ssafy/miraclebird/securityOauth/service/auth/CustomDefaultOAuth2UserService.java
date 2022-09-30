@@ -34,7 +34,7 @@ public class CustomDefaultOAuth2UserService extends DefaultOAuth2UserService{
         return null;
     }
 
-    private OAuth2User processOAuth2User(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
+    private OAuth2User processOAuth2User(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) throws Exception {
         OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(oAuth2UserRequest.getClientRegistration().getRegistrationId(), oAuth2User.getAttributes());
         DefaultAssert.isAuthentication(!oAuth2UserInfo.getEmail().isEmpty());
         
@@ -42,6 +42,10 @@ public class CustomDefaultOAuth2UserService extends DefaultOAuth2UserService{
         User user;
         if(userOptional.isPresent()) {
             user = userOptional.get();
+
+            if (user.getBlacklist() == true)
+                throw new Exception("blacklist");
+
             DefaultAssert.isAuthentication(user.getProvider().equals(Provider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId())));
             user = updateExistingUser(user, oAuth2UserInfo);
         } else {

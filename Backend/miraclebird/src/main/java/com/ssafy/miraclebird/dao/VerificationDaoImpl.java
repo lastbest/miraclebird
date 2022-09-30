@@ -91,4 +91,10 @@ public class VerificationDaoImpl implements VerificationDao {
         List<String> stringEntity = verificationRepository.getRankByStreak();
         return stringEntity;
     }
+    @Override
+    public long getStreakByUserIdx(Long userIdx) {
+        List<Long> list = verificationRepository.getStreakByUserIdx(userIdx);
+        if(list.size() != 1) return 0;
+        return list.get(0);
+    }
 }

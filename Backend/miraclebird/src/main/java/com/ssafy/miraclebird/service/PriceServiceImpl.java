@@ -60,7 +60,7 @@ public class PriceServiceImpl implements PriceService {
             Price priceEntity = new Price();
             priceEntity.setGasPrice(priceDto.getGasPrice());
             priceEntity.setHash(priceDto.getHash());
-            priceEntity.setSellDate(LocalDate.now());
+            priceEntity.setSellDate(LocalDateTime.now());
             priceEntity.setSellPrice(priceDto.getSellPrice());
             priceEntity.setUserFrom(priceDto.getUserFrom());
             priceEntity.setUserTo(priceDto.getUserTo());

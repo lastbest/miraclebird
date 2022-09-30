@@ -19,7 +19,7 @@ import Web3 from "web3";
 import axios from "axios";
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import COMMON_ABI from "../../common/ABI";
-
+import getAddressFrom from "../../util/AddressExtractor";
 
 /**
  * Component that renders a map of Germany.
@@ -30,8 +30,23 @@ function GeoChart({ data }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [show1, setShow1] = useState(false);
+  const [show2, setShow2] = useState(false);
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = () => setShow2(true);
+  const [show3, setShow3] = useState(false);
+  const handleClose3 = () => setShow3(false);
+  const handleShow3 = () => setShow3(true);
+  const [show4, setShow4] = useState(false);
+  const handleClose4 = () => setShow4(false);
+  const handleShow4 = () => setShow4(true);
+  const [show5, setShow5] = useState(false);
+  const handleClose5 = () => setShow5(false);
+  const handleShow5 = () => setShow5(true);
+  const [show6, setShow6] = useState(false);
+  const handleClose6 = () => setShow6(false);
+  const handleShow6 = () => setShow6(true);
 
   const [isListHover, setIsListHover] = useState(false);
   const [imgUrl, setImgUrl] = useState("");
@@ -46,13 +61,18 @@ function GeoChart({ data }) {
   const [selectedCountry, setSelectedCountry] = useState(null);
 
   const [landmarkInfoIdx, setLandmarkInfoIdx] = useState(1);
-  const [sellingItem, setSellingItem] = useState(1);
-  const [sellingToken, setSellingToken] = useState(1);
+  const [sellingItem, setSellingItem] = useState(0);
+  const [sellingToken, setSellingToken] = useState(0);
+  const [sellingPrice, setSellingPrice] = useState(0);
+  const [sellingStarForce, setSellingStarForce] = useState(0);
   const user = useSelector((state) => state.user.value);
   const [buyerIdx, setBuyerIdx] = useState(1);
-  const [buyerAddress, setBuyerAddress] = useState('');
+  const [buyerAddress, setBuyerAddress] = useState("");
   const [sellerIdx, setSellerIdx] = useState(1);
-  const [sellerAddress, setSellerAddress] = useState('');
+  const [sellerAddress, setSellerAddress] = useState("");
+  const [transactionHash, setTransactionHash] = useState("");
+  const [tokenBalance, setTokenBalance] = useState(0);
+  const [privKey, setPrivKey] = useState("");
   // will be called initially and on every data change
 
   // SSAFY Network
@@ -149,7 +169,7 @@ function GeoChart({ data }) {
         })
         .on("click", (event, d) => {
           console.log(d.name);
-          setLandmarkInfoIdx(d.index)
+          setLandmarkInfoIdx(d.index);
           setImgUrl("/src/assets/landmark/" + landmark.index + ".png");
           dispatch(
             selectLandmark({
@@ -280,7 +300,11 @@ function GeoChart({ data }) {
   }
 
   useEffect(() => {
-    console.log(landmarkInfoIdx)
+    setBuyerIdx(user.information.userIdx);
+  }, []);
+
+  useEffect(() => {
+    console.log(landmarkInfoIdx);
     axios(API_BASE_URL + "/landmark/landmarkinfoidx/" + landmarkInfoIdx, {
       method: "GET",
       headers: {
@@ -291,16 +315,16 @@ function GeoChart({ data }) {
         console.log(result.data);
         result.data.map((item) => {
           if (item.selling === true) {
-            setSellingItem(item.landmarkIdx)
-            setSellingToken(item.tokenId)
-            setSellerIdx(item.userIdx)
+            setSellingItem(item.landmarkIdx);
+            setSellingToken(item.tokenId);
+            setSellerIdx(item.userIdx);
+            setSellingPrice(item.sellPrice);
+            setSellingStarForce(item.starForce);
           }
-        })
-        console.log(sellingItem)
-        console.log(sellingToken)
+        });
       })
       .catch((err) => console.log(landmarkInfoIdx, "Get error", err));
-  })
+  });
 
   useEffect(() => {
     axios(API_BASE_URL + "/wallet/" + sellerIdx, {
@@ -312,13 +336,12 @@ function GeoChart({ data }) {
       .then((res) => {
         console.log(res.data);
         const sellerWalletData = res.data;
-        setSellerAddress(sellerWalletData.walletAddress)
+        setSellerAddress(sellerWalletData.walletAddress);
       })
       .catch((err) => console.log("Get seller data error", err));
-  })
+  });
 
   useEffect(() => {
-    setBuyerIdx(user.information.userIdx)
     axios(API_BASE_URL + "/wallet/" + buyerIdx, {
       method: "GET",
       headers: {
@@ -328,83 +351,156 @@ function GeoChart({ data }) {
       .then((res) => {
         console.log(res.data);
         const buyerWalletData = res.data;
-        setBuyerAddress(buyerWalletData.walletAddress)
+        setBuyerAddress(buyerWalletData.walletAddress);
       })
       .catch((err) => console.log("Get buyer data error", err));
-  })
+  }, []);
 
-  // 구매
-  const Purchase = () => {
-    console.log(user);
-    console.log(sellingItem)
-    console.log(sellingToken)
-    console.log(landmarkInfoIdx)
-    
-    const sender = web3.eth.accounts.privateKeyToAccount('0x474d486a4009e752f6608594385a4676ce85ffe359221b210875516c02047ab3');
-    web3.eth.accounts.wallet.add(sender);
-    console.log(web3.eth.accounts.wallet);
-    web3.eth.defaultAccount = sender.address;
-    console.log("defaultAccount :", web3.eth.defaultAccount);
-    const senderAddress = web3.eth.defaultAccount;
+  const callMiraToken = new web3.eth.Contract(
+    COMMON_ABI.CONTRACT_ABI.ERC_ABI,
+    "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+  );
 
-    const sendLandmarkNft = new web3.eth.Contract(
-        COMMON_ABI.CONTRACT_ABI.NFT_ABI,
-        "0xED71ceA7Ae66892792c2E3d86156B29A71a1677a"
-      );
-    
-    console.log("sellerAccount :", sellerAddress)
-    console.log("senderAccount :", senderAddress)
-    console.log("buyerAccount :", buyerAddress)
-    const response = sendLandmarkNft.methods
-      .safeTransferFrom(sellerAddress, buyerAddress, sellingToken)
-      .send({ from: senderAddress, gas: 3000000 });
+  async function getTokenBalance() {
+    const response = await callMiraToken.methods.balanceOf(buyerAddress).call();
+    setTokenBalance(response);
     console.log(response);
+  }
 
-    // put landmark
-    axios(API_BASE_URL + "/landmark/" + sellingItem, {
-      method: "PUT",
-      params: {
-        user_idx: buyerIdx,
-      },
-      data: {
-        // 해당 아이템이 구매된 가격 임의로 5
-        "sellPrice": 5,
-        "selling": 0,
-        // 해당 아이템의 스타포스 임의로 1
-        "starForce": 1
-      },
-      headers: {
-        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-      },
-    })
-      .then((res) => {
-        console.log(res)
-        // put my nft
-        axios(API_BASE_URL + "/mynft/" + sellingItem, {
+  useEffect(() => {
+    getTokenBalance();
+  });
+
+  // send Token
+  async function SendMira() {
+    const address = getAddressFrom(
+      privKey.startsWith("0x") ? privKey : "0x" + privKey
+    );
+    console.log("address", address);
+    if (!address) {
+      handleShow3()
+      return;
+    }
+    try {
+      const buyer = web3.eth.accounts.privateKeyToAccount(privKey);
+      web3.eth.accounts.wallet.add(buyer);
+      console.log(web3.eth.accounts.wallet);
+      web3.eth.defaultAccount = buyer.address;
+      console.log("defaultAccount_buyer :", web3.eth.defaultAccount);
+
+      const senderAddress = web3.eth.defaultAccount;
+      const sendMira = new web3.eth.Contract(
+        COMMON_ABI.CONTRACT_ABI.ERC_ABI,
+        "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+      );
+      const response = await sendMira.methods
+        .transfer(sellerAddress, sellingPrice)
+        .send({ from: senderAddress, gas: 3000000 });
+      console.log(response);
+
+      if (response.status === true) {
+        const sender = web3.eth.accounts.privateKeyToAccount(
+          "0x474d486a4009e752f6608594385a4676ce85ffe359221b210875516c02047ab3"
+        );
+        web3.eth.accounts.wallet.add(sender);
+        console.log(web3.eth.accounts.wallet);
+        web3.eth.defaultAccount = sender.address;
+        console.log("defaultAccount :", web3.eth.defaultAccount);
+        const senderAddress = web3.eth.defaultAccount;
+
+        const sendLandmarkNft = new web3.eth.Contract(
+          COMMON_ABI.CONTRACT_ABI.NFT_ABI,
+          "0xED71ceA7Ae66892792c2E3d86156B29A71a1677a"
+        );
+
+        console.log("sellerAccount :", sellerAddress);
+        console.log("senderAccount :", senderAddress);
+        console.log("buyerAccount :", buyerAddress);
+
+        const response2 = await sendLandmarkNft.methods
+          .safeTransferFrom(sellerAddress, buyerAddress, sellingToken)
+          .send({ from: senderAddress, gas: 3000000 });
+        console.log(response2);
+        setTransactionHash(response2.transactionHash);
+
+        if (response2.status === true) {
+
+        // put landmark db
+        axios(API_BASE_URL + "/landmark/" + sellingItem, {
           method: "PUT",
           params: {
             user_idx: buyerIdx,
+          },
+          data: {
+            sellPrice: sellingPrice,
+            selling: 0,
+            starForce: sellingStarForce,
           },
           headers: {
             Authorization: "Bearer " + NOW_ACCESS_TOKEN,
           },
         })
           .then((res) => {
-            console.log(res)
-            alert("구매에 성공했습니다. 마이페이지를 확인해주세요.")
+            console.log(res);
+            // put my nft db
+            axios(API_BASE_URL + "/mynft/" + sellingItem, {
+              method: "PUT",
+              params: {
+                user_idx: buyerIdx,
+              },
+              headers: {
+                Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+              },
+            })
+              .then((res) => {
+                console.log(res);
+                handleShow5()
+              })
+              .catch((err) => console.log("My NFT PUT error", err));
 
+            // price update db
+            axios(API_BASE_URL + "/price", {
+              method: "POST",
+              headers: {
+                Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+              },
+              data: {
+                gasPrice: "string",
+                hash: transactionHash,
+                landmarkIdx: sellingItem,
+                sellPrice: sellingPrice,
+                userFrom: sellerAddress,
+                userTo: buyerAddress,
+              },
+            })
+              .then((res) => {
+                console.log(res);
+              })
+              .catch((err) => console.log("Update Price error", err));
           })
-          .catch((err) => console.log("My NFT PUT error", err));
-
-      })
-      .catch((err) => console.log("Purchase error", err));
-    return(
-      <div>
-      </div>
-    )
+          .catch((err) => console.log("Purchase error", err));
+        }
+        else {
+          handleShow6()
+        }
+      }
+    } catch (err) {
+      console.log("ERROR while Transaction", err);
+    }
+    return <div></div>;
   }
 
+  // nft purchase
+  const Purchase = () => {
 
+    if (tokenBalance >= sellingPrice) {
+      SendMira();
+    } else {
+      handleShow4()
+    }
+    setShow2(false)
+    return <div></div>;
+  };
 
   return (
     <>
@@ -438,11 +534,11 @@ function GeoChart({ data }) {
         )}
         <button
           className={styles.connect}
-          onClick={() => navigate("/landmark")}>
+          onClick={() => navigate("/landmark")}
+        >
           전체보기
         </button>
       </div>
-
 
       <div ref={wrapperRef} style={{ marginBottom: "2rem" }}>
         {selectedCountry !== null ? <div>{area.name}</div> : <div></div>}
@@ -454,9 +550,9 @@ function GeoChart({ data }) {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
-        className={styles.dialog}>
-        <Modal.Header className={styles.modalheader} closeButton>
-        </Modal.Header>
+        className={styles.dialog}
+      >
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.body}>
           <div className={styles.modalcontent}>
             <img src={imgUrl} alt="mm" className={styles.picture} />
@@ -475,7 +571,9 @@ function GeoChart({ data }) {
                 <div className={styles.reward}>
                   <img alt="coin" src="/mira.png" className={styles.coin}></img>
                   <p className={styles.price}>300 MIRA</p>
-                  <button className={styles.btn} onClick={Purchase}>구입</button>
+                  <button className={styles.btn} onClick={handleShow2}>
+                    구입
+                  </button>
                 </div>
               </div>
             </div>
@@ -490,11 +588,107 @@ function GeoChart({ data }) {
         onHide={handleClose1}
         backdrop="static"
         keyboard={false}
-        className={styles.dialog}>
+        className={styles.dialog}
+      >
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.body}>
           <div className={styles.modalcontent}>{result}</div>
         </Modal.Body>
+      </Modal>
+
+      <Modal
+        centered
+        show={show2}
+        onHide={handleClose2}
+        backdrop="static"
+        keyboard={false}
+        className={styles.modal2}
+      >
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent2}>
+          <div className={styles.privKeychange}>개인키 입력</div>
+          <div className={styles.privKeycontainer}>
+            <input
+              autoComplete="privKey"
+              name="privKey"
+              className={styles.privKeyinput}
+              placeholder="개인키"
+              onInput={(event) => {
+                setPrivKey(event.target.value);
+              }}
+            />
+            <button
+              onClick={() => {
+                handleClose2();
+                Purchase()
+              }}
+              className={styles.privKeybtn}
+            >
+              구매하기
+            </button>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
+      </Modal>
+
+      <Modal
+        centered
+        show={show3}
+        onHide={handleClose3}
+        backdrop="static"
+        keyboard={false}
+        className={styles.dialog}
+      >
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent3}>
+          개인키가 일치하지 않습니다.
+        </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
+      </Modal>
+
+      <Modal
+        centered
+        show={show4}
+        onHide={handleClose4}
+        backdrop="static"
+        keyboard={false}
+        className={styles.dialog}
+      >
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.body}>
+          MIRA 토큰이 부족합니다.
+        </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
+      </Modal>
+
+      <Modal
+        centered
+        show={show5}
+        onHide={handleClose5}
+        backdrop="static"
+        keyboard={false}
+        className={styles.dialog}
+      >
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent3}>
+          구매되었습니다. 마이페이지를 확인하세요!
+        </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
+      </Modal>
+
+      <Modal
+        centered
+        show={show6}
+        onHide={handleClose6}
+        backdrop="static"
+        keyboard={false}
+        className={styles.dialog}
+      >
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent3}>
+        NFT가 구매되지 않았습니다. 관리자에게 문의하세요.
+        </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
     </>
   );
