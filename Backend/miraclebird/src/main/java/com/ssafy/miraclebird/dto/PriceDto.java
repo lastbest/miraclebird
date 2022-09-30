@@ -19,7 +19,7 @@ public class PriceDto {
 
     private long priceIdx;
 
-    private LocalDate sellDate;
+    private LocalDateTime sellDate;
 
     private int sellPrice;
 
