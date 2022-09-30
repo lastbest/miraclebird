@@ -342,7 +342,7 @@ function MyPage() {
       })
         .then((res) => {
           console.log(res);
-          handleShow7()
+          handleShow7();
         })
         .catch((err) => console.log("Edit Price error", err));
     } catch (err) {
@@ -360,8 +360,8 @@ function MyPage() {
   const [show3, setShow3] = useState(false);
   const handleClose3 = () => setShow3(false);
   const selling = (e) => {
-    ApproveItem()    
-  }
+    ApproveItem();
+  };
   const handleShow3 = (tokenId, starForce, landmarkIdx, e) => {
     e.preventDefault();
     setShow3(true);
@@ -520,7 +520,7 @@ function MyPage() {
                 <div className={styles.miratext}>보유 MIRA</div>
               </div>
               <div className={styles.detail3}>
-              <div className={styles.rank}>{keepDate}</div>
+                <div className={styles.rank}>{keepDate}</div>
                 <div className={styles.ranktext}>지속일</div>
               </div>
             </div>
@@ -569,13 +569,19 @@ function MyPage() {
           <div className={styles.nftContainer}>
             <div className={styles.text1}>보유 NFT</div>
             <div className={styles.nftImg}>
-              { nftData.length === 0 ?
-              <div className={styles.nonenft}>
-              <div className={styles.gostoreText}>NFT를 구매해보세요!</div>
-              <button onClick={()=>(navigate("/store"))} className={styles.gostore}> 구매하러가기</button>
-              </div>
-            :
-            <div></div>}
+              {nftData.length === 0 ? (
+                <div className={styles.nonenft}>
+                  <div className={styles.gostoreText}>NFT를 구매해보세요!</div>
+                  <button
+                    onClick={() => navigate("/store")}
+                    className={styles.gostore}>
+                    {" "}
+                    구매하러가기
+                  </button>
+                </div>
+              ) : (
+                <div></div>
+              )}
               <Swiper
                 modules={Navigation}
                 spaceBetween={50}
@@ -775,7 +781,7 @@ function MyPage() {
             <button
               onClick={(e) => {
                 console.log(sell);
-                console.log(sellTokenId)
+                console.log(sellTokenId);
                 selling(e);
               }}
               className={styles.sellbtn}>
