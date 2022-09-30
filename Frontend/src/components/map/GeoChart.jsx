@@ -93,9 +93,9 @@ function GeoChart({ data }) {
   }, [area]);
 
   useEffect(() => {
-    console.log(landmark);
+    console.log(landmarkInfoIdx);
     axios({
-      url: API_BASE_URL + "/landmark/landmarkinfoidx/" + landmark.index,
+      url: API_BASE_URL + "/landmark/landmarkinfoidx/" + landmarkInfoIdx,
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("accessToken"),
@@ -110,10 +110,13 @@ function GeoChart({ data }) {
             break;
           }
         }
+
         if (item.userIdx == 1) {
           setLandmarkData(res.data[0]);
+          console.log(res.data[0]);
         } else {
           setLandmarkData(result);
+          console.log(result);
         }
       })
       .catch((error) => {
@@ -366,7 +369,7 @@ function GeoChart({ data }) {
         });
       })
       .catch((err) => console.log(landmarkInfoIdx, "Get error", err));
-  });
+  }, [landmarkInfoIdx]);
 
   useEffect(() => {
     axios(API_BASE_URL + "/wallet/" + sellerIdx, {
@@ -381,7 +384,7 @@ function GeoChart({ data }) {
         setSellerAddress(sellerWalletData.walletAddress);
       })
       .catch((err) => console.log("Get seller data error", err));
-  });
+  }, [user]);
 
   useEffect(() => {
     axios(API_BASE_URL + "/wallet/" + buyerIdx, {
@@ -396,7 +399,7 @@ function GeoChart({ data }) {
         setBuyerAddress(buyerWalletData.walletAddress);
       })
       .catch((err) => console.log("Get buyer data error", err));
-  });
+  }, [user]);
 
   const callMiraToken = new web3.eth.Contract(
     COMMON_ABI.CONTRACT_ABI.ERC_ABI,
