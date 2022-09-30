@@ -178,10 +178,10 @@ function Camera() {
               <BrowserView>
                 <div id="screenshot_wrap" className={styles.screenshot_wrap2}>
                   <div className={styles.screenshot2}>
-                    <img src={url} alt="Screenshot" />
+                    <img id="screenshot_wrap_img" src={url} alt="Screenshot" />
                   </div>
-                  <div className={styles.watermark2}>MIRACLE BIRD</div>
-                  <div className={styles.timestamp2}>
+                  <div className={styles.watermark}>MIRACLE BIRD</div>
+                  <div className={styles.timestamp}>
                     <p>
                       {new Date().getFullYear()}-
                       {("0" + (new Date().getMonth() + 1)).slice(-2)}-
@@ -192,17 +192,17 @@ function Camera() {
                   </div>
                   <div>
                     {them === 1 ? (
-                      <div className={styles.themText1_2}>#미라클 모닝</div>
+                      <div className={styles.themText1}>#미라클 모닝</div>
                     ) : (
                       ""
                     )}
                     {them === 2 ? (
-                      <div className={styles.themText2_2}>#운동</div>
+                      <div className={styles.themText2}>#운동</div>
                     ) : (
                       ""
                     )}
                     {them === 3 ? (
-                      <div className={styles.themText3_2}>#스터디</div>
+                      <div className={styles.themText3}>#스터디</div>
                     ) : (
                       ""
                     )}
