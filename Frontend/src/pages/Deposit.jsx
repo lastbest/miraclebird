@@ -1,7 +1,12 @@
 import React, {useState} from "react";
-import styles from "./Deposit.module.css"
+import styles from "./Deposit.module.css";
+import Modal from "react-bootstrap/Modal";
 
 function Deposit () {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     const CATEGORY = [
         {id:0, data :'미라클 모닝', cost:2},
         {id:1, data :'운동', cost:2},
@@ -92,10 +97,24 @@ function Deposit () {
                 <div className={styles.costBox}>
                     <div>참가비</div>
                     <div className={styles.costText}>{checkedList.length * 0.11} ETH</div>
-                    <button className={styles.costBtn}>결제하기</button>
+                    <button className={styles.costBtn} onClick={handleShow}>결제하기</button>
                 </div>
             </div>
         </div>
+        
+        <Modal
+        centered
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent}>
+            정규 시즌에 만나요!
+        </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
+      </Modal>
+
         </>
     )
 }
