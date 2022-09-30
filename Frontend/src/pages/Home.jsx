@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Home.module.css";
 import { BrowserView, MobileView } from "react-device-detect";
-import HomeCarousel from "../components/carousel/HomeCarousel";
 import WebCarousel from "../components/carousel/HomeWebCarousel";
 import Rank from "../components/common/Rank";
 import { useNavigate } from "react-router-dom";
@@ -9,12 +8,31 @@ import { useSelector } from "react-redux";
 import "./Home.css"
 import HomeChallenge from "../components/common/HomeChallenge";
 import HomeNFT from "../components/common/HomeNFT";
+import axios from "axios";
+import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 
 function Home() {
   const user = useSelector((state) => state.user.value);
   const navigate = useNavigate();
+  const [challengeImg, setChallengeImg] = useState("");
 
   const [state, setState] = useState(0);
+
+  axios({
+    url:
+      API_BASE_URL + "/verification/",
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+    },
+  })
+    .then((res) => {
+      setChallengeImg(res.data);
+      // console.log('img', challengeImg);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
 
   return (
