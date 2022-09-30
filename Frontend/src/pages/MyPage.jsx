@@ -35,6 +35,7 @@ function MyPage() {
   const [wallet, setWallet] = useState("");
   const [nftData, setNftData] = useState("");
   const [challengeData, setChallengeData] = useState("");
+  const [keepDate, setKeepDate] = useState("");
 
   const [flag, setFlag] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
@@ -88,6 +89,23 @@ function MyPage() {
     }
     data();
   }, []);
+
+  useEffect(() => {
+    axios({
+      url: API_BASE_URL + "/verification/streak/" + userData.userIdx,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        setKeepDate(res.data);
+        // console.log('keep',keepDate)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userData]);
 
   useEffect(() => {
     console.log("userDate", userData);
@@ -502,8 +520,8 @@ function MyPage() {
                 <div className={styles.miratext}>보유 MIRA</div>
               </div>
               <div className={styles.detail3}>
-                <div className={styles.rank}>58</div>
-                <div className={styles.ranktext}>현재 등수</div>
+              <div className={styles.rank}>{keepDate}</div>
+                <div className={styles.ranktext}>지속일</div>
               </div>
             </div>
           </div>
@@ -551,6 +569,13 @@ function MyPage() {
           <div className={styles.nftContainer}>
             <div className={styles.text1}>보유 NFT</div>
             <div className={styles.nftImg}>
+              { nftData.length === 0 ?
+              <div className={styles.nonenft}>
+              <div className={styles.gostoreText}>NFT를 구매해보세요!</div>
+              <button onClick={()=>(navigate("/store"))} className={styles.gostore}> 구매하러가기</button>
+              </div>
+            :
+            <div></div>}
               <Swiper
                 modules={Navigation}
                 spaceBetween={50}
