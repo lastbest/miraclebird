@@ -80,8 +80,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                     .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                     .and()
                 .authorizeRequests()
-                    .antMatchers("/mypage/**")
-                        .hasAnyRole("USER", "ADMIN")
                     .antMatchers("/", "/error","/favicon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg", "/**/*.jpg", "/**/*.html", "/**/*.css", "/**/*.js")
                         .permitAll()
                     .antMatchers("/swagger", "/swagger-ui.html", "/swagger-ui/**", "/api-docs", "/api-docs/**", "/v3/api-docs/**", "/v2/api-docs/**", "/swagger-resources/**")
