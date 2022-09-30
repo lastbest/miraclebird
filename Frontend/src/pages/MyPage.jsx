@@ -251,7 +251,6 @@ function MyPage() {
       "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
     );
   
-    // 관리자 계정의 miratoken 조회로 해놓음 balanceof안의 주소를 user계좌로 바꾸면 됨
     async function getTokenBalance() {
       const response = await callMiraToken.methods
         .balanceOf(wallet.walletAddress)
@@ -307,6 +306,7 @@ function MyPage() {
       })
         .then((res) => {
           console.log(res);
+          alert("판매중으로 변경되었습니다")
         })
         .catch((err) => console.log("Edit Price error", err));
     } catch (err) {
@@ -326,7 +326,6 @@ function MyPage() {
     e.preventDefault();
     ApproveItem()
     setShow3(false);
-    alert("판매중으로 변경되었습니다")
   }
   const handleShow3 = (tokenId, starForce, landmarkIdx, e) => {
     e.preventDefault();
