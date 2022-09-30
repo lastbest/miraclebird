@@ -5,20 +5,27 @@
     margin-top:15px;
 }
 .slidetext {
+    width:90px;
+    overflow: hidden;
+    text-overflow:ellipsis;
     margin-top:0;
+    height:24px;
 }
 
 .silver {
     margin-top:23px;
+    text-align: center;
 }
 
 .bronze {
     margin-top:35px;
+    text-align: center;
 }
 
 .gold {
     margin-left:30px;
     margin-right:30px;
+    text-align: center;
 }
 
 .medalcontainer img {
