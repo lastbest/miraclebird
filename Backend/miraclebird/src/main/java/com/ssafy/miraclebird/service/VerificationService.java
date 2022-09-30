@@ -15,4 +15,5 @@ public interface VerificationService {
     List<VerificationDto> getVerificationByPeriod(Long userIdx, LocalDateTime startDate, LocalDateTime endDate);
     List<String> getRankByCount();
     List<String> getRankByStreak();
+    long getStreakByUserIdx(Long userIdx);
 }
