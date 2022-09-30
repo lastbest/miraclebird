@@ -88,7 +88,7 @@ function MyPage() {
 
 
   useEffect(() => {
-    console.log("userDate", userData);
+    console.log("userData", userData);
 
     var startdate = seasonInfo[0].startDate + "_00:00:00.000";
     var enddate = seasonInfo[0].endDate + "_23:59:59.000";
@@ -413,6 +413,10 @@ function MyPage() {
     <>
       {/* {loading ? <Loading /> : null}/ */}
       <div className={styles.btns}>
+        { userData.name === "김관리" ?
+        <button className={styles.adminpage} onClick={()=>(navigate("/admin"))}>관리자페이지</button>
+        :
+        "" }
         <button className={styles.logout} onClick={() => handleShow5()}>
           로그아웃
         </button>
