@@ -15,6 +15,19 @@ function Footer() {
   const location = useLocation();
   useEffect(() => {
     loadCurrentlyLoggedInUser();
+    // axios({
+    //   url: API_BASE_URL + "/auth/",
+    //   method: "GET",
+    //   headers: {
+    //     Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+    //   },
+    // })
+    //   .then((res) => {
+    //     console.log(res.data.information);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   }, []);
   function loadCurrentlyLoggedInUser() {
     getCurrentUser()
