@@ -659,7 +659,7 @@ function GeoChart({ data }) {
       >
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.body}>
-          미라토큰이 부족합니다.
+          MIRA 토큰이 부족합니다.
         </Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
