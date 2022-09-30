@@ -6,7 +6,7 @@ import CommonTableRow from "./CommonTableRow";
 import { postList } from "./PostData";
 
 import styles from "./PostList.module.css";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const PostList = (props) => {
   const [dataList, setDataList] = useState([]);
@@ -14,56 +14,64 @@ const PostList = (props) => {
     setDataList(props.postData);
     console.log(props.postData);
   }, [props.postData]);
-
+  var navigate = useNavigate();
   let result = [];
   for (var i = 0; i < props.postData.length; i++) {
     var item = props.postData[i];
     result.push(
-      <CommonTableRow key={item}>
-        <div className={styles.tableRow}>
-          {item.userRole == "ADMIN" ? (
-            <tr className={styles.title} onClick={() => {
-              console.log("click");
-              Navigate(`/community/${item.postIdx}`);
-            }}>
-              <Link
-                to={`/community/${item.postIdx}`}
-                className={styles.titletext2}>
-                [공지사항] {item.title}
-              </Link>
-            </tr>
-          ) : (
-            <tr className={styles.title} onClick={() => {
-
-              console.log("click");
-              Navigate(`/community/${item.postIdx}`);
-            }}>
-              <Link
-                to={`/community/${item.postIdx}`}
-                className={styles.titletext}>
-                {item.title}
-              </Link>
-            </tr>
-          )}
-          <div className={styles.readCount}>
-            <img src="/view.png" alt="view" className={styles.viewicon} />
-            <div className={styles.counttext}>{item.hit}</div>
-          </div>
-        </div>
-        <div className={styles.tableRow2}>
-          <div className={styles.datename}>
-            <div className={styles.createDate}>
-              {item.regtime[0]}-{item.regtime[1]}-{item.regtime[2]}
+      <div
+        onClick={() => {
+          console.log("click");
+          navigate("/community/" + item.postIdx);
+        }}>
+        <CommonTableRow key={item}>
+          <div className={styles.tableRow}>
+            {item.userRole == "ADMIN" ? (
+              <div className={styles.title}>
+                <Link
+                  to={`/community/${item.postIdx}`}
+                  className={styles.titletext2}>
+                  [공지사항] {item.title}
+                </Link>
+              </div>
+            ) : (
+              <div
+                className={styles.title}
+                onClick={() => {
+                  console.log("click");
+                  document.location.href = "/community/" + item.postIdx;
+                }}>
+                <Link
+                  to={`/community/${item.postIdx}`}
+                  className={styles.titletext}>
+                  {item.title}
+                </Link>
+              </div>
+            )}
+            <div className={styles.readCount}>
+              <img src="/view.png" alt="view" className={styles.viewicon} />
+              <div className={styles.counttext}>{item.hit}</div>
             </div>
           </div>
-          <div className={styles.nickname}>
-            {item.image_url == null ? <img alt="profile" src="src/assets/icon/profile_default.jpg" /> : <img alt="profile" src={item.image_url} />}
+          <div className={styles.tableRow2}>
+            <div className={styles.datename}>
+              <div className={styles.createDate}>
+                {item.regtime[0]}-{item.regtime[1]}-{item.regtime[2]}
+              </div>
+            </div>
+            <div className={styles.nickname}>
+              {item.image_url == null ? (
+                <img alt="profile" src="src/assets/icon/profile_default.jpg" />
+              ) : (
+                <img alt="profile" src={item.image_url} />
+              )}
 
-            {item.name}
+              {item.name}
+            </div>
+            {/* <CommonTableColumn className={styles.no}>#{ item.no }</CommonTableColumn> */}
           </div>
-          {/* <CommonTableColumn className={styles.no}>#{ item.no }</CommonTableColumn> */}
-        </div>
-      </CommonTableRow>
+        </CommonTableRow>
+      </div>
     );
   }
   return (
