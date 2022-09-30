@@ -362,7 +362,7 @@ function GeoChart({ data }) {
     getTokenBalance();
   });
 
-  // 토큰보내기
+  // send Token
   async function SendMira() {
     const address = getAddressFrom(
       privKey.startsWith("0x") ? privKey : "0x" + privKey
@@ -416,7 +416,7 @@ function GeoChart({ data }) {
 
         if (response2.status === true) {
 
-        // put landmark
+        // put landmark db
         axios(API_BASE_URL + "/landmark/" + sellingItem, {
           method: "PUT",
           params: {
@@ -433,7 +433,7 @@ function GeoChart({ data }) {
         })
           .then((res) => {
             console.log(res);
-            // put my nft
+            // put my nft db
             axios(API_BASE_URL + "/mynft/" + sellingItem, {
               method: "PUT",
               params: {
@@ -449,7 +449,7 @@ function GeoChart({ data }) {
               })
               .catch((err) => console.log("My NFT PUT error", err));
 
-            // price update
+            // price update db
             axios(API_BASE_URL + "/price", {
               method: "POST",
               headers: {
@@ -481,14 +481,8 @@ function GeoChart({ data }) {
     return <div></div>;
   }
 
-  // 구매
+  // nft purchase
   const Purchase = () => {
-    console.log(user);
-    console.log(sellingItem);
-    console.log(sellingToken);
-    console.log(landmarkInfoIdx);
-    console.log(sellingPrice);
-    console.log(sellingStarForce);
 
     if (tokenBalance >= sellingPrice) {
       SendMira();
