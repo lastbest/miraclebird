@@ -33,6 +33,7 @@ function MyPage() {
   const [wallet, setWallet] = useState("");
   const [nftData, setNftData] = useState("");
   const [challengeData, setChallengeData] = useState("");
+  const [keepDate, setKeepDate] = useState("");
 
   const [flag, setFlag] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
@@ -165,6 +166,23 @@ function MyPage() {
     })
       .then((res) => {
         setNftData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userData]);
+
+  useEffect(() => {
+    axios({
+      url: API_BASE_URL + "/verification/streak/" + userData.userIdx,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        setKeepDate(res.data);
+        // console.log('keep',keepDate)
       })
       .catch((error) => {
         console.log(error);
@@ -463,8 +481,8 @@ function MyPage() {
             <div className={styles.miratext}>보유 MIRA</div>
           </div>
           <div className={styles.detail3}>
-            <div className={styles.rank}>58</div>
-            <div className={styles.ranktext}>현재 등수</div>
+            <div className={styles.rank}>{keepDate}</div>
+            <div className={styles.ranktext}>지속일</div>
           </div>
         </div>
       </div>
