@@ -47,28 +47,9 @@ function MyPage() {
   const [tokenBalance, setTokenBalance] = useState(0);
   const [privKey, setPrivKey] = useState("");
 
-  // SSAFY Network
-  const web3 = new Web3(
-    new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain2/`)
-  );
-
-  // call Mira Token
-  const callMiraToken = new web3.eth.Contract(
-    COMMON_ABI.CONTRACT_ABI.ERC_ABI,
-    "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
-  );
-
-  // 관리자 계정의 miratoken 조회로 해놓음 balanceof안의 주소를 user계좌로 바꾸면 됨
-  async function getTokenBalance() {
-    const response = await callMiraToken.methods
-      .balanceOf("0x52aEdCe8c99d769C9896A518Cb5927744F5da32b")
-      .call();
-    setTokenBalance(response);
-  }
-
-  useEffect(() => {
-    getTokenBalance();
-  }, []);
+  const [sellTokenId, setSellTokenId] = useState(0);
+  const [sellStarForce, setSellStarForce] = useState(0);
+  const [sellLandmarkIdx, setSellLandmarkIdx] = useState(0);
 
   useEffect(() => {
     async function data() {
@@ -104,6 +85,7 @@ function MyPage() {
     }
     data();
   }, []);
+
 
   useEffect(() => {
     console.log("userDate", userData);
@@ -218,7 +200,7 @@ function MyPage() {
                   </button>
                   <button
                     className={styles.btnSell}
-                    onClick={() => handleShow3()}>
+                    onClick={(e) => handleShow3(item.tokenId, item.starForce, item.landmarkIdx, e)}>
                     판매
                   </button>
                 </>
@@ -240,6 +222,81 @@ function MyPage() {
     console.log("season", season);
   }, [season]);
 
+    // SSAFY Network
+    const web3 = new Web3(
+      new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain2/`)
+    );
+  
+    // call Mira Token
+    const callMiraToken = new web3.eth.Contract(
+      COMMON_ABI.CONTRACT_ABI.ERC_ABI,
+      "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+    );
+  
+    // 관리자 계정의 miratoken 조회로 해놓음 balanceof안의 주소를 user계좌로 바꾸면 됨
+    async function getTokenBalance() {
+      const response = await callMiraToken.methods
+        .balanceOf(wallet.walletAddress)
+        .call();
+      setTokenBalance(response);
+      console.log(response)
+    }
+  
+    useEffect(() => {
+      getTokenBalance();
+    }, [wallet]);
+
+  // nft 판매 권한을 관리자에게 넘긴다
+  async function ApproveItem() {
+    const address = getAddressFrom(
+      privKey.startsWith("0x") ? privKey : "0x" + privKey
+    );
+    console.log("address", address);
+    if (!address) return;
+    try {
+      const sender = web3.eth.accounts.privateKeyToAccount(privKey);
+      web3.eth.accounts.wallet.add(sender);
+      console.log(web3.eth.accounts.wallet);
+      web3.eth.defaultAccount = sender.address;
+      console.log("defaultAccount :", web3.eth.defaultAccount);
+
+      const senderAddress = web3.eth.defaultAccount;
+      const approveNft = new web3.eth.Contract(
+        COMMON_ABI.CONTRACT_ABI.NFT_ABI,
+        "0xED71ceA7Ae66892792c2E3d86156B29A71a1677a"
+      );
+
+      // approve할 관리자주소
+      const response = await approveNft.methods
+        .approve("0x52aEdCe8c99d769C9896A518Cb5927744F5da32b", sellTokenId)
+        .send({ from: senderAddress, gas: 3000000 });
+      console.log(response);
+
+      // db에 가격 변경 및 selling 여부 변경
+      axios(API_BASE_URL + "/landmark/" + sellLandmarkIdx, {
+        method: "PUT",
+        params: {
+          user_idx: userData.userIdx,
+        },
+        data: {
+          sellPrice: sell,
+          selling: 1,
+          starForce: sellStarForce,
+        },
+        headers: {
+          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log("Edit Price error", err));
+    } catch (err) {
+      console.log("ERROR while Approving item", err);
+    }
+    return <div></div>;
+  }
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -247,8 +304,19 @@ function MyPage() {
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
   const [show3, setShow3] = useState(false);
-  const handleClose3 = () => setShow3(false);
-  const handleShow3 = () => setShow3(true);
+  const handleClose3 = (e) => {
+    e.preventDefault();
+    ApproveItem()
+    setShow3(false);
+    alert("판매중으로 변경되었습니다")
+  }
+  const handleShow3 = (tokenId, starForce, landmarkIdx, e) => {
+    e.preventDefault();
+    setShow3(true);
+    setSellTokenId(tokenId)
+    setSellStarForce(starForce)
+    setSellLandmarkIdx(landmarkIdx)
+  };
   const [show4, setShow4] = useState(false);
   const handleClose4 = () => setShow4(false);
   const handleShow4 = () => setShow4(true);
@@ -340,58 +408,7 @@ function MyPage() {
     },
   ];
 
-  // nft 판매 권한을 관리자에게 넘긴다
-  async function ApproveItem() {
-    const address = getAddressFrom(
-      privKey.startsWith("0x") ? privKey : "0x" + privKey
-    );
-    console.log("address", address);
-    if (!address) return;
-    try {
-      const sender = web3.eth.accounts.privateKeyToAccount(privKey);
-      web3.eth.accounts.wallet.add(sender);
-      console.log(web3.eth.accounts.wallet);
-      web3.eth.defaultAccount = sender.address;
-      console.log("defaultAccount :", web3.eth.defaultAccount);
-
-      const senderAddress = web3.eth.defaultAccount;
-      const approveNft = new web3.eth.Contract(
-        COMMON_ABI.CONTRACT_ABI.NFT_ABI,
-        "0xED71ceA7Ae66892792c2E3d86156B29A71a1677a"
-      );
-
-      // approve할 관리자주소와 nft의 토큰아이디를 입력 임시로 1
-      const response = await approveNft.methods
-        .approve("0x52aEdCe8c99d769C9896A518Cb5927744F5da32b", 1)
-        .send({ from: senderAddress, gas: 3000000 });
-      console.log(response);
-
-      // db에 가격 변경 및 selling 여부 변경
-      axios(API_BASE_URL + "/landmark/26", {
-        method: "PUT",
-        params: {
-          user_idx: 2,
-        },
-        data: {
-          sellPrice: sell,
-          selling: 1,
-          // 해당 아이템의 스타포스 임의로 1
-          starForce: 1,
-        },
-        headers: {
-          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-        },
-      })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => console.log("Edit Price error", err));
-    } catch (err) {
-      console.log("ERROR while Approving item", err);
-    }
-    return <div></div>;
-  }
-
+  
   return (
     <>
       {/* {loading ? <Loading /> : null}/ */}
@@ -687,11 +704,11 @@ function MyPage() {
               }}
             />
             <button
-              // onClick={() => {
-              //   console.log(sell);
-              //   handleClose3;
-              // }}
-              onClick={ApproveItem}
+              onClick={(e) => {
+                console.log(sell);
+                console.log(sellTokenId)
+                handleClose3(e);
+              }}
               className={styles.sellbtn}>
               판매하기
             </button>
