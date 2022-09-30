@@ -9,16 +9,18 @@ import LandmarkRegistration from "../components/common/LandmarkRegistration";
 import axios from "axios";
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import getAddressFrom from "../util/AddressExtractor";
-
+import { useNavigate } from "react-router-dom";
 import ABI from "../common/ABI";
+import { Loading } from "../components/Base/Loading";
 import Web3 from "web3";
 
 function Admin() {
+  const [loading, setLoading] = useState(true);
   const [view, setView] = useState(1);
   const [challengeData, setChallengeData] = useState("");
   const [challengeMap, setChallengeMap] = useState("");
   const [approval, setApproval] = useState("");
-
+  const navigate = useNavigate();
   const [img, setImg] = useState("");
   const [nickname, setNickname] = useState("");
   const [date, setDate] = useState();
@@ -30,6 +32,10 @@ function Admin() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [show2, setShow2] = useState(false);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = () => setShow2(true);
 
   const [privKey, setPrivKey] = useState("");
   const web3 = new Web3(
@@ -119,6 +125,20 @@ function Admin() {
 
   useEffect(() => {
     axios({
+      url: API_BASE_URL + "/auth/",
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    }).then((res) => {
+      console.log(res.data);
+      if (res.data.information.userIdx != 1) {
+        handleShow2();
+      } else {
+        setLoading(false);
+      }
+    });
+    axios({
       url: API_BASE_URL + "/verification/",
       method: "GET",
       headers: {
@@ -175,32 +195,38 @@ function Admin() {
 
   return (
     <>
-      <div className={styles.btnCt}>
-        <button
-          className={`challengeBtn ${view === 1 ? "active" : ""}`}
-          onClick={() => setView(1)}>
-          챌린지
-        </button>
-        <button
-          className={`challengeBtn ${view === 2 ? "active" : ""}`}
-          onClick={() => setView(2)}>
-          신고
-        </button>
-        <button
-          className={`reportBtn ${view === 3 ? "active" : ""}`}
-          onClick={() => setView(3)}>
-          민팅
-        </button>
-      </div>
-      <div className={styles.component}>
-        {view === 1 && (
-          <>
-            <div className={styles1.postCt}>{challengeMap}</div>
-          </>
-        )}
-        {view === 2 && <AdminReport />}
-        {view === 3 && <LandmarkRegistration />}
-      </div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <div className={styles.btnCt}>
+            <button
+              className={`challengeBtn ${view === 1 ? "active" : ""}`}
+              onClick={() => setView(1)}>
+              챌린지
+            </button>
+            <button
+              className={`challengeBtn ${view === 2 ? "active" : ""}`}
+              onClick={() => setView(2)}>
+              신고
+            </button>
+            <button
+              className={`reportBtn ${view === 3 ? "active" : ""}`}
+              onClick={() => setView(3)}>
+              민팅
+            </button>
+          </div>
+          <div className={styles.component}>
+            {view === 1 && (
+              <>
+                <div className={styles1.postCt}>{challengeMap}</div>
+              </>
+            )}
+            {view === 2 && <AdminReport />}
+            {view === 3 && <LandmarkRegistration />}
+          </div>
+        </>
+      )}
       <Modal
         centered
         show={show}
@@ -262,6 +288,27 @@ function Admin() {
           </div>
         </Modal.Body>
         <Modal.Footer className={styles1.modalheader}></Modal.Footer>
+      </Modal>
+      <Modal
+        centered
+        show={show2}
+        onHide={handleClose2}
+        backdrop="static"
+        keyboard={false}>
+        <Modal.Header className={styles1.modalheader}></Modal.Header>
+        <Modal.Body className={styles1.modalcontent}>
+          잘못된 접근입니다.
+          <div className={styles1.btnCt}>
+            <button
+              className={styles1.accessBtn}
+              onClick={() => {
+                handleClose2();
+                navigate("/");
+              }}>
+              돌아가기
+            </button>
+          </div>
+        </Modal.Body>
       </Modal>
     </>
   );
