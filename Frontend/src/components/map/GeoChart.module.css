@@ -144,3 +144,21 @@ height: 50px;
 .modalheader {
     border: none !important;
 }
+
+.modalcontent2 {
+    font-family: 'neodgm';
+    text-align: center;
+}
+
+.privKeybtn {
+    border:none;
+    border-radius: 20px;
+    background-color: #0930a5;
+    color:white;
+    margin-left: 10px;
+}
+
+.modalcontent3 {
+    font-family: 'neodgm';
+    text-align: center;
+}
