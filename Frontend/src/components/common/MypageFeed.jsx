@@ -1,8 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./MypageFeed.module.css";
 import Modal from "react-bootstrap/Modal";
+import seasonInfo from "../../pages/season.json";
+import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
+import axios from "axios";
 
 function MypageFeed(props) {
+  const [challengeData, setChallengeData] = useState("");
+
+  useEffect(() => {
+
+    var startdate = seasonInfo[0].startDate + "_00:00:00.000";
+    var enddate = seasonInfo[0].endDate + "_23:59:59.000";
+
+    axios({
+      url: API_BASE_URL + "/verification/heatmap/" + props.userData.userIdx,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+      params: {
+        start_date: startdate,
+        end_date: enddate,
+      },
+    })
+      .then((res) => {
+        setChallengeData(res.data);
+        console.log('feed',challengeData[1])
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [props.userData]);
+
   const SEOSON_SELECT = [
     {
       values: [
@@ -62,9 +92,9 @@ function MypageFeed(props) {
       <select
         className={styles.selectBox}
         onChange={(e) => setIdx(e.target.value)}>
-        {SEOSON_SELECT.map((item) => {
+        {seasonInfo.map((item) => {
           return (
-            <option key={item.key} value={item.key}>
+            <option key={item.season} value={item.season}>
               시즌 {item.season}
             </option>
           );
@@ -79,7 +109,9 @@ function MypageFeed(props) {
         <div className={styles.feedsImg}>
           <img
             src={SEOSON_SELECT[idx].values[0].url}
+            // src={challengeData[1].selfie}
             className={styles.feedImg}
+            alt="feedImg"
           />
         </div>
       </div>

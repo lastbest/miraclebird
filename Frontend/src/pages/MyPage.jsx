@@ -33,6 +33,7 @@ function MyPage() {
   const [wallet, setWallet] = useState("");
   const [nftData, setNftData] = useState("");
   const [challengeData, setChallengeData] = useState("");
+  const [keepDate, setKeepDate] = useState("");
 
   const [flag, setFlag] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
@@ -112,7 +113,7 @@ function MyPage() {
   }, [userData]);
 
   useEffect(() => {
-    console.log("userDate", userData);
+    console.log("userData", userData);
 
     var startdate = seasonInfo[0].startDate + "_00:00:00.000";
     var enddate = seasonInfo[0].endDate + "_23:59:59.000";
@@ -190,6 +191,23 @@ function MyPage() {
     })
       .then((res) => {
         setNftData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userData]);
+
+  useEffect(() => {
+    axios({
+      url: API_BASE_URL + "/verification/streak/" + userData.userIdx,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        setKeepDate(res.data);
+        // console.log('keep',keepDate)
       })
       .catch((error) => {
         console.log(error);
@@ -321,6 +339,7 @@ function MyPage() {
       })
         .then((res) => {
           console.log(res);
+          alert("판매중으로 변경되었습니다")
         })
         .catch((err) => console.log("Edit Price error", err));
     } catch (err) {
@@ -340,8 +359,7 @@ function MyPage() {
     e.preventDefault();
     ApproveItem();
     setShow3(false);
-    alert("판매중으로 변경되었습니다");
-  };
+  }
   const handleShow3 = (tokenId, starForce, landmarkIdx, e) => {
     e.preventDefault();
     setShow3(true);
@@ -444,6 +462,10 @@ function MyPage() {
     <>
       {/* {loading ? <Loading /> : null}/ */}
       <div className={styles.btns}>
+        { userData.name === "김관리" ?
+        <button className={styles.adminpage} onClick={()=>(navigate("/admin"))}>관리자페이지</button>
+        :
+        "" }
         <button className={styles.logout} onClick={() => handleShow5()}>
           로그아웃
         </button>
@@ -490,8 +512,8 @@ function MyPage() {
             <div className={styles.miratext}>보유 MIRA</div>
           </div>
           <div className={styles.detail3}>
-            <div className={styles.rank}>58</div>
-            <div className={styles.ranktext}>현재 등수</div>
+            <div className={styles.rank}>{keepDate}</div>
+            <div className={styles.ranktext}>지속일</div>
           </div>
         </div>
       </div>
@@ -539,6 +561,13 @@ function MyPage() {
       <div className={styles.nftContainer}>
         <div className={styles.text1}>보유 NFT</div>
         <div className={styles.nftImg}>
+          { nftData.length === 0 ?
+          <div className={styles.nonenft}>
+           <div className={styles.gostoreText}>NFT를 구매해보세요!</div>
+           <button onClick={()=>(navigate("/store"))} className={styles.gostore}> 구매하러가기</button>
+          </div>
+        :
+        <div></div>}
           <Swiper
             modules={Navigation}
             spaceBetween={50}
@@ -551,7 +580,7 @@ function MyPage() {
       </div>
 
       <div className={styles.challengeCt}>
-        <MypageFeed />
+        <MypageFeed userData={userData}  />
       </div>
       <div>
         <button className={styles.userDelete} onClick={() => handleShow6()}>

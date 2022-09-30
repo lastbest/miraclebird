@@ -511,3 +511,34 @@
         font-size: 16px;
         resize: none;
 }
+
+.adminpage {
+    border: none;
+    background-color: #ffe969 ;
+    border-radius: 20px;
+    font-family: 'neodgm';
+    height: 30px;
+    margin-right: 10px;
+    color: black;
+}
+
+.nonenft {
+    width:100%;
+    height:150px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.gostoreText {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.gostore {
+    border:none;
+    background-color: #ffe969;
+    border-radius: 20px;
+}

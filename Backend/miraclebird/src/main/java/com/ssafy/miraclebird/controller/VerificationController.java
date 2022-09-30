@@ -115,4 +115,12 @@ public class VerificationController {
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
+    @ApiOperation(value = "해당 유저가 챌린지를 며칠째 유지중인지 반환한다.", response = VerificationDto.class)
+    @GetMapping("/streak/{user_idx}")
+    public ResponseEntity getStreakByUserIdx(@PathVariable("user_idx") Long userIdx) {
+        Long result = verificationService.getStreakByUserIdx(userIdx);
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
 }

@@ -27,7 +27,7 @@ public class UserDto {
 
     private String imageUrl;
 
-    private Boolean emailVerified = false;
+    private Boolean blacklist = false;
 
     private String password;
 
