@@ -86,6 +86,30 @@ function MyPage() {
     data();
   }, []);
 
+  useEffect(() => {
+    console.log("userDate", userData);
+
+    var startdate = seasonInfo[0].startDate + "_00:00:00.000";
+    var enddate = seasonInfo[0].endDate + "_23:59:59.000";
+
+    axios({
+      url: API_BASE_URL + "/verification/heatmap/" + userData.userIdx,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+      params: {
+        start_date: startdate,
+        end_date: enddate,
+      },
+    })
+      .then((res) => {
+        setChallengeData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userData]);
 
   useEffect(() => {
     console.log("userDate", userData);
@@ -138,15 +162,16 @@ function MyPage() {
       if (pre == now) {
         count++;
       } else {
-        tempChallengeMap.values.push({ data: pre, count: count });
+        tempChallengeMap.values.push({ date: pre, count: count });
         pre = now;
         count = 1;
       }
     }
     if (challengeData.length != 0) {
-      tempChallengeMap.values.push({ data: pre, count: count });
+      tempChallengeMap.values.push({ date: pre, count: count });
     }
     console.log(tempChallengeMap);
+    console.log(SEOSON_SELECT[0]);
     setChallengeMap(tempChallengeMap);
   }, [challengeData]);
 
@@ -200,7 +225,14 @@ function MyPage() {
                   </button>
                   <button
                     className={styles.btnSell}
-                    onClick={(e) => handleShow3(item.tokenId, item.starForce, item.landmarkIdx, e)}>
+                    onClick={(e) =>
+                      handleShow3(
+                        item.tokenId,
+                        item.starForce,
+                        item.landmarkIdx,
+                        e
+                      )
+                    }>
                     판매
                   </button>
                 </>
@@ -222,29 +254,29 @@ function MyPage() {
     console.log("season", season);
   }, [season]);
 
-    // SSAFY Network
-    const web3 = new Web3(
-      new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain2/`)
-    );
-  
-    // call Mira Token
-    const callMiraToken = new web3.eth.Contract(
-      COMMON_ABI.CONTRACT_ABI.ERC_ABI,
-      "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
-    );
-  
-    // 관리자 계정의 miratoken 조회로 해놓음 balanceof안의 주소를 user계좌로 바꾸면 됨
-    async function getTokenBalance() {
-      const response = await callMiraToken.methods
-        .balanceOf(wallet.walletAddress)
-        .call();
-      setTokenBalance(response);
-      console.log(response)
-    }
-  
-    useEffect(() => {
-      getTokenBalance();
-    }, [wallet]);
+  // SSAFY Network
+  const web3 = new Web3(
+    new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain2/`)
+  );
+
+  // call Mira Token
+  const callMiraToken = new web3.eth.Contract(
+    COMMON_ABI.CONTRACT_ABI.ERC_ABI,
+    "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+  );
+
+  // 관리자 계정의 miratoken 조회로 해놓음 balanceof안의 주소를 user계좌로 바꾸면 됨
+  async function getTokenBalance() {
+    const response = await callMiraToken.methods
+      .balanceOf(wallet.walletAddress)
+      .call();
+    setTokenBalance(response);
+    console.log(response);
+  }
+
+  useEffect(() => {
+    getTokenBalance();
+  }, [wallet]);
 
   // nft 판매 권한을 관리자에게 넘긴다
   async function ApproveItem() {
@@ -306,16 +338,16 @@ function MyPage() {
   const [show3, setShow3] = useState(false);
   const handleClose3 = (e) => {
     e.preventDefault();
-    ApproveItem()
+    ApproveItem();
     setShow3(false);
-    alert("판매중으로 변경되었습니다")
-  }
+    alert("판매중으로 변경되었습니다");
+  };
   const handleShow3 = (tokenId, starForce, landmarkIdx, e) => {
     e.preventDefault();
     setShow3(true);
-    setSellTokenId(tokenId)
-    setSellStarForce(starForce)
-    setSellLandmarkIdx(landmarkIdx)
+    setSellTokenId(tokenId);
+    setSellStarForce(starForce);
+    setSellLandmarkIdx(landmarkIdx);
   };
   const [show4, setShow4] = useState(false);
   const handleClose4 = () => setShow4(false);
@@ -408,7 +440,6 @@ function MyPage() {
     },
   ];
 
-  
   return (
     <>
       {/* {loading ? <Loading /> : null}/ */}
@@ -483,7 +514,7 @@ function MyPage() {
             endDate={seasonInfo[season - 1].endDate}
             horizontal={false}
             showMonthLabels={false}
-            values={SEOSON_SELECT[season - 1].values}
+            values={SEOSON_SELECT[0].values}
             classForValue={(value) => {
               if (!value) {
                 return "color-empty";
@@ -706,7 +737,7 @@ function MyPage() {
             <button
               onClick={(e) => {
                 console.log(sell);
-                console.log(sellTokenId)
+                console.log(sellTokenId);
                 handleClose3(e);
               }}
               className={styles.sellbtn}>

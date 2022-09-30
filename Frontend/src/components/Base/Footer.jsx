@@ -196,10 +196,8 @@ function Footer() {
             onHide={handleClose}
             backdrop="static"
             keyboard={false}>
-            <Modal.Header
-              className={styles.modalheader}
-              closeButton></Modal.Header>
-            <Modal.Body className={styles.modalcontent} closeButton>
+            <Modal.Header className={styles.modalheader}></Modal.Header>
+            <Modal.Body className={styles.modalcontent}>
               로그인이 필요한 서비스 입니다.
               <div className={styles.btnCt}>
                 <button
