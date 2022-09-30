@@ -29,7 +29,7 @@ import getAddressFrom from "../util/AddressExtractor";
 const BLOCKCHAIN_URL = "http://20.196.209.2:8545";
 
 function MyPage() {
-  const [userData, setUserData] = useState('');
+  const [userData, setUserData] = useState("");
   const [wallet, setWallet] = useState("");
   const [nftData, setNftData] = useState("");
   const [challengeData, setChallengeData] = useState("");
@@ -43,7 +43,7 @@ function MyPage() {
   const [nftMap, setNftMap] = useState("");
   const [season, setSeason] = useState(1);
   const [challengeMap, setChallengeMap] = useState("");
-  
+
   const [tokenBalance, setTokenBalance] = useState(0);
   const [privKey, setPrivKey] = useState("");
 
@@ -57,19 +57,18 @@ function MyPage() {
     COMMON_ABI.CONTRACT_ABI.ERC_ABI,
     "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
   );
-  
+
   // 관리자 계정의 miratoken 조회로 해놓음 balanceof안의 주소를 user계좌로 바꾸면 됨
   async function getTokenBalance() {
     const response = await callMiraToken.methods
-    .balanceOf("0x52aEdCe8c99d769C9896A518Cb5927744F5da32b")
-    .call();
+      .balanceOf("0x52aEdCe8c99d769C9896A518Cb5927744F5da32b")
+      .call();
     setTokenBalance(response);
   }
 
   useEffect(() => {
-    getTokenBalance()
-  }, [])
-
+    getTokenBalance();
+  }, []);
 
   useEffect(() => {
     async function data() {
@@ -79,9 +78,10 @@ function MyPage() {
         headers: {
           Authorization: "Bearer " + NOW_ACCESS_TOKEN,
         },
-        })
+      })
         .then((res) => {
           setUserData(res.data.information);
+          console.log(res.data);
           axios({
             url: API_BASE_URL + "/wallet/" + res.data.information.userIdx,
             method: "get",
@@ -97,12 +97,12 @@ function MyPage() {
               console.log(error);
             });
         })
-        
+
         .catch((error) => {
           console.log(error);
         });
     }
-    data()
+    data();
   }, []);
 
   useEffect(() => {
@@ -128,7 +128,7 @@ function MyPage() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [userData]);
 
   useEffect(() => {
     console.log("challengeData", challengeData);
@@ -172,8 +172,8 @@ function MyPage() {
     console.log("wallet", wallet);
   }, [wallet]);
 
-   // my nft
-   useEffect(() => {
+  // my nft
+  useEffect(() => {
     axios({
       url: API_BASE_URL + "/landmark/user/" + userData.userIdx,
       method: "GET",
@@ -187,7 +187,7 @@ function MyPage() {
       .catch((error) => {
         console.log(error);
       });
-  }, [])
+  }, [userData]);
 
   useEffect(() => {
     console.log("nftData", nftData);
@@ -239,7 +239,6 @@ function MyPage() {
   useEffect(() => {
     console.log("season", season);
   }, [season]);
-
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -341,7 +340,6 @@ function MyPage() {
     },
   ];
 
-
   // nft 판매 권한을 관리자에게 넘긴다
   async function ApproveItem() {
     const address = getAddressFrom(
@@ -361,40 +359,38 @@ function MyPage() {
         COMMON_ABI.CONTRACT_ABI.NFT_ABI,
         "0xED71ceA7Ae66892792c2E3d86156B29A71a1677a"
       );
-      
+
       // approve할 관리자주소와 nft의 토큰아이디를 입력 임시로 1
       const response = await approveNft.methods
-        .approve('0x52aEdCe8c99d769C9896A518Cb5927744F5da32b', 1)
+        .approve("0x52aEdCe8c99d769C9896A518Cb5927744F5da32b", 1)
         .send({ from: senderAddress, gas: 3000000 });
       console.log(response);
 
       // db에 가격 변경 및 selling 여부 변경
-    axios(API_BASE_URL + "/landmark/26", {
-      method: "PUT",
-      params: {
-        user_idx: 2,
-      },
-      data: {
-        "sellPrice": sell,
-        "selling": 1,
-        // 해당 아이템의 스타포스 임의로 1
-        "starForce": 1
-      },
-      headers: {
-        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-      },
-    })
-      .then((res) => {
-        console.log(res)
+      axios(API_BASE_URL + "/landmark/26", {
+        method: "PUT",
+        params: {
+          user_idx: 2,
+        },
+        data: {
+          sellPrice: sell,
+          selling: 1,
+          // 해당 아이템의 스타포스 임의로 1
+          starForce: 1,
+        },
+        headers: {
+          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        },
       })
-      .catch((err) => console.log("Edit Price error", err));
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log("Edit Price error", err));
     } catch (err) {
       console.log("ERROR while Approving item", err);
     }
-    return(
-      <div></div>
-    )
-}
+    return <div></div>;
+  }
 
   return (
     <>
@@ -442,9 +438,7 @@ function MyPage() {
             <div className={styles.nfttext}>보유 NFT</div>
           </div>
           <div className={styles.detail2}>
-            <div className={styles.mira}>
-              {tokenBalance}
-            </div>
+            <div className={styles.mira}>{tokenBalance}</div>
             <div className={styles.miratext}>보유 MIRA</div>
           </div>
           <div className={styles.detail3}>
@@ -697,7 +691,7 @@ function MyPage() {
               //   console.log(sell);
               //   handleClose3;
               // }}
-              onClick = {ApproveItem}
+              onClick={ApproveItem}
               className={styles.sellbtn}>
               판매하기
             </button>
