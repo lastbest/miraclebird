@@ -18,6 +18,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { login } from "../store/user";
 import Web3 from "web3";
+import { Loading } from "../components/Base/Loading";
 
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import axios from "axios";
@@ -29,11 +30,11 @@ import getAddressFrom from "../util/AddressExtractor";
 const BLOCKCHAIN_URL = "http://20.196.209.2:8545";
 
 function MyPage() {
+  const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState("");
   const [wallet, setWallet] = useState("");
   const [nftData, setNftData] = useState("");
   const [challengeData, setChallengeData] = useState("");
-  const [keepDate, setKeepDate] = useState("");
 
   const [flag, setFlag] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
@@ -64,6 +65,7 @@ function MyPage() {
         .then((res) => {
           setUserData(res.data.information);
           console.log(res.data);
+          setLoading(false);
           axios({
             url: API_BASE_URL + "/wallet/" + res.data.information.userIdx,
             method: "get",
@@ -87,9 +89,33 @@ function MyPage() {
     data();
   }, []);
 
+  useEffect(() => {
+    console.log("userDate", userData);
+
+    var startdate = seasonInfo[0].startDate + "_00:00:00.000";
+    var enddate = seasonInfo[0].endDate + "_23:59:59.000";
+
+    axios({
+      url: API_BASE_URL + "/verification/heatmap/" + userData.userIdx,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+      params: {
+        start_date: startdate,
+        end_date: enddate,
+      },
+    })
+      .then((res) => {
+        setChallengeData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userData]);
 
   useEffect(() => {
-    console.log("userData", userData);
+    console.log("userDate", userData);
 
     var startdate = seasonInfo[0].startDate + "_00:00:00.000";
     var enddate = seasonInfo[0].endDate + "_23:59:59.000";
@@ -139,15 +165,16 @@ function MyPage() {
       if (pre == now) {
         count++;
       } else {
-        tempChallengeMap.values.push({ data: pre, count: count });
+        tempChallengeMap.values.push({ date: pre, count: count });
         pre = now;
         count = 1;
       }
     }
     if (challengeData.length != 0) {
-      tempChallengeMap.values.push({ data: pre, count: count });
+      tempChallengeMap.values.push({ date: pre, count: count });
     }
     console.log(tempChallengeMap);
+    console.log(SEOSON_SELECT[0]);
     setChallengeMap(tempChallengeMap);
   }, [challengeData]);
 
@@ -166,23 +193,6 @@ function MyPage() {
     })
       .then((res) => {
         setNftData(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [userData]);
-
-  useEffect(() => {
-    axios({
-      url: API_BASE_URL + "/verification/streak/" + userData.userIdx,
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-      },
-    })
-      .then((res) => {
-        setKeepDate(res.data);
-        // console.log('keep',keepDate)
       })
       .catch((error) => {
         console.log(error);
@@ -218,7 +228,14 @@ function MyPage() {
                   </button>
                   <button
                     className={styles.btnSell}
-                    onClick={(e) => handleShow3(item.tokenId, item.starForce, item.landmarkIdx, e)}>
+                    onClick={(e) =>
+                      handleShow3(
+                        item.tokenId,
+                        item.starForce,
+                        item.landmarkIdx,
+                        e
+                      )
+                    }>
                     판매
                   </button>
                 </>
@@ -240,28 +257,29 @@ function MyPage() {
     console.log("season", season);
   }, [season]);
 
-    // SSAFY Network
-    const web3 = new Web3(
-      new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain2/`)
-    );
-  
-    // call Mira Token
-    const callMiraToken = new web3.eth.Contract(
-      COMMON_ABI.CONTRACT_ABI.ERC_ABI,
-      "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
-    );
-  
-    async function getTokenBalance() {
-      const response = await callMiraToken.methods
-        .balanceOf(wallet.walletAddress)
-        .call();
-      setTokenBalance(response);
-      console.log(response)
-    }
-  
-    useEffect(() => {
-      getTokenBalance();
-    }, [wallet]);
+  // SSAFY Network
+  const web3 = new Web3(
+    new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain2/`)
+  );
+
+  // call Mira Token
+  const callMiraToken = new web3.eth.Contract(
+    COMMON_ABI.CONTRACT_ABI.ERC_ABI,
+    "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+  );
+
+  // 관리자 계정의 miratoken 조회로 해놓음 balanceof안의 주소를 user계좌로 바꾸면 됨
+  async function getTokenBalance() {
+    const response = await callMiraToken.methods
+      .balanceOf(wallet.walletAddress)
+      .call();
+    setTokenBalance(response);
+    console.log(response);
+  }
+
+  useEffect(() => {
+    getTokenBalance();
+  }, [wallet]);
 
   // nft 판매 권한을 관리자에게 넘긴다
   async function ApproveItem() {
@@ -329,9 +347,9 @@ function MyPage() {
   const handleShow3 = (tokenId, starForce, landmarkIdx, e) => {
     e.preventDefault();
     setShow3(true);
-    setSellTokenId(tokenId)
-    setSellStarForce(starForce)
-    setSellLandmarkIdx(landmarkIdx)
+    setSellTokenId(tokenId);
+    setSellStarForce(starForce);
+    setSellLandmarkIdx(landmarkIdx);
   };
   const [show4, setShow4] = useState(false);
   const handleClose4 = () => setShow4(false);
@@ -427,136 +445,132 @@ function MyPage() {
     },
   ];
 
-  
   return (
     <>
-      {/* {loading ? <Loading /> : null}/ */}
-      <div className={styles.btns}>
-        { userData.name === "김관리" ?
-        <button className={styles.adminpage} onClick={()=>(navigate("/admin"))}>관리자페이지</button>
-        :
-        "" }
-        <button className={styles.logout} onClick={() => handleShow5()}>
-          로그아웃
-        </button>
-        <button className={styles.connect} onClick={() => handleShow()}>
-          CONNECT
-        </button>
-      </div>
-      <div className={styles.profile}>
-        <div className={styles.profileimg}>
-          <img
-            src={
-              user.information.imageUrl == "" ||
-              user.information.imageUrl == undefined ||
-              user.information.imageUrl == null
-                ? "src/assets/icon/profile_default.jpg"
-                : user.information.imageUrl
-            }
-            className={styles.profileupload}
-            onClick={() => {
-              fileInput.current.click();
-            }}
-          />
-          <input
-            type="file"
-            style={{ display: "none" }}
-            accept="image/jpg,impge/png,image/jpeg"
-            name="profile_img"
-            ref={fileInput}
-          />
-          <div className={styles.nicknamebox}>
-            <div className={styles.nickname}>{user.information.name}</div>
-            <button className={styles.pencilbtn} onClick={handleShow2}>
-              <img src="/pencil.png" alt="pencil" className={styles.pencil} />
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <div className={styles.btns}>
+            <button className={styles.logout} onClick={() => handleShow5()}>
+              로그아웃
+            </button>
+            <button className={styles.connect} onClick={() => handleShow()}>
+              CONNECT
             </button>
           </div>
-        </div>
-        <div className={styles.profiledetail}>
-          <div className={styles.detail1}>
-            <div className={styles.nftnumber}>{nftData.length}</div>
-            <div className={styles.nfttext}>보유 NFT</div>
+          <div className={styles.profile}>
+            <div className={styles.profileimg}>
+              <img
+                src={
+                  user.information.imageUrl == "" ||
+                  user.information.imageUrl == undefined ||
+                  user.information.imageUrl == null
+                    ? "src/assets/icon/profile_default.jpg"
+                    : user.information.imageUrl
+                }
+                className={styles.profileupload}
+                onClick={() => {
+                  fileInput.current.click();
+                }}
+              />
+              <input
+                type="file"
+                style={{ display: "none" }}
+                accept="image/jpg,impge/png,image/jpeg"
+                name="profile_img"
+                ref={fileInput}
+              />
+              <div className={styles.nicknamebox}>
+                <div className={styles.nickname}>{user.information.name}</div>
+                <button className={styles.pencilbtn} onClick={handleShow2}>
+                  <img
+                    src="/pencil.png"
+                    alt="pencil"
+                    className={styles.pencil}
+                  />
+                </button>
+              </div>
+            </div>
+            <div className={styles.profiledetail}>
+              <div className={styles.detail1}>
+                <div className={styles.nftnumber}>{nftData.length}</div>
+                <div className={styles.nfttext}>보유 NFT</div>
+              </div>
+              <div className={styles.detail2}>
+                <div className={styles.mira}>{tokenBalance}</div>
+                <div className={styles.miratext}>보유 MIRA</div>
+              </div>
+              <div className={styles.detail3}>
+                <div className={styles.rank}>58</div>
+                <div className={styles.ranktext}>현재 등수</div>
+              </div>
+            </div>
           </div>
-          <div className={styles.detail2}>
-            <div className={styles.mira}>{tokenBalance}</div>
-            <div className={styles.miratext}>보유 MIRA</div>
-          </div>
-          <div className={styles.detail3}>
-            <div className={styles.rank}>{keepDate}</div>
-            <div className={styles.ranktext}>지속일</div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <select
-          className={styles.selectBox}
-          onChange={(e) => setSeason(e.target.value)}>
-          {seasonInfo.map((item) => {
-            return (
-              <option key={item.season} value={item.season}>
-                시즌 {item.season}
-              </option>
-            );
-          })}
-        </select>
+          <div>
+            <select
+              className={styles.selectBox}
+              onChange={(e) => setSeason(e.target.value)}>
+              {seasonInfo.map((item) => {
+                return (
+                  <option key={item.season} value={item.season}>
+                    시즌 {item.season}
+                  </option>
+                );
+              })}
+            </select>
 
-        <div className={styles.heatmapcontainer}>
-          <CalendarHeatmap
-            startDate={seasonInfo[season - 1].startDate}
-            endDate={seasonInfo[season - 1].endDate}
-            horizontal={false}
-            showMonthLabels={false}
-            values={SEOSON_SELECT[season - 1].values}
-            classForValue={(value) => {
-              if (!value) {
-                return "color-empty";
-              }
-              return `color-scale-${value.count}`;
-            }}
+            <div className={styles.heatmapcontainer}>
+              <CalendarHeatmap
+                startDate={seasonInfo[season - 1].startDate}
+                endDate={seasonInfo[season - 1].endDate}
+                horizontal={false}
+                showMonthLabels={false}
+                values={SEOSON_SELECT[0].values}
+                classForValue={(value) => {
+                  if (!value) {
+                    return "color-empty";
+                  }
+                  return `color-scale-${value.count}`;
+                }}
 
-            // tooltipDataAttrs={(value) => {
-            //     if (!value || !value.date) {
-            //     return null;
-            //     }
-            //     return {
-            //     "data-tip": `${value.date} has count: ${
-            //         value.count
-            //     }`,
-            //     };
-            // }}
-          />
-          {/* <ReactTooltip className={styles.tooltip} /> */}
-        </div>
-      </div>
-      <div className={styles.nftContainer}>
-        <div className={styles.text1}>보유 NFT</div>
-        <div className={styles.nftImg}>
-          { nftData.length === 0 ?
-          <div className={styles.nonenft}>
-           <div className={styles.gostoreText}>NFT를 구매해보세요!</div>
-           <button onClick={()=>(navigate("/store"))} className={styles.gostore}> 구매하러가기</button>
+                // tooltipDataAttrs={(value) => {
+                //     if (!value || !value.date) {
+                //     return null;
+                //     }
+                //     return {
+                //     "data-tip": `${value.date} has count: ${
+                //         value.count
+                //     }`,
+                //     };
+                // }}
+              />
+              {/* <ReactTooltip className={styles.tooltip} /> */}
+            </div>
           </div>
-        :
-        <div></div>}
-          <Swiper
-            modules={Navigation}
-            spaceBetween={50}
-            slidesPerView={1}
-            navigation
-            className={styles.swiper}>
-            {nftMap}
-          </Swiper>
-        </div>
-      </div>
+          <div className={styles.nftContainer}>
+            <div className={styles.text1}>보유 NFT</div>
+            <div className={styles.nftImg}>
+              <Swiper
+                modules={Navigation}
+                spaceBetween={50}
+                slidesPerView={1}
+                navigation
+                className={styles.swiper}>
+                {nftMap}
+              </Swiper>
+            </div>
+          </div>
 
-      <div className={styles.challengeCt}>
-        <MypageFeed userData={userData}  />
-      </div>
-      <div>
-        <button className={styles.userDelete} onClick={() => handleShow6()}>
-          회원탈퇴
-        </button>
-      </div>
+          <div className={styles.challengeCt}>{/* <MypageFeed /> */}</div>
+          <div>
+            <button className={styles.userDelete} onClick={() => handleShow6()}>
+              회원탈퇴
+            </button>
+          </div>
+        </>
+      )}
+
       <Modal
         centered
         show={show}
