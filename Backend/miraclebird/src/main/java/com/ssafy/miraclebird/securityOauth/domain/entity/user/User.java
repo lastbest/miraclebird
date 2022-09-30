@@ -37,7 +37,7 @@ public class User extends DefaultTime {
     private String imageUrl;
 
     @Column(nullable = false)
-    private Boolean emailVerified = false;
+    private Boolean blacklist = false;
 
     @JsonIgnore
     private String password;
