@@ -470,6 +470,10 @@ function MyPage() {
       ) : (
         <>
           <div className={styles.btns}>
+            { userData.name === "김관리" ?
+            <button className={styles.adminpage} onClick={()=>(navigate("/admin"))}>관리자페이지</button>
+            :
+            "" }
             <button className={styles.logout} onClick={() => handleShow5()}>
               로그아웃
             </button>
