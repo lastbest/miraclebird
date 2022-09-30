@@ -306,7 +306,7 @@ function MyPage() {
       })
         .then((res) => {
           console.log(res);
-          alert("판매중으로 변경되었습니다")
+          handleShow7()
         })
         .catch((err) => console.log("Edit Price error", err));
     } catch (err) {
@@ -322,10 +322,9 @@ function MyPage() {
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
   const [show3, setShow3] = useState(false);
-  const handleClose3 = (e) => {
-    e.preventDefault();
-    ApproveItem()
-    setShow3(false);
+  const handleClose3 = () => setShow3(false);
+  const selling = (e) => {
+    ApproveItem()    
   }
   const handleShow3 = (tokenId, starForce, landmarkIdx, e) => {
     e.preventDefault();
@@ -344,6 +343,9 @@ function MyPage() {
   const [show6, setShow6] = useState(false);
   const handleClose6 = () => setShow6(false);
   const handleShow6 = () => setShow6(true);
+  const [show7, setShow7] = useState(false);
+  const handleClose7 = () => setShow7(false);
+  const handleShow7 = () => setShow7(true);
 
   const [Image, setImage] = useState("");
   const fileInput = useRef(null);
@@ -735,7 +737,7 @@ function MyPage() {
               onClick={(e) => {
                 console.log(sell);
                 console.log(sellTokenId)
-                handleClose3(e);
+                selling(e);
               }}
               className={styles.sellbtn}>
               판매하기
@@ -865,6 +867,18 @@ function MyPage() {
               회원탈퇴
             </button>
           </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        centered
+        show={show7}
+        onHide={handleClose7}
+        backdrop="static"
+        keyboard={false}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent7} closeButton>
+          판매중으로 변경되었습니다!
         </Modal.Body>
       </Modal>
     </>
