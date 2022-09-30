@@ -20,6 +20,7 @@ import axios from "axios";
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import COMMON_ABI from "../../common/ABI";
 import getAddressFrom from "../../util/AddressExtractor";
+import { bounceOutLeft } from "react-animations";
 
 /**
  * Component that renders a map of Germany.
@@ -33,11 +34,24 @@ function GeoChart({ data }) {
   const [show2, setShow2] = useState(false);
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
-  const handleClose2 = (e) => {
+  const handleClose2 = (e) => setShow2(false);
+  const buyNFT = (e) => {
     e.preventDefault();
     Purchase();
   };
   const handleShow2 = () => setShow2(true);
+  const [show3, setShow3] = useState(false);
+  const handleClose3 = () => setShow3(false);
+  const handleShow3 = () => setShow3(true);
+  const [show4, setShow4] = useState(false);
+  const handleClose4 = () => setShow4(false);
+  const handleShow4 = () => setShow4(true);
+  const [show5, setShow5] = useState(false);
+  const handleClose5 = () => setShow5(false);
+  const handleShow5 = () => setShow5(true);
+  const [show6, setShow6] = useState(false);
+  const handleClose6 = () => setShow6(false);
+  const handleShow6 = () => setShow6(true);
 
   const [isListHover, setIsListHover] = useState(false);
   const [imgUrl, setImgUrl] = useState("");
@@ -369,7 +383,7 @@ function GeoChart({ data }) {
     );
     console.log("address", address);
     if (!address) {
-      alert("개인키가 일치하지 않습니다.");
+      handleShow3()
       return;
     }
     try {
@@ -464,13 +478,13 @@ function GeoChart({ data }) {
               })
                 .then((res) => {
                   console.log(res);
-                  alert("구매되었습니다 마이페이지를 확인하세요");
+                  handleShow4()
                 })
                 .catch((err) => console.log("Update Price error", err));
             })
             .catch((err) => console.log("Purchase error", err));
         } else {
-          alert("NFT가 구매되지 않았습니다. 관리자에게 문의하세요");
+          handleShow5();
         }
       }
     } catch (err) {
@@ -484,7 +498,7 @@ function GeoChart({ data }) {
     if (tokenBalance >= sellingPrice) {
       SendMira();
     } else {
-      alert("미라토큰이 부족합니다");
+      handleShow6();
     }
     setShow2(false);
     return <div></div>;
@@ -589,7 +603,7 @@ function GeoChart({ data }) {
         keyboard={false}
         className={styles.modal2}>
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
-        <Modal.Body className={styles.modalcontent2} closeButton>
+        <Modal.Body className={styles.modalcontent2}>
           <div className={styles.privKeychange}>개인키 입력</div>
           <div className={styles.privKeycontainer}>
             <input
@@ -603,14 +617,72 @@ function GeoChart({ data }) {
             />
             <button
               onClick={(e) => {
-                handleClose2(e);
+                buyNFT(e)      
               }}
               className={styles.privKeybtn}>
               구매하기
             </button>
           </div>
         </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
+
+      <Modal
+        centered
+        show={show3}
+        onHide={handleClose3}
+        backdrop="static"
+        keyboard={false}
+        className={styles.modal2}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent3}>
+            개인키가 일치하지 않습니다.
+        </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
+      </Modal>
+
+      <Modal
+        centered
+        show={show4}
+        onHide={handleClose4}
+        backdrop="static"
+        keyboard={false}
+        className={styles.modal2}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent3}>
+          구매가 완료되었습니다. 마이페이지를 확인하세요!
+        </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
+      </Modal>
+      
+      <Modal
+        centered
+        show={show5}
+        onHide={handleClose5}
+        backdrop="static"
+        keyboard={false}
+        className={styles.modal2}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent3}>
+          NFT가 구매되지 않았습니다. 관리자에게 문의하세요.
+        </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
+      </Modal>
+      
+      <Modal
+        centered
+        show={show6}
+        onHide={handleClose6}
+        backdrop="static"
+        keyboard={false}
+        className={styles.modal2}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent3}>
+         MIRA 토큰이 부족합니다. 챌린지 인증을 통해 MIRA 토큰을 획득해보세요!
+        </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
+      </Modal>
+
     </>
   );
 }
