@@ -174,7 +174,8 @@ function HealthFeed() {
         <button
           className={styles.backbtn}
           onClick={() => navigate("/challenge/health")}>
-          <img alt="back" src="/back.png" className={styles.backicon} /> Study
+          <img alt="back" src="/back.png" className={styles.backicon} />
+          Exercising
         </button>
       </div>
       <div className={styles.feeds}>{challengeMap}</div>
