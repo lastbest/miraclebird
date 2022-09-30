@@ -524,7 +524,7 @@ function MyPage() {
       </div>
 
       <div className={styles.challengeCt}>
-        <MypageFeed />
+        <MypageFeed userData={userData}  />
       </div>
       <div>
         <button className={styles.userDelete} onClick={() => handleShow6()}>
