@@ -210,7 +210,20 @@ function MyPage() {
       },
     })
       .then((res) => {
-        setNftData(res.data);
+        var result = [];
+        if (userData.userIdx == 1) {
+          for (var i = 0; i < res.data.length; i++) {
+            var item = res.data[i];
+            if (item.starForce != 1) continue;
+            result.push(item);
+          }
+        } else {
+          for (var i = 0; i < res.data.length; i++) {
+            var item = res.data[i];
+            result.push(item);
+          }
+        }
+        setNftData(result);
       })
       .catch((error) => {
         console.log(error);
@@ -470,10 +483,15 @@ function MyPage() {
       ) : (
         <>
           <div className={styles.btns}>
-            { userData.name === "김관리" ?
-            <button className={styles.adminpage} onClick={()=>(navigate("/admin"))}>관리자페이지</button>
-            :
-            "" }
+            {userData.name === "김관리" ? (
+              <button
+                className={styles.adminpage}
+                onClick={() => navigate("/admin")}>
+                관리자페이지
+              </button>
+            ) : (
+              ""
+            )}
             <button className={styles.logout} onClick={() => handleShow5()}>
               로그아웃
             </button>
