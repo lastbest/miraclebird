@@ -1,8 +1,8 @@
-.Camera{
+.Camera {
   width: 100%;
 }
 
-.Camera2{
+.Camera2 {
   width: 80%;
 }
 
@@ -10,31 +10,37 @@
   text-align: center;
 }
 
-.screenshot_wrap{
+.screenshot_wrap {
   /* margin: 10px auto; */
   /* border: 1px solid #000000; */
+  height: 400px;
+  width: 400px;
   position: relative;
   text-align: center;
 }
 
-.screenshot_wrap2{
+.screenshot_wrap2 {
   /* margin: 10px auto; */
   /* border: 1px solid #000000; */
+  height: 400px;
+  width: 400px;
   position: relative;
+  margin: auto;
 }
 
-.screenshot2{
+.screenshot2 {
   width: 100%;
   text-align: center;
 }
 
-.screenshot{
-    width: 100%;
-      vertical-align: middle;
+.screenshot {
+  width: 100%;
+  vertical-align: middle;
 }
-.timestamp{
+
+.timestamp {
   padding: 5px 10px;
-  color:white;
+  color: white;
   font-size: 20px;
   text-align: left;
   position: absolute;
@@ -42,47 +48,71 @@
   left: 0%;
 }
 
-.watermark{
+.watermark {
   padding-top: 5px;
-  color:white;
+  color: white;
   font-size: 20px;
   text-align: center;
   position: absolute;
-  top:0%;
+  top: 0%;
   right: 3%;
   /* transform: translate(80%, 0%); */
-  }
-  .timestamp2{
-    padding: 5px 10px;
-    color:white;
-    font-size: 20px;
-    text-align: left;
-    position: absolute;
-    bottom: 8%;
-    left: 10%;
-  }
-  
-  .watermark2{
-    padding-top: 5px;
-    color:white;
-    font-size: 20px;
-    text-align: center;
-    position: absolute;
-    top:0%;
-    right: 13%;
-    /* transform: translate(80%, 0%); */
-    }
+}
 
-.shot{
+.timestamp2 {
+  padding: 5px 10px;
+  color: white;
+  font-size: 20px;
+  text-align: left;
+  position: absolute;
+  bottom: 8%;
+  left: 10%;
+}
+
+.timestamp2 {
+  padding: 5px 10px;
+  color: white;
+  font-size: 20px;
+  text-align: left;
+  position: absolute;
+  bottom: 8%;
+  left: 10%;
+}
+
+.watermark1 {
+  padding-top: 5px;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  position: absolute;
+  top: 0%;
+  right: 5%;
+  /* transform: translate(80%, 0%); */
+}
+
+.watermark2 {
+  padding-top: 5px;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  position: absolute;
+  top: 0%;
+  right: 13%;
+  /* transform: translate(80%, 0%); */
+}
+
+.shot {
   width: 40px;
   height: 40px;
 }
-.shotDiv{
+
+.shotDiv {
   height: 100%;
-  
+
 }
-.camera_footer{
-  width:100%;
+
+.camera_footer {
+  width: 100%;
   position: fixed;
   bottom: 50px;
   margin: auto;
@@ -90,14 +120,15 @@
   margin-bottom: 10px;
   text-align: center;
 }
-.camera_footer div{
+
+.camera_footer div {
   float: left;
   width: 100%;
   text-align: center;
 }
 
-.camera_footer2{
-  width:500px;
+.camera_footer2 {
+  width: 500px;
   position: fixed;
   bottom: 50px;
   margin: auto;
@@ -106,14 +137,14 @@
   text-align: center;
 }
 
-.back{
+.back {
   position: absolute;
   float: left;
   width: 30px;
   height: 30px;
   z-index: 3;
-  margin-top:10px;
-    
+  margin-top: 10px;
+
 }
 
 
@@ -122,74 +153,74 @@
   margin-top: 8px;
 }
 
-.themText1{
+.themText1 {
   padding: 0px 5px;
-  color:black;
+  color: black;
   font-size: 20px;
   position: absolute;
   text-align: left;
   bottom: 5%;
   left: 3%;
-  background-color: #ffe969 ;
+  background-color: #ffe969;
 }
 
-.themText2{
+.themText2 {
   padding: 0px 5px;
-  color:black;
+  color: black;
   font-size: 20px;
   position: absolute;
   text-align: left;
   bottom: 5%;
   left: 3%;
-  background-color: #38a5f8 ;
+  background-color: #38a5f8;
 }
 
-.themText1_2{
+.themText1_2 {
   padding: 0px 5px;
-  color:black;
+  color: black;
   font-size: 20px;
   position: absolute;
   text-align: left;
   bottom: 5%;
   left: 13%;
-  background-color: #ffe969 ;
+  background-color: #ffe969;
 }
 
-.themText2_2{
+.themText2_2 {
   padding: 0px 5px;
-  color:black;
+  color: black;
   font-size: 20px;
   position: absolute;
   text-align: left;
   bottom: 5%;
   left: 13%;
-  background-color: #38a5f8 ;
+  background-color: #38a5f8;
 }
 
-.themText3_2{
+.themText3_2 {
   padding: 0px 5px;
-  color:black;
+  color: black;
   font-size: 20px;
   position: absolute;
   text-align: left;
   bottom: 5%;
   left: 13%;
-  background-color: #a3f7e9 ;
+  background-color: #a3f7e9;
 }
 
-.themText3{
+.themText3 {
   padding: 0px 5px;
-  color:black;
+  color: black;
   font-size: 20px;
   position: absolute;
   text-align: left;
   bottom: 5%;
   left: 3%;
-  background-color: #a3f7e9 ;
+  background-color: #a3f7e9;
 }
 
 .modalheader {
-  border:none !important;
+  border: none !important;
 }
 
 .modalcontent {
@@ -209,18 +240,18 @@
 }
 
 .headerText {
-  margin:auto;
+  margin: auto;
   font-size: 20px;
 }
 
-.backIcon{
+.backIcon {
   position: absolute;
   float: left;
   width: 30px;
   height: 30px;
   z-index: 3;
   margin-top: 10px;
-    
+
 }
 
 .share {
@@ -235,7 +266,7 @@
   margin-bottom: 15px;
 }
 
-.switchbtn{
+.switchbtn {
   position: absolute;
   right: 10px;
   width: 40px;
@@ -245,15 +276,16 @@
 .btnCt {
   margin: auto;
 }
-.morebtn{
-    border: none;
-      border-radius: 20px;
-      background-color: #ffe969;
-      font-family: 'neodgm';
-      height: 30px;
-      font-size: 15px;
-      margin: 10px;
-      color: black;
+
+.morebtn {
+  border: none;
+  border-radius: 20px;
+  background-color: #ffe969;
+  font-family: 'neodgm';
+  height: 30px;
+  font-size: 15px;
+  margin: 10px;
+  color: black;
 }
 
 .backbtn {
@@ -263,10 +295,11 @@
   font-family: 'neodgm';
   height: 30px;
   font-size: 15px;
-  margin:10px;
+  margin: 10px;
   margin-right: 10px;
   color: black;
 }
+
 .modalcontent5 {
   font-family: 'neodgm';
   text-align: center;

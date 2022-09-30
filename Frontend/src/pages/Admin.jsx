@@ -65,7 +65,6 @@ function Admin() {
       //   .transfer("0xD86B88fCfabFD13FA64F2D8026Ef692370A0d191", 5)
       //   .send({ from: senderAddress, gas: 3000000 });
       // console.log("=============")
-
       // console.log("여기",response);
       // console.log("=============")
       // await sendMira

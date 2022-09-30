@@ -27,7 +27,6 @@ function Footer() {
         }
       });
   }
-  console.log(user);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -121,7 +120,7 @@ function Footer() {
                         SIG_CD: "",
                       })
                     );
-                    navigate("/mypage");
+                    document.location.href = "/mypage";
                   }}
                 />
                 <div className={styles.icontext}>마이룸</div>
