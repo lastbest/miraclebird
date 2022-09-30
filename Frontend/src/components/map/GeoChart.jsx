@@ -33,10 +33,7 @@ function GeoChart({ data }) {
   const [show2, setShow2] = useState(false);
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
-  const handleClose2 = (e) => {
-    e.preventDefault();
-    Purchase();
-  };
+  const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
   const [show3, setShow3] = useState(false);
   const handleClose3 = () => setShow3(false);
@@ -499,7 +496,6 @@ function GeoChart({ data }) {
     if (tokenBalance >= sellingPrice) {
       SendMira();
     } else {
-      handleShow1()
       handleShow4()
     }
     setShow2(false)
@@ -609,7 +605,7 @@ function GeoChart({ data }) {
         className={styles.modal2}
       >
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
-        <Modal.Body className={styles.modalcontent2} closeButton>
+        <Modal.Body className={styles.modalcontent2}>
           <div className={styles.privKeychange}>개인키 입력</div>
           <div className={styles.privKeycontainer}>
             <input
@@ -622,8 +618,9 @@ function GeoChart({ data }) {
               }}
             />
             <button
-              onClick={(e) => {
-                handleClose2(e);
+              onClick={() => {
+                handleClose2();
+                Purchase()
               }}
               className={styles.privKeybtn}
             >
@@ -659,7 +656,7 @@ function GeoChart({ data }) {
       >
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.body}>
-          미라토큰이 부족합니다.
+          MIRA 토큰이 부족합니다.
         </Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
