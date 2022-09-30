@@ -160,14 +160,14 @@ function Camera() {
                 setUrl(null);
                 setImgUrl(undefined);
               }}></img>
+
+            <div className={styles.headerText}>카메라</div>
             <img
               className={styles.switchbtn}
               src="src/assets/icon/switchCamera.png"
               onClick={() => {
                 setIsFacingMode(!isFacingMode);
               }}></img>
-
-            <div className={styles.headerText}>카메라</div>
           </div>
         ) : (
           <></>
@@ -251,13 +251,14 @@ function Camera() {
                   className={styles.backIcon}
                   src="src/assets/icon/back_icon.png"
                   onClick={() => history.back()}></img>
+
+                <div className={styles.headerText}>카메라</div>
                 <img
                   className={styles.switchbtn}
                   src="src/assets/icon/switchCamera.png"
                   onClick={() => {
                     setIsFacingMode(!isFacingMode);
                   }}></img>
-                <div className={styles.headerText}>카메라</div>
               </div>
               <BrowserView>
                 <div className={styles.cameraBrowser}>
