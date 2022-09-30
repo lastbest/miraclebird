@@ -678,7 +678,9 @@ function GeoChart({ data }) {
         className={styles.modal2}>
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.modalcontent3}>
-         MIRA 토큰이 부족합니다. 챌린지 인증을 통해 MIRA 토큰을 획득해보세요!
+         MIRA 토큰이 부족합니다.
+         <br />
+         챌린지 인증을 통해 MIRA 토큰을 획득해보세요!
         </Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
