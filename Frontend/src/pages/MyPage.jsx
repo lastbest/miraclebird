@@ -597,7 +597,6 @@ function MyPage() {
                   <button
                     onClick={() => navigate("/store")}
                     className={styles.gostore}>
-                    {" "}
                     구매하러가기
                   </button>
                 </div>
@@ -615,7 +614,7 @@ function MyPage() {
             </div>
           </div>
 
-          <div className={styles.challengeCt}>{/* <MypageFeed /> */}</div>
+          <div className={styles.challengeCt}><MypageFeed userData={userData} /></div>
           <div>
             <button className={styles.userDelete} onClick={() => handleShow6()}>
               회원탈퇴
