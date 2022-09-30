@@ -22,10 +22,6 @@ import COMMON_ABI from "../../common/ABI";
 import getAddressFrom from "../../util/AddressExtractor";
 import { bounceOutLeft } from "react-animations";
 
-/**
- * Component that renders a map of Germany.
- */
-
 function GeoChart({ data }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -53,10 +49,16 @@ function GeoChart({ data }) {
   const handleClose6 = () => setShow6(false);
   const handleShow6 = () => setShow6(true);
 
+  const [show7, setShow7] = useState(false);
+  const handleClose7 = () => setShow7(false);
+  const handleShow7 = () => setShow7(true);
+
   const [isListHover, setIsListHover] = useState(false);
   const [imgUrl, setImgUrl] = useState("");
   const area = useSelector((state) => state.area.value);
   const landmark = useSelector((state) => state.landmark.value);
+  const [landmarkData, setLandmarkData] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -78,9 +80,7 @@ function GeoChart({ data }) {
   const [transactionHash, setTransactionHash] = useState("");
   const [tokenBalance, setTokenBalance] = useState(0);
   const [privKey, setPrivKey] = useState("");
-  // will be called initially and on every data change
 
-  // SSAFY Network
   const web3 = new Web3(
     new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain/`)
   );
@@ -91,9 +91,41 @@ function GeoChart({ data }) {
       setIsListHover(false);
     }
   }, [area]);
+
   useEffect(() => {
+    console.log(landmark);
+    axios({
+      url: API_BASE_URL + "/landmark/landmarkinfoidx/" + landmark.index,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
+      },
+    })
+      .then((res) => {
+        var result = [];
+        for (var i = 0; i < res.data.length; i++) {
+          var item = res.data[i];
+          if (item.userIdx != 1) {
+            result = item;
+            break;
+          }
+        }
+        if (item.userIdx == 1) {
+          setLandmarkData(res.data[0]);
+        } else {
+          setLandmarkData(result);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     setImgUrl("/src/assets/landmark/" + landmark.index + ".png");
-  }, [landmark]);
+  }, [landmarkInfoIdx]);
+
+  useEffect(() => {
+    console.log(landmarkData);
+  }, [landmarkData]);
 
   useEffect(() => {
     const svg = select(svgRef.current);
@@ -212,6 +244,7 @@ function GeoChart({ data }) {
         })
         .on("click", (event, d) => {
           console.log(d.name);
+          setLandmarkInfoIdx(d.index);
           setImgUrl("/src/assets/landmark/" + landmark.index + ".png");
           dispatch(
             selectLandmark({
@@ -220,7 +253,11 @@ function GeoChart({ data }) {
               desc: d.desc,
             })
           );
-          handleShow();
+          if (user.information.userIdx == undefined) {
+            handleShow7();
+          } else {
+            handleShow();
+          }
         })
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "central")
@@ -383,7 +420,7 @@ function GeoChart({ data }) {
     );
     console.log("address", address);
     if (!address) {
-      handleShow3()
+      handleShow3();
       return;
     }
     try {
@@ -478,7 +515,7 @@ function GeoChart({ data }) {
               })
                 .then((res) => {
                   console.log(res);
-                  handleShow4()
+                  handleShow4();
                 })
                 .catch((err) => console.log("Update Price error", err));
             })
@@ -536,7 +573,15 @@ function GeoChart({ data }) {
         )}
         <button
           className={styles.connect}
-          onClick={() => navigate("/landmark")}>
+          onClick={() => {
+            if (user.information.userIdx == undefined) {
+              console.log(user);
+              alert(user.userIdx);
+              handleShow7();
+            } else {
+              navigate("/landmark");
+            }
+          }}>
           전체보기
         </button>
       </div>
@@ -555,10 +600,14 @@ function GeoChart({ data }) {
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.body}>
           <div className={styles.modalcontent}>
-            <img src={imgUrl} alt="mm" className={styles.picture} />
+            <img
+              src={landmarkData.imagePath}
+              alt="mm"
+              className={styles.picture}
+            />
 
             <div className={styles.detail}>
-              <p>{landmark.name}</p>
+              <p>{landmarkData.landmarkTitle}</p>
               <div className={styles.purchase}>
                 {landmark.desc != null ? (
                   <div className={styles.desc}>{landmark.desc}</div>
@@ -570,10 +619,21 @@ function GeoChart({ data }) {
 
                 <div className={styles.reward}>
                   <img alt="coin" src="/mira.png" className={styles.coin}></img>
-                  <p className={styles.price}>300 MIRA</p>
-                  <button className={styles.btn} onClick={handleShow2}>
-                    구입
-                  </button>
+                  <p className={styles.price}>{landmarkData.sellPrice} MIRA</p>
+
+                  {landmarkData.selling ? (
+                    <>
+                      {landmarkData.userIdx == user.information.userIdx ? (
+                        <button className={styles.btnSell}>판매중</button>
+                      ) : (
+                        <button className={styles.btn} onClick={handleShow2}>
+                          구입
+                        </button>
+                      )}
+                    </>
+                  ) : (
+                    <button className={styles.btnSell}>구입</button>
+                  )}
                 </div>
               </div>
             </div>
@@ -617,7 +677,7 @@ function GeoChart({ data }) {
             />
             <button
               onClick={(e) => {
-                buyNFT(e)      
+                buyNFT(e);
               }}
               className={styles.privKeybtn}>
               구매하기
@@ -636,7 +696,7 @@ function GeoChart({ data }) {
         className={styles.modal2}>
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.modalcontent3}>
-            개인키가 일치하지 않습니다.
+          개인키가 일치하지 않습니다.
         </Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
@@ -654,7 +714,7 @@ function GeoChart({ data }) {
         </Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
-      
+
       <Modal
         centered
         show={show5}
@@ -668,7 +728,7 @@ function GeoChart({ data }) {
         </Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
-      
+
       <Modal
         centered
         show={show6}
@@ -685,6 +745,35 @@ function GeoChart({ data }) {
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
 
+      <Modal
+        centered
+        show={show7}
+        onHide={handleClose7}
+        backdrop="static"
+        keyboard={false}>
+        <Modal.Header className={styles.modalheader}></Modal.Header>
+        <Modal.Body className={styles.modalcontent}>
+          로그인이 필요한 서비스 입니다.
+          <div className={styles.btnCt}>
+            <button
+              className={styles.backbtn}
+              onClick={() => {
+                handleClose();
+                navigate("/");
+              }}>
+              돌아가기
+            </button>
+            <button
+              className={styles.logoutbtn}
+              onClick={() => {
+                handleClose();
+                navigate("/login");
+              }}>
+              로그인하기
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 }

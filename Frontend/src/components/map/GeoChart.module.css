@@ -167,3 +167,38 @@ height: 50px;
     font-size: 18px;
     margin-bottom: 5px;
 }
+
+.btnSell {
+    border: none;
+        border-radius: 15px;
+        background-color: lightgray;
+        font-family: 'neodgm';
+        font-size: 20px;
+        padding: 8px;
+        margin-right: 5px;
+        color: gray;
+}
+.logoutbtn {
+    border: none;
+    border-radius: 20px;
+    background-color: #ffe969;
+    font-family: 'neodgm';
+    height: 30px;
+    font-size: 15px;
+    margin: auto;
+    color: black;
+}
+.btnCt {
+    margin-top: 10px;
+}
+.backbtn {
+    border: none;
+    border-radius: 20px;
+    background-color: #D9D9D9;
+    font-family: 'neodgm';
+    height: 30px;
+    font-size: 15px;
+    margin: auto;
+    margin-right: 10px;
+    color: black;
+}

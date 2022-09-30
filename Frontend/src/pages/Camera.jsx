@@ -20,6 +20,7 @@ function Camera() {
   const [fileName, setFileName] = useState("");
   const [time, setTime] = useState("");
   const navigate = useNavigate();
+
   const mainApi = async () => {
     axios({
       url: API_BASE_URL + "/auth/",
@@ -40,6 +41,7 @@ function Camera() {
   useEffect(() => {
     mainApi();
   }, []);
+
   const onCheckedElement = (checked) => {
     if (checked) {
       setShare(true);
