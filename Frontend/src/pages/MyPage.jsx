@@ -785,6 +785,7 @@ function MyPage() {
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.modalcontent3} closeButton>
           <div className={styles.sellprice}>판매가격</div>
+          <div className={styles.selltext}>※판매가는 수정할 수 없습니다.</div>
           <div className={styles.pricecontainer}>
             <input
               autoComplete="price"

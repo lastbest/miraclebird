@@ -382,6 +382,7 @@
     font-family: 'neodgm';
     width:50%;
     height:30px;
+    margin-right: 5px;
 }
 
 .sellbtn {
@@ -557,4 +558,8 @@
     height: 30px;
     margin-right: 10px;
     color: black;
+}
+
+.selltext {
+    color:lightgray;
 }
