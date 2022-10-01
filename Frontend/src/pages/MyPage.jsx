@@ -196,9 +196,9 @@ function MyPage() {
     setChallengeMap(tempChallengeMap);
   }, [challengeData]);
 
-  useEffect(() => {
-    console.log("wallet", wallet);
-  }, [wallet]);
+  // useEffect(() => {
+  //   console.log("wallet", wallet);
+  // }, [wallet]);
 
   // my nft
   useEffect(() => {
