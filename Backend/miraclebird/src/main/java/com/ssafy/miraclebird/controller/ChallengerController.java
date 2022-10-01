@@ -2,9 +2,12 @@ package com.ssafy.miraclebird.controller;
 
 import com.ssafy.miraclebird.dto.ChallengeDto;
 import com.ssafy.miraclebird.dto.ChallengerDto;
+import com.ssafy.miraclebird.securityOauth.config.security.token.CurrentUser;
+import com.ssafy.miraclebird.securityOauth.config.security.token.UserPrincipal;
 import com.ssafy.miraclebird.service.ChallengerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +26,7 @@ public class ChallengerController {
         this.challengerService = challengerService;
     }
 
-    @ApiOperation(value = "모든 challenger의 정보를 반환한다.", response = ChallengerDto.class)
+    @ApiOperation(value = "모든 챌린지 참여목록의 정보를 반환한다.", response = ChallengerDto.class)
     @GetMapping("/")
     public ResponseEntity<List<ChallengerDto>> getChallengerALL() {
         List<ChallengerDto> result = challengerService.getChallengerALL();
@@ -31,7 +34,7 @@ public class ChallengerController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @ApiOperation(value = "특정 challenger의 정보를 반환한다.", response = ChallengerDto.class)
+    @ApiOperation(value = "특정 챌린지 참여목록의 정보를 반환한다.", response = ChallengerDto.class)
     @GetMapping("/{challenger_idx}")
     public ResponseEntity<ChallengerDto> getChallengerById(@PathVariable("challenger_idx") Long challengerIdx) {
         ChallengerDto result = challengerService.getChallengerById(challengerIdx);
@@ -49,29 +52,29 @@ public class ChallengerController {
 
     @ApiOperation(value = "유저와 챌린지 정보를 받아서 챌린지 참가", response = ChallengerDto.class)
     @PostMapping("/")
-    public ResponseEntity<String> addChallenger(@RequestBody ChallengerDto challengerDto) {
+    public ResponseEntity<String> addChallenger(@RequestBody ChallengerDto challengerDto, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
+        String result;
         try {
-            challengerService.addChallenger(challengerDto);
+            long userIdx = userPrincipal.getId();
+            challengerDto.setUser(userIdx);
+            result = challengerService.addChallenger(challengerDto);
         }
         catch (Exception e) {
             throw new RuntimeException();
         }
-
-
-        return new ResponseEntity<String>("challenger 참가 success",HttpStatus.OK);
+        return new ResponseEntity<String>(result,HttpStatus.OK);
     }
 
     @ApiOperation(value = "challenger_idx를 받아서 챌린지 참여 취소", response = ChallengerDto.class)
     @DeleteMapping("/{challenger_idx}")
-    public ResponseEntity<String> deleteChallenger(@PathVariable("challenger_idx") Long challengerIdx) {
+    public ResponseEntity<String> deleteChallenger(@PathVariable("challenger_idx") Long challengerIdx, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
+        String result;
         try {
-            challengerService.deleteChallenger(challengerIdx);
-        }
-        catch (Exception e) {
+            long userIdx = userPrincipal.getId();
+            result = challengerService.deleteChallenger(challengerIdx, userIdx);
+        } catch (Exception e) {
             throw new RuntimeException();
         }
-
-
-        return new ResponseEntity<String>("challenger 참여 취소 success",HttpStatus.OK);
+        return new ResponseEntity<String>(result, HttpStatus.OK);
     }
 }

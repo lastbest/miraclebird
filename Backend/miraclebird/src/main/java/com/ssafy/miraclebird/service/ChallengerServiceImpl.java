@@ -5,6 +5,8 @@ import com.ssafy.miraclebird.dao.ChallengerDao;
 import com.ssafy.miraclebird.dao.UserDao;
 import com.ssafy.miraclebird.dto.ChallengerDto;
 import com.ssafy.miraclebird.entity.Challenger;
+import com.ssafy.miraclebird.entity.Verification;
+import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,13 +59,14 @@ public class ChallengerServiceImpl implements ChallengerService{
 
     @Override
     @Transactional
-    public void addChallenger(ChallengerDto challengerDto) throws Exception {
+    public String addChallenger(ChallengerDto challengerDto) throws Exception {
         try{
             Challenger challengerEntity = new Challenger();
             challengerEntity.setChallenge(challengeDao.getChallengeById(challengerDto.getChallenge()));
             challengerEntity.setUser(userDao.getUserById(challengerDto.getUser()));
             challengerEntity.setDeposit(challengerDto.isDeposit());
             challengerDao.addChallenger(challengerEntity);
+            return "참가완료";
         }
         catch (Exception e) {
             throw new Exception();
@@ -72,9 +75,15 @@ public class ChallengerServiceImpl implements ChallengerService{
 
     @Override
     @Transactional
-    public void deleteChallenger(Long challengerIdx) throws Exception {
+    public String deleteChallenger(long challengerId, long userId) throws Exception {
         try{
-            challengerDao.deleteChallenger(challengerIdx);
+            User user = userDao.getUserById(userId);
+            Challenger challenger = challengerDao.getChallengerById(challengerId);
+            if (userId == challenger.getUser().getUserIdx() || user.getRole().getValue() == "ROLE_ADMIN") {
+                challengerDao.deleteChallenger(challengerId);
+                return "참가취소 완료";
+            }
+            return "권한이 없는 사용자입니다.";
         }
         catch (Exception e) {
             throw new Exception();
