@@ -10,7 +10,7 @@ public interface VerificationService {
     VerificationDto getVerificationById(long verificationId);
     List<VerificationDto> getVerificationByUser(long userId);
     void uploadVerification(VerificationDto verificationDto) throws Exception ;
-    VerificationDto approveVerification(long verificationId, long updateApproval) throws Exception;
+    VerificationDto approveVerification(long verificationId, long updateApproval, long userId) throws Exception;
     void deleteVerificationInfo(long verificationId, long userId) throws Exception;
     List<VerificationDto> getVerificationByPeriod(Long userIdx, LocalDateTime startDate, LocalDateTime endDate);
     List<String> getRankByCount();

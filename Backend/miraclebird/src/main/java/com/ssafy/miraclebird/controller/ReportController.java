@@ -1,9 +1,12 @@
 package com.ssafy.miraclebird.controller;
 
 import com.ssafy.miraclebird.dto.ReportDto;
+import com.ssafy.miraclebird.securityOauth.config.security.token.CurrentUser;
+import com.ssafy.miraclebird.securityOauth.config.security.token.UserPrincipal;
 import com.ssafy.miraclebird.service.ReportService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,8 +48,10 @@ public class ReportController {
 
     @ApiOperation(value = "특정 Report의 정보를 등록한다.", response = ReportDto.class)
     @PostMapping
-    public ResponseEntity<String> createReport(@RequestBody ReportDto reportDto) {
+    public ResponseEntity<String> createReport(@RequestBody ReportDto reportDto, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         try{
+            long userIdx = userPrincipal.getId();
+            reportDto.setUserIdx(userIdx);
             reportService.createReport(reportDto);
         }
         catch (Exception e) {

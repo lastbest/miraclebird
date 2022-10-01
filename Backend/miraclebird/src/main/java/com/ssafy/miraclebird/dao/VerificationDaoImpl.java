@@ -65,8 +65,7 @@ public class VerificationDaoImpl implements VerificationDao {
         }
     }
 
-    public void deleteVerificationInfo(long verificationIdx, long userIdx) throws Exception {
-        //userIdx 비교 필요!!!!!!
+    public void deleteVerificationInfo(long verificationIdx) throws Exception {
         try {
             verificationRepository.deleteById(verificationIdx);
         } catch (Exception e) {
