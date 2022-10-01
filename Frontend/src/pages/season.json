@@ -1,17 +1,14 @@
 [
   {
+    "title": "시즌 1",
     "season": 1,
-    "startDate": "2022-09-01",
-    "endDate": "2022-09-31"
+    "startDate": "2022-09-26",
+    "endDate": "2022-10-03"
   },
   {
+    "title": "시즌 2",
     "season": 2,
-    "startDate": "2022-10-01",
-    "endDate": "2022-10-31"
-  },
-  {
-    "season": 3,
-    "startDate": "2022-11-01",
-    "endDate": "2022-11-30"
+    "startDate": "2022-10-03",
+    "endDate": "2022-10-10"
   }
 ]
