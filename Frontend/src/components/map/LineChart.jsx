@@ -1,38 +1,47 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
 import "./LineChart.css";
 import styles from "./LineChart.module.css";
 import { current } from "@reduxjs/toolkit";
+import axios from "axios";
+import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 
-const LineChart = () => {
+const LineChart = ({ data }) => {
+  const [landmarkPriceData, setLandmarkPriceData] = useState("");
+
+  const [firstPrice, setFirstPrice] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [currentPrice, setCurrentPrice] = useState("");
+
+  useEffect(() => {
+    console.log(data);
+    if (data != "") {
+      setFirstPrice(data[0].value == null ? null : data[0].value);
+      setMinPrice(
+        Math.min.apply(
+          Math,
+          data.map(function (o) {
+            return o.value;
+          })
+        )
+      );
+      setMaxPrice(
+        Math.max.apply(
+          Math,
+          data.map(function (o) {
+            return o.value;
+          })
+        )
+      );
+      setCurrentPrice(data[data.length - 1].value);
+    }
+  }, []);
   useEffect(() => {
     makeGraph();
-  }, []);
-  const svgRef = useRef();
-  const data = [
-    { month: "09-18", value: 1.1 },
-    { month: "09-19", value: 2.1 },
-    { month: "09-21", value: 3.6 },
-    { month: "09-22", value: 3.9 },
-    { month: "09-24", value: 4.9 },
-    { month: "09-24", value: 0.3 },
-    { month: "09-25", value: 0.2 },
-  ];
-  const firstPrice = data[0].value == null ? null : data[0].value;
-  const minPrice = Math.min.apply(
-    Math,
-    data.map(function (o) {
-      return o.value;
-    })
-  );
-  const maxPrice = Math.max.apply(
-    Math,
-    data.map(function (o) {
-      return o.value;
-    })
-  );
+  }, [currentPrice]);
 
-  const currentPrice = data[data.length - 1].value;
+  const svgRef = useRef();
   const makeGraph = () => {
     // setting canvas
     const width = 270;
@@ -69,9 +78,11 @@ const LineChart = () => {
     const yAxis = (g) =>
       g
         .attr("transform", `translate(${margin.left}, 0)`)
-        .call(d3.axisLeft(y).tickValues([0, 1, 2, 3, 4, 5]).tickSize(-width))
+        .call(d3.axisLeft(y).tickSize(-width))
         .call((g) => g.select(".domain").remove())
-        .attr("class", "grid");
+        .attr("class", "grid")
+        .attr("fill", "#787a79")
+        .attr("stroke", "#787a79");
 
     // apply axis to canvas
     svg.append("g").call(xAxis);

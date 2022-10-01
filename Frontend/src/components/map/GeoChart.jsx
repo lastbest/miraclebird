@@ -21,8 +21,14 @@ import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import COMMON_ABI from "../../common/ABI";
 import getAddressFrom from "../../util/AddressExtractor";
 import { bounceOutLeft } from "react-animations";
+import Loading1 from "../Base/Loading1";
 
 function GeoChart({ data }) {
+  const [loading, setLoading] = useState(true);
+  const [loading1, setLoading1] = useState(true);
+  const [show0, setShow0] = useState(false);
+  const handleClose0 = () => setShow0(false);
+  const handleShow0 = () => setShow0(true);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -80,6 +86,7 @@ function GeoChart({ data }) {
   const [transactionHash, setTransactionHash] = useState("");
   const [tokenBalance, setTokenBalance] = useState(0);
   const [privKey, setPrivKey] = useState("");
+  const [priceData, setPriceData] = useState("");
 
   const web3 = new Web3(
     new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain/`)
@@ -128,7 +135,35 @@ function GeoChart({ data }) {
 
   useEffect(() => {
     console.log(landmarkData);
+    setLoading(true);
+    setLoading1(true);
+    axios(API_BASE_URL + "/price/" + landmarkData.landmarkIdx, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
+      },
+    })
+      .then((res) => {
+        console.log(res.data);
+        const temp = [];
+        for (var i = 0; i < res.data.length; i++) {
+          const item = res.data[i];
+          console.log("-------------", item);
+          temp.push({
+            month: i,
+            day: item.sellDate[1] + "-" + item.sellDate[2],
+            value: item.sellPrice,
+          });
+        }
+        setPriceData(temp);
+      })
+      .catch((err) => console.log(err));
   }, [landmarkData]);
+
+  useEffect(() => {
+    console.log(priceData);
+    setLoading1(false);
+  }, [priceData]);
 
   useEffect(() => {
     const svg = select(svgRef.current);
@@ -518,6 +553,8 @@ function GeoChart({ data }) {
               })
                 .then((res) => {
                   console.log(res);
+                  setLoading(true);
+                  handleClose0();
                   handleShow4();
                 })
                 .catch((err) => console.log("Update Price error", err));
@@ -579,7 +616,6 @@ function GeoChart({ data }) {
           onClick={() => {
             if (user.information.userIdx == undefined) {
               console.log(user);
-              alert(user.userIdx);
               handleShow7();
             } else {
               navigate("/landmark");
@@ -593,6 +629,7 @@ function GeoChart({ data }) {
         {selectedCountry !== null ? <div>{area.name}</div> : <div></div>}
         <svg ref={svgRef}></svg>
       </div>
+
       <Modal
         centered
         show={show}
@@ -603,6 +640,7 @@ function GeoChart({ data }) {
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.body}>
           <div className={styles.modalcontent}>
+            <div>{landmarkData.landmarkTitle}</div>
             <img
               src={landmarkData.imagePath}
               alt="mm"
@@ -610,7 +648,6 @@ function GeoChart({ data }) {
             />
 
             <div className={styles.detail}>
-              <p>{landmarkData.landmarkTitle}</p>
               <div className={styles.purchase}>
                 {landmark.desc != null ? (
                   <div className={styles.desc}>{landmark.desc}</div>
@@ -618,11 +655,22 @@ function GeoChart({ data }) {
                   <></>
                 )}
 
-                <LineChart className={styles.chart} />
+                {loading1 ? (
+                  <Loading1 />
+                ) : (
+                  <LineChart className={styles.chart} data={priceData} />
+                )}
 
                 <div className={styles.reward}>
-                  <img alt="coin" src="/mira.png" className={styles.coin}></img>
-                  <p className={styles.price}>{landmarkData.sellPrice} MIRA</p>
+                  <div className={styles.coinDiv}>
+                    <img
+                      alt="coin"
+                      src="/mira.png"
+                      className={styles.coin}></img>
+                    <div className={styles.price}>
+                      {landmarkData.sellPrice} MIRA
+                    </div>
+                  </div>
 
                   {landmarkData.selling ? (
                     <>
@@ -635,7 +683,13 @@ function GeoChart({ data }) {
                       )}
                     </>
                   ) : (
-                    <button className={styles.btnSell}>구입</button>
+                    <button
+                      className={styles.btnSell}
+                      onClick={() => {
+                        console.log("asdsa");
+                      }}>
+                      구입
+                    </button>
                   )}
                 </div>
               </div>
@@ -643,6 +697,19 @@ function GeoChart({ data }) {
           </div>
         </Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
+      </Modal>
+
+      <Modal
+        centered
+        show={show0}
+        onHide={handleClose0}
+        backdrop="static"
+        keyboard={false}
+        className={styles.dialog0}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.body}>
+          <Loading1 />
+        </Modal.Body>
       </Modal>
 
       <Modal
@@ -666,6 +733,7 @@ function GeoChart({ data }) {
         keyboard={false}
         className={styles.modal2}>
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+
         <Modal.Body className={styles.modalcontent2}>
           <div className={styles.privKeychange}>개인키 입력</div>
           <div className={styles.privKeycontainer}>
@@ -680,6 +748,7 @@ function GeoChart({ data }) {
             />
             <button
               onClick={(e) => {
+                handleShow0();
                 buyNFT(e);
               }}
               className={styles.privKeybtn}>
@@ -687,6 +756,7 @@ function GeoChart({ data }) {
             </button>
           </div>
         </Modal.Body>
+
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
 
@@ -741,9 +811,9 @@ function GeoChart({ data }) {
         className={styles.modal2}>
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.modalcontent3}>
-         MIRA 토큰이 부족합니다.
-         <br />
-         챌린지 인증을 통해 MIRA 토큰을 획득해보세요!
+          MIRA 토큰이 부족합니다.
+          <br />
+          챌린지 인증을 통해 MIRA 토큰을 획득해보세요!
         </Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
