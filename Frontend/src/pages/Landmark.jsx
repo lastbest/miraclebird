@@ -5,6 +5,7 @@ import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import axios from "axios";
 import optionsJSON from "./options.json";
 import Modal from "react-bootstrap/Modal";
+import { Loading } from "../components/Base/Loading";
 
 function Landmark() {
   const [si, setSi] = useState("지역");
@@ -14,6 +15,9 @@ function Landmark() {
   const [nftMap, setNftMap] = useState("");
   const [nftData, setNftData] = useState("");
   const [options, setOptions] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  const [itemMap, setItemMap] = useState("");
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -21,7 +25,7 @@ function Landmark() {
 
   useEffect(() => {
     console.log("nftData", nftData);
-    var result = [];
+    const result = [];
     var useritem = [];
     var adminitem = [];
     for (var i = 0; i < nftData.length; i++) {
@@ -41,6 +45,7 @@ function Landmark() {
           } else {
             item = useritem;
           }
+
           result.push(
             <div className={styles.flip}>
               <div key={i} className={styles.card}>
@@ -95,10 +100,16 @@ function Landmark() {
       }
     }
     setNftMap(result);
+    return () => {
+      setLoading(false);
+    };
   }, [nftData]);
+
+  useEffect(() => {}, [itemMap]);
 
   useEffect(() => {
     console.log(gu);
+    setLoading(true);
     axios({
       url: API_BASE_URL + "/landmark",
       method: "GET",
@@ -197,7 +208,7 @@ function Landmark() {
           {options}
         </select>
       </div>
-      <div className={styles.container}>{nftMap}</div>
+      {loading ? <Loading /> : <div className={styles.container}>{nftMap}</div>}
 
       <Modal
         centered
