@@ -66,7 +66,7 @@ function MyPage() {
         .then((res) => {
           setUserData(res.data.information);
           console.log(res.data);
-          setLoading(false);
+          setLoading(true);
           axios({
             url: API_BASE_URL + "/wallet/" + res.data.information.userIdx,
             method: "get",
@@ -282,6 +282,9 @@ function MyPage() {
       );
     }
     setNftMap(result);
+    return () => {
+      setLoading(false);
+    };
   }, [nftData]);
 
   useEffect(() => {
