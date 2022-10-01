@@ -1,9 +1,12 @@
 package com.ssafy.miraclebird.controller;
 
 import com.ssafy.miraclebird.dto.PostDto;
+import com.ssafy.miraclebird.securityOauth.config.security.token.CurrentUser;
+import com.ssafy.miraclebird.securityOauth.config.security.token.UserPrincipal;
 import com.ssafy.miraclebird.service.PostService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +43,9 @@ public class PostController {
 
     @ApiOperation(value = "새로운 게시글을 등록한다.", response = String.class)
     @PostMapping
-    public ResponseEntity<String> createPost(@RequestBody PostDto postDto, @RequestParam("user_idx") Long userIdx) {
+    public ResponseEntity<String> createPost(@RequestBody PostDto postDto, @RequestParam(value = "user_idx", required = false) Long userIdx_nouse, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         try {
+            long userIdx = userPrincipal.getId();
             postService.createPost(postDto, userIdx);
         }
         catch (Exception e) {
@@ -68,8 +72,9 @@ public class PostController {
 
     @ApiOperation(value = "post_idx에 해당하는 게시글 정보를 수정한다.", response = String.class)
     @PutMapping("/{post_idx}")
-    public ResponseEntity<String> updatePost(@PathVariable("post_idx") Long postIdx, @RequestBody PostDto postDto, @RequestParam("user_idx") Long userIdx) {
+    public ResponseEntity<String> updatePost(@PathVariable("post_idx") Long postIdx, @RequestBody PostDto postDto, @RequestParam(value = "user_idx", required = false) Long userIdx_nouse, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         try {
+            long userIdx = userPrincipal.getId();
             postDto.setPostIdx(postIdx);
             postService.updatePost(postDto, userIdx);
         }
@@ -82,8 +87,9 @@ public class PostController {
 
     @ApiOperation(value = "post_idx에 해당하는 게시글 정보를 삭제한다.", response = String.class)
     @DeleteMapping("/{post_idx}")
-    public ResponseEntity<String> deletePost(@PathVariable("post_idx") Long postIdx, @RequestParam("user_idx") Long userIdx) {
+    public ResponseEntity<String> deletePost(@PathVariable("post_idx") Long postIdx, @RequestParam(value = "user_idx", required = false) Long userIdx_nouse, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         try {
+            long userIdx = userPrincipal.getId();
             postService.deletePost(postIdx, userIdx);
         }
         catch (Exception e) {

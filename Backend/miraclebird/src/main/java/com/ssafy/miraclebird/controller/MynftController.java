@@ -1,9 +1,12 @@
 package com.ssafy.miraclebird.controller;
 
 import com.ssafy.miraclebird.dto.MynftDto;
+import com.ssafy.miraclebird.securityOauth.config.security.token.CurrentUser;
+import com.ssafy.miraclebird.securityOauth.config.security.token.UserPrincipal;
 import com.ssafy.miraclebird.service.MynftService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +28,9 @@ public class MynftController {
 
     @ApiOperation(value = "NFT를 소유목록에 등록한다.", response = String.class)
     @PostMapping
-    public ResponseEntity<String> createMynft(@RequestBody MynftDto mynftDto, @RequestParam("user_idx") Long userIdx) {
+    public ResponseEntity<String> createMynft(@RequestBody MynftDto mynftDto, @RequestParam(value = "user_idx", required = false) Long userIdx_nouse, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         try {
+            long userIdx = userPrincipal.getId();
             mynftService.createMynft(mynftDto, userIdx);
         }
         catch (Exception e) {
@@ -53,8 +57,9 @@ public class MynftController {
 
     @ApiOperation(value = "mynft_idx 에 해당하는 소유목록 삭제한다.", response = String.class)
     @DeleteMapping("/{mynft_idx}")
-    public ResponseEntity<String> deleteMynft(@PathVariable("mynft_idx") Long mynftIdx, @RequestParam("user_idx") Long userIdx) {
+    public ResponseEntity<String> deleteMynft(@PathVariable("mynft_idx") Long mynftIdx, @RequestParam(value = "user_idx", required = false) Long userIdx_nouse, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         try {
+            long userIdx = userPrincipal.getId();
             mynftService.deleteMynft(mynftIdx, userIdx);
         }
         catch (Exception e) {
