@@ -34,9 +34,8 @@ function Landmark() {
         if (item.starForce == 1) {
           useritem = item;
           adminitem = item;
-        }
-        if (item.starForce != 1) {
-          useritem = item;
+        } else {
+          if (item.userIdx != 1) useritem = item;
         }
 
         if (item.starForce == 7) {
