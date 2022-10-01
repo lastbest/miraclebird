@@ -7,13 +7,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function MypageFeed(props) {
+  let [idx, setIdx] = useState(1);
   const [challengeData, setChallengeData] = useState("");
   const [challengeMap, setChallengeMap] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    var startdate = seasonInfo[0].startDate + "_00:00:00.000";
-    var enddate = seasonInfo[0].endDate + "_23:59:59.000";
+    var startdate = seasonInfo[idx-1].startDate + "_00:00:00.000";
+    var enddate = seasonInfo[idx-1].endDate + "_23:59:59.000";
     axios({
       url: API_BASE_URL + "/verification/heatmap/" + props.userData.userIdx,
       method: "GET",
@@ -27,13 +28,14 @@ function MypageFeed(props) {
     })
       .then((res) => {
         setChallengeData(res.data);
+
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [idx]);
 
-  let [idx, setIdx] = useState(0);
+  
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -62,9 +64,13 @@ function MypageFeed(props) {
       </select>
       <div className={styles.feeds}>
         <div className={styles.list}>
+          {challengeMap.length === 0 ?
+          <div></div>
+        :
           <button className={styles.listbtn} onClick={() => handleShow()}>
             <img src="/list.png" className={styles.listicon}></img>
           </button>
+        }
         </div>
         <div className={styles.feedsImg}>
           {challengeMap.length === 0 ? (
@@ -93,7 +99,9 @@ function MypageFeed(props) {
         className={styles.dialog}>
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.body}>
-          <div className={styles.modalcontent}>{challengeMap}</div>
+          <div className={styles.modalcontent}>
+            {challengeMap}
+          </div>
         </Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
