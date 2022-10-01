@@ -281,6 +281,10 @@ function Reinforce () {
               .send({ from: senderAddress2, gas: 3000000 });
               console.log(response3);
 
+                // 관리자가 가지고 있던 nft 정보를 내걸로 수정
+                // 내거를 관리자 정보로 수정
+                // 새 nft 내 mynft로
+                // 헌 nft 관리자 mynft로
             if (response2.status === true) {
                 if (response3.status === true) {
                     console.log(newLevel)
