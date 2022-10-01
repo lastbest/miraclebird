@@ -34,4 +34,18 @@ public class UserServiceImpl implements UserService{
 
         return userDto;
     }
+
+    @Override
+    @Transactional
+    public void updateUserBlacklist(Long userIdx, Long blacklist) throws Exception {
+        User userEntity = userDao.getUserById(userIdx);
+
+        if (userEntity.getRole().getValue() == "ROLE_ADMIN") {
+            User blacklistEntity = userDao.getUserById(blacklist);
+            blacklistEntity.setBlacklist(true);
+        }
+        else {
+            throw new Exception();
+        }
+    }
 }

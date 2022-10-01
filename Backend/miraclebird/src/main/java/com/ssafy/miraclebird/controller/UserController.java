@@ -67,4 +67,17 @@ public class UserController {
 
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
+
+    @ApiOperation(value = "user_idx에 해당하는 유저를 블랙리스트로 지정한다.", response = UserDto.class)
+    @PutMapping("/blacklist")
+    public ResponseEntity<String> updateUserBlacklist(@RequestParam("user_idx") Long blacklist, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
+        try {
+            long userIdx = userPrincipal.getId();
+            userService.updateUserBlacklist(userIdx, blacklist);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+        return new ResponseEntity<String>("success", HttpStatus.OK);
+    }
 }
