@@ -3,13 +3,10 @@ package com.ssafy.miraclebird.controller;
 import com.ssafy.miraclebird.dto.LandmarkDto;
 import com.ssafy.miraclebird.dto.PostDto;
 import com.ssafy.miraclebird.entity.Landmark;
-import com.ssafy.miraclebird.securityOauth.config.security.token.CurrentUser;
-import com.ssafy.miraclebird.securityOauth.config.security.token.UserPrincipal;
 import com.ssafy.miraclebird.service.LandmarkService;
 import com.ssafy.miraclebird.service.PostService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,6 +45,7 @@ public class LandmarkController {
     @PostMapping
     public ResponseEntity<LandmarkDto> createLandmark(@RequestBody LandmarkDto landmarkDto, @RequestParam("user_idx") Long userIdx) {
         LandmarkDto result = null;
+
         try {
             result = landmarkService.createLandmark(landmarkDto, userIdx);
         }
