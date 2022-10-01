@@ -569,12 +569,12 @@ function MyPage() {
                 endDate={seasonInfo[season - 1].endDate}
                 horizontal={false}
                 showMonthLabels={false}
-                values={SEOSON_SELECT[0].values}
+                values={challengeMap.values}
                 classForValue={(value) => {
                   if (!value) {
                     return "color-empty";
                   }
-                  return `color-scale-${value.count}`;
+                  return `color-scale-${value.count >= 4 ? 4 : value.count}`;
                 }}
 
                 // tooltipDataAttrs={(value) => {
@@ -617,7 +617,9 @@ function MyPage() {
             </div>
           </div>
 
-          <div className={styles.challengeCt}><MypageFeed userData={userData} /></div>
+          <div className={styles.challengeCt}>
+            <MypageFeed userData={userData} data={challengeMap} />
+          </div>
           <div>
             <button className={styles.userDelete} onClick={() => handleShow6()}>
               회원탈퇴
