@@ -87,17 +87,29 @@ public class VerificationServiceImpl implements VerificationService {
 
     @Override
     @Transactional
-    public VerificationDto approveVerification(long verificationId, long updateApproval) throws Exception {
-        Verification verificationEntity = verificationDao.approveVerification(verificationId, updateApproval);
-        VerificationDto verificationDto = VerificationDto.of(verificationEntity);
-        return verificationDto;
+    public VerificationDto approveVerification(long verificationId, long updateApproval, long userId) throws Exception {
+        User user = userDao.getUserById(userId);
+        if (user.getRole().getValue() == "ROLE_ADMIN") {
+            Verification verificationEntity = verificationDao.approveVerification(verificationId, updateApproval);
+            VerificationDto verificationDto = VerificationDto.of(verificationEntity);
+            return verificationDto;
+        }
+        return null;
     }
 
     @Override
     @Transactional
     public void deleteVerificationInfo(long verificationId, long userId) throws Exception {
-        verificationDao.deleteVerificationInfo(verificationId, userId);
-        return;
+        try {
+            User user = userDao.getUserById(userId);
+            Verification verification = verificationDao.getVerificationById(verificationId);
+            if (userId == verification.getUser().getUserIdx() || user.getRole().getValue() == "ROLE_ADMIN") {
+                verificationDao.deleteVerificationInfo(verificationId);
+            }
+        }
+        catch (Exception e){
+            throw e;
+        }
     }
 
     @Override
