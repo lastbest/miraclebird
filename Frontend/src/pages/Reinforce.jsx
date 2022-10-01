@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import styles from './Reinforce.module.css';
@@ -17,12 +17,17 @@ import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import "./Reinforce.css"
 
+import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
+import axios from "axios";
+import Web3 from "web3";
+import COMMON_ABI from "../common/ABI";
+import getAddressFrom from "../util/AddressExtractor";
+
 
 function Reinforce () {
     const navigate = useNavigate();
     const [address, setAddress] = useState('');
     const [level, setLevel] = useState('');
-    const [idx, setIdx] = useState('');
     const [loading, setLoading] = useState(false);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -33,20 +38,133 @@ function Reinforce () {
     const [show3, setShow3] = useState(false);
     const handleClose3 = () => setShow3(false);
     const handleShow3 = () => setShow3(true);
+    const [show4, setShow4] = useState(false);
+    const handleClose4 = () => setShow4(false);
+    const handleShow4 = () => setShow4(true);
+    const [show5, setShow5] = useState(false);
+    const handleClose5 = () => setShow5(false);
+    const handleShow5 = () => setShow5(true);
+    const [show6, setShow6] = useState(false);
+    const handleClose6 = () => setShow6(false);
+    const handleShow6 = () => setShow6(true);
 
     const [imgIndex, setImgIndex] = useState("");
     const [newImg, setNewImg] = useState("");
+    const [nftData, setNftData] = useState("");
+    const [userData, setUserData] = useState("");
+    const [privKey, setPrivKey] = useState("");
+    const [tokenBalance, setTokenBalance] = useState(0);
+    const [walletAddress, setWalletAddress] = useState('');
+    const [nextTokenId, setNextTokenId] = useState(0);
+    const [nowTokenId, setNowTokenId] = useState(0);
+    const [nowImg, setNowImg] = useState("");
+    const [nextImg, setNextImg] = useState("");
+    const [nowLandmarkIdx, setNowLandmarkIdx] = useState(0);
+    const [nextLandmarkIdx, setNextLandmarkIdx] = useState(0);
 
-    const NFT_SELECT =[
-        {nfturl:'/src/assets/landmark/1_1.png', nickname:'김싸피', nftname:'롯데타워 5강', nftprice:'10', 'onsale':0, level:1, imgindex:1,},
-        {nfturl:'/src/assets/landmark/15_6.png', nickname:'이싸피', nftname:'롯데타워 1강', nftprice:'12', 'onsale':1, level:6, imgindex:15,},
-        {nfturl:'/src/assets/landmark/207_3.png', nickname:'김싸피', nftname:'롯데타워 5강', nftprice:'10', 'onsale':0, level:3, imgindex:207,},
-        {nfturl:'/src/assets/landmark/310_6.png', nickname:'이싸피', nftname:'롯데타워 1강', nftprice:'12', 'onsale':1, level:6, imgindex:310,},
-        {nfturl:'/src/assets/landmark/22_1.png', nickname:'김싸피', nftname:'롯데타워 5강', nftprice:'10', 'onsale':0, level:1,imgindex:22,},
-        {nfturl:'/src/assets/landmark/117_2.png', nickname:'이싸피', nftname:'롯데타워 1강', nftprice:'12', 'onsale':1, level:2, imgindex:117,},
-        {nfturl:'/src/assets/landmark/33_4.png', nickname:'김싸피', nftname:'롯데타워 5강', nftprice:'10', 'onsale':0, level:4, imgindex:33,},
-        {nfturl:'/src/assets/landmark/214_5.png', nickname:'이싸피', nftname:'롯데타워 1강', nftprice:'12', 'onsale':1, level:5, imgindex:214,},
-    ]
+    // const NFT_SELECT =[
+    //     {nfturl:'/src/assets/landmark/1_1.png', nickname:'김싸피', nftname:'롯데타워 5강', nftprice:'10', 'onsale':0, level:1, imgindex:1,},
+    //     {nfturl:'/src/assets/landmark/15_6.png', nickname:'이싸피', nftname:'롯데타워 1강', nftprice:'12', 'onsale':1, level:6, imgindex:15,},
+    //     {nfturl:'/src/assets/landmark/207_3.png', nickname:'김싸피', nftname:'롯데타워 5강', nftprice:'10', 'onsale':0, level:3, imgindex:207,},
+    //     {nfturl:'/src/assets/landmark/310_6.png', nickname:'이싸피', nftname:'롯데타워 1강', nftprice:'12', 'onsale':1, level:6, imgindex:310,},
+    //     {nfturl:'/src/assets/landmark/22_1.png', nickname:'김싸피', nftname:'롯데타워 5강', nftprice:'10', 'onsale':0, level:1,imgindex:22,},
+    //     {nfturl:'/src/assets/landmark/117_2.png', nickname:'이싸피', nftname:'롯데타워 1강', nftprice:'12', 'onsale':1, level:2, imgindex:117,},
+    //     {nfturl:'/src/assets/landmark/33_4.png', nickname:'김싸피', nftname:'롯데타워 5강', nftprice:'10', 'onsale':0, level:4, imgindex:33,},
+    //     {nfturl:'/src/assets/landmark/214_5.png', nickname:'이싸피', nftname:'롯데타워 1강', nftprice:'12', 'onsale':1, level:5, imgindex:214,},
+    // ]
+
+    const web3 = new Web3(
+        new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain/`)
+      );
+
+    async function getTokenBalance(walletAddress) {
+        const callMiraToken = new web3.eth.Contract(
+            COMMON_ABI.CONTRACT_ABI.ERC_ABI,
+            "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+          );
+
+        const response = await callMiraToken.methods.balanceOf(walletAddress).call();
+        setTokenBalance(response);
+        console.log(response);
+      }
+
+    async function mynft(user) {
+        await axios({
+            url: API_BASE_URL + "/landmark/user/" + user.userIdx,
+            method: "GET",
+            headers: {
+                Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+            },
+            })
+            .then((res) => {
+                var result = [];
+                if (user.userIdx == 1) {
+                for (var i = 0; i < res.data.length; i++) {
+                    var item = res.data[i];
+                    if (item.starForce != 1) continue;
+                    else if (item.selling === true) continue;
+                    result.push(item);
+                    }
+                } else {
+                    for (var i = 0; i < res.data.length; i++) {
+                        var item = res.data[i];
+                        if (item.selling === true) continue;
+                        else if (item.starForce === 7) continue;
+                        result.push(item);
+                }
+                }
+                setNftData(result);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+            await axios(API_BASE_URL + "/wallet/" + user.userIdx, {
+                method: "GET",
+                headers: {
+                  Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                },
+              })
+                .then((res) => {
+                  console.log(res.data);
+                  const WalletData = res.data;
+                  setWalletAddress(WalletData.walletAddress);
+                  getTokenBalance(WalletData.walletAddress);
+                })
+                .catch((err) => console.log("Get wallet data error", err));
+    }
+
+
+    useEffect(() => {
+        async function data(){
+        await axios({
+            url: API_BASE_URL + "/auth/",
+            method: "GET",
+            headers: {
+              Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+            },
+          })
+            .then((res) => {
+              setUserData(res.data.information);
+              console.log(res.data);
+              mynft(res.data.information);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+
+        }
+        data();
+      }, [userData.userIdx]);
+
+
+    
+    //   useEffect(() => {
+    //     getTokenBalance();
+    //     console.log(tokenBalance)
+    //   }, [userData]);
+
+
     const cardEl = useRef();
     const onButtonClick = () => {
         if ( cardEl.current.style.transform === "") {
@@ -62,7 +180,7 @@ function Reinforce () {
       ];
     
     const downgradePercent = [
-       0,0, 15, 40, 65, 80, 95
+       0, 0, 15, 40, 65, 80, 95
     ];
 
 
@@ -90,6 +208,175 @@ function Reinforce () {
             }
         }, 2000)
     }
+
+// upgrade NFT
+  async function upgradeNFT() {
+    console.log(userData)
+    console.log(level)
+    const newLevel = level+1;
+    console.log(newLevel)
+    const myaddress = getAddressFrom(
+      privKey.startsWith("0x") ? privKey : "0x" + privKey
+    );
+    console.log("myaddress", myaddress);
+    if (!myaddress) {
+      handleShow6();
+      return;
+    }
+    console.log('개인키 입력이 올바름')
+    try {
+      const me = web3.eth.accounts.privateKeyToAccount(privKey);
+      web3.eth.accounts.wallet.add(me);
+      console.log(web3.eth.accounts.wallet);
+      web3.eth.defaultAccount = me.address;
+      console.log("defaultAccount_me :", web3.eth.defaultAccount);
+
+      const senderAddress = web3.eth.defaultAccount;
+      const sendMira = new web3.eth.Contract(
+        COMMON_ABI.CONTRACT_ABI.ERC_ABI,
+        "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+      );
+      // 관리자에게 미라 토큰 전송
+      const response = await sendMira.methods
+        .transfer("0x52aEdCe8c99d769C9896A518Cb5927744F5da32b", 3)
+        .send({ from: senderAddress, gas: 3000000 });
+      console.log(response);
+
+        // 토큰전송이 트루이면 가챠
+        // 성공이면 주고 받는다
+        // 실패면 유지한다
+      if (response.status === true) {
+
+        let random_num = Math.floor(Math.random()*101);
+        console.log(random_num, upgradePercent[level], downgradePercent[level])
+
+        if (random_num > upgradePercent[level]) {
+            setNewImg(nowImg)
+            handleShow2()
+            return;
+        } else {
+            setNewImg(nextImg)
+            const sendLandmarkNft = new web3.eth.Contract(
+                COMMON_ABI.CONTRACT_ABI.NFT_ABI,
+                "0xED71ceA7Ae66892792c2E3d86156B29A71a1677a"
+              );
+            // 내꺼 관리자에게로 보내기
+            const response2 = await sendLandmarkNft.methods
+            .safeTransferFrom(walletAddress, "0x52aEdCe8c99d769C9896A518Cb5927744F5da32b", nowTokenId)
+            .send({ from: senderAddress, gas: 3000000 });
+            console.log(response2);
+
+
+            const sender2 = web3.eth.accounts.privateKeyToAccount(
+                "0x474d486a4009e752f6608594385a4676ce85ffe359221b210875516c02047ab3"
+              );
+              web3.eth.accounts.wallet.add(sender2);
+              console.log(web3.eth.accounts.wallet);
+              web3.eth.defaultAccount = sender2.address;
+              const senderAddress2 = web3.eth.defaultAccount;
+
+              // 관리자꺼 나한테 보내기
+              const response3 = await sendLandmarkNft.methods
+              .safeTransferFrom(senderAddress2, walletAddress, nextTokenId)
+              .send({ from: senderAddress2, gas: 3000000 });
+              console.log(response3);
+
+                // 관리자가 가지고 있던 nft 정보를 내걸로 수정
+                // 내거를 관리자 정보로 수정
+                // 새 nft 내 mynft로
+                // 헌 nft 관리자 mynft로
+            if (response2.status === true) {
+                if (response3.status === true) {
+                    console.log(newLevel)
+                // put landmark db new nft
+                axios(API_BASE_URL + "/landmark/" + nextLandmarkIdx, {
+                  method: "PUT",
+                  params: {
+                    user_idx: userData.userIdx,
+                  },
+                  data: {
+                    sellPrice: 0,
+                    selling: 0,
+                    starForce: newLevel,
+                  },
+                  headers: {
+                    Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                  },
+                })
+                  .then((res) => {
+                    console.log(res);
+                    // put landmark db old nft
+                    axios(API_BASE_URL + "/landmark/" + nowLandmarkIdx, {
+                        method: "PUT",
+                        params: {
+                          user_idx: 1,
+                        },
+                        data: {
+                          sellPrice: 0,
+                          selling: 0,
+                          starForce: level,
+                        },
+                        headers: {
+                          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                        },
+                      })
+                      
+                    // put my new nft db
+                    axios(API_BASE_URL + "/mynft/" + nextLandmarkIdx, {
+                      method: "PUT",
+                      params: {
+                        user_idx: userData.userIdx,
+                      },
+                      headers: {
+                        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                      },
+                    })
+
+                    // put my old nft db
+                    axios(API_BASE_URL + "/mynft/" + nowLandmarkIdx, {
+                        method: "PUT",
+                        params: {
+                          user_idx: 1,
+                        },
+                        headers: {
+                          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                        },
+                      })                    
+                  })
+                  .catch((err) => console.log("Reinforce error", err));
+              } 
+            }
+            handleShow()
+        }    
+    }
+        
+    } catch (err) {
+      console.log("ERROR while Transaction", err);
+    }
+    return <div></div>;
+  }
+
+  const NextTokenId = (infoIdx, starForce, e) => {
+    e.preventDefault();
+    axios({
+        url: API_BASE_URL + "/landmark/landmarkinfoidx/" + infoIdx,
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        },
+      })
+        .then((res) => {
+            console.log(res.data[starForce])
+            setNextTokenId(res.data[starForce].tokenId);
+            setNowImg(res.data[starForce-1].imagePath)
+            setNextImg(res.data[starForce].imagePath)
+            setNowLandmarkIdx(res.data[starForce-1].landmarkIdx)
+            setNextLandmarkIdx(res.data[starForce].landmarkIdx)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }
 
     return (
         <>
@@ -158,7 +445,7 @@ function Reinforce () {
                     </div>
                 </div>
                 <div className={styles.levelbtnct}>
-                    <button className={styles.levelbtn} onClick={upgradeBtn}>강화하기</button>
+                    <button className={styles.levelbtn} onClick={tokenBalance >= 3 ? handleShow4 : handleShow5}>강화하기</button>
                 </div>
                 </>
                 }
@@ -168,13 +455,15 @@ function Reinforce () {
 
         <div className={styles.nftsCt}>
             <div className={styles.nftsImgCt}>
-                {
-                    NFT_SELECT.map((nft, index) => {
-                        return (
-                                <img alt="nft1" src={nft.nfturl} className={styles.nfturl} key={index} onClick={()=>(setAddress(nft.nfturl), setLevel(nft.level), setIdx(nft.index), setImgIndex(nft.imgindex))} />
+                {nftData.length ?
+                    nftData.map((nft, index) => {
+                            return (
+                                <img alt="nft1" src={nft.imagePath} className={styles.nfturl} key={index} onClick={(e)=>(setAddress(nft.imagePath), setNowTokenId(nft.tokenId), setLevel(nft.starForce), NextTokenId(nft.landmarkInfoIdx, nft.starForce, e))} />
                         )
                     })
-                }
+            :
+            <div className={styles.gostoreText}>NFT를 구매해보세요!</div>}
+
             </div>
         </div>
         </div>
@@ -196,7 +485,11 @@ function Reinforce () {
                 <div>
                     {level+1}강 강화에 성공했습니다!
                 </div>
-                <button className={styles.successBtn} onClick={handleClose}>확인</button>
+                <button className={styles.successBtn} onClick={() => {
+                    handleClose(),
+                    handleClose4(),
+                      navigate("/reinforce");
+                    }}>확인</button>
             </Modal.Body>
             <Modal.Footer className={styles.modalheader}></Modal.Footer>
         </Modal>
@@ -218,7 +511,11 @@ function Reinforce () {
                 <div>
                     강화에 실패했습니다. <br></br>현재 상태가 유지됩니다.
                 </div>
-                <button className={styles.successBtn} onClick={handleClose2}>확인</button>
+                <button className={styles.successBtn} onClick={() => {
+                    handleClose2(),
+                    handleClose4(),
+                      navigate("/reinforce");
+                    }}>확인</button>
             </Modal.Body>
         </Modal>
 
@@ -242,7 +539,73 @@ function Reinforce () {
                 <button className={styles.successBtn} onClick={handleClose3}>확인</button>
             </Modal.Body>
         </Modal>
+
+
+        <Modal
+        centered
+        show={show4}
+        onHide={handleClose4}
+        backdrop="static"
+        keyboard={false}
+        className={styles.modal2}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent2}>
+          <div className={styles.privKeychange}>개인키를 입력해주세요</div>
+          <div className={styles.privKeycontainer}>
+            <input
+              autoComplete="privKey"
+              name="privKey"
+              className={styles.privKeyinput}
+              placeholder="개인키"
+              onInput={(event) => {
+                setPrivKey(event.target.value);
+              }}
+            />
+            <button
+              onClick={(e) => {
+                upgradeNFT(e);
+              }}
+              className={styles.privKeybtn}>
+              강화하기
+            </button>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
+      </Modal>
+
+      <Modal
+        centered
+        show={show5}
+        onHide={handleClose5}
+        backdrop="static"
+        keyboard={false}
+        className={styles.modal2}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent3}>
+         MIRA 토큰이 부족합니다.
+         <br />
+         챌린지 인증을 통해 MIRA 토큰을 획득해보세요!
+        </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
+      </Modal>
+
+      <Modal
+        centered
+        show={show6}
+        onHide={handleClose6}
+        backdrop="static"
+        keyboard={false}
+        className={styles.modal2}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent3}>
+          개인키가 일치하지 않습니다.
+        </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
+      </Modal>
+
         </>
+
+        
     )
 }
 
