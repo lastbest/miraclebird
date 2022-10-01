@@ -46,10 +46,9 @@ public class LandmarkController {
 
     @ApiOperation(value = "새로운 랜드마크를 등록한다.", response = String.class)
     @PostMapping
-    public ResponseEntity<LandmarkDto> createLandmark(@RequestBody LandmarkDto landmarkDto, @RequestParam(value = "user_idx", required = false) Long userIdx_nouse, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
+    public ResponseEntity<LandmarkDto> createLandmark(@RequestBody LandmarkDto landmarkDto, @RequestParam("user_idx") Long userIdx) {
         LandmarkDto result = null;
         try {
-            long userIdx = userPrincipal.getId();
             result = landmarkService.createLandmark(landmarkDto, userIdx);
         }
         catch (Exception e) {
@@ -120,9 +119,8 @@ public class LandmarkController {
 
     @ApiOperation(value = "landmark_idx에 해당하는 NFT랜드마크 정보(판매/구매하는 경우)를 수정한다.", response = String.class)
     @PutMapping("/{landmark_idx}")
-    public ResponseEntity<String> updateLandmark(@PathVariable("landmark_idx") Long landmarkIdx, @RequestBody LandmarkDto landmarkDto, @RequestParam(value = "user_idx", required = false) Long userIdx_nouse, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
+    public ResponseEntity<String> updateLandmark(@PathVariable("landmark_idx") Long landmarkIdx, @RequestBody LandmarkDto landmarkDto, @RequestParam("user_idx") Long userIdx) {
         try {
-            long userIdx = userPrincipal.getId();
             landmarkDto.setLandmarkIdx(landmarkIdx);
             landmarkService.updateLandmark(landmarkDto, userIdx);
         }
