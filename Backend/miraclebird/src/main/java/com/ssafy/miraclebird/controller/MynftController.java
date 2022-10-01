@@ -31,7 +31,7 @@ public class MynftController {
     public ResponseEntity<String> createMynft(@RequestBody MynftDto mynftDto, @RequestParam(value = "user_idx", required = false) Long userIdx_nouse, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         try {
             long userIdx = userPrincipal.getId();
-            mynftService.createMynft(mynftDto, userIdx);
+            mynftService.createMynft(mynftDto, userIdx_nouse);
         }
         catch (Exception e) {
             throw new RuntimeException();
@@ -60,7 +60,7 @@ public class MynftController {
     public ResponseEntity<String> deleteMynft(@PathVariable("mynft_idx") Long mynftIdx, @RequestParam(value = "user_idx", required = false) Long userIdx_nouse, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         try {
             long userIdx = userPrincipal.getId();
-            mynftService.deleteMynft(mynftIdx, userIdx);
+            mynftService.deleteMynft(mynftIdx, userIdx_nouse);
         }
         catch (Exception e) {
             throw new RuntimeException();
