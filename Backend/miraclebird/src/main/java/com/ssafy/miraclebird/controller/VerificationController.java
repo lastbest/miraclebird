@@ -1,9 +1,18 @@
 package com.ssafy.miraclebird.controller;
 
 import com.ssafy.miraclebird.dto.VerificationDto;
+import com.ssafy.miraclebird.securityOauth.config.security.token.CurrentUser;
+import com.ssafy.miraclebird.securityOauth.config.security.token.UserPrincipal;
+import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
+import com.ssafy.miraclebird.securityOauth.domain.entity.user.UserDto;
+import com.ssafy.miraclebird.securityOauth.payload.response.ApiResponse;
+import com.ssafy.miraclebird.securityOauth.repository.user.UserRepository;
+import com.ssafy.miraclebird.securityOauth.service.auth.AuthService;
+import com.ssafy.miraclebird.service.UserService;
 import com.ssafy.miraclebird.service.VerificationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,8 +58,10 @@ public class VerificationController {
 
     @ApiOperation(value = "챌린지인증샷을 등록한다.", response = VerificationDto.class)
     @PostMapping
-    public ResponseEntity<String> createPost(@RequestBody VerificationDto verificationDto) {
+    public ResponseEntity<String> createPost(@RequestBody VerificationDto verificationDto, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         try {
+            long userIdx = userPrincipal.getId();
+            verificationDto.setUserIdx(userIdx);
             verificationService.uploadVerification(verificationDto);
         }
         catch (Exception e) {
@@ -62,24 +73,27 @@ public class VerificationController {
 
     @ApiOperation(value = "특정 챌린지 인증샷을 승인한다.", response = VerificationDto.class)
     @PutMapping("/approve/{verification_idx}")
-    public ResponseEntity<VerificationDto> approveVerification(@PathVariable("verification_idx") Long verificationIdx) throws Exception {
-        VerificationDto result = verificationService.approveVerification(verificationIdx, 1);
+    public ResponseEntity<VerificationDto> approveVerification(@PathVariable("verification_idx") Long verificationIdx, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) throws Exception {
+        long userIdx = userPrincipal.getId();
+        VerificationDto result = verificationService.approveVerification(verificationIdx, 1, userIdx);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @ApiOperation(value = "특정 챌린지 인증샷을 거절한다.", response = VerificationDto.class)
     @PutMapping("/decline/{verification_idx}")
-    public ResponseEntity<VerificationDto> declineVerification(@PathVariable("verification_idx") Long verificationIdx) throws Exception {
-        VerificationDto result = verificationService.approveVerification(verificationIdx, 2);
+    public ResponseEntity<VerificationDto> declineVerification(@PathVariable("verification_idx") Long verificationIdx, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) throws Exception {
+        long userIdx = userPrincipal.getId();
+        VerificationDto result = verificationService.approveVerification(verificationIdx, 2, userIdx);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @ApiOperation(value = "특정 챌린지 인증샷을 삭제한다.", response = VerificationDto.class)
     @DeleteMapping("/{verification_idx}")
-    public ResponseEntity deleteVerificationInfo(@PathVariable("verification_idx") Long verificationIdx, @RequestParam("user_idx") Long userIdx) throws Exception {
+    public ResponseEntity deleteVerificationInfo(@PathVariable("verification_idx") Long verificationIdx, @RequestParam(value = "user_idx",required = false) Long userIdx_no_use, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) throws Exception {
         try {
+            long userIdx = userPrincipal.getId();
             verificationService.deleteVerificationInfo(verificationIdx, userIdx);
         } catch (Exception e){
             throw new RuntimeException();
