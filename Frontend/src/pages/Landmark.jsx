@@ -5,7 +5,7 @@ import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import axios from "axios";
 import optionsJSON from "./options.json";
 import Modal from "react-bootstrap/Modal";
-import { Loading } from "../components/Base/Loading";
+import { Loading1 } from "../components/Base/Loading1";
 
 function Landmark() {
   const [si, setSi] = useState("지역");
@@ -208,7 +208,11 @@ function Landmark() {
           {options}
         </select>
       </div>
-      {loading ? <Loading /> : <div className={styles.container}>{nftMap}</div>}
+      {loading ? (
+        <Loading1 />
+      ) : (
+        <div className={styles.container}>{nftMap}</div>
+      )}
 
       <Modal
         centered
