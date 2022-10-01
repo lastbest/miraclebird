@@ -288,8 +288,8 @@ function Reinforce () {
             if (response2.status === true) {
                 if (response3.status === true) {
                     console.log(newLevel)
-                // put landmark db new nft
-                axios(API_BASE_URL + "/landmark/" + nextLandmarkIdx, {
+                // put landmark db new nft & old nft
+                axios(API_BASE_URL + "/landmark/" + nowLandmarkIdx, {
                   method: "PUT",
                   params: {
                     user_idx: userData.userIdx,
@@ -305,22 +305,6 @@ function Reinforce () {
                 })
                   .then((res) => {
                     console.log(res);
-                    // put landmark db old nft
-                    axios(API_BASE_URL + "/landmark/" + nowLandmarkIdx, {
-                        method: "PUT",
-                        params: {
-                          user_idx: 1,
-                        },
-                        data: {
-                          sellPrice: 0,
-                          selling: 0,
-                          starForce: level,
-                        },
-                        headers: {
-                          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-                        },
-                      })
-                      
                     // put my new nft db
                     axios(API_BASE_URL + "/mynft/" + nextLandmarkIdx, {
                       method: "PUT",
