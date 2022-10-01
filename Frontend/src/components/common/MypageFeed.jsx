@@ -14,26 +14,24 @@ function MypageFeed(props) {
   useEffect(() => {
     var startdate = seasonInfo[0].startDate + "_00:00:00.000";
     var enddate = seasonInfo[0].endDate + "_23:59:59.000";
-    setChallengeMap(props.data);
-    // axios({
-    //   url: API_BASE_URL + "/verification/heatmap/" + props.userData.userIdx,
-    //   method: "GET",
-    //   headers: {
-    //     Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-    //   },
-    //   params: {
-    //     start_date: startdate,
-    //     end_date: enddate,
-    //   },
-    // })
-    //   .then((res) => {
-    //     setChallengeData(res.data);
-    //     console.log('feed',challengeData)
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-  }, [props.userData]);
+    axios({
+      url: API_BASE_URL + "/verification/heatmap/" + props.userData.userIdx,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+      params: {
+        start_date: startdate,
+        end_date: enddate,
+      },
+    })
+      .then((res) => {
+        setChallengeData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   let [idx, setIdx] = useState(0);
   const [show, setShow] = useState(false);
@@ -47,8 +45,8 @@ function MypageFeed(props) {
       temp.push(<img src={item.selfie} className={styles.feedImg} />);
     }
     setChallengeMap(temp);
-  }, []);
-  console.log("map", challengeMap);
+  }, [challengeData]);
+
   return (
     <>
       <select
