@@ -74,7 +74,7 @@ public class WalletController {
     public ResponseEntity<String> deleteWallet(@PathVariable("wallet_idx") Long walletIdx, @RequestParam(value = "user_idx", required = false) Long userIdx_nouse, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         try {
             long userIdx = userPrincipal.getId();
-            walletService.deleteWallet(walletIdx, userIdx);
+            walletService.deleteWallet(walletIdx, userIdx_nouse);
         }
         catch (Exception e) {
             throw new RuntimeException();
