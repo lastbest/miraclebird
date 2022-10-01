@@ -1,9 +1,12 @@
 package com.ssafy.miraclebird.controller;
 
 import com.ssafy.miraclebird.dto.VerificationLikeDto;
+import com.ssafy.miraclebird.securityOauth.config.security.token.CurrentUser;
+import com.ssafy.miraclebird.securityOauth.config.security.token.UserPrincipal;
 import com.ssafy.miraclebird.service.VerificationLikeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,8 +69,9 @@ public class VerificationLikeController {
 
     @ApiOperation(value = "특정 게시물에 좋아요를 누른다.", response = VerificationLikeDto.class)
     @PostMapping("/{verification_idx}")
-    public ResponseEntity<String> createVerificationLike(@PathVariable("verification_idx") Long verificationIdx, @RequestParam("user_idx") Long userIdx) {
+    public ResponseEntity<String> createVerificationLike(@PathVariable("verification_idx") Long verificationIdx, @RequestParam(value = "user_idx", required = false) Long userIdx_nouse, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         try{
+            long userIdx = userPrincipal.getId();
             verificationLikeService.createVerificationLike(verificationIdx, userIdx);
         }
         catch (Exception e) {
@@ -79,8 +83,9 @@ public class VerificationLikeController {
 
     @ApiOperation(value = "특정 게시물에 좋아요를 취소한다.", response = VerificationLikeDto.class)
     @DeleteMapping("/{verification_idx}")
-    public ResponseEntity<String> removeVerificationLike(@PathVariable("verification_idx") Long verificationIdx, @RequestParam("user_idx") Long userIdx) {
+    public ResponseEntity<String> removeVerificationLike(@PathVariable("verification_idx") Long verificationIdx, @RequestParam(value = "user_idx", required = false) Long userIdx_nouse, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         try{
+            long userIdx = userPrincipal.getId();
             verificationLikeService.deleteVerificationLike(verificationIdx, userIdx);
         }
         catch (Exception e) {

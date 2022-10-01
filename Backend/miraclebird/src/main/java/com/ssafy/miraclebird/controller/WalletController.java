@@ -2,9 +2,12 @@ package com.ssafy.miraclebird.controller;
 
 import com.ssafy.miraclebird.dto.WalletDto;
 import com.ssafy.miraclebird.entity.Wallet;
+import com.ssafy.miraclebird.securityOauth.config.security.token.CurrentUser;
+import com.ssafy.miraclebird.securityOauth.config.security.token.UserPrincipal;
 import com.ssafy.miraclebird.service.WalletService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -68,8 +71,9 @@ public class WalletController {
 
     @ApiOperation(value = "wallet_idx에 해당하는 지갑 정보를 삭제한다.", response = String.class)
     @DeleteMapping("/{wallet_idx}")
-    public ResponseEntity<String> deleteWallet(@PathVariable("wallet_idx") Long walletIdx, @RequestParam("user_idx") Long userIdx) {
+    public ResponseEntity<String> deleteWallet(@PathVariable("wallet_idx") Long walletIdx, @RequestParam(value = "user_idx", required = false) Long userIdx_nouse, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         try {
+            long userIdx = userPrincipal.getId();
             walletService.deleteWallet(walletIdx, userIdx);
         }
         catch (Exception e) {

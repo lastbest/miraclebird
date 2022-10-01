@@ -1,9 +1,12 @@
 package com.ssafy.miraclebird.controller;
 
+import com.ssafy.miraclebird.securityOauth.config.security.token.CurrentUser;
+import com.ssafy.miraclebird.securityOauth.config.security.token.UserPrincipal;
 import com.ssafy.miraclebird.securityOauth.domain.entity.user.UserDto;
 import com.ssafy.miraclebird.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,11 +41,11 @@ public class UserController {
 
     @ApiOperation(value = "user_idx에 해당하는 유저 정보를 수정한다.", response = UserDto.class)
     @PutMapping("/{user_idx}")
-    public ResponseEntity<UserDto> updateUserInfo(@PathVariable("user_idx") Long userIdx, @RequestParam("name") String name) {
-
+    public ResponseEntity<UserDto> updateUserInfo(@PathVariable("user_idx") Long userIdx_nouse, @RequestParam("name") String name, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         UserDto result = null;
 
         try {
+            long userIdx = userPrincipal.getId();
             result = userService.updateUserInfo(userIdx, name);
         } catch (Exception e) {
             throw new RuntimeException();
@@ -53,8 +56,9 @@ public class UserController {
 
     @ApiOperation(value = "user_idx에 해당하는 유저 정보를 삭제한다.", response = String.class)
     @DeleteMapping("/{user_idx}")
-    public ResponseEntity<String> deleteUser(@PathVariable("user_idx") Long userIdx) {
+    public ResponseEntity<String> deleteUser(@PathVariable("user_idx") Long userIdx_nouse, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         try {
+            long userIdx = userPrincipal.getId();
             //userService.deleteUser(userIdx);
         }
         catch (Exception e) {

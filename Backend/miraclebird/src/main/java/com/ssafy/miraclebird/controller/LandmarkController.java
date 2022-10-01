@@ -3,10 +3,13 @@ package com.ssafy.miraclebird.controller;
 import com.ssafy.miraclebird.dto.LandmarkDto;
 import com.ssafy.miraclebird.dto.PostDto;
 import com.ssafy.miraclebird.entity.Landmark;
+import com.ssafy.miraclebird.securityOauth.config.security.token.CurrentUser;
+import com.ssafy.miraclebird.securityOauth.config.security.token.UserPrincipal;
 import com.ssafy.miraclebird.service.LandmarkService;
 import com.ssafy.miraclebird.service.PostService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,10 +46,10 @@ public class LandmarkController {
 
     @ApiOperation(value = "새로운 랜드마크를 등록한다.", response = String.class)
     @PostMapping
-    public ResponseEntity<LandmarkDto> createLandmark(@RequestBody LandmarkDto landmarkDto, @RequestParam("user_idx") Long userIdx) {
+    public ResponseEntity<LandmarkDto> createLandmark(@RequestBody LandmarkDto landmarkDto, @RequestParam(value = "user_idx", required = false) Long userIdx_nouse, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         LandmarkDto result = null;
-
         try {
+            long userIdx = userPrincipal.getId();
             result = landmarkService.createLandmark(landmarkDto, userIdx);
         }
         catch (Exception e) {
@@ -117,8 +120,9 @@ public class LandmarkController {
 
     @ApiOperation(value = "landmark_idx에 해당하는 NFT랜드마크 정보(판매/구매하는 경우)를 수정한다.", response = String.class)
     @PutMapping("/{landmark_idx}")
-    public ResponseEntity<String> updateLandmark(@PathVariable("landmark_idx") Long landmarkIdx, @RequestBody LandmarkDto landmarkDto, @RequestParam("user_idx") Long userIdx) {
+    public ResponseEntity<String> updateLandmark(@PathVariable("landmark_idx") Long landmarkIdx, @RequestBody LandmarkDto landmarkDto, @RequestParam(value = "user_idx", required = false) Long userIdx_nouse, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         try {
+            long userIdx = userPrincipal.getId();
             landmarkDto.setLandmarkIdx(landmarkIdx);
             landmarkService.updateLandmark(landmarkDto, userIdx);
         }
