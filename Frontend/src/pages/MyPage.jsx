@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 import { login } from "../store/user";
 import Web3 from "web3";
 import { Loading1 } from "../components/Base/Loading1";
+import { Loading2 } from "../components/Base/Loading2";
 
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import axios from "axios";
@@ -443,7 +444,7 @@ function MyPage() {
   return (
     <>
       {loading1 ? (
-        <Loading1 />
+        <Loading2 />
       ) : (
         <>
           <div className={styles.btns}>

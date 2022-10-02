@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./Community.module.css";
 import PostMain from "./PostMain";
 import { useNavigate } from "react-router-dom";
-import { Loading } from "../Base/Loading";
+import { Loading2 } from "../Base/Loading2";
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 
 function Community() {
@@ -34,7 +34,7 @@ function Community() {
   return (
     <>
       {loading ? (
-        <Loading />
+        <Loading2 />
       ) : (
         <>
           <div className={styles.header}>
