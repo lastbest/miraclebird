@@ -267,7 +267,9 @@
 
 .gostoreText {
   text-align: center;
-  /* margin: auto; */
+  width:90%;
+    flex: 1;
+    margin: auto;
 }
 
 .nftsCt2 {
