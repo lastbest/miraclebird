@@ -464,12 +464,12 @@ function Reinforce() {
           </div>
         </div>
 
-
+        <div className={styles.nftsCt}>
+          <div className={styles.nftsImgCt}>
             {nftData.length ? (
               nftData.map((nft, index) => {
                 return (
-                  <div className={styles.nftsCt}>
-                    <div className={styles.nftsImgCt}>
+
                       <img
                         alt="nft1"
                         src={nft.imagePath}
@@ -482,8 +482,7 @@ function Reinforce() {
                           NextTokenId(nft.landmarkInfoIdx, nft.starForce, e)
                         )}
                       />
-                    </div>
-                  </div>
+
                 );
               })
             ) : (
@@ -499,6 +498,8 @@ function Reinforce() {
               </div>
               </>
             )}
+          </div>
+        </div>
 
       </div>
 

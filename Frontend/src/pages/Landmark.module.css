@@ -163,6 +163,7 @@
 
 .modalcontent {
   font-family: 'neodgm';
+  text-align: center;
 }
 
 .closeBtn {
@@ -179,4 +180,32 @@
 
 .text1 {
   font-size: 12px;
+}
+
+.privKeychange {
+  margin-bottom: 5px;
+}
+
+.privKeybtn {
+  margin-left: 10px;
+  border: none;
+  background-color: #ffe969 ;
+  color:black;
+  border-radius: 20px;
+  padding:5px;
+}
+
+.buyBtn2 {
+  border: none;
+  color: gray;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.modalcontent3 {
+  font-family: 'neodgm';
+}
+
+.modalcontent2 {
+  height:300px;
 }
