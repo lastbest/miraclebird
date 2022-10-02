@@ -5,7 +5,7 @@ import styles from "./LineChart.module.css";
 import { current } from "@reduxjs/toolkit";
 import axios from "axios";
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
-
+import { BrowserView, MobileView } from "react-device-detect";
 const LineChart = ({ data }) => {
   const [landmarkPriceData, setLandmarkPriceData] = useState("");
 
@@ -141,13 +141,24 @@ const LineChart = ({ data }) => {
 
   return (
     <div className={styles.chart}>
-      {len >= 1 ? (
-        <svg ref={svgRef} className={styles.svg} />
-      ) : (
-        <div className={styles.nonePrice}>
-          <div className={styles.nonePriceText}>거래 내역이 없습니다.</div>
-        </div>
-      )}
+      <BrowserView>
+        {len >= 1 ? (
+          <svg ref={svgRef} className={styles.svg} />
+        ) : (
+          <div className={styles.nonePrice}>
+            <div className={styles.nonePriceText}>거래 내역이 없습니다.</div>
+          </div>
+        )}
+      </BrowserView>
+      <MobileView>
+        {len >= 1 ? (
+          <svg ref={svgRef} className={styles.svgmobile} />
+        ) : (
+          <div className={styles.nonePrice}>
+            <div className={styles.nonePriceText}>거래 내역이 없습니다.</div>
+          </div>
+        )}
+      </MobileView>
 
       <table className={styles.table}>
         <thead>
