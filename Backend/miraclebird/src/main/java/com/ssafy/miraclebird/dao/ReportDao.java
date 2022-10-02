@@ -9,4 +9,5 @@ public interface ReportDao {
     List<Report> getReportALL();
     Report getReportById(long reportIdx);
     void saveReport(Report report) throws Exception;
+    void deleteReport(long reportIdx) throws Exception;
 }
