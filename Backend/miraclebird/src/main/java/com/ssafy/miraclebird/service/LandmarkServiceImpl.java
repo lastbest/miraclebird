@@ -183,6 +183,21 @@ public class LandmarkServiceImpl implements LandmarkService {
             landmarkEntity.setSelling(false);
             landmarkEntity.setUser(userDao.getUserById(userIdx));
             landmarkDao.saveLandmark(landmarkEntity);
+            System.out.println("///////////////////////////////////////////////////1번");
+
+            List<Landmark> landmarkList = landmarkDao.getLandmarkAllByLandmarkInfoIdx(landmarkEntity.getLandmarkInfo().getLandmarkInfoIdx());
+            System.out.println("///////////////////////////////////////////////////2번");
+
+            for (Landmark landmark : landmarkList) {
+                System.out.println("///////////////////////////////////////////////////3번");
+
+                landmark.setSellPrice(landmarkEntity.getSellPrice());
+                System.out.println("///////////////////////////////////////////////////4번");
+
+                landmarkDao.saveLandmark(landmark);
+                System.out.println("///////////////////////////////////////////////////5번");
+
+            }
         }
         else if (landmarkEntity.getUser().getUserIdx() == userIdx && landmarkEntity.getStarForce() != landmarkDto.getStarForce()) {
             landmarkEntity.setSelling(false);
