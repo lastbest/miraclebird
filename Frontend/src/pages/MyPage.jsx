@@ -68,7 +68,6 @@ function MyPage() {
       })
         .then((res) => {
           setUserData(res.data.information);
-          console.log(res.data);
           setLoading1(true);
           axios({
             url: API_BASE_URL + "/wallet/" + res.data.information.userIdx,
@@ -79,7 +78,6 @@ function MyPage() {
           })
             .then((res) => {
               setWallet(res.data);
-              console.log(wallet);
             })
             .catch((error) => {
               console.log(error);
@@ -103,7 +101,6 @@ function MyPage() {
     })
       .then((res) => {
         setKeepDate(res.data);
-        // console.log('keep',keepDate)
       })
       .catch((error) => {
         console.log(error);
@@ -111,7 +108,6 @@ function MyPage() {
   }, [userData]);
 
   useEffect(() => {
-    console.log("userDate", userData);
 
     var startdate = seasonInfo[season - 1].startDate + "_00:00:00.000";
     var enddate = seasonInfo[season - 1].endDate + "_23:59:59.000";
@@ -136,7 +132,6 @@ function MyPage() {
   }, [userData]);
 
   useEffect(() => {
-    console.log("userDate", userData);
 
     var startdate = seasonInfo[season - 1].startDate + "_00:00:00.000";
     var enddate = seasonInfo[season - 1].endDate + "_23:59:59.000";
@@ -168,7 +163,6 @@ function MyPage() {
   }, [userData]);
 
   useEffect(() => {
-    console.log("challengeData", challengeData);
     const tempChallengeMap = {
       values: [],
     };
@@ -182,7 +176,7 @@ function MyPage() {
         "-" +
         challengeData[0].regtime[2];
     }
-    console.log(pre);
+
     for (var i = 1; i < challengeData.length; i++) {
       var now =
         challengeData[i].regtime[0] +
@@ -203,10 +197,6 @@ function MyPage() {
     }
     setChallengeMap(tempChallengeMap);
   }, [challengeData]);
-
-  // useEffect(() => {
-  //   console.log("wallet", wallet);
-  // }, [wallet]);
 
   // my nft
   useEffect(() => {
@@ -239,7 +229,6 @@ function MyPage() {
   }, [userData]);
 
   useEffect(() => {
-    console.log("nftData", nftData);
     var result = [];
     for (var i = 0; i < nftData.length; i++) {
       var item = nftData[i];
@@ -294,7 +283,6 @@ function MyPage() {
   }, [nftData]);
 
   useEffect(() => {
-    console.log("season", season);
   }, [season]);
 
   // SSAFY Network
@@ -314,7 +302,6 @@ function MyPage() {
       .balanceOf(wallet.walletAddress)
       .call();
     setTokenBalance(response);
-    console.log(response);
   }
 
   useEffect(() => {
@@ -326,14 +313,12 @@ function MyPage() {
     const address = getAddressFrom(
       privKey.startsWith("0x") ? privKey : "0x" + privKey
     );
-    console.log("address", address);
+
     if (!address) return;
     try {
       const sender = web3.eth.accounts.privateKeyToAccount(privKey);
       web3.eth.accounts.wallet.add(sender);
-      console.log(web3.eth.accounts.wallet);
       web3.eth.defaultAccount = sender.address;
-      console.log("defaultAccount :", web3.eth.defaultAccount);
 
       const senderAddress = web3.eth.defaultAccount;
       const approveNft = new web3.eth.Contract(
@@ -345,7 +330,6 @@ function MyPage() {
       const response = await approveNft.methods
         .approve("0x52aEdCe8c99d769C9896A518Cb5927744F5da32b", sellTokenId)
         .send({ from: senderAddress, gas: 3000000 });
-      console.log(response);
 
       // db에 가격 변경 및 selling 여부 변경
       axios(API_BASE_URL + "/landmark/" + sellLandmarkIdx, {
@@ -363,7 +347,6 @@ function MyPage() {
         },
       })
         .then((res) => {
-          console.log(res);
           handleClose0();
           handleShow7();
         })
@@ -390,7 +373,6 @@ function MyPage() {
   };
   const handleShow3 = (idx) => {
     
-    console.log(idx)
     axios(API_BASE_URL + "/landmark/" + idx, {
       method: "GET",
       headers: {
@@ -398,7 +380,6 @@ function MyPage() {
       },
     })
       .then((res) => {
-        console.log(res);
         setSellLandmarkIdx(idx);
         setSellStarForce(res.data.starForce);
         setSellTokenId(res.data.tokenId);
@@ -621,9 +602,7 @@ function MyPage() {
                     e.preventDefault();
                     var web3 = new Web3(BLOCKCHAIN_URL);
                     var privateKey = web3.eth.accounts.create();
-                    // console.log(privateKey);
-                    // console.log(userData);
-                    // console.log(privateKey.address);
+
                     axios({
                       url: API_BASE_URL + "/wallet",
                       method: "post",
@@ -734,7 +713,6 @@ function MyPage() {
                     name: write,
                   },
                 }).then((res) => {
-                  console.log(res.data);
                 });
                 document.location.href = "/mypage";
               }}
@@ -776,8 +754,6 @@ function MyPage() {
             />
             <button
               onClick={(e) => {
-                console.log(sell);
-                console.log(sellTokenId);
                 handleShow0();
                 selling(e);
               }}
@@ -809,7 +785,6 @@ function MyPage() {
             />
             <button
               onClick={() => {
-                console.log(sell);
                 handleClose4(false);
               }}
               className={styles.sellbtn}>
@@ -837,7 +812,6 @@ function MyPage() {
               onClick={() => {
                 localStorage.removeItem("accessToken");
                 localStorage.removeItem("refreshToken");
-                console.log(document.cookie);
                 dispatch(login(null));
                 removeCookie("refreshToken", { path: "/" });
                 handleClose5();
