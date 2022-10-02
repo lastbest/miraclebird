@@ -11,8 +11,10 @@ import Marquee from "react-fast-marquee";
 import Web3 from "web3";
 import COMMON_ABI from "../common/ABI";
 import getAddressFrom from "../util/AddressExtractor";
+import {useNavigate} from "react-router-dom";
 
 function Landmark() {
+  const navigate = useNavigate();
   const [si, setSi] = useState("지역");
   const [gu, setGu] = useState("구역");
   const [filter, setFilter] = useState("");
@@ -546,9 +548,12 @@ function Landmark() {
         backdrop="static"
         keyboard={false}
         className={styles.modal2}>
-        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
-        <Modal.Body className={styles.modalcontent3}>
+        <Modal.Header className={styles.modalheader}></Modal.Header>
+        <Modal.Body className={styles.modalcontent4}>
           구매가 완료되었습니다. 마이페이지를 확인하세요!
+          <div className={styles.modalbtn}>
+            <button onClick={()=>(document.location.reload())} className={styles.closeButton}>닫기</button>
+          </div>
         </Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>

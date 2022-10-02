@@ -77,6 +77,7 @@
 .front, .back {
   width: 100%; 
   height:100%;
+  background-color: white;
   backface-visibility: hidden;
 }
 
@@ -216,4 +217,21 @@
 .nftTitletext {
   /* width: 50%; */
   color:black;
+}
+
+.closeButton {
+  color:black;
+  background-color: #d9d9d9;
+  border-radius: 15px;
+  border:none;
+  margin-right:10px;
+}
+.modalbtn {
+  text-align: right;
+}
+
+.modalcontent4 {
+  font-family: 'neodgm';
+  display: flex;
+  flex-direction: column;
 }
