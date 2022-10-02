@@ -1,3 +1,6 @@
+.postContainer{
+  padding-bottom: 100px;
+}
 .post_view_wrapper {
     width: 80%;
     margin: auto;
@@ -34,6 +37,8 @@
 
 .postInfoName {
   color:gray;
+  font-size: 12px;
+  margin: px;
 }
 
 .postInfoName img {
@@ -112,4 +117,70 @@
   width:20px;
   height:20px;
   margin-right:5px;
+  margin-bottom: 10px;
+}
+.title {
+  width: 80%;
+  height: 40px;
+  margin: auto;
+  font-family: "neodgm";
+  border-radius: 5px;
+  border: 2px solid lightgray;
+}
+.writebtn{
+    border: none;
+      border-radius: 15px;
+      background-color: #ffe969;;
+      font-family: 'neodgm';
+      font-size: 18px;
+      padding: 4px;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      color: ffe969;
+}
+.commentTime {
+  color:gray;
+  font-size: 12px;
+  margin-top: 5px;
+
+    
+}
+.updatebtn {
+  float: right;
+  border: none;
+  border-radius: 10px;
+  background-color: #ffe969;
+
+  font-family: 'neodgm';
+  font-size: 14px;
+  padding: 2px;
+  margin: 5px;
+  color: ffe969;
+}
+.deletebtn {
+  border: none;
+  border-radius: 10px;
+  background-color: lightgray;
+  
+  font-family: 'neodgm';
+  font-size: 14px;
+  padding: 2px;
+  margin: 5px;
+  color: ffe969;
+}
+.commentContent{
+  width: 100%;
+}
+.commentWriter{
+}
+.comment{
+  border-bottom: solid 1px lightgray;
+}
+.commentFooter{
+    display: flex;
+      justify-content: space-between;
+}
+.commentImg{
+  margin-top: 2px;
+  margin-right: 3px;
 }

@@ -106,7 +106,7 @@ function UpdatePost() {
             }).then((res) => {
               console.log(res.data);
             });
-            navigate("/community");
+            document.location.href = "/community";
           }}>
           수정하기
         </button>
