@@ -267,12 +267,10 @@ function MyPage() {
                   </button>
                   <button
                     className={styles.btnSell}
+                    id={item.landmarkIdx}
                     onClick={(e) =>
                       handleShow3(
-                        item.tokenId,
-                        item.starForce,
-                        item.landmarkIdx,
-                        e
+                        e.target.id
                       )
                     }>
                     판매
@@ -390,13 +388,25 @@ function MyPage() {
   const selling = (e) => {
     ApproveItem();
   };
-  const handleShow3 = (tokenId, starForce, landmarkIdx, e) => {
-    e.preventDefault();
-    setShow3(true);
-    setSellTokenId(tokenId);
-    setSellStarForce(starForce);
-    setSellLandmarkIdx(landmarkIdx);
+  const handleShow3 = (idx) => {
+    
+    console.log(idx)
+    axios(API_BASE_URL + "/landmark/" + idx, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        setSellLandmarkIdx(idx);
+        setSellStarForce(res.data.starForce);
+        setSellTokenId(res.data.tokenId);
+        setShow3(true);
+      })
+      .catch((err) => console.log("Get landmark error", err));
   };
+  
   const [show4, setShow4] = useState(false);
   const handleClose4 = () => setShow4(false);
   const handleShow4 = () => setShow4(true);
