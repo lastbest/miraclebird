@@ -193,8 +193,6 @@ function MyPage() {
     if (challengeData.length != 0) {
       tempChallengeMap.values.push({ date: pre, count: count });
     }
-    console.log(tempChallengeMap);
-    console.log(SEOSON_SELECT[0]);
     setChallengeMap(tempChallengeMap);
   }, [challengeData]);
 
@@ -435,55 +433,6 @@ function MyPage() {
     reader.readAsDataURL(e.target.files[0]);
   };
 
-  const SEOSON_SELECT = [
-    {
-      values: [
-        { date: "2022-09-03", count: 1 },
-        { date: "2022-09-04", count: 2 },
-        { date: "2022-09-05", count: 3 },
-        { date: "2022-09-08", count: 1 },
-        { date: "2022-09-09", count: 2 },
-        { date: "2022-09-10", count: 3 },
-        { date: "2022-09-11", count: 2 },
-        { date: "2022-09-12", count: 1 },
-        { date: "2022-09-13", count: 3 },
-      ],
-    },
-    {
-      values: [
-        { date: "2022-10-03", count: 1 },
-        { date: "2022-10-04", count: 2 },
-        { date: "2022-10-05", count: 3 },
-        { date: "2022-10-08", count: 1 },
-        { date: "2022-10-09", count: 2 },
-        { date: "2022-10-10", count: 3 },
-        { date: "2022-10-11", count: 2 },
-        { date: "2022-10-12", count: 1 },
-        { date: "2022-10-13", count: 3 },
-        { date: "2022-10-14", count: 1 },
-        { date: "2022-10-16", count: 2 },
-        { date: "2022-10-17", count: 2 },
-      ],
-    },
-    {
-      values: [
-        { date: "2022-11-03", count: 1 },
-        { date: "2022-11-04", count: 2 },
-        { date: "2022-11-05", count: 3 },
-        { date: "2022-11-08", count: 1 },
-        { date: "2022-11-11", count: 2 },
-        { date: "2022-11-12", count: 1 },
-        { date: "2022-11-13", count: 3 },
-        { date: "2022-11-14", count: 1 },
-        { date: "2022-11-16", count: 2 },
-        { date: "2022-11-17", count: 2 },
-        { date: "2022-11-20", count: 1 },
-        { date: "2022-11-21", count: 2 },
-        { date: "2022-11-22", count: 1 },
-        { date: "2022-11-23", count: 3 },
-      ],
-    },
-  ];
 
   return (
     <>
@@ -492,7 +441,7 @@ function MyPage() {
       ) : (
         <>
           <div className={styles.btns}>
-            {userData.name === "김관리" ? (
+            {userData.name === "관리자" ? (
               <button
                 className={styles.adminpage}
                 onClick={() => navigate("/admin")}>

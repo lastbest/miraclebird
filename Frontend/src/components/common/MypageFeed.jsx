@@ -39,14 +39,32 @@ function MypageFeed(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [approveCount, setApproveCount] = useState(0);
+  const [refuseCount, setRefuseCount] = useState(0);
+  const [waitCount, setWaitCount] = useState(0);
 
   useEffect(() => {
     var temp = [];
+    var approveCount = 0;
+    var refuseCount = 0 ;
+    var waitCount = 0
+
     for (var i = 0; i < challengeData.length; i++) {
       var item = challengeData[i];
       temp.push(<img src={item.selfie} className={styles.feedImg} />);
+      if ( challengeData[i].approval === 0 ) {
+        waitCount += 1
+      } else if ( challengeData[i].approval === 1 ) {
+        approveCount += 1
+      } else if ( challengeData[i].approval === 2 ) {
+        refuseCount += 1
+      }
     }
+
     setChallengeMap(temp);
+    setApproveCount(approveCount);
+    setRefuseCount(refuseCount);
+    setWaitCount(waitCount);
   }, [challengeData]);
 
   return (
@@ -99,6 +117,28 @@ function MypageFeed(props) {
         className={styles.dialog}>
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.body}>
+          <table className={styles.table}>
+            <thead className={styles.tableHead}>
+              <tr>
+                <th className={styles.tableRight}>승인 완료</th>
+                <th className={styles.tableRight}>승인 거절</th>
+                <th>승인 대기</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className={styles.tableRight}>
+                  {approveCount}
+                </td>
+                <td className={styles.tableRight}>
+                  {refuseCount}
+                </td>
+                <td>
+                  {waitCount}
+                </td>
+              </tr>
+            </tbody>
+          </table>
           <div className={styles.modalcontent}>
             {challengeMap}
           </div>
