@@ -112,8 +112,8 @@ function MyPage() {
   useEffect(() => {
     console.log("userDate", userData);
 
-    var startdate = seasonInfo[season-1].startDate + "_00:00:00.000";
-    var enddate = seasonInfo[season-1].endDate + "_23:59:59.000";
+    var startdate = seasonInfo[season - 1].startDate + "_00:00:00.000";
+    var enddate = seasonInfo[season - 1].endDate + "_23:59:59.000";
 
     axios({
       url: API_BASE_URL + "/verification/heatmap/" + userData.userIdx,
@@ -137,8 +137,8 @@ function MyPage() {
   useEffect(() => {
     console.log("userDate", userData);
 
-    var startdate = seasonInfo[season-1].startDate + "_00:00:00.000";
-    var enddate = seasonInfo[season-1].endDate + "_23:59:59.000";
+    var startdate = seasonInfo[season - 1].startDate + "_00:00:00.000";
+    var enddate = seasonInfo[season - 1].endDate + "_23:59:59.000";
 
     axios({
       url: API_BASE_URL + "/verification/heatmap/" + userData.userIdx,
@@ -433,7 +433,6 @@ function MyPage() {
     reader.readAsDataURL(e.target.files[0]);
   };
 
-
   return (
     <>
       {loading1 ? (
@@ -531,16 +530,13 @@ function MyPage() {
                   }
                   return `color-scale-${value.count >= 4 ? 4 : value.count}`;
                 }}
-
                 tooltipDataAttrs={(value) => {
-                    if (!value || !value.date) {
+                  if (!value || !value.date) {
                     return null;
-                    }
-                    return {
-                    "data-tip": `${value.date} 인증 횟수: ${
-                        value.count
-                    }`,
-                    };
+                  }
+                  return {
+                    "data-tip": `${value.date} 인증 횟수: ${value.count}`,
+                  };
                 }}
               />
               <ReactTooltip className={styles.tooltip} />
@@ -844,7 +840,7 @@ function MyPage() {
         <Modal.Body className={styles.modalcontent5} closeButton>
           탈퇴 시 사용자의 지갑도 함께 삭제됩니다.
           <br />
-          탈퇴하겠습니까
+          탈퇴하시겠습니까?
           <div className={styles.btnCt}>
             <button className={styles.backbtn} onClick={() => handleClose5()}>
               돌아가기
@@ -858,9 +854,6 @@ function MyPage() {
                   headers: {
                     Authorization: "Bearer " + NOW_ACCESS_TOKEN,
                   },
-                  params: {
-                    user_idx: userData.userIdx,
-                  },
                 })
                   .then((res) => {
                     setWallet(res.data);
@@ -869,19 +862,19 @@ function MyPage() {
                     console.log(error);
                   });
 
-                // axios({
-                //   url: API_BASE_URL + "/auth/",
-                //   method: "delete",
-                //   headers: {
-                //     Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-                //   },
-                // })
-                //   .then((res) => {
-                //     setWallet(res.data);
-                //   })
-                //   .catch((error) => {
-                //     console.log(error);
-                //   });
+                axios({
+                  url: API_BASE_URL + "/user/" + userData.userIdx,
+                  method: "delete",
+                  headers: {
+                    Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                  },
+                })
+                  .then((res) => {
+                    console.log("회원삭제");
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
 
                 // localStorage.removeItem("accessToken");
                 // localStorage.removeItem("refreshToken");
