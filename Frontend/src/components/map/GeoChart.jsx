@@ -469,6 +469,7 @@ function GeoChart({ data }) {
     );
     console.log("address", address);
     if (!address) {
+      handleClose0();
       handleShow3();
       return;
     }

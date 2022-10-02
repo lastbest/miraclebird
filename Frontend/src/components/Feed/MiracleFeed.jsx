@@ -55,6 +55,7 @@ function MiracleFeed() {
     for (var i = 0; i < challengeData.length; i++) {
       var item = challengeData[i];
       if (item.challengeIdx != 1 || !item.share) continue;
+      if (item.approval != 1) continue;
       temp.push(
         <div className={styles.feed} key={item.verificationIdx}>
           <img
