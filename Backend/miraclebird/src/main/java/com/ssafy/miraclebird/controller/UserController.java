@@ -41,12 +41,14 @@ public class UserController {
 
     @ApiOperation(value = "user_idx에 해당하는 유저 정보를 수정한다.", response = UserDto.class)
     @PutMapping("/{user_idx}")
-    public ResponseEntity<UserDto> updateUserInfo(@PathVariable("user_idx") Long userIdx_nouse, @RequestParam("name") String name, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
+    public ResponseEntity<UserDto> updateUserInfo(@PathVariable("user_idx") Long userIdx_nouse, @RequestParam(value = "name",required = false) String name, @RequestParam(value = "image_url",required = false) String imageUrl, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         UserDto result = null;
 
         try {
+            if(imageUrl == "") System.out.println("공백");
+            if(imageUrl == null) System.out.println("널");
             long userIdx = userPrincipal.getId();
-            result = userService.updateUserInfo(userIdx, name);
+            result = userService.updateUserInfo(userIdx, name, imageUrl);
         } catch (Exception e) {
             throw new RuntimeException();
         }
@@ -68,7 +70,7 @@ public class UserController {
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 
-        @ApiOperation(value = "user_idx에 해당하는 유저를 블랙리스트로 지정한다.", response = String.class)
+    @ApiOperation(value = "user_idx에 해당하는 유저를 블랙리스트로 지정한다.", response = String.class)
     @PutMapping("/blacklist")
     public ResponseEntity<String> updateUserBlacklist(@RequestParam("user_idx") Long blacklist, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         try {
