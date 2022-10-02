@@ -27,7 +27,6 @@ function Community() {
       window.alert(error);
     }
   };
-
   useEffect(() => {
     mainApi();
   }, []);

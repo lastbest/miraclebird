@@ -12,11 +12,96 @@ import profile_default from "../../assets/icon/profile_default.jpg";
 const PostView = () => {
   const [userIdx, setUserIdx] = useState("");
   const [data, setData] = useState({});
+  const [commentData, setCommentData] = useState("");
+  const [commentDataMap, setCommentDataMap] = useState("");
+  const [curComment, setCurComment] = useState("");
+
+  const [commentContent, setCommentContent] = useState("");
+  const [reflesh, setReflesh] = useState(false);
+
   const { postIdx } = useParams();
   const navigate = useNavigate();
+
   useEffect(() => {
     mainApi();
   }, []);
+
+  useEffect(() => {
+    if (reflesh) {
+      setReflesh(false);
+    }
+    console.log("asd");
+    axios({
+      url: API_BASE_URL + "/comment/" + postIdx,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        setCommentData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [reflesh]);
+
+  useEffect(() => {
+    console.log(commentData);
+    var temp = [];
+    for (var i = 0; i < commentData.length; i++) {
+      var item = commentData[i];
+      const commentIdx = item.commentIdx;
+      temp.push(
+        <div className={styles.comment} key={item.commentIdx}>
+          <div className={styles.postInfoName}>
+            {item.image_url == null ? (
+              <img
+                alt="profile"
+                src={profile_default}
+                className={styles.commentImg}
+              />
+            ) : (
+              <img
+                alt="profile"
+                src={item.image_url}
+                className={styles.commentImg}
+              />
+            )}
+            {item.name}
+          </div>
+          <div className={styles.commentWriter}></div>
+          <div className={styles.commentContent}>{item.content}</div>
+          <div className={styles.commentFooter}>
+            <span className={styles.commentTime}>
+              {item.regtime[0] +
+                "-" +
+                item.regtime[1] +
+                "-" +
+                item.regtime[2] +
+                " " +
+                item.regtime[3] +
+                ":" +
+                item.regtime[4]}
+            </span>
+            {userIdx == item.userIdx ? (
+              <button
+                className={styles.deletebtn}
+                onClick={() => {
+                  setCurComment(commentIdx);
+                  handleShow2();
+                }}>
+                삭제
+              </button>
+            ) : (
+              <></>
+            )}
+          </div>
+        </div>
+      );
+    }
+    setCommentDataMap(temp);
+  }, [commentData]);
   const mainApi = async () => {
     try {
       const response = await fetch(API_BASE_URL + "/post/" + postIdx, {
@@ -29,7 +114,7 @@ const PostView = () => {
       console.log("mainData", result);
       setData(result);
     } catch (error) {
-      window.alert(error);
+      console.log(error);
     }
     try {
       const response = await fetch(API_BASE_URL + "/auth/", {
@@ -42,20 +127,36 @@ const PostView = () => {
       console.log("mainData", result);
       setUserIdx(result.information.userIdx);
     } catch (error) {
-      window.alert(error);
+      console.log(error);
     }
+    axios({
+      url: API_BASE_URL + "/comment/" + postIdx,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        setCommentData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [show2, setShow2] = useState(false);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = () => setShow2(true);
 
   return (
-    <>
+    <div className={styles.postContainer}>
       <button
         className={styles.backbtn}
         onClick={() => {
-          navigate("/community")
+          navigate("/community");
         }}>
         <img alt="back" src="/back.png" className={styles.backicon} />
       </button>
@@ -69,7 +170,11 @@ const PostView = () => {
               </div>
               <div className={styles.postInfoSub}>
                 <div className={styles.postInfoName}>
-                  {data.image_url == null ? <img alt="profile" src={profile_default} /> : <img alt="profile" src={data.image_url} />}
+                  {data.image_url == null ? (
+                    <img alt="profile" src={profile_default} />
+                  ) : (
+                    <img alt="profile" src={data.image_url} />
+                  )}
                   {data.name}
                 </div>
                 {data.userIdx == userIdx ? (
@@ -100,6 +205,46 @@ const PostView = () => {
                 />
                 댓글
               </div>
+              <div>
+                <input
+                  className={styles.title}
+                  type="text"
+                  placeholder=""
+                  name="title"
+                  value={commentContent}
+                  onInput={(e) => {
+                    setCommentContent(e.target.value);
+                  }}
+                />
+                <button
+                  className={styles.writebtn}
+                  onClick={() => {
+                    console.log("asd");
+                    axios({
+                      url: API_BASE_URL + "/comment",
+                      method: "post",
+                      headers: {
+                        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                      },
+                      params: {
+                        post_idx: postIdx,
+                      },
+                      data: {
+                        content: commentContent,
+                      },
+                    })
+                      .then((res) => {
+                        setCommentContent("");
+                        setReflesh(true);
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      });
+                  }}>
+                  작성
+                </button>
+              </div>
+              {commentDataMap}
             </div>
           </>
         ) : (
@@ -145,7 +290,62 @@ const PostView = () => {
           </div>
         </Modal.Body>
       </Modal>
-    </>
+
+      <Modal
+        centered
+        show={show2}
+        onHide={handleClose2}
+        backdrop="static"
+        keyboard={false}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent} closeButton>
+          댓글을 삭제하시겠습니까?
+          <div className={styles.btnCt}>
+            <button
+              className={styles.deletebackbtn}
+              onClick={() => handleClose2()}>
+              돌아가기
+            </button>
+            <button
+              className={styles.deletedeletebtn}
+              onClick={() => {
+                axios({
+                  url: API_BASE_URL + "/comment/" + curComment,
+                  method: "delete",
+                  headers: {
+                    Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                  },
+                }).then((res) => {
+                  console.log(res.data);
+                  handleClose2();
+                  setReflesh(true);
+                });
+              }}>
+              삭제하기
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      {/* <Modal
+        centered
+        show={show2}
+        onHide={handleClose2}
+        backdrop="static"
+        keyboard={false}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent} closeButton>
+          댓글을 등록되었습니다.
+          <div className={styles.btnCt}>
+            <button
+              className={styles.deletebackbtn}
+              onClick={() => handleClose2()}>
+              확인
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal> */}
+    </div>
   );
 };
 
