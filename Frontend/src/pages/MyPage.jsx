@@ -112,8 +112,8 @@ function MyPage() {
   useEffect(() => {
     console.log("userDate", userData);
 
-    var startdate = seasonInfo[0].startDate + "_00:00:00.000";
-    var enddate = seasonInfo[0].endDate + "_23:59:59.000";
+    var startdate = seasonInfo[season-1].startDate + "_00:00:00.000";
+    var enddate = seasonInfo[season-1].endDate + "_23:59:59.000";
 
     axios({
       url: API_BASE_URL + "/verification/heatmap/" + userData.userIdx,
@@ -137,8 +137,8 @@ function MyPage() {
   useEffect(() => {
     console.log("userDate", userData);
 
-    var startdate = seasonInfo[0].startDate + "_00:00:00.000";
-    var enddate = seasonInfo[0].endDate + "_23:59:59.000";
+    var startdate = seasonInfo[season-1].startDate + "_00:00:00.000";
+    var enddate = seasonInfo[season-1].endDate + "_23:59:59.000";
 
     axios({
       url: API_BASE_URL + "/verification/heatmap/" + userData.userIdx,
@@ -532,18 +532,18 @@ function MyPage() {
                   return `color-scale-${value.count >= 4 ? 4 : value.count}`;
                 }}
 
-                // tooltipDataAttrs={(value) => {
-                //     if (!value || !value.date) {
-                //     return null;
-                //     }
-                //     return {
-                //     "data-tip": `${value.date} has count: ${
-                //         value.count
-                //     }`,
-                //     };
-                // }}
+                tooltipDataAttrs={(value) => {
+                    if (!value || !value.date) {
+                    return null;
+                    }
+                    return {
+                    "data-tip": `${value.date} 인증 횟수: ${
+                        value.count
+                    }`,
+                    };
+                }}
               />
-              {/* <ReactTooltip className={styles.tooltip} /> */}
+              <ReactTooltip className={styles.tooltip} />
             </div>
           </div>
           <div className={styles.nftContainer}>
