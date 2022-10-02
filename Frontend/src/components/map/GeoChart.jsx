@@ -13,7 +13,6 @@ import Modal from "react-bootstrap/Modal";
 import styles from "./GeoChart.module.css";
 import LineChart from "./LineChart";
 import back from "../../assets/icon/GeoChart_Back.png";
-import back_1 from "../../assets/icon/GeoChart_Back1.png";
 
 import Web3 from "web3";
 import axios from "axios";
@@ -598,7 +597,7 @@ function GeoChart({ data }) {
       <div className={styles.upper}>
         {area.name == "korea" ? null : (
           <img
-            src={isListHover ? back_1 : back}
+            src="/back.png"
             className={styles.back}
             onMouseOver={() => setIsListHover(true)}
             onMouseOut={() => setIsListHover(false)}
