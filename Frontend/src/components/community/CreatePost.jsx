@@ -88,7 +88,7 @@ function CreatePost() {
             }).then((res) => {
               console.log(res.data);
             });
-            navigate("/community");
+            document.location.href = "/community";
           }}>
           작성하기
         </button>
