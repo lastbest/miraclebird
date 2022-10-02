@@ -18,7 +18,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { login } from "../store/user";
 import Web3 from "web3";
-import { Loading } from "../components/Base/Loading";
+import { Loading1 } from "../components/Base/Loading1";
 
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import axios from "axios";
@@ -30,7 +30,9 @@ import getAddressFrom from "../util/AddressExtractor";
 const BLOCKCHAIN_URL = "http://20.196.209.2:8545";
 
 function MyPage() {
-  const [loading, setLoading] = useState(true);
+  const [loading1, setLoading1] = useState(true);
+  const [loading2, setLoading2] = useState(true);
+
   const [userData, setUserData] = useState("");
   const [wallet, setWallet] = useState("");
   const [nftData, setNftData] = useState("");
@@ -66,7 +68,7 @@ function MyPage() {
         .then((res) => {
           setUserData(res.data.information);
           console.log(res.data);
-          setLoading(true);
+          setLoading1(true);
           axios({
             url: API_BASE_URL + "/wallet/" + res.data.information.userIdx,
             method: "get",
@@ -283,7 +285,7 @@ function MyPage() {
     }
     setNftMap(result);
     return () => {
-      setLoading(false);
+      setLoading1(false);
     };
   }, [nftData]);
 
@@ -358,6 +360,7 @@ function MyPage() {
       })
         .then((res) => {
           console.log(res);
+          handleClose0();
           handleShow7();
         })
         .catch((err) => console.log("Edit Price error", err));
@@ -367,6 +370,9 @@ function MyPage() {
     return <div></div>;
   }
 
+  const [show0, setShow0] = useState(false);
+  const handleClose0 = () => setShow0(false);
+  const handleShow0 = () => setShow0(true);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -481,8 +487,8 @@ function MyPage() {
 
   return (
     <>
-      {loading ? (
-        <Loading />
+      {loading1 ? (
+        <Loading1 />
       ) : (
         <>
           <div className={styles.btns}>
@@ -809,6 +815,7 @@ function MyPage() {
               onClick={(e) => {
                 console.log(sell);
                 console.log(sellTokenId);
+                handleShow0();
                 selling(e);
               }}
               className={styles.sellbtn}>
@@ -951,6 +958,19 @@ function MyPage() {
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.modalcontent7} closeButton>
           판매중으로 변경되었습니다!
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        centered
+        show={show0}
+        onHide={handleClose0}
+        backdrop="static"
+        keyboard={false}
+        className={styles.dialog0}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.body}>
+          <Loading1 text="판매진행중입니다." />
         </Modal.Body>
       </Modal>
     </>

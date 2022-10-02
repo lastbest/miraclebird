@@ -1,7 +1,5 @@
-
-
 .picture {
-    width:95%;
+    width: 95%;
     text-align: center;
     border-radius: 30px;
     margin-bottom: 20px;
@@ -24,23 +22,24 @@
     position: absolute;
     font-family: 'neodgm';
     text-align: center;
-    padding:10px;
+    padding: 10px;
 }
 
-.coinDiv{
+.coinDiv {
     display: flex;
 
 }
 
-.modalHeader {
+.modalHeader{
     text-align: right;
-    margin-right:5%;
-    margin-top:5%;
+    margin-right: 5%;
+    margin-top: 5%;
 }
 
 .dialog {
     overflow-y: initial !important
 }
+
 .dialog0 {
     overflow: hidden;
 }
@@ -53,12 +52,13 @@
     display: flex;
     justify-content: center;
 }
+
 .closebtn {
-    right:0;
+    right: 0;
     background-color: white;
-    border:none;
+    border: none;
     font-family: "neodgm";
-    font-size:20px;
+    font-size: 20px;
 }
 
 
@@ -71,7 +71,7 @@
 
 
 
-.purchase{
+.purchase {
     line-height: 20px;
     display: block;
     vertical-align: middle;
@@ -88,7 +88,7 @@
 
 .coin {
     width: 30px !important;
-    height:  30px;
+    height: 30px;
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 3px;
@@ -107,27 +107,27 @@
     margin: auto;
 }
 
-.desc{
+.desc {
     font-size: 15px;
 }
 
-.chart{
+.chart {
     width: 10%;
     stroke: #ffe969;
 }
 
-.back{
+.back {
     z-index: 3;
     height: 5vh;
     position: relative;
     left: 30px;
 }
 
-.back:hover{
+.back:hover {
     box-shadow: #ffe969;
 }
 
-.price{
+.price {
     margin: 10px;
 }
 
@@ -145,9 +145,9 @@
     text-align: center;
 }
 
-.upper{
+.upper {
 
-height: 50px;
+    height: 50px;
 }
 
 .modalheader {
@@ -160,10 +160,10 @@ height: 50px;
 }
 
 .privKeybtn {
-    border:none;
+    border: none;
     border-radius: 20px;
     background-color: #0930a5;
-    color:white;
+    color: white;
     margin-left: 10px;
 }
 
@@ -178,15 +178,17 @@ height: 50px;
 }
 
 .btnSell {
+    
     border: none;
-        border-radius: 15px;
-        background-color: lightgray;
-        font-family: 'neodgm';
-        font-size: 20px;
-        padding: 8px;
-        margin-right: 5px;
-        color: gray;
+    border-radius: 15px;
+    background-color: lightgray;
+    font-family: 'neodgm';
+    font-size: 20px;
+    padding: 8px;
+    margin-left: 120px;
+    color: gray;
 }
+
 .logoutbtn {
     border: none;
     border-radius: 20px;
@@ -197,9 +199,11 @@ height: 50px;
     margin: auto;
     color: black;
 }
+
 .btnCt {
     margin-top: 10px;
 }
+
 .backbtn {
     border: none;
     border-radius: 20px;
@@ -212,9 +216,9 @@ height: 50px;
     color: black;
 }
 
-.landmarkTitle{
+.landmarkTitle {
     float: left;
     font-size: 30px;
     margin-bottom: 10px;
-    border-bottom: double #ffe969 ;
+    border-bottom: double #ffe969;
 }

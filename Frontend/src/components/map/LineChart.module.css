@@ -11,6 +11,22 @@
 svg text {
     font-size: 10px;
 }
+
+.nonePrice{
+display: flex;
+        width: 300px;
+            height: 100px;
+            margin: auto;
+            margin-top: 10px;
+            box-shadow: 0px 0px 10px rgbA(0, 0, 0, 0.234);
+            margin-bottom: 20px;
+            text-align: center;
+}
+.nonePriceText {
+    margin: auto;
+    vertical-align: middle;
+}
+
   th,
   td {
       border: 1px solid lightgrey;
