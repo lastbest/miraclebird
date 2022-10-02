@@ -31,14 +31,15 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public User updateUserInfo(Long userIdx, String name) throws Exception {
+    public User updateUserInfo(Long userIdx, String name, String imageUrl) throws Exception {
 
         Optional<User> userEntity = userRepository.findById(userIdx);
         User selectUser = null;
 
         if(userEntity.isPresent()) {
             selectUser = userEntity.get();
-            selectUser.setName(name);
+            if(name != null)selectUser.setName(name);
+            if(imageUrl != null)selectUser.setImageUrl(imageUrl);
             userRepository.save(selectUser);
         }
         else {
