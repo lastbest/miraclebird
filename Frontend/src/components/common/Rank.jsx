@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import styles from "./Rank.module.css";
-import Modal from 'react-modal';
 import {Swiper, SwiperSlide} from "swiper/react";
 import SwiperCore, {Navigation, Pagination, Autoplay} from "swiper"
 import 'swiper/css';
@@ -12,13 +11,10 @@ import RankCount from "./RankCount"
 import "./Rank.css"
 import axios from "axios";
 import { API_BASE_URL } from "/src/constants";
-import AliceCarousel from "react-alice-carousel";
-import "react-alice-carousel/lib/alice-carousel.css";
 
 SwiperCore.use([Navigation, Pagination, Autoplay])
 
 function Rank() {
-    const [modalIsOpen, setModalIsOpen] = useState(false);
     const [rank, setRank] = useState(0);
     const [nftOwner, setNftOwner] = useState("");
     const [nftMap, setNftMap] = useState("");
@@ -33,6 +29,7 @@ function Rank() {
             })
             .catch((err) => console.log("nftowner", err));
     },[]);
+
 
     useEffect(() => {
         var temp = [];
@@ -52,7 +49,7 @@ function Rank() {
           );
         }
         setNftMap(temp);
-      }, []);
+      }, [nftOwner]);
 
     return (
         <>
@@ -61,7 +58,7 @@ function Rank() {
                 <div className={styles.rankcontainer}>
                     <img alt="rank" src="/rank.png" className={styles.rankicon}/>
 
-                    <div className={styles.ranktext} onClick={()=>setModalIsOpen(true)}>챌린지 랭킹</div>
+                    <div className={styles.ranktext}>챌린지 랭킹</div>
                 </div>
             </div>
             <div className={styles.text}>
@@ -90,21 +87,11 @@ function Rank() {
                 slidesPerView={1}
                 pagination={{ clickable: true }}
                 autoplay={{delay:5000}}
-                >
-                    {nftMap}
+                >                
+                    {nftMap}                    
                 </Swiper>
             </div>
         </div>
-
-        <Modal isOpen={modalIsOpen} appElement={document.getElementById('root') || undefined} className={styles.modal}>
-            <div className={styles.modalHeader}> 
-            <button onClick={()=>setModalIsOpen(false)} className={styles.closebtn}>X</button>
-            </div>
-            <div className={styles.modalcontent}>
-                랭킹은 챌린지 지속시간, 횟수에 따라 산정됩니다.
-                
-            </div>
-        </Modal>
         </>
     )
 };
