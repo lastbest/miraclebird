@@ -19,6 +19,11 @@ function Camera() {
   const [data, setData] = useState({});
   const [fileName, setFileName] = useState("");
   const [time, setTime] = useState("");
+
+  const [todayData, setTodayData] = useState({});
+  const [morningCount, setMorningCount] = useState(0);
+  const [exerciseCount, setExerciseCount] = useState(0);
+  const [studyCount, setStudyCount] = useState(0);
   const navigate = useNavigate();
 
   const mainApi = async () => {
@@ -41,6 +46,10 @@ function Camera() {
   useEffect(() => {
     mainApi();
   }, []);
+
+  useEffect(() => {
+    console.log();
+  }, [data]);
 
   const onCheckedElement = (checked) => {
     if (checked) {
