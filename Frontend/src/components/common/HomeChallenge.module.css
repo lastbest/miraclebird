@@ -52,3 +52,14 @@
     margin-top: 20px;
     margin-bottom:25px;
 }
+
+.mainImg {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    width:300px;
+    height:300px;
+}
+
+.slidecontainer {
+    text-align: center;
+}
