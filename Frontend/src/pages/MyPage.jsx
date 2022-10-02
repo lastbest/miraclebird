@@ -351,8 +351,12 @@ function MyPage() {
       privKey.startsWith("0x") ? privKey : "0x" + privKey
     );
 
-    if (!address) return;
+    if (!address) {
+      handleShow9();
+      return;
+    } 
     try {
+      handleShow0();
       const sender = web3.eth.accounts.privateKeyToAccount(privKey);
       web3.eth.accounts.wallet.add(sender);
       web3.eth.defaultAccount = sender.address;
@@ -440,6 +444,9 @@ function MyPage() {
   const [show8, setShow8] = useState(false);
   const handleClose8 = () => setShow8(false);
   const handleShow8 = () => setShow8(true);
+  const [show9, setShow9] = useState(false);
+  const handleClose9 = () => setShow9(false);
+  const handleShow9 = () => setShow9(true);
 
   const [Image, setImage] = useState("");
   const fileInput = useRef(null);
@@ -800,7 +807,6 @@ function MyPage() {
             />
             <button
               onClick={(e) => {
-                handleShow0();
                 selling(e);
               }}
               className={styles.sellbtn}>
@@ -962,6 +968,20 @@ function MyPage() {
         className={styles.dialog8}>
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.body}>{nftMap}</Modal.Body>
+      </Modal>
+
+      <Modal
+        centered
+        show={show9}
+        onHide={handleClose9}
+        backdrop="static"
+        keyboard={false}
+        className={styles.dialog0}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.body}>
+          개인키가 일치하지 않습니다.
+        </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
     </>
   );

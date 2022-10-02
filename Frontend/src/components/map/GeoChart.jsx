@@ -468,11 +468,11 @@ function GeoChart({ data }) {
     );
     // console.log("address", address);
     if (!address) {
-      handleClose0();
       handleShow3();
       return;
     }
     try {
+      handleShow0();
       const buyer = web3.eth.accounts.privateKeyToAccount(privKey);
       web3.eth.accounts.wallet.add(buyer);
       // console.log(web3.eth.accounts.wallet);
@@ -757,7 +757,6 @@ function GeoChart({ data }) {
             />
             <button
               onClick={(e) => {
-                handleShow0();
                 buyNFT(e);
               }}
               className={styles.privKeybtn}>
