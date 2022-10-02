@@ -275,4 +275,28 @@
   margin-top:20px;
   border: none;
   padding:5px;
+  color:black;
+}
+
+.modalcontent2 {
+  font-family: 'neodgm';
+  text-align: center;
+}
+
+.privKeychange {
+  margin-bottom: 5px;
+}
+
+.privKeybtn {
+  margin-left: 10px;
+  border: none;
+  background-color: #0930a5;
+  color:white;
+  border-radius: 20px;
+  padding:5px;
+}
+
+.modalcontent3 {
+  font-family: 'neodgm';
+  text-align: center;
 }
