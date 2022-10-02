@@ -217,7 +217,6 @@ function Reinforce() {
       handleShow6();
       return;
     }
-    console.log("개인키 입력이 올바름");
     try {
       const me = web3.eth.accounts.privateKeyToAccount(privKey);
       web3.eth.accounts.wallet.add(me);
@@ -232,13 +231,10 @@ function Reinforce() {
       );
       // 관리자에게 미라 토큰 전송
       const response = await sendMira.methods
-        .transfer("0x52aEdCe8c99d769C9896A518Cb5927744F5da32b", 3)
+        .transfer("0x52aEdCe8c99d769C9896A518Cb5927744F5da32b", 2)
         .send({ from: senderAddress, gas: 3000000 });
       console.log(response);
 
-      // 토큰전송이 트루이면 가챠
-      // 성공이면 주고 받는다
-      // 실패면 유지한다
       if (response.status === true) {
         let random_num = Math.floor(Math.random() * 101);
         console.log(random_num, upgradePercent[level], downgradePercent[level]);
@@ -455,7 +451,7 @@ function Reinforce() {
                 <div className={styles.levelbtnct}>
                   <button
                     className={styles.levelbtn}
-                    onClick={tokenBalance >= 3 ? handleShow4 : handleShow5}>
+                    onClick={tokenBalance >= 2 ? handleShow4 : handleShow5}>
                     강화하기
                   </button>
                 </div>
@@ -584,7 +580,7 @@ function Reinforce() {
               overlay={
                 <Tooltip>
                   <div className={styles.tooltiptext}>
-                    강화 1회: 3 MIRA
+                    강화 1회: 2 MIRA
                   </div>
                 </Tooltip>
               }>

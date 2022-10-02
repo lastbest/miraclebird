@@ -173,8 +173,6 @@ function LandmarkRegistration() {
 
   return (
     <div className={styles.contentCt}>
-      <div>주소: {}</div>
-      <br />
       <br />
       <input
         value={itemName}
