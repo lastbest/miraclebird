@@ -1,6 +1,7 @@
 package com.ssafy.miraclebird.repository;
 
 
+import com.ssafy.miraclebird.dto.RankDto;
 import com.ssafy.miraclebird.entity.Verification;
 import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,4 +25,11 @@ public interface VerificationRepository extends JpaRepository<Verification,Long>
 
     @Query(value = "SELECT streak FROM (SELECT a.user_idx, MIN(a.regdate) from_dt, MAX(a.regdate) to_dt, DATEDIFF(MAX(a.regdate), MIN(a.regdate)) + 1  as streak, DATE_FORMAT(NOW(),'%Y%m%d') as nowdate FROM (SELECT @ROWNUM \\:= @ROWNUM+1, v.verification_idx, v.user_idx, DATE_FORMAT(v.regtime,'%Y%m%d') AS regdate, approval FROM verification v WHERE v.approval != 2 AND v.user_idx =?1 ORDER BY user_idx, regdate DESC) a GROUP BY a.user_idx, @ROWNUM ORDER BY a.user_idx, from_dt) b WHERE b.to_dt = b.nowdate or b.to_dt = b.nowdate-1 ORDER BY streak DESC;", nativeQuery = true)
     List<Long> getStreakByUserIdx(Long userIdx);
+
+    @Query(value = "SELECT " +
+            "concat(a.name, a.image_path) " +
+            "FROM (select mn.mynft_idx, mn.landmark_idx, mn.wallet_idx, lm.star_force, u.name, lm.image_path from mynft mn, landmark lm, wallet w, user u where mn.wallet_idx != 1 and mn.landmark_idx = lm.landmark_idx and mn.wallet_idx = w.wallet_idx and w.user_idx = u.user_idx) a left outer join price p on a.landmark_idx = p.landmark_idx GROUP BY a.landmark_idx ORDER BY a.star_force DESC, MAX(p.sell_price) DESC;", nativeQuery = true)
+    List<String> getNftOwner();
+
+
 }

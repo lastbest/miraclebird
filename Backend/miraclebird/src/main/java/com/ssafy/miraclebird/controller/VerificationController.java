@@ -1,5 +1,6 @@
 package com.ssafy.miraclebird.controller;
 
+import com.ssafy.miraclebird.dto.RankDto;
 import com.ssafy.miraclebird.dto.VerificationDto;
 import com.ssafy.miraclebird.securityOauth.config.security.token.CurrentUser;
 import com.ssafy.miraclebird.securityOauth.config.security.token.UserPrincipal;
@@ -128,6 +129,14 @@ public class VerificationController {
     @GetMapping("/streak/{user_idx}")
     public ResponseEntity getStreakByUserIdx(@PathVariable("user_idx") Long userIdx) {
         Long result = verificationService.getStreakByUserIdx(userIdx);
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @ApiOperation(value = "챌린지 유지 랭킹", response = VerificationDto.class)
+    @GetMapping("/ranking/nftowner")
+    public ResponseEntity getNftOwner() {
+        List<RankDto> result = verificationService.getNftOwner();
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
