@@ -256,3 +256,23 @@
 .tooltiptext {
   font-family: 'neodgm';
 }
+
+.gostoreText {
+  text-align: center;
+  /* margin: auto; */
+}
+
+.nftsCt2 {
+  width:90%;
+  flex: 1;
+  margin: auto;
+  
+}
+
+.gostoreBtn {
+  background-color: #ffe969;
+  border-radius: 20px;
+  margin-top:20px;
+  border: none;
+  padding:5px;
+}
