@@ -581,7 +581,24 @@ function Reinforce() {
         className={styles.modal2}>
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.modalcontent2}>
-          <div className={styles.privKeychange}>개인키를 입력해주세요</div>
+          <div className={styles.privKeychange}>
+            개인키를 입력해주세요
+            <OverlayTrigger
+              placement="right"
+              overlay={
+                <Tooltip>
+                  <div className={styles.tooltiptext}>
+                    강화 1회: 3 MIRA
+                  </div>
+                </Tooltip>
+              }>
+              <img
+                alt="notice"
+                src="/attention.png"
+                className={styles.noticeicon2}
+              />
+            </OverlayTrigger>
+          </div>
           <div className={styles.privKeycontainer}>
             <input
               autoComplete="privKey"

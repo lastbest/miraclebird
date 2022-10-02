@@ -21,6 +21,14 @@
   margin-right: 5%;
 }
 
+.noticeicon2 {
+  width:25px;
+  height:25px;
+  margin:auto;
+  margin-left:10px;
+  margin-bottom:5px;
+}
+
 .nftCt {
     width:80%;
     height:350px;
@@ -290,8 +298,8 @@
 .privKeybtn {
   margin-left: 10px;
   border: none;
-  background-color: #0930a5;
-  color:white;
+  background-color: #ffe969 ;
+  color:black;
   border-radius: 20px;
   padding:5px;
 }
