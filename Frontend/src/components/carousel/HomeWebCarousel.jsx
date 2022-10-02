@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
+import styles from "./HomeWebCarousel.module.css";
 import axios from "axios";
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 
@@ -8,10 +9,10 @@ const handleDragStart = (e) => e.preventDefault();
 
 const responsive = {
   0: {
-    items: 1,
+    items: 3,
   },
   512: {
-    items: 2,
+    items: 3,
   },
 };
 
@@ -43,7 +44,9 @@ const WebCarousel = () => {
         <img
           src={item.selfie}
           alt="selfie"
-          style={{ width: "100%" }}
+          style={{
+            width: "100%",
+          }}
           onDragStart={handleDragStart}
           role="presentation"></img>
       );
@@ -59,9 +62,11 @@ const WebCarousel = () => {
           display: "flex",
           justifyContent: "center",
           marginTop: "1%",
-          width: "70%",
+          width: "100%",
           margin: "auto",
-          "marginBottom": "10px",
+          marginBottom: "10px",
+          paddingLeft: "0px",
+          paddingRight: "0px",
         }}>
         <AliceCarousel
           mouseTracking

@@ -4,11 +4,11 @@
     display: flex;
     justify-content: center;
     margin:auto;
+    margin-top: 40px;
     margin-bottom: 25px;
     padding-bottom:10px;
     display: flex;
     flex-direction: column;
-    border-bottom: 1px solid gray;
 }
 
 .header {
@@ -161,6 +161,8 @@
 
 .ranktext, .ownertext{
     font-size:16px;
+    font-weight: bold;
+    margin-left: -10px;
 }
 
 .btn1 {

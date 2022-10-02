@@ -1,7 +1,6 @@
 .backbtn {
     background-color: white;
     border:none;
-
 }
 
 .backicon {
@@ -13,22 +12,44 @@
 
 .header {
     margin-top:60px;
-    display:flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .createbtn {
+    float: right;
     background-color: white;
     border:none;
     margin-right:10px;
 }
 
 .pencilicon {
+    float: right;
     width:25px;
     height:25px;
 }
 
 .communitytext {
     font-size: 20px;
+}
+.footer_camera {
+    text-align: center;
+    display: flex;
+    /* height: 30px; */
+    margin-left: 90px;
+    width: 45px;
+}
+
+.footer_camerabutton {
+    text-align: center;
+    display: block;
+    position: fixed;
+    bottom: 60px;
+    width: 70%;
+    z-index: 999;
+    left: 60%;
+}
+.con{
+    margin-top: 50px;
+    padding-top: 0px;
 }
