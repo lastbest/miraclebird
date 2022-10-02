@@ -13,6 +13,7 @@ const LineChart = ({ data }) => {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [currentPrice, setCurrentPrice] = useState("");
+  const [len, setLen] = useState("");
 
   useEffect(() => {
     console.log(data);
@@ -35,11 +36,17 @@ const LineChart = ({ data }) => {
         )
       );
       setCurrentPrice(data[data.length - 1].value);
+    } else {
+      setFirstPrice(5);
+      setMinPrice(5);
+      setMaxPrice(5);
+      setCurrentPrice(5);
     }
+    setLen(data.length);
   }, []);
   useEffect(() => {
     makeGraph();
-  }, [currentPrice]);
+  }, [len]);
 
   const svgRef = useRef();
   const makeGraph = () => {
@@ -134,7 +141,14 @@ const LineChart = ({ data }) => {
 
   return (
     <div className={styles.chart}>
-      <svg ref={svgRef} className={styles.svg} />
+      {len >= 1 ? (
+        <svg ref={svgRef} className={styles.svg} />
+      ) : (
+        <div className={styles.nonePrice}>
+          <div className={styles.nonePriceText}>거래 내역이 없습니다.</div>
+        </div>
+      )}
+
       <table className={styles.table}>
         <thead>
           <tr>

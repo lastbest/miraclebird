@@ -683,11 +683,7 @@ function GeoChart({ data }) {
                       )}
                     </>
                   ) : (
-                    <button
-                      className={styles.btnSell}
-                      onClick={() => {
-                        console.log("asdsa");
-                      }}>
+                    <button className={styles.btnSell} onClick={() => {}}>
                       구입
                     </button>
                   )}
@@ -708,7 +704,7 @@ function GeoChart({ data }) {
         className={styles.dialog0}>
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.body}>
-          <Loading1 />
+          <Loading1 text="거래중입니다." />
         </Modal.Body>
       </Modal>
 
