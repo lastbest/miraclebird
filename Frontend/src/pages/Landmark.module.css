@@ -215,8 +215,8 @@
 }
 
 .nftTitletext {
-  /* width: 50%; */
   color:black;
+  background-color: white;
 }
 
 .closeButton {
