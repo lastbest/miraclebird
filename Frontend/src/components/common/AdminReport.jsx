@@ -1,60 +1,126 @@
-import React, {useState} from "react";
-import styles from "./AdminReport.module.css"
-import Modal from "react-bootstrap/Modal"
+import React, { useState, useEffect } from "react";
+import styles from "./AdminReport.module.css";
+import Modal from "react-bootstrap/Modal";
+import axios from "axios";
+import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 
-function AdminReport () {
-    const POST_SELLECT = [
-        {nickname: "정싸피", date:"2022-09-25", category: 1, imgUrl:"/miraclemorning.png", count:3},
-        {nickname: "이싸피", date:"2022-09-25", category: 2, imgUrl:"/health.jpg", count:5, },
-        {nickname: "박싸피", date:"2022-09-25", category: 3, imgUrl:"/study.jpg", count:1, },
-        {nickname: "김싸피", date:"2022-09-25", category: 1, imgUrl:"/miraclemorning.png", count:10},
-    ]
+function AdminReport({ reportData }) {
+  const [reportIdx, setReportIdx] = useState("");
+  const [reportDetail, setReportDetail] = useState();
+  const [reportContent, setReportContent] = useState("");
 
-    const [img, setImg] = useState("")
-    const [nickname, setNickname] = useState("")
-    const [date, setDate] = useState()
-    const [count, setCount] = useState()
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+  const [reportSelfie, setReportSelfie] = useState();
+  const [reportName, setReportName] = useState();
+  const [reportUserIdx, setReportUserIdx] = useState();
 
+  const [show, setShow] = useState(false);
 
-    return (
-        <>
-        <div className={styles.postCt}>
-            {
-                POST_SELLECT.map((post, index) => {
-                    return (
-                            <div className={styles.post} onClick={()=>(setImg(post.imgUrl), setNickname(post.nickname), setDate(post.date), setCount(post.count), handleShow())}>
-                                {post.nickname} | {post.category === 1 ? "미라클모닝" : ""}{post.category === 2 ? "헬스" : ""}{post.category === 3 ? "스터디" : ""} | 신고횟수:{post.count}
-                            </div>
-                    )
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    console.log(reportIdx);
+    axios({
+      url: API_BASE_URL + "/verification/" + reportIdx,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    }).then((res) => {
+      console.log(res.data);
+      setReportDetail(res.data);
+      setReportSelfie(res.data.selfie);
+      setReportName(res.data.name);
+      setReportUserIdx(res.data.userIdx);
+    });
+  }, [reportIdx]);
+
+  return (
+    <>
+      <div className={styles.postCt}>
+        {reportData.map((post, index) => {
+          return (
+            <div
+              className={styles.post}
+              onClick={() => {
+                setReportIdx(post.verificationIdx);
+                setReportContent(post.description);
+                handleShow();
+              }}>
+              부정사용자:{post.suspectName} 신고자:{post.reporterName}
+            </div>
+          );
+        })}
+      </div>
+
+      <Modal
+        centered
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent}>
+          <img alt="post" src={reportSelfie} className={styles.postImg} />
+          <div className={styles.text}>
+            {reportName} {reportUserIdx} {reportIdx}
+          </div>
+          <div className={styles.btnCt}>
+            <button
+              className={styles.passBtn}
+              onClick={() => {
+                console.log(reportIdx);
+              }}>
+              보류
+            </button>
+            <button
+              className={styles.deleteBtn}
+              onClick={() => {
+                axios({
+                  url: API_BASE_URL + "/verification/" + reportIdx,
+                  method: "delete",
+                  headers: {
+                    Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                  },
                 })
-            }
-        </div>
+                  .then((res) => {
+                    console.log(res.data);
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
+              }}>
+              삭제
+            </button>
+            <button
+              className={styles.outBtn}
+              onClick={() => {
+                axios({
+                  url: API_BASE_URL + "/user/blacklist",
+                  method: "put",
+                  headers: {
+                    Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                  },
+                  params: {
+                    user_idx: reportUserIdx,
+                  },
+                })
+                  .then((res) => {
+                    console.log(res.data);
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
+              }}>
+              블랙리스트 등록
+            </button>
+          </div>
+        </Modal.Body>
 
-        <Modal
-            centered
-            show={show}
-            onHide={handleClose}
-            backdrop="static"
-            keyboard={false}
-        >
-            <Modal.Header className={styles.modalheader} closeButton>
-            </Modal.Header>
-            <Modal.Body className={styles.modalcontent}>
-                    <img alt="post" src={img} className={styles.postImg} />
-                    <div className={styles.text}>{nickname} {date} 신고횟수:{count}</div>
-                    <div className={styles.btnCt}>
-                        <button className={styles.passBtn}>보류</button>
-                        <button className={styles.deleteBtn}>삭제</button>
-                        <button className={styles.outBtn}>탈퇴</button>
-                    </div>
-            </Modal.Body>
-            <Modal.Footer className={styles.modalheader}></Modal.Footer>
-        </Modal>
-        </>
-    )
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
+      </Modal>
+    </>
+  );
 }
 
 export default AdminReport;

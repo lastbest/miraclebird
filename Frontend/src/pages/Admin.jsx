@@ -11,7 +11,7 @@ import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import getAddressFrom from "../util/AddressExtractor";
 import { useNavigate } from "react-router-dom";
 import ABI from "../common/ABI";
-import { Loading } from "../components/Base/Loading";
+import { Loading1 } from "../components/Base/Loading1";
 import Web3 from "web3";
 
 function Admin() {
@@ -19,6 +19,8 @@ function Admin() {
   const [view, setView] = useState(1);
   const [challengeData, setChallengeData] = useState("");
   const [challengeMap, setChallengeMap] = useState("");
+  const [reportData, setReportData] = useState("");
+  const [reportMap, setReportMap] = useState("");
   const [approval, setApproval] = useState("");
   const navigate = useNavigate();
   const [img, setImg] = useState("");
@@ -138,8 +140,9 @@ function Admin() {
         setLoading(false);
       }
     });
+
     axios({
-      url: API_BASE_URL + "/verification/",
+      url: API_BASE_URL + "/report/",
       method: "GET",
       headers: {
         Authorization: "Bearer " + NOW_ACCESS_TOKEN,
@@ -151,7 +154,31 @@ function Admin() {
       .catch((error) => {
         console.log(error);
       });
+
+    axios({
+      url: API_BASE_URL + "/report/",
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        setReportData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
+
+  useEffect(() => {
+    console.log("reportData", reportData);
+    var temp = [];
+    for (var i = 0; i < reportData.length; i++) {
+      const item = reportData[i];
+      temp.push(item);
+    }
+    setReportMap(temp);
+  }, [reportData]);
 
   useEffect(() => {
     if (approval != 0) {
@@ -196,7 +223,7 @@ function Admin() {
   return (
     <>
       {loading ? (
-        <Loading />
+        <Loading1 />
       ) : (
         <>
           <div className={styles.btnCt}>
@@ -222,7 +249,7 @@ function Admin() {
                 <div className={styles1.postCt}>{challengeMap}</div>
               </>
             )}
-            {view === 2 && <AdminReport />}
+            {view === 2 && <AdminReport reportData={reportMap} />}
             {view === 3 && <LandmarkRegistration />}
           </div>
         </>
