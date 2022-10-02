@@ -1,6 +1,7 @@
 package com.ssafy.miraclebird.service;
 
 import com.ssafy.miraclebird.dao.*;
+import com.ssafy.miraclebird.dto.RankDto;
 import com.ssafy.miraclebird.dto.VerificationDto;
 import com.ssafy.miraclebird.entity.Verification;
 import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
@@ -141,5 +142,12 @@ public class VerificationServiceImpl implements VerificationService {
     public long getStreakByUserIdx(Long userIdx) {
         long result = verificationDao.getStreakByUserIdx(userIdx);
         return result;
+    }
+
+    @Override
+    @Transactional
+    public List<RankDto> getNftOwner() {
+        List<RankDto> rank = verificationDao.getNftOwner();
+        return rank;
     }
 }

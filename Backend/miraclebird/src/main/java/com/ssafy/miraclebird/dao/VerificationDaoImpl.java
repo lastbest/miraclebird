@@ -1,6 +1,7 @@
 package com.ssafy.miraclebird.dao;
 
 
+import com.ssafy.miraclebird.dto.RankDto;
 import com.ssafy.miraclebird.entity.Verification;
 import com.ssafy.miraclebird.repository.VerificationRepository;
 import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -95,5 +97,20 @@ public class VerificationDaoImpl implements VerificationDao {
         List<Long> list = verificationRepository.getStreakByUserIdx(userIdx);
         if(list.size() != 1) return 0;
         return list.get(0);
+    }
+    @Override
+    public List<RankDto> getNftOwner() {
+        List<RankDto> rankDtoList = new ArrayList<>();
+        List<String> stringList = verificationRepository.getNftOwner();
+        for (int i = 0; i < stringList.size(); i++) {
+            String temp = stringList.get(i);
+            String[] arr = temp.split("http",2);
+            RankDto rankDto = new RankDto();
+            rankDto.setName(arr[0]);
+            rankDto.setImage("http" + arr[1]);
+            rankDtoList.add(rankDto);
+        }
+
+        return rankDtoList;
     }
 }

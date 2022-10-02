@@ -1,5 +1,6 @@
 package com.ssafy.miraclebird.service;
 
+import com.ssafy.miraclebird.dto.RankDto;
 import com.ssafy.miraclebird.dto.VerificationDto;
 
 import java.time.LocalDateTime;
@@ -16,4 +17,5 @@ public interface VerificationService {
     List<String> getRankByCount();
     List<String> getRankByStreak();
     long getStreakByUserIdx(Long userIdx);
+    List<RankDto> getNftOwner();
 }
