@@ -21,9 +21,9 @@ function Camera() {
   const [time, setTime] = useState("");
 
   const [todayData, setTodayData] = useState({});
-  const [morningCount, setMorningCount] = useState(0);
-  const [exerciseCount, setExerciseCount] = useState(0);
-  const [studyCount, setStudyCount] = useState(0);
+  const [morningCount, setMorningCount] = useState(false);
+  const [exerciseCount, setExerciseCount] = useState(false);
+  const [studyCount, setStudyCount] = useState(false);
   const navigate = useNavigate();
 
   const mainApi = async () => {
@@ -48,7 +48,52 @@ function Camera() {
   }, []);
 
   useEffect(() => {
-    console.log();
+    console.log(morningCount);
+    console.log(exerciseCount);
+    console.log(studyCount);
+  }, [morningCount, exerciseCount, studyCount]);
+
+  useEffect(() => {
+    console.log(data);
+    let today = new Date();
+    let todayFormat =
+      today.getFullYear() +
+      "-" +
+      ((today.getMonth() + 1).length == 1
+        ? "0" + (today.getMonth() + 1)
+        : today.getMonth() + 1) +
+      "-" +
+      (today.getDate() < 10 ? "0" + today.getDate() : today.getDate());
+
+    var startdate = todayFormat + "_00:00:00.000";
+    var enddate = todayFormat + "_23:59:59.000";
+
+    axios({
+      url: API_BASE_URL + "/verification/heatmap/" + data.userIdx,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+      params: {
+        start_date: startdate,
+        end_date: enddate,
+      },
+    })
+      .then((res) => {
+        for (var i = 0; i < res.data.length; i++) {
+          const item = res.data[i];
+          if (item.challengeIdx == 1) {
+            setMorningCount(true);
+          } else if (item.challengeIdx == 2) {
+            setExerciseCount(true);
+          } else if (item.challengeIdx == 3) {
+            setStudyCount(true);
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [data]);
 
   const onCheckedElement = (checked) => {
@@ -65,6 +110,9 @@ function Camera() {
   const [show2, setShow2] = useState(false);
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
+  const [show3, setShow3] = useState(false);
+  const handleClose3 = () => setShow3(false);
+  const handleShow3 = () => setShow3(true);
 
   function takepicture() {
     const targetvideo = document.getElementById("screenshot_wrap");
@@ -332,7 +380,15 @@ function Camera() {
                     if (them === 0) {
                       handleShow();
                     } else {
-                      capture();
+                      if (them == 1 && morningCount) {
+                        handleShow3();
+                      } else if (them == 2 && exerciseCount) {
+                        handleShow3();
+                      } else if (them == 3 && studyCount) {
+                        handleShow3();
+                      } else {
+                        capture();
+                      }
                     }
                     setTimeout(() => takepicture(), 10);
                   }}></img>
@@ -378,7 +434,15 @@ function Camera() {
                     if (them === 0) {
                       handleShow();
                     } else {
-                      capture();
+                      if (them == 1 && morningCount) {
+                        handleShow3();
+                      } else if (them == 2 && exerciseCount) {
+                        handleShow3();
+                      } else if (them == 3 && studyCount) {
+                        handleShow3();
+                      } else {
+                        capture();
+                      }
                     }
                     setTimeout(() => takepicture(), 10);
                   }}></img>
@@ -449,6 +513,19 @@ function Camera() {
             </button>
           </div>
         </Modal.Body>
+      </Modal>
+
+      <Modal
+        centered
+        show={show3}
+        onHide={handleClose3}
+        backdrop="static"
+        keyboard={false}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent}>
+          이미 촬영한 카테고리입니다.
+        </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
     </>
   );
