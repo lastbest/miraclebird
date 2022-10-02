@@ -32,7 +32,7 @@ const BLOCKCHAIN_URL = "http://20.196.209.2:8545";
 
 function MyPage() {
   const [loading1, setLoading1] = useState(true);
-  const [loading2, setLoading2] = useState(true);
+  const [updateImg, setUpdateImg] = useState("");
 
   const [userData, setUserData] = useState("");
   const [wallet, setWallet] = useState("");
@@ -83,13 +83,57 @@ function MyPage() {
               console.log(error);
             });
         })
-
         .catch((error) => {
           console.log(error);
         });
     }
     data();
   }, []);
+
+  useEffect(() => {
+    if (updateImg.length != 0) {
+      console.log(updateImg);
+      console.log(userData.userIdx);
+      const formdata = new FormData();
+      var fileName =
+        "https://j7c107.p.ssafy.io/images/" + userData.userIdx + "_profileImg";
+      if (updateImg[0].type.indexOf("png") == -1) {
+        fileName += ".jpg";
+      } else {
+        fileName += ".png";
+      }
+      console.log(fileName);
+      formdata.append("uploadFile", updateImg[0], fileName);
+      axios({
+        url: "https://j7c107.p.ssafy.io/image/upload",
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        data: formdata,
+      })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          alert(err);
+          console.log(err);
+        });
+
+      axios({
+        url: API_BASE_URL + "/user/" + userData.userIdx,
+        method: "put",
+        headers: {
+          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        },
+        params: {
+          image_url: fileName,
+        },
+      }).then((res) => {
+        console.log(res.data);
+      });
+    }
+  }, [updateImg]);
 
   useEffect(() => {
     axios({
@@ -108,7 +152,6 @@ function MyPage() {
   }, [userData]);
 
   useEffect(() => {
-
     var startdate = seasonInfo[season - 1].startDate + "_00:00:00.000";
     var enddate = seasonInfo[season - 1].endDate + "_23:59:59.000";
 
@@ -132,7 +175,6 @@ function MyPage() {
   }, [userData]);
 
   useEffect(() => {
-
     var startdate = seasonInfo[season - 1].startDate + "_00:00:00.000";
     var enddate = seasonInfo[season - 1].endDate + "_23:59:59.000";
 
@@ -257,11 +299,7 @@ function MyPage() {
                   <button
                     className={styles.btnSell}
                     id={item.landmarkIdx}
-                    onClick={(e) =>
-                      handleShow3(
-                        e.target.id
-                      )
-                    }>
+                    onClick={(e) => handleShow3(e.target.id)}>
                     판매
                   </button>
                 </>
@@ -282,8 +320,7 @@ function MyPage() {
     };
   }, [nftData]);
 
-  useEffect(() => {
-  }, [season]);
+  useEffect(() => {}, [season]);
 
   // SSAFY Network
   const web3 = new Web3(
@@ -372,7 +409,6 @@ function MyPage() {
     ApproveItem();
   };
   const handleShow3 = (idx) => {
-    
     axios(API_BASE_URL + "/landmark/" + idx, {
       method: "GET",
       headers: {
@@ -387,7 +423,7 @@ function MyPage() {
       })
       .catch((err) => console.log("Get landmark error", err));
   };
-  
+
   const [show4, setShow4] = useState(false);
   const handleClose4 = () => setShow4(false);
   const handleShow4 = () => setShow4(true);
@@ -401,6 +437,9 @@ function MyPage() {
   const [show7, setShow7] = useState(false);
   const handleClose7 = () => setShow7(false);
   const handleShow7 = () => setShow7(true);
+  const [show8, setShow8] = useState(false);
+  const handleClose8 = () => setShow8(false);
+  const handleShow8 = () => setShow8(true);
 
   const [Image, setImage] = useState("");
   const fileInput = useRef(null);
@@ -474,6 +513,10 @@ function MyPage() {
                 type="file"
                 style={{ display: "none" }}
                 accept="image/jpg,impge/png,image/jpeg"
+                onChange={(e) => {
+                  const file = e.target.files;
+                  setUpdateImg(file);
+                }}
                 name="profile_img"
                 ref={fileInput}
               />
@@ -544,6 +587,9 @@ function MyPage() {
           <div className={styles.nftContainer}>
             <div className={styles.text1}>보유 NFT</div>
             <div className={styles.nftImg}>
+              <button className={styles.listbtn} onClick={() => handleShow8()}>
+                <img src="/list.png" className={styles.listicon}></img>
+              </button>
               {nftData.length === 0 ? (
                 <div className={styles.nonenft}>
                   <div className={styles.gostoreText}>NFT를 구매해보세요!</div>
@@ -556,6 +602,7 @@ function MyPage() {
               ) : (
                 <div></div>
               )}
+
               <Swiper
                 modules={Navigation}
                 spaceBetween={50}
@@ -712,8 +759,7 @@ function MyPage() {
                     // user_idx: user.information.userIdx,/
                     name: write,
                   },
-                }).then((res) => {
-                });
+                }).then((res) => {});
                 document.location.href = "/mypage";
               }}
               className={styles.nicknamebtn}>
@@ -906,6 +952,16 @@ function MyPage() {
         <Modal.Body className={styles.body}>
           <Loading1 text="판매진행중입니다." />
         </Modal.Body>
+      </Modal>
+      <Modal
+        centered
+        show={show8}
+        onHide={handleClose8}
+        backdrop="static"
+        keyboard={false}
+        className={styles.dialog8}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.body}>{nftMap}</Modal.Body>
       </Modal>
     </>
   );

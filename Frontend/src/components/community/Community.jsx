@@ -35,30 +35,19 @@ function Community() {
       {loading ? (
         <Loading2 />
       ) : (
-        <>
-          <div className={styles.header}>
-            <button
-              className={styles.backbtn}
-              onClick={() => {
-                navigate("/");
-              }}>
-              <img alt="back" src="/back.png" className={styles.backicon} />
-            </button>
-            <div className={styles.communitytext}>커뮤니티</div>
-            <button
-              className={styles.createbtn}
+        <div className={styles.con}>
+          <PostMain postData={postData} className={styles.postMain} />
+          <div className={styles.footer_camerabutton}>
+            <img
+              alt="camera"
+              src="/src/assets/icon/create_button.png"
+              className={styles.footer_camera}
               onClick={() => {
                 navigate("/community/create");
-              }}>
-              <img
-                alt="pencil"
-                src="/pencil.png"
-                className={styles.pencilicon}
-              />
-            </button>
+              }}
+            />
           </div>
-          <PostMain postData={postData} />
-        </>
+        </div>
       )}
     </>
   );

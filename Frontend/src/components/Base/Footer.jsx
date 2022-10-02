@@ -9,6 +9,12 @@ import { login } from "../../store/user";
 import { selectArea } from "../../store/area";
 
 function Footer() {
+  const [isListHover1, setIsListHover1] = useState(false);
+  const [isListHover2, setIsListHover2] = useState(false);
+  const [isListHover3, setIsListHover3] = useState(false);
+  const [isListHover4, setIsListHover4] = useState(false);
+  const [isListHover5, setIsListHover5] = useState(false);
+
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
@@ -54,8 +60,14 @@ function Footer() {
               <div className={styles.footer_button}>
                 <img
                   alt="home"
-                  src="/new_home.png"
+                  src={
+                    isListHover1
+                      ? "/src/assets/icon/footer_home_hover.png"
+                      : "/src/assets/icon/footer_home.png"
+                  }
                   className={styles.footer_home}
+                  onMouseOver={() => setIsListHover1(true)}
+                  onMouseOut={() => setIsListHover1(false)}
                   onClick={() => {
                     dispatch(
                       selectArea({
@@ -71,8 +83,14 @@ function Footer() {
               <div className={styles.footer_button}>
                 <img
                   alt="store"
-                  src="/new_earth.png"
+                  src={
+                    isListHover2
+                      ? "/src/assets/icon/footer_store_hover.png"
+                      : "/src/assets/icon/footer_store.png"
+                  }
                   className={styles.footer_store}
+                  onMouseOver={() => setIsListHover2(true)}
+                  onMouseOut={() => setIsListHover2(false)}
                   onClick={() => {
                     dispatch(
                       selectArea({
@@ -88,8 +106,14 @@ function Footer() {
               <div className={styles.footer_button}>
                 <img
                   alt="community"
-                  src="/new_post.png"
+                  src={
+                    isListHover3
+                      ? "/src/assets/icon/footer_community_hover.png"
+                      : "/src/assets/icon/footer_community.png"
+                  }
                   className={styles.footer_store}
+                  onMouseOver={() => setIsListHover3(true)}
+                  onMouseOut={() => setIsListHover3(false)}
                   onClick={() => {
                     dispatch(
                       selectArea({
@@ -107,8 +131,14 @@ function Footer() {
               <div className={styles.footer_button}>
                 <img
                   alt="challenge"
-                  src="/new_hashtag.png"
+                  src={
+                    isListHover4
+                      ? "/src/assets/icon/footer_challenge_hover.png"
+                      : "/src/assets/icon/footer_challenge.png"
+                  }
                   className={styles.footer_challenge}
+                  onMouseOver={() => setIsListHover4(true)}
+                  onMouseOut={() => setIsListHover4(false)}
                   onClick={() => {
                     dispatch(
                       selectArea({
@@ -124,8 +154,14 @@ function Footer() {
               <div className={styles.footer_button}>
                 <img
                   alt="mypage"
-                  src="/new_profile.png"
+                  src={
+                    isListHover5
+                      ? "/src/assets/icon/footer_mypage_hover.png"
+                      : "/src/assets/icon/footer_mypage.png"
+                  }
                   className={styles.footer_mypage}
+                  onMouseOver={() => setIsListHover5(true)}
+                  onMouseOut={() => setIsListHover5(false)}
                   onClick={() => {
                     dispatch(
                       selectArea({

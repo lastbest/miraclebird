@@ -48,16 +48,14 @@
 .infoCt {
   width:80%;
   margin: auto;
-  border-bottom: 1px solid gray;
   margin-bottom:20px;
 }
 
 .footer_camera2 {
   display: flex;
-  margin: auto;
   /* height: 30px; */
-  width: 31px;
-  padding-top:14px;
+  margin-left: 90px;
+  width: 45px;
 }
 
 .footer_camerabutton2 {
@@ -78,4 +76,6 @@
   width:60px;
   text-align: center;
   margin-top: -5px;
+}
+.imgSlice{
 }

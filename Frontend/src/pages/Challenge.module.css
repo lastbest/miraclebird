@@ -1,8 +1,9 @@
 .containers {
-    display: flex;
     flex-direction: column;
     justify-content: center;
-    margin:auto;
+    margin-top: 50px;
+    height: 80vh;
+
 }
 
 .miraclemorning {
@@ -11,8 +12,9 @@
     margin: auto;
     width:250px;
     height:120px;
-    background-color: #fffb847e ;
     margin-bottom:20px;
+    background: linear-gradient(#fffb8446, #fffff62d);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.234);
 }
 
 .morningTitle {
@@ -48,8 +50,10 @@
     margin: auto;
     width:250px;
     height:120px;
-    background-color: #058af056 ;
+    /* background-color: #058af056 ; */
     margin-bottom: 20px;
+background: linear-gradient(#058af01c, #f3faff56);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.234);
 }
 
 .healthtext {
@@ -88,8 +92,10 @@
     margin: auto;
     width:250px;
     height:120px;
-    background-color: #d0fff7b9  ;
+    /* background-color: #d0fff7b9  ; */
     margin-bottom:20px;
+    background: linear-gradient(#d0fff752, #f8fffeac);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.234);
 }
 
 .studytext {
@@ -162,21 +168,21 @@
 }
 
 .footer_camera {
-    display: flex;
-    margin: auto;
-    /* height: 30px; */
-    width: 31px;
-    padding-top:14px;
+    text-align: center;
+  display: flex;
+  /* height: 30px; */
+  margin-left: 90px;
+  width: 45px;
   }
   
   .footer_camerabutton {
     text-align: center;
-    display: block;
-    position:fixed;
-    bottom:60px;
-    width:100%;
-    z-index:999;
-    left: 80%;
+        display: block;
+        position: fixed;
+        bottom: 60px;
+        width: 70%;
+        z-index: 999;
+        left: 60%;
   }
   
   .circle {
@@ -196,10 +202,9 @@
 
 .footer_camera2 {
     display: flex;
-    margin: auto;
     /* height: 30px; */
-    width: 31px;
-    padding-top:14px;
+    margin-left: 90px;
+    width: 45px;
   }
   
   .footer_camerabutton2 {

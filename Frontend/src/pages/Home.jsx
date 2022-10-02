@@ -40,7 +40,6 @@ function Home() {
     <>
       <BrowserView>
         <div className="App">
-          <WebCarousel className={styles.carousel} />
           <div className={styles.infoCt}>
             <div className={styles.btnCt}>
               <button
@@ -57,19 +56,17 @@ function Home() {
             <div>{state === 0 ? <HomeChallenge /> : <HomeNFT />}</div>
           </div>
           <Rank />
-
+          <WebCarousel className={styles.carousel} />
           {user != null && user.check != "" ? (
             <div className={styles.footer_camerabutton2}>
-              <div className={styles.circle2}>
-                <img
-                  alt="camera"
-                  src="/new_camera.png"
-                  className={styles.footer_camera2}
-                  onClick={() => {
-                    navigate("/camera");
-                  }}
-                />
-              </div>
+              <img
+                alt="camera"
+                src="/src/assets/icon/camera_button.png"
+                className={styles.footer_camera2}
+                onClick={() => {
+                  navigate("/camera");
+                }}
+              />
             </div>
           ) : (
             <></>
@@ -78,7 +75,6 @@ function Home() {
       </BrowserView>
       <MobileView>
         <div className="App">
-          <WebCarousel className={styles.carousel} />
           <div className={styles.infoCt}>
             <div className={styles.btnCt}>
               <button
@@ -92,22 +88,22 @@ function Home() {
                 NFT
               </button>
             </div>
-            <div>{state === 0 ? <HomeChallenge /> : <HomeNFT />}</div>
+            <div className={styles.imgSlice}>
+              {state === 0 ? <HomeChallenge /> : <HomeNFT />}
+            </div>
           </div>
           <Rank />
-
+          <WebCarousel className={styles.carousel} />
           {user != null && user.check != "" ? (
-            <div className={styles.footer_camerabutton}>
-              <div className={styles.circle}>
-                <img
-                  alt="camera"
-                  src="/new_camera.png"
-                  className={styles.footer_camera}
-                  onClick={() => {
-                    navigate("/camera");
-                  }}
-                />
-              </div>
+            <div className={styles.footer_camerabutton2}>
+              <img
+                alt="camera"
+                src="/src/assets/icon/camera_button.png"
+                className={styles.footer_camera2}
+                onClick={() => {
+                  navigate("/camera");
+                }}
+              />
             </div>
           ) : (
             <></>

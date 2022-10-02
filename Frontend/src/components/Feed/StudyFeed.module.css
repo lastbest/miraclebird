@@ -26,6 +26,7 @@
 .picture {
     width:80%;
     text-align: center;
+        border-radius: 5px;
 }
 
 .modalcontent {
@@ -82,4 +83,5 @@
 
 .picture2 {
     width: 250px;
+    border-radius: 5px;
 }
