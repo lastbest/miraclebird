@@ -1,10 +1,17 @@
 .svg{
     width: 95%;
-    height: 35vh;
+        height: 32vh;
+        margin: auto;
+        margin-top: 10px;
+        box-shadow: 0px 0px 10px rgbA(0, 0, 0, 0.234);
+        margin-bottom: 20px;
+}
+.svgmobile{
+width: 95%;
+    height: 45vh;
     margin: auto;
     margin-top: 10px;
-    box-shadow: 0px 0px 10px rgbA(0,0,0,0.234);
-    padding-left: 30px;
+    box-shadow: 0px 0px 10px rgbA(0, 0, 0, 0.234);
 
     margin-bottom: 20px;
 }

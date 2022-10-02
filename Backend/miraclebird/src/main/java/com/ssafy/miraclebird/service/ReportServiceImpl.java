@@ -7,6 +7,7 @@ import com.ssafy.miraclebird.dto.PostDto;
 import com.ssafy.miraclebird.dto.ReportDto;
 import com.ssafy.miraclebird.entity.Report;
 import com.ssafy.miraclebird.entity.Verification;
+import com.ssafy.miraclebird.securityOauth.domain.entity.user.Role;
 import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,4 +83,24 @@ public class ReportServiceImpl implements ReportService{
             throw new Exception();
         }
     }
+
+    @Override
+    @Transactional
+    public String deleteReport(long reportIdx, long userIdx) throws Exception{
+        try {
+            Report reportEntity = reportDao.getReportById(reportIdx);
+            User user = userDao.getUserById(userIdx);
+
+            if(reportEntity.getUser().getUserIdx() == userIdx || user.getRole().equals(Role.ADMIN)) {
+                reportDao.deleteReport(reportIdx);
+                return "삭제완료";
+            }
+            return "삭제할 권한이 없습니다.";
+        }
+        catch (Exception e) {
+            throw new Exception();
+        }
+    }
+
+
 }

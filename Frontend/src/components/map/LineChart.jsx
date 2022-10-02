@@ -5,7 +5,7 @@ import styles from "./LineChart.module.css";
 import { current } from "@reduxjs/toolkit";
 import axios from "axios";
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
-
+import { BrowserView, MobileView } from "react-device-detect";
 const LineChart = ({ data }) => {
   const [landmarkPriceData, setLandmarkPriceData] = useState("");
 
@@ -88,14 +88,19 @@ const LineChart = ({ data }) => {
         .call(d3.axisLeft(y).tickSize(-width))
         .call((g) => g.select(".domain").remove())
         .attr("class", "grid")
-        .attr("fill", "#787a79")
-        .attr("stroke", "#787a79");
+        .attr("fill", "#5c5c5c");
 
     // apply axis to canvas
-    svg.append("g").call(xAxis);
+    // svg.append("g").call(xAxis);
     svg.append("g").call(yAxis);
 
     // vertical bar chart
+
+    var tooltip = d3
+      .select("body")
+      .append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
 
     //line chart
     const line = d3
@@ -136,18 +141,46 @@ const LineChart = ({ data }) => {
       .attr("fill", "black")
       .attr("font-family", "Tahoma")
       .attr("font-size", "7px")
-      .attr("text-anchor", "middle");
+      .attr("text-anchor", "middle")
+      .on("mouseover", function (evt, i) {
+        console.log(i);
+        // 이것으로 div 에 hover 될 때 동작을 변경시킬 수 있다.
+        d3.select(this).transition().duration(100).attr("r", 7);
+        // 툴팁이 보이게 만들어 준다.
+        tooltip.transition().duration(100).style("opacity", 1).text(i.day);
+      })
+      .on("mousemove", function (evt) {
+        const target = event.currentTarget;
+        return tooltip
+          .style("top", evt.y - 10 + "px")
+          .style("left", evt.x + 10 + "px");
+      })
+      .on("mouseout", function () {
+        d3.select(this).transition().duration(200).attr("r", 5);
+        tooltip.transition().duration(200).style("opacity", 0);
+      });
   };
 
   return (
     <div className={styles.chart}>
-      {len >= 1 ? (
-        <svg ref={svgRef} className={styles.svg} />
-      ) : (
-        <div className={styles.nonePrice}>
-          <div className={styles.nonePriceText}>거래 내역이 없습니다.</div>
-        </div>
-      )}
+      <BrowserView>
+        {len >= 1 ? (
+          <svg ref={svgRef} className={styles.svg} />
+        ) : (
+          <div className={styles.nonePrice}>
+            <div className={styles.nonePriceText}>거래 내역이 없습니다.</div>
+          </div>
+        )}
+      </BrowserView>
+      <MobileView>
+        {len >= 1 ? (
+          <svg ref={svgRef} className={styles.svgmobile} />
+        ) : (
+          <div className={styles.nonePrice}>
+            <div className={styles.nonePriceText}>거래 내역이 없습니다.</div>
+          </div>
+        )}
+      </MobileView>
 
       <table className={styles.table}>
         <thead>

@@ -112,8 +112,8 @@ function MyPage() {
   useEffect(() => {
     console.log("userDate", userData);
 
-    var startdate = seasonInfo[0].startDate + "_00:00:00.000";
-    var enddate = seasonInfo[0].endDate + "_23:59:59.000";
+    var startdate = seasonInfo[season-1].startDate + "_00:00:00.000";
+    var enddate = seasonInfo[season-1].endDate + "_23:59:59.000";
 
     axios({
       url: API_BASE_URL + "/verification/heatmap/" + userData.userIdx,
@@ -137,8 +137,8 @@ function MyPage() {
   useEffect(() => {
     console.log("userDate", userData);
 
-    var startdate = seasonInfo[0].startDate + "_00:00:00.000";
-    var enddate = seasonInfo[0].endDate + "_23:59:59.000";
+    var startdate = seasonInfo[season-1].startDate + "_00:00:00.000";
+    var enddate = seasonInfo[season-1].endDate + "_23:59:59.000";
 
     axios({
       url: API_BASE_URL + "/verification/heatmap/" + userData.userIdx,
@@ -193,8 +193,6 @@ function MyPage() {
     if (challengeData.length != 0) {
       tempChallengeMap.values.push({ date: pre, count: count });
     }
-    console.log(tempChallengeMap);
-    console.log(SEOSON_SELECT[0]);
     setChallengeMap(tempChallengeMap);
   }, [challengeData]);
 
@@ -435,55 +433,6 @@ function MyPage() {
     reader.readAsDataURL(e.target.files[0]);
   };
 
-  const SEOSON_SELECT = [
-    {
-      values: [
-        { date: "2022-09-03", count: 1 },
-        { date: "2022-09-04", count: 2 },
-        { date: "2022-09-05", count: 3 },
-        { date: "2022-09-08", count: 1 },
-        { date: "2022-09-09", count: 2 },
-        { date: "2022-09-10", count: 3 },
-        { date: "2022-09-11", count: 2 },
-        { date: "2022-09-12", count: 1 },
-        { date: "2022-09-13", count: 3 },
-      ],
-    },
-    {
-      values: [
-        { date: "2022-10-03", count: 1 },
-        { date: "2022-10-04", count: 2 },
-        { date: "2022-10-05", count: 3 },
-        { date: "2022-10-08", count: 1 },
-        { date: "2022-10-09", count: 2 },
-        { date: "2022-10-10", count: 3 },
-        { date: "2022-10-11", count: 2 },
-        { date: "2022-10-12", count: 1 },
-        { date: "2022-10-13", count: 3 },
-        { date: "2022-10-14", count: 1 },
-        { date: "2022-10-16", count: 2 },
-        { date: "2022-10-17", count: 2 },
-      ],
-    },
-    {
-      values: [
-        { date: "2022-11-03", count: 1 },
-        { date: "2022-11-04", count: 2 },
-        { date: "2022-11-05", count: 3 },
-        { date: "2022-11-08", count: 1 },
-        { date: "2022-11-11", count: 2 },
-        { date: "2022-11-12", count: 1 },
-        { date: "2022-11-13", count: 3 },
-        { date: "2022-11-14", count: 1 },
-        { date: "2022-11-16", count: 2 },
-        { date: "2022-11-17", count: 2 },
-        { date: "2022-11-20", count: 1 },
-        { date: "2022-11-21", count: 2 },
-        { date: "2022-11-22", count: 1 },
-        { date: "2022-11-23", count: 3 },
-      ],
-    },
-  ];
 
   return (
     <>
@@ -492,7 +441,7 @@ function MyPage() {
       ) : (
         <>
           <div className={styles.btns}>
-            {userData.name === "김관리" ? (
+            {userData.name === "관리자" ? (
               <button
                 className={styles.adminpage}
                 onClick={() => navigate("/admin")}>
@@ -583,18 +532,18 @@ function MyPage() {
                   return `color-scale-${value.count >= 4 ? 4 : value.count}`;
                 }}
 
-                // tooltipDataAttrs={(value) => {
-                //     if (!value || !value.date) {
-                //     return null;
-                //     }
-                //     return {
-                //     "data-tip": `${value.date} has count: ${
-                //         value.count
-                //     }`,
-                //     };
-                // }}
+                tooltipDataAttrs={(value) => {
+                    if (!value || !value.date) {
+                    return null;
+                    }
+                    return {
+                    "data-tip": `${value.date} 인증 횟수: ${
+                        value.count
+                    }`,
+                    };
+                }}
               />
-              {/* <ReactTooltip className={styles.tooltip} /> */}
+              <ReactTooltip className={styles.tooltip} />
             </div>
           </div>
           <div className={styles.nftContainer}>

@@ -40,7 +40,7 @@ public class ReportController {
 
     @ApiOperation(value = "특정 Report의 정보를 반환한다.", response = ReportDto.class)
     @GetMapping("/{report_idx}")
-    public ResponseEntity<ReportDto> getReportById(@PathVariable("report_idx") Long reportIdx) {
+    public ResponseEntity<ReportDto> getReportById(@PathVariable("report_idx") long reportIdx) {
         ReportDto result = reportService.getReportById(reportIdx);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
@@ -59,5 +59,20 @@ public class ReportController {
         }
 
         return new ResponseEntity<String>("success",HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "특정 Report의 정보를 삭제한다.", response = ReportDto.class)
+    @DeleteMapping("/{report_idx}")
+    public ResponseEntity<String> deleteReport(@PathVariable("report_idx") long reportIdx, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
+        String result;
+        try{
+            long userIdx = userPrincipal.getId();
+            result = reportService.deleteReport(reportIdx, userIdx);
+        }
+        catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+        return new ResponseEntity<String>(result,HttpStatus.OK);
     }
 }

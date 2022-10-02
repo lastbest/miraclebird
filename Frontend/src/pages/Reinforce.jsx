@@ -464,30 +464,42 @@ function Reinforce() {
           </div>
         </div>
 
-        <div className={styles.nftsCt}>
-          <div className={styles.nftsImgCt}>
+
             {nftData.length ? (
               nftData.map((nft, index) => {
                 return (
-                  <img
-                    alt="nft1"
-                    src={nft.imagePath}
-                    className={styles.nfturl}
-                    key={index}
-                    onClick={(e) => (
-                      setAddress(nft.imagePath),
-                      setNowTokenId(nft.tokenId),
-                      setLevel(nft.starForce),
-                      NextTokenId(nft.landmarkInfoIdx, nft.starForce, e)
-                    )}
-                  />
+                  <div className={styles.nftsCt}>
+                    <div className={styles.nftsImgCt}>
+                      <img
+                        alt="nft1"
+                        src={nft.imagePath}
+                        className={styles.nfturl}
+                        key={index}
+                        onClick={(e) => (
+                          setAddress(nft.imagePath),
+                          setNowTokenId(nft.tokenId),
+                          setLevel(nft.starForce),
+                          NextTokenId(nft.landmarkInfoIdx, nft.starForce, e)
+                        )}
+                      />
+                    </div>
+                  </div>
                 );
               })
             ) : (
-              <div className={styles.gostoreText}>NFT를 구매해보세요!</div>
+              <>
+              <div className={styles.nftsCt2}>
+                <div className={styles.nftsImgCt2}>
+                  <div className={styles.gostoreText}>
+                    <div className={styles.gostoreText2}>강화할 수 있는 NFT가 없습니다.</div>
+                    <div className={styles.gostoreText2}>NFT를 구매해보세요!</div>
+                    <button className={styles.gostoreBtn} onClick={()=>(navigate("/store"))}>구매하러가기</button>
+                  </div>
+                </div>
+              </div>
+              </>
             )}
-          </div>
-        </div>
+
       </div>
 
       <Modal
@@ -569,7 +581,24 @@ function Reinforce() {
         className={styles.modal2}>
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.modalcontent2}>
-          <div className={styles.privKeychange}>개인키를 입력해주세요</div>
+          <div className={styles.privKeychange}>
+            개인키를 입력해주세요
+            <OverlayTrigger
+              placement="right"
+              overlay={
+                <Tooltip>
+                  <div className={styles.tooltiptext}>
+                    강화 1회: 3 MIRA
+                  </div>
+                </Tooltip>
+              }>
+              <img
+                alt="notice"
+                src="/attention.png"
+                className={styles.noticeicon2}
+              />
+            </OverlayTrigger>
+          </div>
           <div className={styles.privKeycontainer}>
             <input
               autoComplete="privKey"

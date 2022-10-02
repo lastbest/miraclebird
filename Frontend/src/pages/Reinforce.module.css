@@ -21,6 +21,14 @@
   margin-right: 5%;
 }
 
+.noticeicon2 {
+  width:25px;
+  height:25px;
+  margin:auto;
+  margin-left:10px;
+  margin-bottom:5px;
+}
+
 .nftCt {
     width:80%;
     height:350px;
@@ -255,4 +263,48 @@
 
 .tooltiptext {
   font-family: 'neodgm';
+}
+
+.gostoreText {
+  text-align: center;
+  /* margin: auto; */
+}
+
+.nftsCt2 {
+  width:90%;
+  flex: 1;
+  margin: auto;
+  
+}
+
+.gostoreBtn {
+  background-color: #ffe969;
+  border-radius: 20px;
+  margin-top:20px;
+  border: none;
+  padding:5px;
+  color:black;
+}
+
+.modalcontent2 {
+  font-family: 'neodgm';
+  text-align: center;
+}
+
+.privKeychange {
+  margin-bottom: 5px;
+}
+
+.privKeybtn {
+  margin-left: 10px;
+  border: none;
+  background-color: #ffe969 ;
+  color:black;
+  border-radius: 20px;
+  padding:5px;
+}
+
+.modalcontent3 {
+  font-family: 'neodgm';
+  text-align: center;
 }

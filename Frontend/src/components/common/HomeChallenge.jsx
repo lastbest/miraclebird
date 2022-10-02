@@ -20,11 +20,28 @@ function HomeChallenge () {
             pagination={{ clickable: true }}
             >
                 <SwiperSlide className={styles.slide}>
+                    <img alt="detail" src="/main1.jpg" className={styles.mainImg} />
+                </SwiperSlide>
+                <SwiperSlide className={styles.slide}>
+                    <img alt="detail" src="/main2.jpg" className={styles.mainImg} />
+                </SwiperSlide>
+                <SwiperSlide className={styles.slide}>
+                    <img alt="detail" src="/main3.jpg" className={styles.mainImg} />
+                </SwiperSlide>
+                <SwiperSlide className={styles.slide}>
+                    <img alt="detail" src="/main4.jpg" className={styles.mainImg} />
+                </SwiperSlide>
+                <SwiperSlide className={styles.slide}>
+                    <img alt="detail" src="/main5.jpg" className={styles.mainImg} />
+                </SwiperSlide>
+                <SwiperSlide className={styles.slide}>
+                    <img alt="detail" src="/main6.jpg" className={styles.mainImg} />
+                </SwiperSlide>
+                {/* <SwiperSlide className={styles.slide}>
                     <div className={styles.detailText}>
                         <div className={styles.detail1}>01</div>
                         <br />
                         <div className={styles.detail2}>나에게 필요한 좋은 습관으로 고르세요.</div>
-                        {/* <img alt="detail" src="/detailimg.png" className={styles.detailimg} /> */}
                         <div className={styles.iconCt}>
                             <img alt="detail" src="/sunrise.png" className={styles.detailicon} />
                             <img alt="detail" src="/dumbbell.png" className={styles.detailicon} />
@@ -45,7 +62,6 @@ function HomeChallenge () {
                         <div className={styles.detail1}>02</div>
                         <br />
                         <div className={styles.detail2}>챌린지로 얻은 MIRA로 NFT를 구매하세요.</div>
-                        {/* <img alt="detail" src="/detailimg.png" className={styles.detailimg} /> */}
                         <div className={styles.iconCt2}>
                             <img alt="detail" src="/dollar.png" className={styles.detailicon} />
                             <img alt="detail" src="/earth.png" className={styles.detailicon} />
@@ -59,7 +75,7 @@ function HomeChallenge () {
                         </div>
                         
                     </div>
-                </SwiperSlide>
+                </SwiperSlide> */}
 
             </Swiper>
         </div>

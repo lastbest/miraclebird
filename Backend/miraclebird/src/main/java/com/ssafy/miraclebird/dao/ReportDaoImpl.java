@@ -34,4 +34,14 @@ public class ReportDaoImpl implements ReportDao {
     public void saveReport(Report report) throws Exception {
         reportRepository.save(report);
     }
+
+    @Override
+    public void deleteReport(long reportIdx) throws Exception {
+        try {
+            reportRepository.deleteById(reportIdx);
+        }
+        catch (Exception e){
+            throw new Exception();
+        }
+    }
 }
