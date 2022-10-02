@@ -100,7 +100,7 @@ function GeoChart({ data }) {
   }, [area]);
 
   useEffect(() => {
-    console.log(landmarkInfoIdx);
+    // console.log(landmarkInfoIdx);
     axios({
       url: API_BASE_URL + "/landmark/landmarkinfoidx/" + landmarkInfoIdx,
       method: "GET",
@@ -120,10 +120,10 @@ function GeoChart({ data }) {
 
         if (item.userIdx == 1) {
           setLandmarkData(res.data[0]);
-          console.log(res.data[0]);
+          // console.log(res.data[0]);
         } else {
           setLandmarkData(result);
-          console.log(result);
+          // console.log(result);
         }
       })
       .catch((error) => {
@@ -134,7 +134,7 @@ function GeoChart({ data }) {
   }, [landmarkInfoIdx]);
 
   useEffect(() => {
-    console.log(landmarkData);
+    // console.log(landmarkData);
     setLoading(true);
     setLoading1(true);
     axios(API_BASE_URL + "/price/" + landmarkData.landmarkIdx, {
@@ -144,11 +144,11 @@ function GeoChart({ data }) {
       },
     })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         const temp = [];
         for (var i = 0; i < res.data.length; i++) {
           const item = res.data[i];
-          console.log("-------------", item);
+          // console.log("-------------", item);
           temp.push({
             month: i,
             day:
@@ -172,14 +172,14 @@ function GeoChart({ data }) {
   }, [landmarkData]);
 
   useEffect(() => {
-    console.log(priceData);
+    // console.log(priceData);
     setLoading1(false);
   }, [priceData]);
 
   useEffect(() => {
     const svg = select(svgRef.current);
 
-    console.log(imgUrl);
+    // console.log(imgUrl);
     // use resized dimensions
     // but fall back to getBoundingClientRect, if no dimensions yet.
     const { width, height } =
@@ -201,8 +201,8 @@ function GeoChart({ data }) {
       .data(data.features)
       .join("path")
       .on("click", (event, feature) => {
-        console.log(feature.properties.SIG_CD);
-        console.log(wrapperRef);
+        // console.log(feature.properties.SIG_CD);
+        // console.log(wrapperRef);
         dispatch(
           selectArea({
             name: feature.properties.name,
@@ -219,7 +219,7 @@ function GeoChart({ data }) {
 
         svg.selectAll("circle").remove();
         svg.selectAll("text").remove();
-        console.log(area);
+        // console.log(area);
       })
       .attr("class", "city")
       .transition()
@@ -229,7 +229,7 @@ function GeoChart({ data }) {
       var mark = spot;
       for (var i = 0; i < spot.length; i++) {
         if (area.name == mark[i].name) {
-          console.log(mark[i].landmark);
+          // console.log(mark[i].landmark);
           mark = mark[i].landmark;
           svg.selectAll("circle").remove();
           svg.selectAll("text").remove();
@@ -254,7 +254,7 @@ function GeoChart({ data }) {
           return projection([d.lon, d.lat])[1];
         })
         .on("click", (event, d) => {
-          console.log(d.name);
+          // console.log(d.name);
           setLandmarkInfoIdx(d.index);
           setImgUrl("/src/assets/landmark/" + landmark.index + ".png");
           dispatch(
@@ -292,7 +292,7 @@ function GeoChart({ data }) {
           return d.name;
         })
         .on("click", (event, d) => {
-          console.log(d.name);
+          // console.log(d.name);
           setLandmarkInfoIdx(d.index);
           setImgUrl("/src/assets/landmark/" + landmark.index + ".png");
           dispatch(
@@ -338,8 +338,8 @@ function GeoChart({ data }) {
           return d.properties.name;
         })
         .on("click", (event, feature) => {
-          console.log(feature.properties.SIG_CD);
-          console.log(wrapperRef);
+          // console.log(feature.properties.SIG_CD);
+          // console.log(wrapperRef);
           dispatch(
             selectArea({
               name: feature.properties.name,
@@ -356,7 +356,7 @@ function GeoChart({ data }) {
 
           svg.selectAll("circle").remove();
           svg.selectAll("text").remove();
-          console.log(area);
+          // console.log(area);
         })
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "central")
@@ -395,7 +395,7 @@ function GeoChart({ data }) {
   }, []);
 
   useEffect(() => {
-    console.log(landmarkInfoIdx);
+    // console.log(landmarkInfoIdx);
     axios(API_BASE_URL + "/landmark/landmarkinfoidx/" + landmarkInfoIdx, {
       method: "GET",
       headers: {
@@ -403,7 +403,7 @@ function GeoChart({ data }) {
       },
     })
       .then((result) => {
-        console.log(result.data);
+        // console.log(result.data);
         result.data.map((item) => {
           if (item.selling === true) {
             setSellingItem(item.landmarkIdx);
@@ -425,7 +425,7 @@ function GeoChart({ data }) {
       },
     })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         const sellerWalletData = res.data;
         setSellerAddress(sellerWalletData.walletAddress);
       })
@@ -440,7 +440,7 @@ function GeoChart({ data }) {
       },
     })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         const buyerWalletData = res.data;
         setBuyerAddress(buyerWalletData.walletAddress);
       })
@@ -455,7 +455,7 @@ function GeoChart({ data }) {
   async function getTokenBalance() {
     const response = await callMiraToken.methods.balanceOf(buyerAddress).call();
     setTokenBalance(response);
-    console.log(response);
+    // console.log(response);
   }
 
   useEffect(() => {
@@ -467,7 +467,7 @@ function GeoChart({ data }) {
     const address = getAddressFrom(
       privKey.startsWith("0x") ? privKey : "0x" + privKey
     );
-    console.log("address", address);
+    // console.log("address", address);
     if (!address) {
       handleClose0();
       handleShow3();
@@ -476,9 +476,9 @@ function GeoChart({ data }) {
     try {
       const buyer = web3.eth.accounts.privateKeyToAccount(privKey);
       web3.eth.accounts.wallet.add(buyer);
-      console.log(web3.eth.accounts.wallet);
+      // console.log(web3.eth.accounts.wallet);
       web3.eth.defaultAccount = buyer.address;
-      console.log("defaultAccount_buyer :", web3.eth.defaultAccount);
+      // console.log("defaultAccount_buyer :", web3.eth.defaultAccount);
 
       const senderAddress = web3.eth.defaultAccount;
       const sendMira = new web3.eth.Contract(
@@ -488,16 +488,16 @@ function GeoChart({ data }) {
       const response = await sendMira.methods
         .transfer(sellerAddress, sellingPrice)
         .send({ from: senderAddress, gas: 3000000 });
-      console.log(response);
+      // console.log(response);
 
       if (response.status === true) {
         const sender = web3.eth.accounts.privateKeyToAccount(
           "0x474d486a4009e752f6608594385a4676ce85ffe359221b210875516c02047ab3"
         );
         web3.eth.accounts.wallet.add(sender);
-        console.log(web3.eth.accounts.wallet);
+        // console.log(web3.eth.accounts.wallet);
         web3.eth.defaultAccount = sender.address;
-        console.log("defaultAccount :", web3.eth.defaultAccount);
+        // console.log("defaultAccount :", web3.eth.defaultAccount);
         const senderAddress = web3.eth.defaultAccount;
 
         const sendLandmarkNft = new web3.eth.Contract(
@@ -505,14 +505,14 @@ function GeoChart({ data }) {
           "0xED71ceA7Ae66892792c2E3d86156B29A71a1677a"
         );
 
-        console.log("sellerAccount :", sellerAddress);
-        console.log("senderAccount :", senderAddress);
-        console.log("buyerAccount :", buyerAddress);
+        // console.log("sellerAccount :", sellerAddress);
+        // console.log("senderAccount :", senderAddress);
+        // console.log("buyerAccount :", buyerAddress);
 
         const response2 = await sendLandmarkNft.methods
           .safeTransferFrom(sellerAddress, buyerAddress, sellingToken)
           .send({ from: senderAddress, gas: 3000000 });
-        console.log(response2);
+        // console.log(response2);
         setTransactionHash(response2.transactionHash);
 
         if (response2.status === true) {
@@ -532,7 +532,7 @@ function GeoChart({ data }) {
             },
           })
             .then((res) => {
-              console.log(res);
+              // console.log(res);
               // put my nft db
               axios(API_BASE_URL + "/mynft/" + sellingItem, {
                 method: "PUT",
@@ -603,7 +603,7 @@ function GeoChart({ data }) {
             onMouseOver={() => setIsListHover(true)}
             onMouseOut={() => setIsListHover(false)}
             onClick={() => {
-              console.log(area.SIG_CD);
+              // console.log(area.SIG_CD);
               if (area.SIG_CD.length == 2) {
                 setSelectedCountry(null);
                 dispatch(
@@ -627,7 +627,7 @@ function GeoChart({ data }) {
           className={styles.connect}
           onClick={() => {
             if (user.information.userIdx == undefined) {
-              console.log(user);
+              // console.log(user);
               handleShow7();
             } else {
               navigate("/landmark");
