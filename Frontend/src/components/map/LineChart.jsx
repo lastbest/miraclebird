@@ -88,8 +88,7 @@ const LineChart = ({ data }) => {
         .call(d3.axisLeft(y).tickSize(-width))
         .call((g) => g.select(".domain").remove())
         .attr("class", "grid")
-        .attr("fill", "#787a79")
-        .attr("stroke", "#787a79");
+        .attr("fill", "#5c5c5c");
 
     // apply axis to canvas
     // svg.append("g").call(xAxis);
@@ -175,7 +174,7 @@ const LineChart = ({ data }) => {
       </BrowserView>
       <MobileView>
         {len >= 1 ? (
-          <svg ref={svgRef} className={styles.svg} />
+          <svg ref={svgRef} className={styles.svgmobile} />
         ) : (
           <div className={styles.nonePrice}>
             <div className={styles.nonePriceText}>거래 내역이 없습니다.</div>
