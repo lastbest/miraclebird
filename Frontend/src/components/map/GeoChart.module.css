@@ -116,11 +116,17 @@
     stroke: #ffe969;
 }
 
+.backicon {
+
+}
 .back {
     z-index: 3;
-    height: 5vh;
+    width: 25px;
+        height: 25px;
     position: relative;
-    left: 30px;
+    left: 15px;
+    top: 5px;
+
 }
 
 .back:hover {

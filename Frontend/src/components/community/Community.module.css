@@ -5,12 +5,14 @@
 }
 
 .backicon {
+    position: relative;
+    left: 10px;
     width:25px;
     height:25px;
 }
 
 .header {
-    margin-top:10px;
+    margin-top:60px;
     display:flex;
     justify-content: space-between;
     align-items: center;
