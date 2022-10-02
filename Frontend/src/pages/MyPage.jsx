@@ -152,7 +152,14 @@ function MyPage() {
       },
     })
       .then((res) => {
-        setChallengeData(res.data);
+        var temp = [];
+        for (var i = 0; i < res.data.length; i++) {
+          var item = res.data[i];
+          if (item.approval == 1) {
+            temp.push(item);
+          }
+        }
+        setChallengeData(temp);
       })
       .catch((error) => {
         console.log(error);
