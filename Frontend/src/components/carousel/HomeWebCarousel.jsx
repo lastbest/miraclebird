@@ -61,7 +61,7 @@ const WebCarousel = () => {
           marginTop: "1%",
           width: "70%",
           margin: "auto",
-          "margin-bottom": "10px",
+          "marginBottom": "10px",
         }}>
         <AliceCarousel
           mouseTracking
