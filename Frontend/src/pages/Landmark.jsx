@@ -340,7 +340,7 @@ function Landmark() {
                     onClick={(e)=>{handleShow(e), clickNftData(e.target.id)}}>
                       구매하기
                     </button>
-                    : <button className={styles.buyBtn}>판매중이아닙니다</button>}
+                    : <div className={styles.buyBtn2}>거래중이 아닙니다.</div>}
                   </div>
                 </div>
               </div>
@@ -470,22 +470,8 @@ function Landmark() {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}>
-        <Modal.Header className={styles.modalheader}></Modal.Header>
-        {/* <Modal.Body className={styles.modalcontent}>
-          <div>구매하시겠습니까?</div>
-          <div className={styles.modalbtns}>
-            <button className={styles.closeBtn} onClick={handleClose}>
-              취소
-            </button>
-            <button className={styles.buyBtn} onClick={handleClose}>
-              구매하기
-            </button>
-          </div>
-        </Modal.Body>
-        <Modal.Footer className={styles.modalheader}></Modal.Footer>
-      </Modal> */}
-
-      <Modal.Body className={styles.modalcontent}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent}>
           <div className={styles.privKeychange}>개인키를 입력해주세요</div>
           <div className={styles.privKeycontainer}>
             <input
@@ -507,6 +493,7 @@ function Landmark() {
             </button>
           </div>
         </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
         </Modal>
 
         <Modal
@@ -517,8 +504,8 @@ function Landmark() {
         keyboard={false}
         className={styles.dialog0}>
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
-        <Modal.Body className={styles.body}>
-          <Loading1 text="거래중입니다." />
+        <Modal.Body className={styles.modalcontent2}>
+          <Loading1 text="거래중입니다." className={styles.modalcontent2} />
         </Modal.Body>
       </Modal>
 

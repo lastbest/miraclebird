@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import styles from "./Rank.module.css";
 import Modal from 'react-modal';
 import {Swiper, SwiperSlide} from "swiper/react";
@@ -10,12 +10,49 @@ import 'swiper/css/autoplay';
 import RankDay from "./RankDay";
 import RankCount from "./RankCount"
 import "./Rank.css"
+import axios from "axios";
+import { API_BASE_URL } from "/src/constants";
+import AliceCarousel from "react-alice-carousel";
+import "react-alice-carousel/lib/alice-carousel.css";
 
 SwiperCore.use([Navigation, Pagination, Autoplay])
 
 function Rank() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [rank, setRank] = useState(0);
+    const [nftOwner, setNftOwner] = useState("");
+    const [nftMap, setNftMap] = useState("");
+
+    useEffect(()=>{
+        axios(API_BASE_URL + "/verification/ranking/nftowner",
+         {
+            method: "GET",
+          })
+            .then((res) => {
+              setNftOwner(res.data);
+            })
+            .catch((err) => console.log("nftowner", err));
+    },[]);
+
+    useEffect(() => {
+        var temp = [];
+        for (var i = 0; i < nftOwner.length; i++) {
+          var item = nftOwner[i];
+
+          temp.push(
+            <>
+            <SwiperSlide className={styles.imgCt}>
+                <img
+                src={item.image}
+                alt="img"
+                className={styles.nftImg}></img>
+                <div className={styles.nftText}>OWNER BY {item.name}</div>
+            </SwiperSlide>
+            </>
+          );
+        }
+        setNftMap(temp);
+      }, []);
 
     return (
         <>
@@ -44,21 +81,17 @@ function Rank() {
                 <img alt="nft" src="/nftenhance.png" className={styles.nfticon}/>
                 <div className={styles.ownertext}>NFT OWNER</div>
             </div>
+            <div className={styles.text}>
+                이번 시즌 실시간 NFT 랭킹
+            </div>
             <div className={styles.nftcontainer}>
-            <Swiper
+                <Swiper
                 spaceBetween={50}
                 slidesPerView={1}
                 pagination={{ clickable: true }}
                 autoplay={{delay:5000}}
                 >
-                    <SwiperSlide className={styles.nftslide}>
-                        <img alt="nft1" src='./nft1.png' />
-                        <p className={styles.nfttext}>owner by 김싸피</p>
-                    </SwiperSlide>
-                    <SwiperSlide className={styles.nftslide}>
-                        <img alt="nft2" src='./nft2.png' />
-                        <p className={styles.nfttext}>owner by 이싸피</p>
-                    </SwiperSlide>
+                    {nftMap}
                 </Swiper>
             </div>
         </div>

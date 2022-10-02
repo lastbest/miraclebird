@@ -15,14 +15,14 @@
   z-index: 9999;
 }
 .heart{
-  margin-top: -150px;
+  margin-top: -50px;
   width: 300px;
-height: 300px;
+  height: 300px;
 }
 
 .heart:hover {
-  background-color: white impo;
-  margin-top: -150px;
+  background-color: white !important;
+  margin-top: -50px;
   width: 300px;
   height: 300px;
 }
