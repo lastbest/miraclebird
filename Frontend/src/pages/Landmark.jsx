@@ -349,7 +349,7 @@ function Landmark() {
                     onClick={(e)=>{handleShow(e), clickNftData(e.target.id)}}>
                       구매하기
                     </button>
-                    : <div className={styles.buyBtn2}>거래중이 아닙니다.</div>}
+                    : <div className={styles.buyBtn2}>구매불가</div>}
                   </div>
                 </div>
               </div>
