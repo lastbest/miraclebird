@@ -303,7 +303,8 @@ function Landmark() {
                     src={item.imagePath}
                     className={styles.landmarkImg}></img>
                   <div className={styles.nftTitle}>
-                    <Marquee gradient={false} className={styles.nftTitletext}>{item.title} </Marquee>
+                    <div className={styles.nftTitletext}>{item.title}</div>
+                    {/* <Marquee gradient={false} className={styles.nftTitletext}>{item.title} </Marquee> */}
                     <img
                       src="/star.png"
                       alt="star"
