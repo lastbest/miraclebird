@@ -59,7 +59,7 @@ public class UserController {
     public ResponseEntity<String> deleteUser(@PathVariable("user_idx") Long userIdx_nouse, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         try {
             long userIdx = userPrincipal.getId();
-            //userService.deleteUser(userIdx);
+            userService.deleteUser(userIdx);
         }
         catch (Exception e) {
             throw new RuntimeException();
@@ -68,7 +68,7 @@ public class UserController {
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 
-    @ApiOperation(value = "user_idx에 해당하는 유저를 블랙리스트로 지정한다.", response = UserDto.class)
+        @ApiOperation(value = "user_idx에 해당하는 유저를 블랙리스트로 지정한다.", response = String.class)
     @PutMapping("/blacklist")
     public ResponseEntity<String> updateUserBlacklist(@RequestParam("user_idx") Long blacklist, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         try {

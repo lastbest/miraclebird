@@ -31,7 +31,7 @@ public class User extends DefaultTime {
     private String name;
 
     @Email
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String email;
 
     private String imageUrl;

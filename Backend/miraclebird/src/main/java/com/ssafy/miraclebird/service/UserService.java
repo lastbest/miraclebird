@@ -9,4 +9,6 @@ public interface UserService {
     UserDto updateUserInfo(Long userIdx, String name) throws Exception;
 
     void updateUserBlacklist(Long userIdx, Long blacklist) throws Exception;
+
+    void deleteUser(Long userIdx) throws Exception;
 }
