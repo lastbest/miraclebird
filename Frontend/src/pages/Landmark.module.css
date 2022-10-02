@@ -100,10 +100,13 @@
 }
 
 .nftTitle {
+  width:90%;
   font-size:18px;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
+  margin:auto;
 }
 
 .nftTitle2 {
@@ -208,4 +211,9 @@
 
 .modalcontent2 {
   height:300px;
+}
+
+.nftTitletext {
+  /* width: 50%; */
+  color:black;
 }

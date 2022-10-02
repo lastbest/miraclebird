@@ -7,7 +7,7 @@ import axios from "axios";
 import optionsJSON from "./options.json";
 import Modal from "react-bootstrap/Modal";
 import { Loading1 } from "../components/Base/Loading1";
-
+import Marquee from "react-fast-marquee";
 import Web3 from "web3";
 import COMMON_ABI from "../common/ABI";
 import getAddressFrom from "../util/AddressExtractor";
@@ -301,7 +301,7 @@ function Landmark() {
                     src={item.imagePath}
                     className={styles.landmarkImg}></img>
                   <div className={styles.nftTitle}>
-                    <div>{item.title} </div>
+                    <Marquee gradient={false} className={styles.nftTitletext}>{item.title} </Marquee>
                     <img
                       src="/star.png"
                       alt="star"
