@@ -651,7 +651,9 @@ function GeoChart({ data }) {
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.body}>
           <div className={styles.modalcontent}>
-            <div>{landmarkData.landmarkTitle}</div>
+            <div className={styles.landmarkTitle}>
+              {landmarkData.landmarkTitle}
+            </div>
             <img
               src={landmarkData.imagePath}
               alt="mm"
