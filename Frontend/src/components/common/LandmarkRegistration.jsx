@@ -80,7 +80,10 @@ function LandmarkRegistration() {
       privKey.startsWith("0x") ? privKey : "0x" + privKey
     );
     console.log("address", address);
-    if (!address) return;
+    if (!address){
+      alert("개인키가 일치하지 않습니다")
+      return;
+    }
     try {
       // make Contract
       const sender = web3.eth.accounts.privateKeyToAccount(privKey);

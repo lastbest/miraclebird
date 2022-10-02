@@ -494,7 +494,6 @@ function Landmark() {
             />
             <button
               onClick={(e) => {
-                handleShow0();
                 buyNFT(e);
               }}
               className={styles.privKeybtn}>
