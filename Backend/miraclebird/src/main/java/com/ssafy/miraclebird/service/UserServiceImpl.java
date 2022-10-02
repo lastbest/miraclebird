@@ -48,4 +48,15 @@ public class UserServiceImpl implements UserService{
             throw new Exception();
         }
     }
+
+    @Override
+    @Transactional
+    public void deleteUser(Long userIdx) throws Exception {
+        User userEntity = userDao.getUserById(userIdx);
+        userDao.deleteToken(userEntity.getEmail());
+        userEntity.setEmail(null);
+        userEntity.setImageUrl(null);
+        userEntity.setName("탈퇴한 회원");
+        userDao.saveUser(userEntity);
+    }
 }

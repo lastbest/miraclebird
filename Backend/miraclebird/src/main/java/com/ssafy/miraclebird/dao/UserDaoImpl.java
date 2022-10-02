@@ -1,6 +1,7 @@
 package com.ssafy.miraclebird.dao;
 
 import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
+import com.ssafy.miraclebird.securityOauth.repository.auth.TokenRepository;
 import com.ssafy.miraclebird.securityOauth.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,10 +12,12 @@ import java.util.Optional;
 public class UserDaoImpl implements UserDao{
 
     private final UserRepository userRepository;
+    private final TokenRepository tokenRepository;
 
     @Autowired
-    public UserDaoImpl(UserRepository userRepository) {
+    public UserDaoImpl(UserRepository userRepository, TokenRepository tokenRepository) {
         this.userRepository = userRepository;
+        this.tokenRepository = tokenRepository;
     }
 
     @Override
@@ -43,5 +46,25 @@ public class UserDaoImpl implements UserDao{
         }
 
         return selectUser;
+    }
+
+    @Override
+    public void saveUser(User user) throws Exception {
+        try {
+            userRepository.save(user);
+        }
+        catch (Exception e) {
+            throw new Exception();
+        }
+    }
+
+    @Override
+    public void deleteToken(String email) throws Exception {
+        try {
+            tokenRepository.deleteByUserEmail(email);
+        }
+        catch (Exception e) {
+            throw new Exception();
+        }
     }
 }
