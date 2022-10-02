@@ -6,7 +6,7 @@
   margin-bottom:15px;
 }
 
-.container{
+.gridcontainer{
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -105,9 +105,10 @@
   font-size:18px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
   margin:auto;
+  background: white;
+  height: 24px;
+  position: relative;
 }
 
 .nftTitle2 {
@@ -133,8 +134,10 @@
 .starIcon {
   width:20px;
   height: 20px;
+  margin-top: 0px;
   margin-left:12px;
   margin-right:2px;
+  margin-bottom:5px;
 }
 
 .sellnow {
@@ -238,4 +241,53 @@
   font-family: 'neodgm';
   display: flex;
   flex-direction: column;
+}
+
+.marquee {
+  height: 24px;
+  width: 60%;
+  position: absolute;
+  overflow: hidden;
+}
+.marquee div {
+  display: block;
+
+  white-space: nowrap;
+  position: absolute;
+
+  -webkit-animation: marquee 20s linear infinite;
+  -moz-animation: marquee 20s linear infinite;
+  -ms-animation: marquee 20s linear infinite;
+  -o-animation: marquee 20s linear infinite;
+  animation: marquee 20s linear infinite;
+}
+
+@-webkit-keyframes marquee {
+  0% { right: 0; }
+  100% { right: 100%; }
+}
+@-moz-keyframes marquee {
+  0% { right: 0; }
+  100% { right: 100%; }
+}
+@-ms-keyframes marquee {
+  0% { right: 0; }
+  100% { right: 100%; }
+}
+@-o-keyframes marquee {
+  0% { right: 0; }
+  100% { right: 100%; }
+}
+@keyframes marquee {
+  0% { right: 0; }
+  100% { right: 100%; }
+}
+
+.starforceCt {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  right:0;
 }

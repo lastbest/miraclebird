@@ -12,6 +12,7 @@ import Web3 from "web3";
 import COMMON_ABI from "../common/ABI";
 import getAddressFrom from "../util/AddressExtractor";
 import {useNavigate} from "react-router-dom";
+// import "./Landmark.css";
 
 function Landmark() {
   const navigate = useNavigate();
@@ -303,14 +304,19 @@ function Landmark() {
                     src={item.imagePath}
                     className={styles.landmarkImg}></img>
                   <div className={styles.nftTitle}>
-                    <div className={styles.nftTitletext}>{item.title}</div>
+                    {/* <div className={styles.nftTitletext}>{item.title}</div> */}
+                    <div className={styles.marquee}>
+                      <div>{item.title}</div>
+                    </div>
                     {/* <Marquee gradient={false} className={styles.nftTitletext}>{item.title} </Marquee> */}
-                    <img
-                      src="/star.png"
-                      alt="star"
-                      className={styles.starIcon}
-                    />
-                    <div>{item.starForce}</div>
+                    <div className={styles.starforceCt}>
+                      <img
+                        src="/star.png"
+                        alt="star"
+                        className={styles.starIcon}
+                      />
+                      <div>{item.starForce}</div>
+                    </div>
                   </div>
 
                   <div className={styles.nftOwner}>
@@ -464,7 +470,7 @@ function Landmark() {
       {loading ? (
         <Loading1 />
       ) : (
-        <div className={styles.container}>{nftMap}</div>
+        <div className={styles.gridcontainer}>{nftMap}</div>
       )}
 
       <Modal
