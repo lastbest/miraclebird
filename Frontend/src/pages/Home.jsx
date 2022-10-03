@@ -11,6 +11,8 @@ import HomeNFT from "../components/common/HomeNFT";
 import axios from "axios";
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import Loading2 from "../components/Base/Loading2";
+import Chart from "react-apexcharts";
+import WebCarouselBanner from "../components/carousel/HomeWebCarouselBanner";
 
 function Home() {
   const user = useSelector((state) => state.user.value);
@@ -55,6 +57,10 @@ function Home() {
       ) : (
         <>
           <BrowserView>
+            <WebCarouselBanner
+              className={styles.carousel}
+              challengeMap={challengeImg}
+            />
             <div className="App">
               <div className={styles.infoCt}>
                 <div className={styles.btnCt}>
@@ -90,6 +96,10 @@ function Home() {
             </div>
           </BrowserView>
           <MobileView>
+            <WebCarouselBanner
+              className={styles.carousel}
+              challengeMap={challengeImg}
+            />
             <div className="App">
               <div className={styles.infoCt}>
                 <div className={styles.btnCt}>
