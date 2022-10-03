@@ -25,18 +25,46 @@ function RankDay() {
   return (
     <>
       <div className={styles.medalcontainer}>
-        <div className={styles.silver}>
-          <img alt="silver" src="./silver.png" />
-          <p className={styles.slidetext}>{nickname[1]}</p>
+        <div>
+          <img
+            src="src/assets/icon/silver.png"
+            className={styles.silverImg}></img>
         </div>
-        <div className={styles.gold}>
-          <img alt="gold" src="./gold.png" />
-          <p className={styles.slidetext}>{nickname[0]}</p>
+        <div>
+          <img src="src/assets/icon/gold.png" className={styles.goldImg}></img>
         </div>
-        <div className={styles.bronze}>
-          <img alt="bronze" src="./bronze.png" />
-          <p className={styles.slidetext}>{nickname[2]}</p>
+        <div>
+          <img
+            src="src/assets/icon/bronze.png"
+            className={styles.bronzeImg}></img>
         </div>
+
+        <img className={styles.goldImg}></img>
+        <img className={styles.silverImg}></img>
+        <img className={styles.bronzeImg}></img>
+        <div className={styles.silver}>{nickname[1]}</div>
+
+        <div className={styles.gold}>{nickname[0]}</div>
+        <div className={styles.bronze}>{nickname[2]}</div>
+
+        <img
+          className={styles.rankingImg}
+          alt="rank"
+          src="src/assets/icon/ranking.png"></img>
+        {/* <div>
+          <div className={styles.silver}>
+            <img alt="silver" src="./silver.png" />
+            <p className={styles.slidetext}>{nickname[1]}</p>
+          </div>
+          <div className={styles.gold}>
+            <img alt="gold" src="./gold.png" />
+            <p className={styles.slidetext}>{nickname[0]}</p>
+          </div>
+          <div className={styles.bronze}>
+            <img alt="bronze" src="./bronze.png" />
+            <p className={styles.slidetext}>{nickname[2]}</p>
+          </div>
+        </div> */}
       </div>
     </>
   );

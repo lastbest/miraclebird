@@ -1,8 +1,97 @@
 .medalcontainer {
+    display: grid;
+    text-align: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    position: relative;
+    height: 200px;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 15px;
+    border: 0.3px solid rgb(243, 241, 241);
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.ranker {
+    text-align: center;
+    font-size: 14px;
+    width: 60%;
+    top: 60%;
+    position: relative;
+    left: 41%;
+}
+
+.rankerImg {
+    position: relative;
+    text-align: center;
+    font-size: 14px;
+    width: 50%;
+    top: 10%;
+    left: 15%;
+}
+
+.slidetext {
+    width: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 0;
+    height: 24px;
+}
+
+.goldImg {
+    width: 75px;
+    margin-top: 10px;
+}
+
+.silverImg {
+    width: 75px;
+    margin-top: 25px;
+}
+
+.bronzeImg {
+    width: 75px;
+    margin-top: 40px;
+}
+
+
+.silver {
+    z-index: 1;
+    margin-left: 20px;
+    margin-top: -20px;
+
+}
+
+.bronze {
+    z-index: 1;
+    margin-right: 20px;
+    margin-top: -10px;
+
+}
+
+.gold {
+    z-index: 1;
+    margin-top: -30px;
+}
+
+/* .medalcontainer img {
+    width:40px;
+    height:40px;
+} */
+.rankingImg {
+    padding-right: 5px;
+    padding-left: 5px;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+}
+/* .medalcontainer {
     display:flex;
     flex-direction: row;
     justify-content: center;
     margin-top:15px;
+        border: 0.3px solid rgb(243, 241, 241);
+            border-radius: 5px;
 }
 .slidetext {
     width:90px;
@@ -31,4 +120,4 @@
 .medalcontainer img {
     width:40px;
     height:40px;
-}
+} */

@@ -176,6 +176,7 @@ function MyPage() {
   }, [userData]);
 
   useEffect(() => {
+    console.log(userData);
     var startdate = seasonInfo[season - 1].startDate + "_00:00:00.000";
     var enddate = seasonInfo[season - 1].endDate + "_23:59:59.000";
 

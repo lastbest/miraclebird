@@ -31,7 +31,6 @@
     height:60px;
     margin:auto;
     margin-top:70px;
-    margin-bottom: 70px;
 }
 
 .reward {
@@ -51,10 +50,11 @@
 .subtext2 {
     margin-bottom:2px;
     margin-top:20px;
-    font-size: 15px;
+    font-size: 17px;
     word-break:keep-all;
-    color:lightgray;
+    color:rgba(128, 128, 128, 0.644);
     text-align: center;
+    margin-bottom: 70px;
 
 }
 
