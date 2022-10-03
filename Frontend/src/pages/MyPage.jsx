@@ -13,6 +13,7 @@ import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import { useNavigate } from "react-router-dom";
 import MypageFeed from "../components/common/MypageFeed";
+import MypageCalendar from "../components/common/MyPageCalendar";
 import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -93,8 +94,6 @@ function MyPage() {
   useEffect(() => {
     setWrite(userData.name);
     if (updateImg.length != 0) {
-      console.log(updateImg);
-      console.log(userData.userIdx);
       const formdata = new FormData();
       var fileName =
         "https://j7c107.p.ssafy.io/images/" + userData.userIdx + "_profileImg";
@@ -103,7 +102,7 @@ function MyPage() {
       } else {
         fileName += ".png";
       }
-      console.log(fileName);
+      // console.log(fileName);
       formdata.append("uploadFile", updateImg[0], fileName);
       axios({
         url: "https://j7c107.p.ssafy.io/image/upload",
@@ -114,7 +113,7 @@ function MyPage() {
         data: formdata,
       })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
         })
         .catch((err) => {
           alert(err);
@@ -153,8 +152,8 @@ function MyPage() {
   }, [userData]);
 
   useEffect(() => {
-    var startdate = seasonInfo[season - 1].startDate + "_00:00:00.000";
-    var enddate = seasonInfo[season - 1].endDate + "_23:59:59.000";
+    var startdate = seasonInfo[season-1].startDate + "_00:00:00.000";
+    var enddate = seasonInfo[season-1].endDate + "_23:59:59.000";
 
     axios({
       url: API_BASE_URL + "/verification/heatmap/" + userData.userIdx,
@@ -176,9 +175,9 @@ function MyPage() {
   }, [userData]);
 
   useEffect(() => {
-    console.log(userData);
-    var startdate = seasonInfo[season - 1].startDate + "_00:00:00.000";
-    var enddate = seasonInfo[season - 1].endDate + "_23:59:59.000";
+    // console.log(userData);
+    var startdate = seasonInfo[season-1].startDate + "_00:00:00.000";
+    var enddate = seasonInfo[season-1].endDate + "_23:59:59.000";
 
     axios({
       url: API_BASE_URL + "/verification/heatmap/" + userData.userIdx,
@@ -240,6 +239,7 @@ function MyPage() {
       tempChallengeMap.values.push({ date: pre, count: count });
     }
     setChallengeMap(tempChallengeMap);
+    console.log(challengeData)
   }, [challengeData]);
 
   // my nft
@@ -321,8 +321,6 @@ function MyPage() {
       setLoading1(false);
     };
   }, [nftData]);
-
-  useEffect(() => {}, [season]);
 
   // SSAFY Network
   const web3 = new Web3(
@@ -559,9 +557,10 @@ function MyPage() {
             </div>
           </div>
           <div>
-            <select
+            <MypageCalendar userData={userData} data={challengeMap} />
+            {/* <select
               className={styles.selectBox}
-              onChange={(e) => setSeason(e.target.value)}>
+              onChange={(e) => (setSeason(e.target.value))}>
               {seasonInfo.map((item) => {
                 return (
                   <option key={item.season} value={item.season}>
@@ -573,11 +572,11 @@ function MyPage() {
 
             <div className={styles.heatmapcontainer}>
               <CalendarHeatmap
-                startDate={seasonInfo[season - 1].startDate}
-                endDate={seasonInfo[season - 1].endDate}
+                startDate={seasonInfo[season-1].startDate}
+                endDate={seasonInfo[season-1].endDate}
                 horizontal={false}
                 showMonthLabels={false}
-                values={[{date:'2022-10-01',count:'2'},{date:'2022-10-04',count:'2'}]}
+                values={challengeMap.values}
                 classForValue={(value) => {
                   if (!value) {
                     return "color-empty";
@@ -594,7 +593,7 @@ function MyPage() {
                 }}
               />
               <ReactTooltip className={styles.tooltip} />
-            </div>
+            </div> */}
           </div>
           <div className={styles.nftContainer}>
             <div className={styles.text1}>보유 NFT</div>
