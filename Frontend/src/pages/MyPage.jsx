@@ -90,6 +90,7 @@ function MyPage() {
     }
     data();
   }, []);
+
   useEffect(() => {
     setLoading1(false);
   }, [challengeMap]);
@@ -155,29 +156,6 @@ function MyPage() {
   }, [userData]);
 
   useEffect(() => {
-    var startdate = seasonInfo[season - 1].startDate + "_00:00:00.000";
-    var enddate = seasonInfo[season - 1].endDate + "_23:59:59.000";
-
-    axios({
-      url: API_BASE_URL + "/verification/heatmap/" + userData.userIdx,
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("accessToken"),
-      },
-      params: {
-        start_date: startdate,
-        end_date: enddate,
-      },
-    })
-      .then((res) => {
-        setChallengeData(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [userData]);
-
-  useEffect(() => {
     // console.log(userData);
     var startdate = seasonInfo[season - 1].startDate + "_00:00:00.000";
     var enddate = seasonInfo[season - 1].endDate + "_23:59:59.000";
@@ -206,7 +184,7 @@ function MyPage() {
       .catch((error) => {
         console.log(error);
       });
-  }, [userData]);
+  }, [userData, season]);
 
   useEffect(() => {
     const tempChallengeMap = {
@@ -242,7 +220,6 @@ function MyPage() {
       tempChallengeMap.values.push({ date: pre, count: count });
     }
     setChallengeMap(tempChallengeMap);
-    console.log(challengeData);
   }, [challengeData]);
 
   // my nft
@@ -558,9 +535,10 @@ function MyPage() {
             </div>
           </div>
           <div>
+            {/* <MypageCalendar userData={userData} data={challengeMap} /> */}
             <select
               className={styles.selectBox}
-              onChange={(e) => (setSeason(e.target.value))}>
+              onChange={(e) => setSeason(e.target.value)}>
               {seasonInfo.map((item) => {
                 return (
                   <option key={item.season} value={item.season}>
@@ -572,8 +550,8 @@ function MyPage() {
 
             <div className={styles.heatmapcontainer}>
               <CalendarHeatmap
-                startDate={seasonInfo[season-1].startDate}
-                endDate={seasonInfo[season-1].endDate}
+                startDate={seasonInfo[season - 1].startDate}
+                endDate={seasonInfo[season - 1].endDate}
                 horizontal={false}
                 showMonthLabels={false}
                 values={challengeMap.values}
