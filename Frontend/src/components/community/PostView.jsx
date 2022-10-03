@@ -150,6 +150,9 @@ const PostView = () => {
   const [show2, setShow2] = useState(false);
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
+  const [show3, setShow3] = useState(false);
+  const handleClose3 = () => setShow3(false);
+  const handleShow3 = () => setShow3(true);
 
   return (
     <div className={styles.postContainer}>
@@ -220,26 +223,30 @@ const PostView = () => {
                   className={styles.writebtn}
                   onClick={() => {
                     console.log("asd");
-                    axios({
-                      url: API_BASE_URL + "/comment",
-                      method: "post",
-                      headers: {
-                        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-                      },
-                      params: {
-                        post_idx: postIdx,
-                      },
-                      data: {
-                        content: commentContent,
-                      },
-                    })
-                      .then((res) => {
-                        setCommentContent("");
-                        setReflesh(true);
+                    if (commentContent == "" || commentContent == " ") {
+                      handleShow3();
+                    } else {
+                      axios({
+                        url: API_BASE_URL + "/comment",
+                        method: "post",
+                        headers: {
+                          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                        },
+                        params: {
+                          post_idx: postIdx,
+                        },
+                        data: {
+                          content: commentContent,
+                        },
                       })
-                      .catch((error) => {
-                        console.log(error);
-                      });
+                        .then((res) => {
+                          setCommentContent("");
+                          setReflesh(true);
+                        })
+                        .catch((error) => {
+                          console.log(error);
+                        });
+                    }
                   }}>
                   작성
                 </button>
@@ -327,24 +334,17 @@ const PostView = () => {
         </Modal.Body>
       </Modal>
 
-      {/* <Modal
+      <Modal
         centered
-        show={show2}
-        onHide={handleClose2}
+        show={show3}
+        onHide={handleClose3}
         backdrop="static"
         keyboard={false}>
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.modalcontent} closeButton>
-          댓글을 등록되었습니다.
-          <div className={styles.btnCt}>
-            <button
-              className={styles.deletebackbtn}
-              onClick={() => handleClose2()}>
-              확인
-            </button>
-          </div>
+          댓글에 내용을 입력해 주세요.
         </Modal.Body>
-      </Modal> */}
+      </Modal>
     </div>
   );
 };

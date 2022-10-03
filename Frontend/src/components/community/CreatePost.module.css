@@ -64,4 +64,14 @@
     border-radius: 5px;
     border: 2px solid lightgray;
   }
+    .modalheader {
+      border: none !important;
+      font-family: 'neodgm';
+      padding-bottom: 0 !important;
+    }
+  
+    .modalcontent {
+      font-family: 'neodgm';
+      font-size: 18px;
+    }
 
