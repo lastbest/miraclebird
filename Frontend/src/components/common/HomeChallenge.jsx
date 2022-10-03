@@ -1,43 +1,38 @@
 import React from "react";
-import Modal from 'react-modal';
-import {Swiper, SwiperSlide} from "swiper/react";
-import SwiperCore, {Navigation, Pagination, Autoplay} from "swiper"
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/autoplay';
-import styles from './HomeChallenge.module.css'
+import Modal from "react-modal";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/autoplay";
+import styles from "./HomeChallenge.module.css";
 
-
-function HomeChallenge () {
-    return (
-        <>
-        <div className={styles.slidecontainer}>
-            <Swiper
-            spaceBetween={50}
-            slidesPerView={1}
-            // navigation
-            pagination={{ clickable: true }}
-            >
-                <SwiperSlide className={styles.slide}>
-                    <img alt="detail" src="/main1.jpg" className={styles.mainImg} />
-                </SwiperSlide>
-                <SwiperSlide className={styles.slide}>
-                    <img alt="detail" src="/main2.jpg" className={styles.mainImg} />
-                </SwiperSlide>
-                <SwiperSlide className={styles.slide}>
-                    <img alt="detail" src="/main3.jpg" className={styles.mainImg} />
-                </SwiperSlide>
-                <SwiperSlide className={styles.slide}>
-                    <img alt="detail" src="/main4.jpg" className={styles.mainImg} />
-                </SwiperSlide>
-                <SwiperSlide className={styles.slide}>
-                    <img alt="detail" src="/main5.jpg" className={styles.mainImg} />
-                </SwiperSlide>
-                <SwiperSlide className={styles.slide}>
-                    <img alt="detail" src="/main6.jpg" className={styles.mainImg} />
-                </SwiperSlide>
-                {/* <SwiperSlide className={styles.slide}>
+function HomeChallenge() {
+  return (
+    <>
+      <div className={styles.slidecontainer}>
+        <Swiper
+          spaceBetween={50}
+          slidesPerView={1}
+          // navigation
+          pagination={{ clickable: true }}>
+          <SwiperSlide className={styles.slide}>
+            <img alt="detail" src="/main2.jpg" className={styles.mainImg} />
+          </SwiperSlide>
+          <SwiperSlide className={styles.slide}>
+            <img alt="detail" src="/main3.jpg" className={styles.mainImg} />
+          </SwiperSlide>
+          <SwiperSlide className={styles.slide}>
+            <img alt="detail" src="/main4.jpg" className={styles.mainImg} />
+          </SwiperSlide>
+          <SwiperSlide className={styles.slide}>
+            <img alt="detail" src="/main5.jpg" className={styles.mainImg} />
+          </SwiperSlide>
+          <SwiperSlide className={styles.slide}>
+            <img alt="detail" src="/main6.jpg" className={styles.mainImg} />
+          </SwiperSlide>
+          {/* <SwiperSlide className={styles.slide}>
                     <div className={styles.detailText}>
                         <div className={styles.detail1}>01</div>
                         <br />
@@ -76,11 +71,10 @@ function HomeChallenge () {
                         
                     </div>
                 </SwiperSlide> */}
-
-            </Swiper>
-        </div>
-        </>
-    )
+        </Swiper>
+      </div>
+    </>
+  );
 }
 
 export default HomeChallenge;
