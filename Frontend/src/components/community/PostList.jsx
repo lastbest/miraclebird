@@ -12,6 +12,7 @@ const PostList = (props) => {
     setDataList(props.postData);
     console.log(props.postData);
   }, [props.postData]);
+
   useEffect(() => {
     let result = [];
     for (var i = 0; i < props.postData.length; i++) {
@@ -75,7 +76,7 @@ const PostList = (props) => {
       );
     }
     setDataMap(result);
-  }, []);
+  }, [props.postData]);
 
   return (
     <>

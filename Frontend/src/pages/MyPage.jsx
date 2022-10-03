@@ -91,6 +91,7 @@ function MyPage() {
   }, []);
 
   useEffect(() => {
+    setWrite(userData.name);
     if (updateImg.length != 0) {
       console.log(updateImg);
       console.log(userData.userIdx);
@@ -354,7 +355,7 @@ function MyPage() {
     if (!address) {
       handleShow9();
       return;
-    } 
+    }
     try {
       handleShow0();
       const sender = web3.eth.accounts.privateKeyToAccount(privKey);
@@ -447,6 +448,9 @@ function MyPage() {
   const [show9, setShow9] = useState(false);
   const handleClose9 = () => setShow9(false);
   const handleShow9 = () => setShow9(true);
+  const [show10, setShow10] = useState(false);
+  const handleClose10 = () => setShow10(false);
+  const handleShow10 = () => setShow10(true);
 
   const [Image, setImage] = useState("");
   const fileInput = useRef(null);
@@ -749,25 +753,30 @@ function MyPage() {
               name="nickname"
               className={styles.nicknameinput}
               placeholder="닉네임"
+              value={write}
               onInput={(event) => {
                 setWrite(event.target.value);
               }}
             />
             <button
               onClick={() => {
-                handleClose2;
-                axios({
-                  url: API_BASE_URL + "/user/" + userData.userIdx,
-                  method: "put",
-                  headers: {
-                    Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-                  },
-                  params: {
-                    // user_idx: user.information.userIdx,/
-                    name: write,
-                  },
-                }).then((res) => {});
-                document.location.href = "/mypage";
+                if (write == "" || write.length > 5 || write.length <= 1) {
+                  handleShow10();
+                } else {
+                  handleClose2;
+                  axios({
+                    url: API_BASE_URL + "/user/" + userData.userIdx,
+                    method: "put",
+                    headers: {
+                      Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                    },
+                    params: {
+                      // user_idx: user.information.userIdx,/
+                      name: write,
+                    },
+                  }).then((res) => {});
+                  document.location.href = "/mypage";
+                }
               }}
               className={styles.nicknamebtn}>
               변경하기
@@ -982,6 +991,21 @@ function MyPage() {
           개인키가 일치하지 않습니다.
         </Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
+      </Modal>
+
+      <Modal
+        centered
+        show={show10}
+        onHide={handleClose10}
+        backdrop="static"
+        keyboard={false}
+        className={styles.modal2}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent2} closeButton>
+          <div className={styles.nicknamechange}>
+            닉네임은 2~5자리 이어야 합니다
+          </div>
+        </Modal.Body>
       </Modal>
     </>
   );

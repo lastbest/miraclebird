@@ -595,7 +595,7 @@ function GeoChart({ data }) {
   return (
     <>
       <div className={styles.upper}>
-        {area.name == "korea" ? null : (
+        {/* {area.name == "korea" ? null : (
           <img
             src="/back.png"
             className={styles.back}
@@ -621,7 +621,7 @@ function GeoChart({ data }) {
               }
             }}
           />
-        )}
+        )} */}
         <button
           className={styles.connect}
           onClick={() => {
