@@ -552,7 +552,6 @@ function MyPage() {
 
             <div className={styles.heatmapcontainer}>
               <CalendarHeatmap
-                showWeekdayLabels={true}
                 startDate={seasonInfo[season - 1].startDate}
                 endDate={seasonInfo[season - 1].endDate}
                 horizontal={false}
@@ -564,14 +563,14 @@ function MyPage() {
                   }
                   return `color-scale-${value.count >= 4 ? 4 : value.count}`;
                 }}
-                tooltipDataAttrs={(value) => {
-                  if (!value || !value.date) {
-                    return null;
-                  }
-                  return {
-                    "data-tip": `${value.date} 인증 횟수: ${value.count}`,
-                  };
-                }}
+                // tooltipDataAttrs={(value) => {
+                //   if (!value || !value.date) {
+                //     return null;
+                //   }
+                //   return {
+                //     "data-tip": `${value.date} 인증 횟수: ${value.count}`,
+                //   };
+                // }}
               />
               <ReactTooltip className={styles.tooltip} />
             </div>
