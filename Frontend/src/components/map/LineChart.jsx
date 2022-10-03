@@ -3,9 +3,11 @@ import * as d3 from "d3";
 import "./LineChart.css";
 import styles from "./LineChart.module.css";
 import { current } from "@reduxjs/toolkit";
+import Chart from "react-apexcharts";
 import axios from "axios";
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import { BrowserView, MobileView } from "react-device-detect";
+
 const LineChart = ({ data }) => {
   const [landmarkPriceData, setLandmarkPriceData] = useState("");
 
@@ -14,9 +16,23 @@ const LineChart = ({ data }) => {
   const [maxPrice, setMaxPrice] = useState("");
   const [currentPrice, setCurrentPrice] = useState("");
   const [len, setLen] = useState("");
+  const [categoriesData, setCategoriesData] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     console.log(data);
+    if (data != "") {
+      var tempA = [];
+      var tempB = [];
+      for (var i = 0; i < data.length; i++) {
+        var item = data[i];
+        tempA.push(item.day);
+        tempB.push(item.value);
+        setCategories(tempA);
+        setCategoriesData(tempB);
+      }
+    }
+
     if (data != "") {
       setFirstPrice(data[0].value == null ? null : data[0].value);
       setMinPrice(
@@ -163,24 +179,70 @@ const LineChart = ({ data }) => {
 
   return (
     <div className={styles.chart}>
-      <BrowserView>
-        {len >= 1 ? (
-          <svg ref={svgRef} className={styles.svg} />
-        ) : (
-          <div className={styles.nonePrice}>
-            <div className={styles.nonePriceText}>거래 내역이 없습니다.</div>
-          </div>
-        )}
-      </BrowserView>
-      <MobileView>
-        {len >= 1 ? (
-          <svg ref={svgRef} className={styles.svgmobile} />
-        ) : (
-          <div className={styles.nonePrice}>
-            <div className={styles.nonePriceText}>거래 내역이 없습니다.</div>
-          </div>
-        )}
-      </MobileView>
+      <Chart
+        className={styles.apex}
+        type="line"
+        series={[
+          {
+            name: "거래가",
+            data: categoriesData,
+          },
+        ]}
+        options={{
+          zoom: {
+            type: "x",
+            enabled: false,
+            autoScaleYaxis: false,
+          },
+          markers: {
+            size: 5,
+          },
+          theme: {
+            mode: "dark",
+          },
+
+          chart: {
+            height: 350,
+            type: "line",
+            zoom: {
+              type: "x",
+              enabled: true,
+              autoScaleYaxis: true,
+            },
+            style: {
+              color: "#161616",
+            },
+            background: "transparent",
+          },
+          dataLabels: {
+            enabled: false,
+          },
+          stroke: {
+            curve: "smooth",
+            width: 3,
+          },
+          // title: {
+          //   text: "Product Trends by Month",
+          //   align: "left",
+          // },
+          grid: {
+            row: {
+              colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+              opacity: 0.5,
+            },
+          },
+          xaxis: {
+            categories: categories,
+            style: {
+              colors: ["#f3f3f3"],
+            },
+          },
+          plotOptions: {
+            candlestick: {},
+          },
+        }}></Chart>
+      <BrowserView></BrowserView>
+      <MobileView></MobileView>
 
       <table className={styles.table}>
         <thead>
