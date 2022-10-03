@@ -174,34 +174,39 @@ function Reinforce() {
 
   const downgradePercent = [0, 0, 15, 40, 65, 80, 95];
 
-  const upgradeBtn = () => {
+  const upgradeBtn = () =>{
     setLoading(true);
-    setTimeout(() => {
-      let random_num = Math.floor(Math.random() * 101);
-      setLoading(false);
-      console.log(random_num, upgradePercent[level], downgradePercent[level]);
-      if (random_num <= upgradePercent[level]) {
-        handleShow();
-        setNewImg(
-          "/src/assets/landmark/" + imgIndex + "_" + (level + 1) + ".png"
-        );
+    upgradeNFT();
+  }
 
-        return;
-      } else {
-        if (random_num <= downgradePercent[level]) {
-          setNewImg(
-            "/src/assets/landmark/" + imgIndex + "_" + (level - 1) + ".png"
-          );
-          handleShow3();
-          return;
-        } else if (random_num > downgradePercent[level]) {
-          setNewImg("/src/assets/landmark/" + imgIndex + "_" + level + ".png");
-          handleShow2();
-          return;
-        }
-      }
-    }, 2000);
-  };
+  // const upgradeBtn = () => {
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     let random_num = Math.floor(Math.random() * 101);
+  //     setLoading(false);
+  //     console.log(random_num, upgradePercent[level], downgradePercent[level]);
+  //     if (random_num <= upgradePercent[level]) {
+  //       handleShow();
+  //       setNewImg(
+  //         "/src/assets/landmark/" + imgIndex + "_" + (level + 1) + ".png"
+  //       );
+
+  //       return;
+  //     } else {
+  //       if (random_num <= downgradePercent[level]) {
+  //         setNewImg(
+  //           "/src/assets/landmark/" + imgIndex + "_" + (level - 1) + ".png"
+  //         );
+  //         handleShow3();
+  //         return;
+  //       } else if (random_num > downgradePercent[level]) {
+  //         setNewImg("/src/assets/landmark/" + imgIndex + "_" + level + ".png");
+  //         handleShow2();
+  //         return;
+  //       }
+  //     }
+  //   }, 2000);
+  // };
 
   // upgrade NFT
   async function upgradeNFT() {
@@ -234,13 +239,13 @@ function Reinforce() {
         .transfer("0x52aEdCe8c99d769C9896A518Cb5927744F5da32b", 2)
         .send({ from: senderAddress, gas: 3000000 });
       console.log(response);
-
       if (response.status === true) {
         let random_num = Math.floor(Math.random() * 101);
         console.log(random_num, upgradePercent[level], downgradePercent[level]);
-
+        
         if (random_num > upgradePercent[level]) {
           setNewImg(nowImg);
+          setLoading(false);
           handleShow2();
           return;
         } else {
@@ -322,6 +327,7 @@ function Reinforce() {
                 .catch((err) => console.log("Reinforce error", err));
             }
           }
+          setLoading(false);
           handleShow();
         }
       }
@@ -451,7 +457,7 @@ function Reinforce() {
                 <div className={styles.levelbtnct}>
                   <button
                     className={styles.levelbtn}
-                    onClick={tokenBalance >= 2 ? handleShow4 : handleShow5}>
+                    onClick={tokenBalance >= 2 ? handleShow4 : handleShow5 }>
                     강화하기
                   </button>
                 </div>
@@ -603,7 +609,9 @@ function Reinforce() {
             />
             <button
               onClick={(e) => {
-                upgradeNFT(e);
+                handleClose4(),
+                upgradeBtn(e);
+                // upgradeNFT(e);
               }}
               className={styles.privKeybtn}>
               강화하기
@@ -636,9 +644,12 @@ function Reinforce() {
         backdrop="static"
         keyboard={false}
         className={styles.modal2}>
-        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Header className={styles.modalheader}></Modal.Header>
         <Modal.Body className={styles.modalcontent3}>
           개인키가 일치하지 않습니다.
+          <div className={styles.btnCt}>
+            <button onClick={()=>(setLoading(false), handleClose6())} className={styles.closebtn}>닫기</button>
+          </div>
         </Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>

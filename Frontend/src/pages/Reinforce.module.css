@@ -309,4 +309,18 @@
 .modalcontent3 {
   font-family: 'neodgm';
   text-align: center;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.closebtn {
+  border: none;
+  border-radius: 20px;
+  color:black;
+  background-color: #d9d9d9;
+  width: 60px;
+  float: right;
+  margin-top:5px;
+  margin-right:20px;
 }
