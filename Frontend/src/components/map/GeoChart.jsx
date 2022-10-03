@@ -150,18 +150,7 @@ function GeoChart({ data }) {
           // console.log("-------------", item);
           temp.push({
             month: i,
-            day:
-              item.sellDate[0] +
-              "-" +
-              item.sellDate[1] +
-              "-" +
-              item.sellDate[2] +
-              " " +
-              item.sellDate[3] +
-              ":" +
-              item.sellDate[4] +
-              ":" +
-              item.sellDate[5],
+            day: item.sellDate[1] + "-" + item.sellDate[2],
             value: item.sellPrice,
           });
         }
@@ -662,11 +651,11 @@ function GeoChart({ data }) {
 
             <div className={styles.detail}>
               <div className={styles.purchase}>
-                {landmark.desc != null ? (
+                {/* {landmark.desc != null ? (
                   <div className={styles.desc}>{landmark.desc}</div>
                 ) : (
                   <></>
-                )}
+                )} */}
 
                 {loading1 ? (
                   <Loading1 />

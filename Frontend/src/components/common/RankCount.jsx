@@ -2,17 +2,20 @@ import React, { useEffect, useState } from "react";
 import styles from "./RankCount.module.css";
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 
-import { BrowserView, MobileView } from "react-device-detect";
-
 function RankCount() {
   const [nickname, setNickname] = useState([]);
 
   const mainApi = async () => {
     try {
+      //   console.log("home");
       const response = await fetch(API_BASE_URL + "/verification/ranking/", {
         method: "GET",
+        headers: {
+          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        },
       });
       const rankingresult = await response.json();
+      //   console.log("mainData", rankingresult);
       setNickname(rankingresult);
     } catch (error) {
       window.alert(error);
@@ -24,70 +27,24 @@ function RankCount() {
 
   return (
     <>
-      <BrowserView>
-        <div className={styles.medalcontainer}>
-          <div>
-            <img
-              src="src/assets/icon/silver.png"
-              className={styles.silverImg}></img>
-          </div>
-          <div>
-            <img
-              src="src/assets/icon/gold.png"
-              className={styles.goldImg}></img>
-          </div>
-          <div>
-            <img
-              src="src/assets/icon/bronze.png"
-              className={styles.bronzeImg}></img>
-          </div>
-
-          <img className={styles.goldImg}></img>
-          <img className={styles.silverImg}></img>
-          <img className={styles.bronzeImg}></img>
-          <div className={styles.silver}>{nickname[1]}</div>
-
-          <div className={styles.gold}>{nickname[0]}</div>
-          <div className={styles.bronze}>{nickname[2]}</div>
-
-          <img
-            className={styles.rankingImg}
-            alt="rank"
-            src="src/assets/icon/ranking.png"></img>
+      <div className={styles.medalcontainer}>
+        <div></div>
+        <div className={styles.gold}>
+          <img alt="gold" src="./gold.png" />
+          <p className={styles.slidetext}>{nickname[0]}</p>
         </div>
-      </BrowserView>
-      <MobileView>
-        <div className={styles.medalcontainermobile}>
-          <div>
-            <img
-              src="src/assets/icon/silver.png"
-              className={styles.silverImg}></img>
-          </div>
-          <div>
-            <img
-              src="src/assets/icon/gold.png"
-              className={styles.goldImg}></img>
-          </div>
-          <div>
-            <img
-              src="src/assets/icon/bronze.png"
-              className={styles.bronzeImg}></img>
-          </div>
 
-          <img className={styles.goldImg}></img>
-          <img className={styles.silverImg}></img>
-          <img className={styles.bronzeImg}></img>
-          <div className={styles.silver}>{nickname[1]}</div>
-
-          <div className={styles.gold}>{nickname[0]}</div>
-          <div className={styles.bronze}>{nickname[2]}</div>
-
-          <img
-            className={styles.rankingImg}
-            alt="rank"
-            src="src/assets/icon/ranking.png"></img>
+        <div></div>
+        <div className={styles.silver}>
+          <img alt="silver" src="./silver.png" />
+          <p className={styles.slidetext}>{nickname[1]}</p>
         </div>
-      </MobileView>
+        <div></div>
+        <div className={styles.bronze}>
+          <img alt="bronze" src="./bronze.png" />
+          <p className={styles.slidetext}>{nickname[2]}</p>
+        </div>
+      </div>
     </>
   );
 }
