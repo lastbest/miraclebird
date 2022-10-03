@@ -6,9 +6,11 @@ import axios from "axios";
 import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import ReactTooltip from "react-tooltip";
+import Loading1 from "../Base/Loading1";
 
 function MypageCalendar(props) {
-    let [idx, setIdx] = useState(1);
+  const [loading, setLoading] = useState(true);
+  let [idx, setIdx] = useState(1);
   const [challengeData, setChallengeData] = useState("");
   const [challengeMap, setChallengeMap] = useState([]);
 
@@ -66,50 +68,55 @@ function MypageCalendar(props) {
       tempChallengeMap.push({ date: pre, count: count });
     }
     setChallengeMap(tempChallengeMap);
-    console.log(challengeMap)
-  }, [challengeData]);
-  
+  }, []);
 
+  useEffect(() => {
+    setLoading(false);
+  }, [challengeMap]);
   return (
     <>
-      <div>
-            <select
-              className={styles.selectBox}
-              onChange={(e) => (setIdx(e.target.value))}>
-              {seasonInfo.map((item) => {
-                return (
-                  <option key={item.season} value={item.season}>
-                    시즌 {item.season}
-                  </option>
-                );
-              })}
-            </select>
+      {loading ? (
+        <Loading1 />
+      ) : (
+        <div>
+          <select
+            className={styles.selectBox}
+            onChange={(e) => setIdx(e.target.value)}>
+            {seasonInfo.map((item) => {
+              return (
+                <option key={item.season} value={item.season}>
+                  시즌 {item.season}
+                </option>
+              );
+            })}
+          </select>
 
-            <div className={styles.heatmapcontainer}>
-              <CalendarHeatmap
-                startDate={seasonInfo[idx-1].startDate}
-                endDate={seasonInfo[idx-1].endDate}
-                horizontal={false}
-                showMonthLabels={false}
-                values={challengeMap}
-                classForValue={(value) => {
-                  if (!value) {
-                    return "color-empty";
-                  }
-                  return `color-scale-${value.count >= 4 ? 4 : value.count}`;
-                }}
-                // tooltipDataAttrs={(value) => {
-                //   if (!value || !value.date) {
-                //     return null;
-                //   }
-                //   return {
-                //     "data-tip": `${value.date} 인증 횟수: ${value.count}`,
-                //   };
-                // }}
-              />
-              {/* <ReactTooltip className={styles.tooltip} /> */}
-            </div>
+          <div className={styles.heatmapcontainer}>
+            <CalendarHeatmap
+              startDate={seasonInfo[idx - 1].startDate}
+              endDate={seasonInfo[idx - 1].endDate}
+              horizontal={false}
+              showMonthLabels={false}
+              values={challengeMap}
+              classForValue={(value) => {
+                if (!value) {
+                  return "color-empty";
+                }
+                return `color-scale-${value.count >= 4 ? 4 : value.count}`;
+              }}
+              // tooltipDataAttrs={(value) => {
+              //   if (!value || !value.date) {
+              //     return null;
+              //   }
+              //   return {
+              //     "data-tip": `${value.date} 인증 횟수: ${value.count}`,
+              //   };
+              // }}
+            />
+            {/* <ReactTooltip className={styles.tooltip} /> */}
           </div>
+        </div>
+      )}
     </>
   );
 }
