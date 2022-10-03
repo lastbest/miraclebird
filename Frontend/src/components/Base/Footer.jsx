@@ -121,8 +121,8 @@ function Footer() {
                         SIG_CD: "",
                       })
                     );
-                    // navigate("/community");
-                    document.location.href = "/community";
+                    navigate("/community");
+                    // document.location.href = "/community";
                   }}
                 />
                 <div className={styles.icontext}>커뮤니티</div>
@@ -169,7 +169,7 @@ function Footer() {
                         SIG_CD: "",
                       })
                     );
-                    document.location.href = "/mypage";
+                    navigate("/mypage");
                   }}
                 />
                 <div className={styles.icontext}>마이룸</div>

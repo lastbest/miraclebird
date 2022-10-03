@@ -24,7 +24,7 @@ const WebCarousel = () => {
       url: API_BASE_URL + "/verification/",
       method: "GET",
       headers: {
-        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     })
       .then((res) => {

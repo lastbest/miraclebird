@@ -11,7 +11,7 @@ import Marquee from "react-fast-marquee";
 import Web3 from "web3";
 import COMMON_ABI from "../common/ABI";
 import getAddressFrom from "../util/AddressExtractor";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import "./Landmark.css";
 
 function Landmark() {
@@ -70,7 +70,7 @@ function Landmark() {
   );
 
   const clickNftData = (idx) => {
-    console.log(idx)
+    console.log(idx);
     axios(API_BASE_URL + "/landmark/" + idx, {
       method: "GET",
       headers: {
@@ -79,14 +79,14 @@ function Landmark() {
     })
       .then((res) => {
         console.log(res);
-        setSellingItem(idx)
-        setSellingStarForce(res.data.starForce)
-        setSellingPrice(res.data.sellPrice)
+        setSellingItem(idx);
+        setSellingStarForce(res.data.starForce);
+        setSellingPrice(res.data.sellPrice);
         setSellerIdx(res.data.userIdx);
         setSellingToken(res.data.tokenId);
       })
       .catch((err) => console.log("Get landmark error", err));
-  }
+  };
 
   const callMiraToken = new web3.eth.Contract(
     COMMON_ABI.CONTRACT_ABI.ERC_ABI,
@@ -118,161 +118,158 @@ function Landmark() {
       })
       .catch((err) => console.log("Get buyer data error", err));
 
-      axios(API_BASE_URL + "/wallet/" + sellerIdx, {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-        },
+    axios(API_BASE_URL + "/wallet/" + sellerIdx, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+      },
+    })
+      .then((res) => {
+        console.log(res.data);
+        const sellerWalletData = res.data;
+        setSellerAddress(sellerWalletData.walletAddress);
       })
-        .then((res) => {
-          console.log(res.data);
-          const sellerWalletData = res.data;
-          setSellerAddress(sellerWalletData.walletAddress);
-  
-        })
-        .catch((err) => console.log("Get seller data error", err));
+      .catch((err) => console.log("Get seller data error", err));
   }, [sellingItem]);
-
 
   const buyNFT = (e) => {
     e.preventDefault();
     Purchase();
   };
 
-    // send Token
-    async function SendMira() {
-      const address = getAddressFrom(
-        privKey.startsWith("0x") ? privKey : "0x" + privKey
-      );
-      console.log("address", address);
-      if (!address) {
-        handleShow3();
-        return;
-      }
-      try {
-        const buyer = web3.eth.accounts.privateKeyToAccount(privKey);
-        web3.eth.accounts.wallet.add(buyer);
-        console.log(web3.eth.accounts.wallet);
-        web3.eth.defaultAccount = buyer.address;
-        console.log("defaultAccount_buyer :", web3.eth.defaultAccount);
-        console.log(sellerAddress)
-  
-        const senderAddress = web3.eth.defaultAccount;
-        const sendMira = new web3.eth.Contract(
-          COMMON_ABI.CONTRACT_ABI.ERC_ABI,
-          "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
-        );
-        const response = await sendMira.methods
-          .transfer(sellerAddress, sellingPrice)
-          .send({ from: senderAddress, gas: 3000000 });
-        console.log(response);
-  
-        if (response.status === true) {
-          const sender = web3.eth.accounts.privateKeyToAccount(
-            "0x474d486a4009e752f6608594385a4676ce85ffe359221b210875516c02047ab3"
-          );
-          web3.eth.accounts.wallet.add(sender);
-          console.log(web3.eth.accounts.wallet);
-          web3.eth.defaultAccount = sender.address;
-          console.log("defaultAccount :", web3.eth.defaultAccount);
-          const senderAddress = web3.eth.defaultAccount;
-  
-          const sendLandmarkNft = new web3.eth.Contract(
-            COMMON_ABI.CONTRACT_ABI.NFT_ABI,
-            "0xED71ceA7Ae66892792c2E3d86156B29A71a1677a"
-          );
-  
-          console.log("sellerAccount :", sellerAddress);
-          console.log("senderAccount :", senderAddress);
-          console.log("buyerAccount :", buyerAddress);
-  
-          const response2 = await sendLandmarkNft.methods
-            .safeTransferFrom(sellerAddress, buyerAddress, sellingToken)
-            .send({ from: senderAddress, gas: 3000000 });
-          console.log(response2);
-          setTransactionHash(response2.transactionHash);
-  
-          if (response2.status === true) {
-            // put landmark db
-            axios(API_BASE_URL + "/landmark/" + sellingItem, {
-              method: "PUT",
-              params: {
-                user_idx: buyerIdx,
-              },
-              data: {
-                sellPrice: sellingPrice,
-                selling: 0,
-                starForce: sellingStarForce,
-              },
-              headers: {
-                Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-              },
-            })
-              .then((res) => {
-                console.log(res);
-                // put my nft db
-                axios(API_BASE_URL + "/mynft/" + sellingItem, {
-                  method: "PUT",
-                  params: {
-                    user_idx: buyerIdx,
-                  },
-                  headers: {
-                    Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-                  },
-                })
-                  .then((res) => {
-                    console.log(res);
-                  })
-                  .catch((err) => console.log("My NFT PUT error", err));
-  
-                // price update db
-                axios(API_BASE_URL + "/price", {
-                  method: "POST",
-                  headers: {
-                    Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-                  },
-                  data: {
-                    gasPrice: "string",
-                    hash: transactionHash,
-                    landmarkIdx: sellingItem,
-                    sellPrice: sellingPrice,
-                    userFrom: sellerAddress,
-                    userTo: buyerAddress,
-                  },
-                })
-                  .then((res) => {
-                    console.log(res);
-                    setLoading(true);
-                    handleClose0();
-                    handleShow4();
-                  })
-                  .catch((err) => console.log("Update Price error", err));
-              })
-              .catch((err) => console.log("Purchase error", err));
-          } else {
-            handleShow5();
-          }
-        }
-      } catch (err) {
-        console.log("ERROR while Transaction", err);
-      }
-      return <div></div>;
+  // send Token
+  async function SendMira() {
+    const address = getAddressFrom(
+      privKey.startsWith("0x") ? privKey : "0x" + privKey
+    );
+    console.log("address", address);
+    if (!address) {
+      handleShow3();
+      return;
     }
+    try {
+      const buyer = web3.eth.accounts.privateKeyToAccount(privKey);
+      web3.eth.accounts.wallet.add(buyer);
+      console.log(web3.eth.accounts.wallet);
+      web3.eth.defaultAccount = buyer.address;
+      console.log("defaultAccount_buyer :", web3.eth.defaultAccount);
+      console.log(sellerAddress);
 
+      const senderAddress = web3.eth.defaultAccount;
+      const sendMira = new web3.eth.Contract(
+        COMMON_ABI.CONTRACT_ABI.ERC_ABI,
+        "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+      );
+      const response = await sendMira.methods
+        .transfer(sellerAddress, sellingPrice)
+        .send({ from: senderAddress, gas: 3000000 });
+      console.log(response);
 
-    // nft purchase
-    const Purchase = () => {
-      console.log(sellingPrice)
-      console.log(tokenBalance)
-  
-      if (tokenBalance >= sellingPrice) {
-        SendMira();
-      } else {
-        handleShow2();
+      if (response.status === true) {
+        const sender = web3.eth.accounts.privateKeyToAccount(
+          "0x474d486a4009e752f6608594385a4676ce85ffe359221b210875516c02047ab3"
+        );
+        web3.eth.accounts.wallet.add(sender);
+        console.log(web3.eth.accounts.wallet);
+        web3.eth.defaultAccount = sender.address;
+        console.log("defaultAccount :", web3.eth.defaultAccount);
+        const senderAddress = web3.eth.defaultAccount;
+
+        const sendLandmarkNft = new web3.eth.Contract(
+          COMMON_ABI.CONTRACT_ABI.NFT_ABI,
+          "0xED71ceA7Ae66892792c2E3d86156B29A71a1677a"
+        );
+
+        console.log("sellerAccount :", sellerAddress);
+        console.log("senderAccount :", senderAddress);
+        console.log("buyerAccount :", buyerAddress);
+
+        const response2 = await sendLandmarkNft.methods
+          .safeTransferFrom(sellerAddress, buyerAddress, sellingToken)
+          .send({ from: senderAddress, gas: 3000000 });
+        console.log(response2);
+        setTransactionHash(response2.transactionHash);
+
+        if (response2.status === true) {
+          // put landmark db
+          axios(API_BASE_URL + "/landmark/" + sellingItem, {
+            method: "PUT",
+            params: {
+              user_idx: buyerIdx,
+            },
+            data: {
+              sellPrice: sellingPrice,
+              selling: 0,
+              starForce: sellingStarForce,
+            },
+            headers: {
+              Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+            },
+          })
+            .then((res) => {
+              console.log(res);
+              // put my nft db
+              axios(API_BASE_URL + "/mynft/" + sellingItem, {
+                method: "PUT",
+                params: {
+                  user_idx: buyerIdx,
+                },
+                headers: {
+                  Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                },
+              })
+                .then((res) => {
+                  console.log(res);
+                })
+                .catch((err) => console.log("My NFT PUT error", err));
+
+              // price update db
+              axios(API_BASE_URL + "/price", {
+                method: "POST",
+                headers: {
+                  Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                },
+                data: {
+                  gasPrice: "string",
+                  hash: transactionHash,
+                  landmarkIdx: sellingItem,
+                  sellPrice: sellingPrice,
+                  userFrom: sellerAddress,
+                  userTo: buyerAddress,
+                },
+              })
+                .then((res) => {
+                  console.log(res);
+                  setLoading(true);
+                  handleClose0();
+                  handleShow4();
+                })
+                .catch((err) => console.log("Update Price error", err));
+            })
+            .catch((err) => console.log("Purchase error", err));
+        } else {
+          handleShow5();
+        }
       }
-      setShow2(false);
-      return <div></div>;
-    };
+    } catch (err) {
+      console.log("ERROR while Transaction", err);
+    }
+    return <div></div>;
+  }
+
+  // nft purchase
+  const Purchase = () => {
+    console.log(sellingPrice);
+    console.log(tokenBalance);
+
+    if (tokenBalance >= sellingPrice) {
+      SendMira();
+    } else {
+      handleShow2();
+    }
+    setShow2(false);
+    return <div></div>;
+  };
 
   useEffect(() => {
     console.log("nftData", nftData);
@@ -305,9 +302,11 @@ function Landmark() {
                     className={styles.landmarkImg}></img>
                   <div className={styles.nftTitle}>
                     {/* <div className={styles.nftTitletext}>{item.title}</div> */}
+
                     <div className={styles.marquee}>
                       <div>{item.title}</div>
                     </div>
+
                     {/* <Marquee gradient={false} className={styles.nftTitletext}>{item.title} </Marquee> */}
                     <div className={styles.starforceCt}>
                       <img
@@ -344,12 +343,24 @@ function Landmark() {
                   </div>
                   <div className={styles.nftTitle2}>{item.title}</div>
                   <div className={styles.buttonCt}>
-                    {item.selling ?
-                    <button className={styles.buyBtn} id={item.landmarkIdx}
-                    onClick={(e)=>{handleShow(e), clickNftData(e.target.id)}}>
-                      구매하기
-                    </button>
-                    : <div className={styles.buyBtn2}>구매불가</div>}
+                    {item.selling ? (
+                      <>
+                        {item.userIdx == user.information.userIdx ? (
+                          <button className={styles.buyBtn3}>판매중</button>
+                        ) : (
+                          <button
+                            className={styles.buyBtn}
+                            id={item.landmarkIdx}
+                            onClick={(e) => {
+                              handleShow(e), clickNftData(e.target.id);
+                            }}>
+                            구매하기
+                          </button>
+                        )}
+                      </>
+                    ) : (
+                      <div className={styles.buyBtn2}>구매불가</div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -502,9 +513,9 @@ function Landmark() {
           </div>
         </Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
-        </Modal>
+      </Modal>
 
-        <Modal
+      <Modal
         centered
         show={show0}
         onHide={handleClose0}
@@ -558,7 +569,11 @@ function Landmark() {
         <Modal.Body className={styles.modalcontent4}>
           구매가 완료되었습니다. 마이페이지를 확인하세요!
           <div className={styles.modalbtn}>
-            <button onClick={()=>(document.location.reload())} className={styles.closeButton}>닫기</button>
+            <button
+              onClick={() => document.location.reload()}
+              className={styles.closeButton}>
+              닫기
+            </button>
           </div>
         </Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
@@ -577,7 +592,6 @@ function Landmark() {
         </Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
-
     </>
   );
 }
