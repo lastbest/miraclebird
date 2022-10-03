@@ -152,8 +152,8 @@ function MyPage() {
   }, [userData]);
 
   useEffect(() => {
-    var startdate = seasonInfo[season-1].startDate + "_00:00:00.000";
-    var enddate = seasonInfo[season-1].endDate + "_23:59:59.000";
+    var startdate = seasonInfo[season - 1].startDate + "_00:00:00.000";
+    var enddate = seasonInfo[season - 1].endDate + "_23:59:59.000";
 
     axios({
       url: API_BASE_URL + "/verification/heatmap/" + userData.userIdx,
@@ -176,8 +176,8 @@ function MyPage() {
 
   useEffect(() => {
     // console.log(userData);
-    var startdate = seasonInfo[season-1].startDate + "_00:00:00.000";
-    var enddate = seasonInfo[season-1].endDate + "_23:59:59.000";
+    var startdate = seasonInfo[season - 1].startDate + "_00:00:00.000";
+    var enddate = seasonInfo[season - 1].endDate + "_23:59:59.000";
 
     axios({
       url: API_BASE_URL + "/verification/heatmap/" + userData.userIdx,
@@ -239,7 +239,9 @@ function MyPage() {
       tempChallengeMap.values.push({ date: pre, count: count });
     }
     setChallengeMap(tempChallengeMap);
-    console.log(challengeData)
+    console.log(challengeData);
+
+    setLoading1(false);
   }, [challengeData]);
 
   // my nft
@@ -317,9 +319,7 @@ function MyPage() {
       );
     }
     setNftMap(result);
-    return () => {
-      setLoading1(false);
-    };
+    return () => {};
   }, [nftData]);
 
   // SSAFY Network
