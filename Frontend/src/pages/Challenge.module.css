@@ -140,7 +140,7 @@ background: linear-gradient(#058af01c, #f3faff56);
 }
 
 .header {
-    width:80%;
+    width:500px;
     display:flex;
     margin:auto;
     font-size: 20px;
