@@ -557,8 +557,7 @@ function MyPage() {
             </div>
           </div>
           <div>
-            <MypageCalendar userData={userData} data={challengeMap} />
-            {/* <select
+            <select
               className={styles.selectBox}
               onChange={(e) => (setSeason(e.target.value))}>
               {seasonInfo.map((item) => {
@@ -593,7 +592,7 @@ function MyPage() {
                 }}
               />
               <ReactTooltip className={styles.tooltip} />
-            </div> */}
+            </div>
           </div>
           <div className={styles.nftContainer}>
             <div className={styles.text1}>보유 NFT</div>
