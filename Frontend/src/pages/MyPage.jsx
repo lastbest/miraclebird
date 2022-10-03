@@ -577,7 +577,7 @@ function MyPage() {
                 endDate={seasonInfo[season - 1].endDate}
                 horizontal={false}
                 showMonthLabels={false}
-                values={challengeMap.values}
+                values={[{date:'2022-10-01',count:'2'},{date:'2022-10-04',count:'2'}]}
                 classForValue={(value) => {
                   if (!value) {
                     return "color-empty";
