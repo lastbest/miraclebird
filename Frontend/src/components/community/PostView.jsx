@@ -174,9 +174,9 @@ const PostView = () => {
               <div className={styles.postInfoSub}>
                 <div className={styles.postInfoName}>
                   {data.image_url == null ? (
-                    <img alt="profile" src={profile_default} />
+                    <img alt="profile" src={profile_default} className={styles.profileImg} />
                   ) : (
-                    <img alt="profile" src={data.image_url} />
+                    <img alt="profile" src={data.image_url} className={styles.profileImg}/>
                   )}
                   {data.name}
                 </div>
