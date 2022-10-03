@@ -22,7 +22,7 @@ function Challenge() {
           onClick={() => navigate("/challenge/morning")}>
           <div className={styles.morningtext}>
             <div className={styles.morningTitle}>
-              미라클 모닝은
+              미라클 모닝{" "}
               <img alt="next" src="/next.png" className={styles.next} />
             </div>
             <div className={styles.morningdetail}>

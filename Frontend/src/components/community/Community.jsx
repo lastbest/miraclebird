@@ -8,7 +8,9 @@ import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 function Community() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [postData, setPostDate] = useState(null);
+  const [postData, setPostDate] = useState("");
+  const [userData, setUserDate] = useState("");
+  const [postDataMap, setPostDateMap] = useState("");
 
   const mainApi = async () => {
     try {
@@ -20,13 +22,36 @@ function Community() {
         },
       });
       const result = await response.json();
-      console.log("mainData", result);
       setPostDate(result);
-      setLoading(false);
     } catch (error) {
-      window.alert(error);
+      console.log(error);
     }
   };
+  useEffect(() => {
+    const temp1 = [];
+    const temp2 = [];
+    console.log(postData);
+
+    for (var i = 0; i < postData.length; i++) {
+      var item = postData[i];
+      if (item.userRole && item.userRole == "ADMIN") {
+        temp1.push(item);
+      } else {
+        temp2.push(postData[i]);
+      }
+    }
+    console.log("mainData", temp1);
+    for (var i = temp2.length - 1; i >= 0; i--) {
+      temp1.push(temp2[i]);
+    }
+
+    setPostDateMap(temp1);
+  }, [postData]);
+
+  useEffect(() => {
+    setLoading(false);
+  }, [postDataMap]);
+
   useEffect(() => {
     mainApi();
   }, []);
@@ -36,7 +61,7 @@ function Community() {
         <Loading2 />
       ) : (
         <div className={styles.con}>
-          <PostMain postData={postData} className={styles.postMain} />
+          <PostMain postData={postDataMap} className={styles.postMain} />
           <div className={styles.footer_camerabutton}>
             <img
               alt="camera"
