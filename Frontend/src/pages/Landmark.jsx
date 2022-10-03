@@ -74,7 +74,7 @@ function Landmark() {
     axios(API_BASE_URL + "/landmark/" + idx, {
       method: "GET",
       headers: {
-        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     })
       .then((res) => {
@@ -108,7 +108,7 @@ function Landmark() {
     axios(API_BASE_URL + "/wallet/" + buyerIdx, {
       method: "GET",
       headers: {
-        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     })
       .then((res) => {
@@ -121,7 +121,7 @@ function Landmark() {
     axios(API_BASE_URL + "/wallet/" + sellerIdx, {
       method: "GET",
       headers: {
-        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     })
       .then((res) => {
@@ -203,7 +203,7 @@ function Landmark() {
               starForce: sellingStarForce,
             },
             headers: {
-              Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+              Authorization: "Bearer " + localStorage.getItem("accessToken"),
             },
           })
             .then((res) => {
@@ -215,7 +215,8 @@ function Landmark() {
                   user_idx: buyerIdx,
                 },
                 headers: {
-                  Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                  Authorization:
+                    "Bearer " + localStorage.getItem("accessToken"),
                 },
               })
                 .then((res) => {
@@ -227,7 +228,8 @@ function Landmark() {
               axios(API_BASE_URL + "/price", {
                 method: "POST",
                 headers: {
-                  Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                  Authorization:
+                    "Bearer " + localStorage.getItem("accessToken"),
                 },
                 data: {
                   gasPrice: "string",
@@ -375,16 +377,13 @@ function Landmark() {
     };
   }, [nftData]);
 
-  useEffect(() => {}, [itemMap]);
-
   useEffect(() => {
-    console.log(gu);
     setLoading(true);
     axios({
       url: API_BASE_URL + "/landmark",
       method: "GET",
       headers: {
-        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     })
       .then((res) => {

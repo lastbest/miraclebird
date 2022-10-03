@@ -38,9 +38,9 @@ function Study() {
           </div>
         </div>
         <br />
-        <p className={styles.subtext2}>
+        {/* <p className={styles.subtext2}>
           ※ 자세한 내용은 커뮤니티의 공지사항을 참고해주세요!
-        </p>
+        </p> */}
         <br />
       </div>
     </>

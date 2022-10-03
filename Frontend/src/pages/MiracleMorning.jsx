@@ -22,6 +22,7 @@ function MiracleMorning() {
       </div>
       <div className={styles.mainContainer}>
         <img alt="morning" src="/morning.png" className={styles.morningimg} />
+        <div className={styles.subtext2}>04:00 ~ 07:00</div>
         <div className={styles.detailCt}>
           <div className={styles.maintext}>
             <p className={styles.titletext}>미라클 모닝</p>
@@ -41,9 +42,9 @@ function MiracleMorning() {
           </div>
         </div>
         <br />
-        <p className={styles.subtext2}>
+        {/* <p className={styles.subtext2}>
           ※ 자세한 내용은 커뮤니티의 공지사항을 참고해주세요!
-        </p>
+        </p> */}
         <br />
       </div>
     </>
