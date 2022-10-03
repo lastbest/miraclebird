@@ -38,7 +38,7 @@ function GeoChart({ data }) {
   const handleClose2 = (e) => setShow2(false);
   const buyNFT = (e) => {
     e.preventDefault();
-    Purchase();
+    SendMira();
   };
   const handleShow2 = () => setShow2(true);
   const [show3, setShow3] = useState(false);
@@ -431,24 +431,36 @@ function GeoChart({ data }) {
         // console.log(res.data);
         const buyerWalletData = res.data;
         setBuyerAddress(buyerWalletData.walletAddress);
+
+        const callMiraToken = new web3.eth.Contract(
+          COMMON_ABI.CONTRACT_ABI.ERC_ABI,
+          "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+        );
+      
+        async function getTokenBalance() {
+          const response = await callMiraToken.methods.balanceOf(buyerWalletData.walletAddress).call();
+          setTokenBalance(response);
+        }
+
+          getTokenBalance();
       })
       .catch((err) => console.log("Get buyer data error", err));
   });
 
-  const callMiraToken = new web3.eth.Contract(
-    COMMON_ABI.CONTRACT_ABI.ERC_ABI,
-    "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
-  );
+  // const callMiraToken = new web3.eth.Contract(
+  //   COMMON_ABI.CONTRACT_ABI.ERC_ABI,
+  //   "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+  // );
 
-  async function getTokenBalance() {
-    const response = await callMiraToken.methods.balanceOf(buyerAddress).call();
-    setTokenBalance(response);
-    // console.log(response);
-  }
+  // async function getTokenBalance() {
+  //   const response = await callMiraToken.methods.balanceOf(buyerAddress).call();
+  //   setTokenBalance(response);
+  //   // console.log(response);
+  // }
 
-  useEffect(() => {
-    getTokenBalance();
-  });
+  // useEffect(() => {
+  //   getTokenBalance();
+  // });
 
   // send Token
   async function SendMira() {
@@ -570,16 +582,24 @@ function GeoChart({ data }) {
     return <div></div>;
   }
 
-  // nft purchase
-  const Purchase = () => {
+  const MiracCheck = () => {
     if (tokenBalance >= sellingPrice) {
-      SendMira();
+      handleShow2();
     } else {
       handleShow6();
     }
-    setShow2(false);
-    return <div></div>;
-  };
+  }
+
+  // nft purchase
+  // const Purchase = () => {
+  //   if (tokenBalance >= sellingPrice) {
+  //     SendMira();
+  //   } else {
+  //     handleShow6();
+  //   }
+  //   setShow2(false);
+  //   return <div></div>;
+  // };
 
   return (
     <>
@@ -679,7 +699,7 @@ function GeoChart({ data }) {
                       {landmarkData.userIdx == user.information.userIdx ? (
                         <button className={styles.btnSell}>판매중</button>
                       ) : (
-                        <button className={styles.btn} onClick={handleShow2}>
+                        <button className={styles.btn} onClick={MiracCheck}>
                           구입
                         </button>
                       )}
