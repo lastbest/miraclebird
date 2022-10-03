@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./RankDay.module.css";
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
+import { BrowserView, MobileView } from "react-device-detect";
 
 function RankDay() {
   const [nickname, setNickname] = useState([]);
@@ -24,34 +25,71 @@ function RankDay() {
   }, []);
   return (
     <>
-      <div className={styles.medalcontainer}>
-        <div>
+      <BrowserView>
+        <div className={styles.medalcontainer}>
+          <div>
+            <img
+              src="src/assets/icon/silver.png"
+              className={styles.silverImg}></img>
+          </div>
+          <div>
+            <img
+              src="src/assets/icon/gold.png"
+              className={styles.goldImg}></img>
+          </div>
+          <div>
+            <img
+              src="src/assets/icon/bronze.png"
+              className={styles.bronzeImg}></img>
+          </div>
+
+          <img className={styles.goldImg}></img>
+          <img className={styles.silverImg}></img>
+          <img className={styles.bronzeImg}></img>
+          <div className={styles.silver}>{nickname[1]}</div>
+
+          <div className={styles.gold}>{nickname[0]}</div>
+          <div className={styles.bronze}>{nickname[2]}</div>
+
           <img
-            src="src/assets/icon/silver.png"
-            className={styles.silverImg}></img>
+            className={styles.rankingImg}
+            alt="rank"
+            src="src/assets/icon/ranking.png"></img>
         </div>
-        <div>
-          <img src="src/assets/icon/gold.png" className={styles.goldImg}></img>
-        </div>
-        <div>
+      </BrowserView>
+      <MobileView>
+        <div className={styles.medalcontainermobile}>
+          <div>
+            <img
+              src="src/assets/icon/silver.png"
+              className={styles.silverImg}></img>
+          </div>
+          <div>
+            <img
+              src="src/assets/icon/gold.png"
+              className={styles.goldImg}></img>
+          </div>
+          <div>
+            <img
+              src="src/assets/icon/bronze.png"
+              className={styles.bronzeImg}></img>
+          </div>
+
+          <img className={styles.goldImg}></img>
+          <img className={styles.silverImg}></img>
+          <img className={styles.bronzeImg}></img>
+          <div className={styles.silver}>{nickname[1]}</div>
+
+          <div className={styles.gold}>{nickname[0]}</div>
+          <div className={styles.bronze}>{nickname[2]}</div>
+
           <img
-            src="src/assets/icon/bronze.png"
-            className={styles.bronzeImg}></img>
+            className={styles.rankingImg}
+            alt="rank"
+            src="src/assets/icon/ranking.png"></img>
         </div>
-
-        <img className={styles.goldImg}></img>
-        <img className={styles.silverImg}></img>
-        <img className={styles.bronzeImg}></img>
-        <div className={styles.silver}>{nickname[1]}</div>
-
-        <div className={styles.gold}>{nickname[0]}</div>
-        <div className={styles.bronze}>{nickname[2]}</div>
-
-        <img
-          className={styles.rankingImg}
-          alt="rank"
-          src="src/assets/icon/ranking.png"></img>
-        {/* <div>
+      </MobileView>
+      {/* <div>
           <div className={styles.silver}>
             <img alt="silver" src="./silver.png" />
             <p className={styles.slidetext}>{nickname[1]}</p>
@@ -65,7 +103,6 @@ function RankDay() {
             <p className={styles.slidetext}>{nickname[2]}</p>
           </div>
         </div> */}
-      </div>
     </>
   );
 }
