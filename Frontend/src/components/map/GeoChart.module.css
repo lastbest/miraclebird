@@ -5,6 +5,13 @@
     margin-bottom: 20px;
 }
 
+.svg{
+    display: block;
+        width: 100%;
+        height: 400px;
+        fill: lightgrey;
+        stroke: white;
+}
 .modal {
     position: absolute;
     top: 18%;
