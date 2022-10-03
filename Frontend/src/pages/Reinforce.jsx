@@ -582,7 +582,7 @@ function Reinforce() {
           <div className={styles.privKeychange}>
             개인키를 입력해주세요
             <OverlayTrigger
-              placement="right"
+              placement="top"
               overlay={
                 <Tooltip>
                   <div className={styles.tooltiptext}>
