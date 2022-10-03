@@ -13,7 +13,7 @@ import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import { useNavigate } from "react-router-dom";
 import MypageFeed from "../components/common/MypageFeed";
-import MypageCalendar from "../components/common/MyPageCalendar";
+import MypageCalendar from "../components/common/MypageCalendar";
 import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
