@@ -66,7 +66,7 @@ function Admin() {
       //     gas: 3000000
       //   }).then(receipt=>{console.log("receipt::::",receipt)});
       const response = await sendMira.methods
-        .transfer(wallet, 3)
+        .transfer(wallet, 5)
         .send({ from: senderAddress, gas: 3000000 });
       console.log(response);
       // const response = await sendMira.methods

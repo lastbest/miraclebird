@@ -10,5 +10,11 @@
     "season": 2,
     "startDate": "2022-10-03",
     "endDate": "2022-10-10"
+  },
+  {
+    "title": "시즌 3",
+    "season": 3,
+    "startDate": "2022-09-26",
+    "endDate": "2022-10-03"
   }
 ]
