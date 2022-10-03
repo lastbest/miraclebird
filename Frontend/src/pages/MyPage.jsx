@@ -69,6 +69,7 @@ function MyPage() {
       })
         .then((res) => {
           setUserData(res.data.information);
+          setSeason(1);
           setLoading1(true);
           axios({
             url: API_BASE_URL + "/wallet/" + res.data.information.userIdx,
@@ -93,6 +94,7 @@ function MyPage() {
 
   useEffect(() => {
     setLoading1(false);
+    console.log(challengeMap);
   }, [challengeMap]);
 
   useEffect(() => {
@@ -550,6 +552,7 @@ function MyPage() {
 
             <div className={styles.heatmapcontainer}>
               <CalendarHeatmap
+                showWeekdayLabels={true}
                 startDate={seasonInfo[season - 1].startDate}
                 endDate={seasonInfo[season - 1].endDate}
                 horizontal={false}
