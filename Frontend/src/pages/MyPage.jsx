@@ -80,6 +80,28 @@ function MyPage() {
           })
             .then((res) => {
               setWallet(res.data);
+
+                // SSAFY Network
+                const web3 = new Web3(
+                  new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain2/`)
+                );
+
+                // call Mira Token
+              const callMiraToken = new web3.eth.Contract(
+                COMMON_ABI.CONTRACT_ABI.ERC_ABI,
+                "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+              );
+                
+                async function getTokenBalance() {
+                  const response = await callMiraToken.methods
+                  .balanceOf(res.data.walletAddress)
+                  .call();
+                setTokenBalance(response);
+                }
+
+                getTokenBalance();
+
+              
             })
             .catch((error) => {
               console.log(error);
@@ -308,22 +330,21 @@ function MyPage() {
   );
 
   // call Mira Token
-  const callMiraToken = new web3.eth.Contract(
-    COMMON_ABI.CONTRACT_ABI.ERC_ABI,
-    "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
-  );
+  // const callMiraToken = new web3.eth.Contract(
+  //   COMMON_ABI.CONTRACT_ABI.ERC_ABI,
+  //   "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+  // );
 
-  // 관리자 계정의 miratoken 조회로 해놓음 balanceof안의 주소를 user계좌로 바꾸면 됨
-  async function getTokenBalance() {
-    const response = await callMiraToken.methods
-      .balanceOf(wallet.walletAddress)
-      .call();
-    setTokenBalance(response);
-  }
+  // async function getTokenBalance() {
+  //   const response = await callMiraToken.methods
+  //     .balanceOf(wallet.walletAddress)
+  //     .call();
+  //   setTokenBalance(response);
+  // }
 
-  useEffect(() => {
-    getTokenBalance();
-  }, [wallet]);
+  // useEffect(() => {
+  //   getTokenBalance();
+  // }, [wallet]);
 
   // nft 판매 권한을 관리자에게 넘긴다
   async function ApproveItem() {

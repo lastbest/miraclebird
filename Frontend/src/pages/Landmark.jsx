@@ -70,7 +70,7 @@ function Landmark() {
   );
 
   const clickNftData = (idx) => {
-    console.log(idx);
+    // console.log(idx);
     axios(API_BASE_URL + "/landmark/" + idx, {
       method: "GET",
       headers: {
@@ -84,40 +84,65 @@ function Landmark() {
         setSellingPrice(res.data.sellPrice);
         setSellerIdx(res.data.userIdx);
         setSellingToken(res.data.tokenId);
+
+        if (tokenBalance < res.data.sellPrice) {
+          handleShow2()
+        } else {
+          handleShow()
+        }
+
+
       })
       .catch((err) => console.log("Get landmark error", err));
   };
 
-  const callMiraToken = new web3.eth.Contract(
-    COMMON_ABI.CONTRACT_ABI.ERC_ABI,
-    "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
-  );
+  // const callMiraToken = new web3.eth.Contract(
+  //   COMMON_ABI.CONTRACT_ABI.ERC_ABI,
+  //   "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+  // );
 
-  async function getTokenBalance() {
-    const response = await callMiraToken.methods.balanceOf(buyerAddress).call();
-    setTokenBalance(response);
-    console.log(response);
-  }
+  // async function getTokenBalance() {
+  //   const response = await callMiraToken.methods.balanceOf(buyerAddress).call();
+  //   setTokenBalance(response);
+  //   console.log(response);
+  // }
+
+  // useEffect(() => {
+  //   setBuyerIdx(user.information.userIdx);
+  //   console.log(user.information.userIdx)
+  //   getTokenBalance();
+  // });
 
   useEffect(() => {
-    setBuyerIdx(user.information.userIdx);
-    getTokenBalance();
-  });
-
-  useEffect(() => {
-    axios(API_BASE_URL + "/wallet/" + buyerIdx, {
+    axios(API_BASE_URL + "/wallet/" + user.information.userIdx, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         const buyerWalletData = res.data;
         setBuyerAddress(buyerWalletData.walletAddress);
+
+        const callMiraToken = new web3.eth.Contract(
+          COMMON_ABI.CONTRACT_ABI.ERC_ABI,
+          "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+        );
+
+        async function getTokenBalance() {
+          const response = await callMiraToken.methods.balanceOf(buyerWalletData.walletAddress).call();
+          setTokenBalance(response);
+          // console.log(response);
+        }
+        getTokenBalance();
+        setBuyerIdx(user.information.userIdx);
+
       })
       .catch((err) => console.log("Get buyer data error", err));
+  }, [user]);
 
+  useEffect(() => {
     axios(API_BASE_URL + "/wallet/" + sellerIdx, {
       method: "GET",
       headers: {
@@ -125,17 +150,25 @@ function Landmark() {
       },
     })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         const sellerWalletData = res.data;
         setSellerAddress(sellerWalletData.walletAddress);
       })
       .catch((err) => console.log("Get seller data error", err));
-  }, [sellingItem]);
+  }, [sellingItem])
 
   const buyNFT = (e) => {
     e.preventDefault();
 
-    Purchase();
+    // Purchase();
+    console.log(sellingPrice);
+    console.log(tokenBalance);
+
+    if (tokenBalance >= sellingPrice) {
+      SendMira();
+    } else {
+      handleShow2();
+    }
   };
 
   // send Token
@@ -155,8 +188,8 @@ function Landmark() {
       web3.eth.accounts.wallet.add(buyer);
       console.log(web3.eth.accounts.wallet);
       web3.eth.defaultAccount = buyer.address;
-      console.log("defaultAccount_buyer :", web3.eth.defaultAccount);
-      console.log(sellerAddress);
+      // console.log("defaultAccount_buyer :", web3.eth.defaultAccount);
+      // console.log(sellerAddress);
 
       const senderAddress = web3.eth.defaultAccount;
       const sendMira = new web3.eth.Contract(
@@ -173,9 +206,9 @@ function Landmark() {
           "0x474d486a4009e752f6608594385a4676ce85ffe359221b210875516c02047ab3"
         );
         web3.eth.accounts.wallet.add(sender);
-        console.log(web3.eth.accounts.wallet);
+        // console.log(web3.eth.accounts.wallet);
         web3.eth.defaultAccount = sender.address;
-        console.log("defaultAccount :", web3.eth.defaultAccount);
+        // console.log("defaultAccount :", web3.eth.defaultAccount);
         const senderAddress = web3.eth.defaultAccount;
 
         const sendLandmarkNft = new web3.eth.Contract(
@@ -183,14 +216,14 @@ function Landmark() {
           "0xED71ceA7Ae66892792c2E3d86156B29A71a1677a"
         );
 
-        console.log("sellerAccount :", sellerAddress);
-        console.log("senderAccount :", senderAddress);
-        console.log("buyerAccount :", buyerAddress);
+        // console.log("sellerAccount :", sellerAddress);
+        // console.log("senderAccount :", senderAddress);
+        // console.log("buyerAccount :", buyerAddress);
 
         const response2 = await sendLandmarkNft.methods
           .safeTransferFrom(sellerAddress, buyerAddress, sellingToken)
           .send({ from: senderAddress, gas: 3000000 });
-        console.log(response2);
+        // console.log(response2);
         setTransactionHash(response2.transactionHash);
 
         if (response2.status === true) {
@@ -262,22 +295,22 @@ function Landmark() {
     return <div></div>;
   }
 
-  // nft purchase
-  const Purchase = () => {
-    console.log(sellingPrice);
-    console.log(tokenBalance);
+  // // nft purchase
+  // const Purchase = () => {
+  //   console.log(sellingPrice);
+  //   console.log(tokenBalance);
 
-    if (tokenBalance >= sellingPrice) {
-      SendMira();
-    } else {
-      handleShow2();
-    }
-    setShow2(false);
-    return <div></div>;
-  };
+  //   if (tokenBalance >= sellingPrice) {
+  //     SendMira();
+  //   } else {
+  //     handleShow2();
+  //   }
+  //   // setShow2(false);
+  //   return <div></div>;
+  // };
 
   useEffect(() => {
-    console.log("nftData", nftData);
+    // console.log("nftData", nftData);
     const result = [];
     var useritem = [];
     var adminitem = [];
@@ -357,7 +390,7 @@ function Landmark() {
                             className={styles.buyBtn}
                             id={item.landmarkIdx}
                             onClick={(e) => {
-                              handleShow(e), clickNftData(e.target.id);
+                              clickNftData(e.target.id);
                             }}>
                             구매하기
                           </button>
@@ -390,7 +423,7 @@ function Landmark() {
       },
     })
       .then((res) => {
-        console.log("mainData", res.data);
+        // console.log("mainData", res.data);
         setNftData(res.data);
       })
       .catch((error) => {
