@@ -139,7 +139,8 @@
 .nftcontainer {
     width:100% !important;
     padding-top: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.234);
+    border: 0.3px solid rgb(243, 241, 241);
+    border-radius: 5px;
     
 }
 

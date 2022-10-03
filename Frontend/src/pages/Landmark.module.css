@@ -12,6 +12,7 @@
   grid-template-columns: 1fr 1fr;
   column-gap: 30px;
   padding: 20px;
+  margin: auto;
 }
 
 .selectbox1 {
@@ -207,6 +208,12 @@
   color: gray;
   background-color: white;
   border-radius: 10px;
+}
+.buyBtn3 {
+  border: none;
+    color: black;
+    background-color: lightgray;
+    border-radius: 10px;
 }
 
 .modalcontent3 {

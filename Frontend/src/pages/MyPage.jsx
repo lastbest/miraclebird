@@ -63,7 +63,7 @@ function MyPage() {
         url: API_BASE_URL + "/auth/",
         method: "GET",
         headers: {
-          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+          Authorization: "Bearer " + localStorage.getItem("accessToken"),
         },
       })
         .then((res) => {
@@ -73,7 +73,7 @@ function MyPage() {
             url: API_BASE_URL + "/wallet/" + res.data.information.userIdx,
             method: "get",
             headers: {
-              Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+              Authorization: "Bearer " + localStorage.getItem("accessToken"),
             },
           })
             .then((res) => {
@@ -125,7 +125,7 @@ function MyPage() {
         url: API_BASE_URL + "/user/" + userData.userIdx,
         method: "put",
         headers: {
-          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+          Authorization: "Bearer " + localStorage.getItem("accessToken"),
         },
         params: {
           image_url: fileName,
@@ -141,7 +141,7 @@ function MyPage() {
       url: API_BASE_URL + "/verification/streak/" + userData.userIdx,
       method: "GET",
       headers: {
-        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     })
       .then((res) => {
@@ -160,7 +160,7 @@ function MyPage() {
       url: API_BASE_URL + "/verification/heatmap/" + userData.userIdx,
       method: "GET",
       headers: {
-        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
       params: {
         start_date: startdate,
@@ -183,7 +183,7 @@ function MyPage() {
       url: API_BASE_URL + "/verification/heatmap/" + userData.userIdx,
       method: "GET",
       headers: {
-        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
       params: {
         start_date: startdate,
@@ -247,7 +247,7 @@ function MyPage() {
       url: API_BASE_URL + "/landmark/user/" + userData.userIdx,
       method: "GET",
       headers: {
-        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     })
       .then((res) => {
@@ -385,7 +385,7 @@ function MyPage() {
           starForce: sellStarForce,
         },
         headers: {
-          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+          Authorization: "Bearer " + localStorage.getItem("accessToken"),
         },
       })
         .then((res) => {
@@ -417,7 +417,7 @@ function MyPage() {
     axios(API_BASE_URL + "/landmark/" + idx, {
       method: "GET",
       headers: {
-        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     })
       .then((res) => {
@@ -665,7 +665,8 @@ function MyPage() {
                       url: API_BASE_URL + "/wallet",
                       method: "post",
                       headers: {
-                        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                        Authorization:
+                          "Bearer " + localStorage.getItem("accessToken"),
                       },
                       data: {
                         userIdx: userData.userIdx,
@@ -768,7 +769,8 @@ function MyPage() {
                     url: API_BASE_URL + "/user/" + userData.userIdx,
                     method: "put",
                     headers: {
-                      Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                      Authorization:
+                        "Bearer " + localStorage.getItem("accessToken"),
                     },
                     params: {
                       // user_idx: user.information.userIdx,/
@@ -905,7 +907,8 @@ function MyPage() {
                   url: API_BASE_URL + "/wallet/" + wallet.walletIdx,
                   method: "delete",
                   headers: {
-                    Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                    Authorization:
+                      "Bearer " + localStorage.getItem("accessToken"),
                   },
                 })
                   .then((res) => {
@@ -919,7 +922,8 @@ function MyPage() {
                   url: API_BASE_URL + "/user/" + userData.userIdx,
                   method: "delete",
                   headers: {
-                    Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                    Authorization:
+                      "Bearer " + localStorage.getItem("accessToken"),
                   },
                 })
                   .then((res) => {
@@ -950,9 +954,16 @@ function MyPage() {
         onHide={handleClose7}
         backdrop="static"
         keyboard={false}>
-        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
-        <Modal.Body className={styles.modalcontent7} closeButton>
+        <Modal.Header className={styles.modalheader}></Modal.Header>
+        <Modal.Body className={styles.modalcontent7}>
           판매중으로 변경되었습니다!
+          <button
+            onClick={() => {
+              document.location.href = "/mypage";
+            }}
+            className={styles.walletCheckbtn}>
+            확인
+          </button>
         </Modal.Body>
       </Modal>
 
@@ -987,7 +998,7 @@ function MyPage() {
         keyboard={false}
         className={styles.dialog0}>
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
-        <Modal.Body className={styles.body}>
+        <Modal.Body className={styles.modalcontent4}>
           개인키가 일치하지 않습니다.
         </Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
