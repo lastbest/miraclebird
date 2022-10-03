@@ -69,6 +69,7 @@ function MyPage() {
       })
         .then((res) => {
           setUserData(res.data.information);
+          setSeason(1);
           setLoading1(true);
           axios({
             url: API_BASE_URL + "/wallet/" + res.data.information.userIdx,
@@ -115,6 +116,7 @@ function MyPage() {
 
   useEffect(() => {
     setLoading1(false);
+    console.log(challengeMap);
   }, [challengeMap]);
 
   useEffect(() => {
@@ -582,14 +584,14 @@ function MyPage() {
                   }
                   return `color-scale-${value.count >= 4 ? 4 : value.count}`;
                 }}
-                tooltipDataAttrs={(value) => {
-                  if (!value || !value.date) {
-                    return null;
-                  }
-                  return {
-                    "data-tip": `${value.date} 인증 횟수: ${value.count}`,
-                  };
-                }}
+                // tooltipDataAttrs={(value) => {
+                //   if (!value || !value.date) {
+                //     return null;
+                //   }
+                //   return {
+                //     "data-tip": `${value.date} 인증 횟수: ${value.count}`,
+                //   };
+                // }}
               />
               <ReactTooltip className={styles.tooltip} />
             </div>
