@@ -18,9 +18,6 @@ function HomeNFT() {
           // navigation
           pagination={{ clickable: true }}>
           <SwiperSlide className={styles.slide}>
-            <img alt="detail" src="/nft1.jpg" className={styles.mainImg} />
-          </SwiperSlide>
-          <SwiperSlide className={styles.slide}>
             <img alt="detail" src="/nft2.jpg" className={styles.mainImg} />
           </SwiperSlide>
           <SwiperSlide className={styles.slide}>
