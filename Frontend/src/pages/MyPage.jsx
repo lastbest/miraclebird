@@ -90,6 +90,9 @@ function MyPage() {
     }
     data();
   }, []);
+  useEffect(() => {
+    setLoading1(false);
+  }, [challengeMap]);
 
   useEffect(() => {
     setWrite(userData.name);
@@ -240,8 +243,6 @@ function MyPage() {
     }
     setChallengeMap(tempChallengeMap);
     console.log(challengeData);
-
-    setLoading1(false);
   }, [challengeData]);
 
   // my nft
