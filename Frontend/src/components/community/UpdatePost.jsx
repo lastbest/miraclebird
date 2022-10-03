@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
+import Modal from "react-bootstrap/Modal";
 
 function UpdatePost() {
   const [userIdx, setUserIdx] = useState("");
@@ -12,7 +13,12 @@ function UpdatePost() {
   const [data, setData] = useState({});
   const { postIdx } = useParams();
   const navigate = useNavigate();
-
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [show2, setShow2] = useState(false);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = () => setShow2(true);
   const mainApi = async () => {
     try {
       const response = await fetch(API_BASE_URL + "/post/" + postIdx, {
@@ -89,28 +95,56 @@ function UpdatePost() {
         <button
           className={styles.submitbtn}
           onClick={() => {
-            axios({
-              url: API_BASE_URL + "/post/" + postIdx,
-              method: "put",
-              headers: {
-                Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-              },
-              params: {
-                // user_idx: user.information.userIdx,/
-                user_idx: userIdx,
-              },
-              data: {
-                title: title,
-                content: content,
-              },
-            }).then((res) => {
-              console.log(res.data);
-            });
-            document.location.href = "/community";
+            if (title == "" || title == " ") {
+              handleShow();
+            } else if (content == "" || content == " ") {
+              handleShow2();
+            } else {
+              axios({
+                url: API_BASE_URL + "/post/" + postIdx,
+                method: "put",
+                headers: {
+                  Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                },
+                params: {
+                  // user_idx: user.information.userIdx,/
+                  user_idx: userIdx,
+                },
+                data: {
+                  title: title,
+                  content: content,
+                },
+              }).then((res) => {
+                console.log(res.data);
+              });
+              document.location.href = "/community";
+            }
           }}>
           수정하기
         </button>
       </div>
+      <Modal
+        centered
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent} closeButton>
+          제목을 입력해 주세요.
+        </Modal.Body>
+      </Modal>
+      <Modal
+        centered
+        show={show2}
+        onHide={handleClose2}
+        backdrop="static"
+        keyboard={false}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent} closeButton>
+          내용을 입력해 주세요.
+        </Modal.Body>
+      </Modal>
     </>
   );
 }
