@@ -134,6 +134,7 @@ function Landmark() {
 
   const buyNFT = (e) => {
     e.preventDefault();
+
     Purchase();
   };
 
@@ -147,6 +148,8 @@ function Landmark() {
       handleShow3();
       return;
     }
+
+    handleShow0();
     try {
       const buyer = web3.eth.accounts.privateKeyToAccount(privKey);
       web3.eth.accounts.wallet.add(buyer);
