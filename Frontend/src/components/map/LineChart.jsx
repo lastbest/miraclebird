@@ -189,6 +189,19 @@ const LineChart = ({ data }) => {
           },
         ]}
         options={{
+          tools: {
+            download: false,
+          },
+          theme: {
+            mode: "light",
+            palette: "palette1",
+            monochrome: {
+              enabled: false,
+              color: "#1d4999",
+              shadeTo: "light",
+              shadeIntensity: 0.65,
+            },
+          },
           zoom: {
             type: "x",
             enabled: false,
@@ -197,23 +210,22 @@ const LineChart = ({ data }) => {
           markers: {
             size: 5,
           },
-          theme: {
-            mode: "dark",
-          },
 
           chart: {
+            stacked: false,
             height: 350,
-            type: "line",
+            type: "area",
             zoom: {
               type: "x",
               enabled: true,
               autoScaleYaxis: true,
             },
             style: {
-              color: "#161616",
+              color: "#ffffff",
             },
             background: "transparent",
           },
+
           dataLabels: {
             enabled: false,
           },
