@@ -652,7 +652,12 @@ function GeoChart({ data }) {
       </div>
 
       <div ref={wrapperRef} style={{ marginBottom: "2rem" }}>
-        {selectedCountry !== null ? <div>{area.name}</div> : <div></div>}
+        {selectedCountry !== null ? 
+        <div className={styles.areaName}>
+          <img src="/arrowhead.png" alt='area' className={styles.areaIcon}/>
+          {area.name}
+        </div> 
+        : <div></div>}
         <svg className={styles.svg} ref={svgRef}></svg>
       </div>
 
