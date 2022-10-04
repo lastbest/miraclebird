@@ -113,6 +113,9 @@ function Camera() {
   const [show3, setShow3] = useState(false);
   const handleClose3 = () => setShow3(false);
   const handleShow3 = () => setShow3(true);
+  const [show4, setShow4] = useState(false);
+  const handleClose4 = () => setShow4(false);
+  const handleShow4 = () => setShow4(true);
 
   function takepicture() {
     const targetvideo = document.getElementById("screenshot_wrap");
@@ -382,6 +385,14 @@ function Camera() {
                     } else {
                       if (them == 1 && morningCount) {
                         handleShow3();
+                      } else if (them == 1 && !morningCount) {
+                        var temp = new Date();
+                        console.log(temp.getHours());
+                        if (temp.getHours() < 7 && temp.getHours() >= 4) {
+                          capture();
+                        } else {
+                          handleShow4();
+                        }
                       } else if (them == 2 && exerciseCount) {
                         handleShow3();
                       } else if (them == 3 && studyCount) {
@@ -487,6 +498,18 @@ function Camera() {
         <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
         <Modal.Body className={styles.modalcontent}>
           챌린지 카테고리를 선택해주세요!
+        </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
+      </Modal>
+      <Modal
+        centered
+        show={show4}
+        onHide={handleClose4}
+        backdrop="static"
+        keyboard={false}>
+        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Body className={styles.modalcontent}>
+          미라클모닝은 04시~07시에만 가능합니다.
         </Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
