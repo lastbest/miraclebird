@@ -90,7 +90,7 @@ function GeoChart({ data }) {
   const [priceData, setPriceData] = useState("");
 
   const web3 = new Web3(
-    new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain/`)
+    new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain2/`)
   );
 
   useEffect(() => {
@@ -464,7 +464,11 @@ function GeoChart({ data }) {
       privKey.startsWith("0x") ? privKey : "0x" + privKey
     );
     // console.log("address", address);
+    console.log(address, buyerAddress)
     if (!address) {
+      handleShow3();
+      return;
+    } else if (address != buyerAddress) {
       handleShow3();
       return;
     }
