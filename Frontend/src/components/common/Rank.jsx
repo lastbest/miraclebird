@@ -49,7 +49,8 @@ function Rank() {
       <div className={styles.content}>
         <div className={styles.header}>
           <div className={styles.rankcontainer}>
-            <div className={styles.ranktext}>#챌린지 랭킹</div>
+            <img src='/trophy.png' alt='challenge' className={styles.rankicon}/>
+            <div className={styles.ranktext}>챌린지 랭킹</div>
           </div>
         </div>
         <div className={styles.text}>이번 시즌 실시간 챌린지 랭킹</div>
@@ -72,7 +73,8 @@ function Rank() {
       </div>
       <div className={styles.content2}>
         <div className={styles.header}>
-          <div className={styles.ownertext}>#랜드마크 랭킹</div>
+          <img src='/star.png' alt='landmark' className={styles.rankicon}/>
+          <div className={styles.ownertext}>랜드마크 랭킹</div>
         </div>
         <div className={styles.text}>이번 시즌 실시간 NFT 랭킹</div>
         <div className={styles.nftcontainer}>

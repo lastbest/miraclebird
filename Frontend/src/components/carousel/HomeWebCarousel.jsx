@@ -57,12 +57,12 @@ const WebCarousel = () => {
   return (
     <>
       <div
-        className="container"
+        className={styles.container}
         style={{
           display: "flex",
           justifyContent: "center",
-          marginTop: "1%",
-          width: "100%",
+          marginTop: "2%",
+          width: "90%",
           margin: "auto",
           marginBottom: "10px",
           paddingLeft: "0px",
