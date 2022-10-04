@@ -272,10 +272,19 @@
     height:90%;
 }
 
+.nfturl2 {
+    width:90%;
+    /* height:90%; */
+}
+
 
 .nftcard {
     width:75%;
     margin: auto;
+}
+
+.nftcard2 {
+    margin-top:10px;
 }
 
 .nftname {
@@ -297,11 +306,27 @@
     flex-direction: row;
 }
 
+.miraprice2 {
+    margin-top:5px;
+    margin-bottom:10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
 .miraicon {
     margin-right: 10px;
     width:30px;
     height:30px;
 }
+
+.miraicon2 {
+    margin-right: 3px;
+    width:30px;
+    height:30px;
+}
+
 
 .nftprice {
     margin-top:auto;
@@ -590,3 +615,13 @@
       height: 20px;
       text-align: right;
   }
+
+.modalcontent8 {
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+    grid-gap: 15px;
+    font-family: 'neodgm';
+    height:400px;
+    overflow-y: scroll;
+    text-align: center;
+}

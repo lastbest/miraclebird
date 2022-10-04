@@ -48,6 +48,7 @@ function MyPage() {
   const [tempKey, setTempKey] = useState("");
   const keyRef = useRef(null);
   const [nftMap, setNftMap] = useState("");
+  const [nftMap2, setNftMap2] = useState("");
   const [season, setSeason] = useState(1);
   const [challengeMap, setChallengeMap] = useState("");
 
@@ -289,6 +290,7 @@ function MyPage() {
           }
         }
         setNftData(result);
+        console.log(nftData)
       })
       .catch((error) => {
         console.log(error);
@@ -340,6 +342,27 @@ function MyPage() {
       );
     }
     setNftMap(result);
+    return () => {};
+  }, [nftData]);
+
+  useEffect(() => {
+    var result = [];
+    for (var i = 0; i < nftData.length; i++) {
+      var item = nftData[i];
+      result.push(
+        <>
+        <div>
+          <div className={styles.nftImgContainer}>
+            <img alt="nft1" src={item.imagePath} className={styles.nfturl2} />
+          </div>
+          <div className={styles.nftcard2}>
+            {item.landmarkTitle}
+          </div>
+        </div>
+        </>
+      );
+    }
+    setNftMap2(result);
     return () => {};
   }, [nftData]);
 
@@ -994,7 +1017,7 @@ function MyPage() {
         backdrop="static"
         keyboard={false}
         className={styles.dialog0}>
-        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Header className={styles.modalheader} closeButton={true}></Modal.Header>
         <Modal.Body className={styles.body}>
           <Loading1 text="판매진행중입니다." />
         </Modal.Body>
@@ -1006,8 +1029,11 @@ function MyPage() {
         backdrop="static"
         keyboard={false}
         className={styles.dialog8}>
-        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
-        <Modal.Body className={styles.body}>{nftMap}</Modal.Body>
+        <Modal.Header className={styles.modalheader} closeButton={true}></Modal.Header>
+        <Modal.Body className={styles.modalcontent8}>
+          {nftMap2}
+        </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
 
       <Modal
@@ -1017,7 +1043,7 @@ function MyPage() {
         backdrop="static"
         keyboard={false}
         className={styles.dialog0}>
-        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Header className={styles.modalheader} closeButton={true}></Modal.Header>
         <Modal.Body className={styles.modalcontent4}>
           개인키가 일치하지 않습니다.
         </Modal.Body>
@@ -1031,8 +1057,8 @@ function MyPage() {
         backdrop="static"
         keyboard={false}
         className={styles.modal2}>
-        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
-        <Modal.Body className={styles.modalcontent2} closeButton>
+        <Modal.Header className={styles.modalheader} closeButton={true}></Modal.Header>
+        <Modal.Body className={styles.modalcontent2}>
           <div className={styles.nicknamechange}>
             닉네임은 2~5자리 이어야 합니다
           </div>
