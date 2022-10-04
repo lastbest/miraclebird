@@ -39,6 +39,9 @@ public class User extends DefaultTime {
     @Column(nullable = false)
     private Boolean blacklist = false;
 
+    @Column(name = "email_verified", nullable = false)
+    private Boolean emailVerified = false;
+
     @JsonIgnore
     private String password;
 
