@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
+import { useNavigate } from "react-router-dom";
 import styles from "./HomeWebCarousel.module.css";
 import axios from "axios";
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
@@ -18,7 +19,7 @@ const responsive = {
 
 const WebCarouselBanner = () => {
   const [challengeMap, setChallengeMap] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     var temp = [];
     temp.push(
@@ -29,6 +30,9 @@ const WebCarouselBanner = () => {
           width: "100%",
         }}
         onDragStart={handleDragStart}
+        onClick={() => {
+          navigate("/community/45");
+        }}
         role="presentation"></img>
     );
     temp.push(
@@ -39,6 +43,9 @@ const WebCarouselBanner = () => {
           width: "100%",
         }}
         onDragStart={handleDragStart}
+        onClick={() => {
+          navigate("/community/10");
+        }}
         role="presentation"></img>
     );
     setChallengeMap(temp);
