@@ -593,7 +593,9 @@ function MyPage() {
                 <div className={styles.miratext}>보유 MIRA</div>
               </div>
               <div className={styles.detail3}>
-                <div className={styles.rank}>{keepDate}</div>
+                <div className={styles.rank}>
+                  {keepDate}
+                </div>
                 <div className={styles.ranktext}>지속일</div>
               </div>
             </div>
@@ -640,9 +642,14 @@ function MyPage() {
           <div className={styles.nftContainer}>
             <div className={styles.text1}>보유 NFT</div>
             <div className={styles.nftImg}>
+              {nftData.length !== 0 ? (
               <button className={styles.listbtn} onClick={() => handleShow8()}>
                 <img src="/list.png" className={styles.listicon}></img>
               </button>
+              ) : (
+                <div></div>
+              )}
+
               {nftData.length === 0 ? (
                 <div className={styles.nonenft}>
                   <div className={styles.gostoreText}>NFT를 구매해보세요!</div>
