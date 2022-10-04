@@ -271,6 +271,10 @@
     height:90%;
 }
 
+.nfturl2 {
+    width: 90%;
+    height: 90%;
+}
 
 .nftcard {
     width:75%;
@@ -298,8 +302,8 @@
 
 .miraicon {
     margin-right: 10px;
-    width:30px;
-    height:30px;
+    width:20px;
+    height:20px;
 }
 
 .nftprice {
@@ -308,11 +312,17 @@
     color: black ;
     font-size:20px;
 }
+.nftprice2 {
+    margin-top: auto;
+    margin-bottom: auto;
+    color: black;
+    font-size: 12px;
+    font-family: 'neodgm';
+}
 
 .btnContainer {
     text-align: right;
 }
-
 .btnReinforce {
     border: none;
     border-radius: 15px;
@@ -324,15 +334,38 @@
     color:black;
 }
 
+.btnReinforce4 {
+    border: none;
+    border-radius: 15px;
+    background-color: #ffe969;
+    font-family: 'neodgm';
+    font-size: 12px;
+    padding: 4px;
+    margin-right: 5px;
+    color: black;
+}
+
+.btnReinforce3 {
+    border: none;
+    border-radius: 15px;
+    background-color: lightgray;
+    font-family: 'neodgm';
+    font-size:12px;
+    padding:4px;
+    margin-right:5px;
+    color:gray;
+}
+
 .btnReinforce2 {
     border: none;
     border-radius: 15px;
     background-color: lightgray;
     font-family: 'neodgm';
-    font-size:20px;
-    padding:8px;
-    margin-right:5px;
-    color:gray;
+    font-size: 20px;
+    padding: 8px;
+    margin-right: 5px;
+    font-size: 20px;
+    color: gray;
 }
 
 .btnSell {
@@ -344,6 +377,15 @@
     font-size:20px;
     padding:8px;
 }
+.btnSell2 {
+    border: none;
+    border-radius: 15px;
+    background-color: #0930a5;
+    color: white;
+    font-family: 'neodgm';
+    font-size: 12px;
+    padding: 4px;
+}
 
 .btnonsale {
     border: none;
@@ -352,6 +394,15 @@
     font-family: 'neodgm';
     font-size:20px;
     padding:8px;
+    color: black;
+}
+.btnonsale3 {
+    border: none;
+    border-radius: 15px;
+    background-color: #ffe969;
+    font-family: 'neodgm';
+    font-size: 12px;
+    padding: 4px;
     color: black;
 }
 
@@ -583,9 +634,21 @@
     position: relative;
     background: none;
     border: none;
+    z-index: 3;
 }
   .listicon {
       width: 20px;
       height: 20px;
       text-align: right;
+  }
+  .body10{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .nftImgContainer1{
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
   }
