@@ -66,11 +66,11 @@
 }
 
 .dialog{
-    overflow-y: initial !important
+    overflow-y: auto !important
   }
 
 .body {
-    overflow-y: scroll !important;
+    overflow-y: auto !important;
     height:400px;
 }
 
