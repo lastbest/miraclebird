@@ -187,9 +187,13 @@
     margin:auto;
   }
 
+  .effectText {
+    height:25px;
+  }
+
   .lottie {
     width:200px;
-    height:200px;
+    height:150px;
   }
 
   .effectCt {

@@ -821,7 +821,7 @@ function GeoChart({ data }) {
           className={styles.backbtn}
           onClick={() => {
             handleClose();
-            navigate("/");
+            document.location.reload();
           }}>
           확인
         </button>

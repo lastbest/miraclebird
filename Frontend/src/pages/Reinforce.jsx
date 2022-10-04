@@ -413,6 +413,8 @@ function Reinforce() {
               <>
                 {loading ? (
                   <div className={styles.effectCt}>
+                    <div className={styles.effectText}>강화중입니다.</div>
+                    <div className={styles.effectText}>잠시만 기다려주세요</div>
                     <Lottie animationData={coin} className={styles.lottie} />
                   </div>
                 ) : (
