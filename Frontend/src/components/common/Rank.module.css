@@ -22,7 +22,8 @@
     margin: auto;
     float: left;
     display:flex;
-    margin-right:3px;
+    margin-left:-10px;
+    margin-right:5px;
     margin-top:-5px;
 }
 
