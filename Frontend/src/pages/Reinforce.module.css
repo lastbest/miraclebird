@@ -54,7 +54,7 @@
     /* position: absolute; */
     /* bottom:50px; */
     width:90%;
-    overflow-y: scroll;
+    overflow-y: auto;
     flex: 1;
     margin: auto;
     
