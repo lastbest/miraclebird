@@ -1,10 +1,12 @@
 .medalcontainer {
     display: grid;
-        text-align: center;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
-        text-align: center;
+    text-align: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    text-align: center;
     padding-top: 10px;
+    padding-right:20px;
+    padding-left:20px;
     flex-direction: row;
     justify-content: center;
     margin-top: 15px;
