@@ -82,27 +82,27 @@ function MyPage() {
             .then((res) => {
               setWallet(res.data);
 
-                // SSAFY Network
-                const web3 = new Web3(
-                  new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain2/`)
-                );
+              // SSAFY Network
+              const web3 = new Web3(
+                new Web3.providers.HttpProvider(
+                  `https://j7c107.p.ssafy.io/blockchain2/`
+                )
+              );
 
-                // call Mira Token
+              // call Mira Token
               const callMiraToken = new web3.eth.Contract(
                 COMMON_ABI.CONTRACT_ABI.ERC_ABI,
                 "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
               );
-                
-                async function getTokenBalance() {
-                  const response = await callMiraToken.methods
+
+              async function getTokenBalance() {
+                const response = await callMiraToken.methods
                   .balanceOf(res.data.walletAddress)
                   .call();
                 setTokenBalance(response);
-                }
+              }
 
-                getTokenBalance();
-
-              
+              getTokenBalance();
             })
             .catch((error) => {
               console.log(error);
@@ -217,39 +217,40 @@ function MyPage() {
     var pre = "";
     var count = 1;
     if (challengeData.length != 0) {
-      if (1<= challengeData[0].regtime[2] <=9) {
+      if (1 <= challengeData[0].regtime[2] <= 9) {
         pre =
-        challengeData[0].regtime[0] +
-        "-" +
-        challengeData[0].regtime[1] +
-        "-" +
-        '0'+challengeData[0].regtime[2];
+          challengeData[0].regtime[0] +
+          "-" +
+          challengeData[0].regtime[1] +
+          "-" +
+          "0" +
+          challengeData[0].regtime[2];
       } else {
         pre =
-        challengeData[0].regtime[0] +
-        "-" +
-        challengeData[0].regtime[1] +
-        "-" +
-        challengeData[0].regtime[2];
+          challengeData[0].regtime[0] +
+          "-" +
+          challengeData[0].regtime[1] +
+          "-" +
+          challengeData[0].regtime[2];
       }
-
     }
 
     for (var i = 1; i < challengeData.length; i++) {
-      if (1<= challengeData[0].regtime[2] <=9) {
+      if (1 <= challengeData[0].regtime[2] <= 9) {
         var now =
-        challengeData[i].regtime[0] +
-        "-" +
-        challengeData[i].regtime[1] +
-        "-" +
-        '0'+challengeData[i].regtime[2];
+          challengeData[i].regtime[0] +
+          "-" +
+          challengeData[i].regtime[1] +
+          "-" +
+          "0" +
+          challengeData[i].regtime[2];
       } else {
         var now =
-        challengeData[i].regtime[0] +
-        "-" +
-        challengeData[i].regtime[1] +
-        "-" +
-        challengeData[i].regtime[2];
+          challengeData[i].regtime[0] +
+          "-" +
+          challengeData[i].regtime[1] +
+          "-" +
+          challengeData[i].regtime[2];
       }
 
       if (pre == now) {
@@ -298,8 +299,48 @@ function MyPage() {
 
   useEffect(() => {
     var result = [];
+    var result2 = [];
     for (var i = 0; i < nftData.length; i++) {
       var item = nftData[i];
+      result2.push(
+        <div className={styles.nftImgContainer}>
+          <div className={styles.nftImgContainer1}>
+            <img alt="nft1" src={item.imagePath} className={styles.nfturl2} />
+            <div className={styles.nftcard}>
+              <div className={styles.nftname}>{item.nftname}</div>
+              <div className={styles.nftdetail}>{item.nftdetail}</div>
+              <div className={styles.miraprice1}>
+                <img alt="mira" src="/mira.png" className={styles.miraicon1} />
+                <div className={styles.nftprice2}> {item.sellPrice} MIRA</div>
+              </div>
+              <div className={styles.btnContainer}>
+                {item.selling == false ? (
+                  <>
+                    <button
+                      className={styles.btnReinforce4}
+                      onClick={() => {
+                        navigate("/reinforce");
+                      }}>
+                      강화
+                    </button>
+                    <button
+                      className={styles.btnSell2}
+                      id={item.landmarkIdx}
+                      onClick={(e) => handleShow3(e.target.id)}>
+                      판매
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button className={styles.btnReinforce3}>강화</button>
+                    <button className={styles.btnonsale3}>판매중</button>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
       result.push(
         <SwiperSlide className={styles.nftslide} key={i}>
           <div className={styles.nftImgContainer}>
@@ -341,28 +382,27 @@ function MyPage() {
       );
     }
     setNftMap(result);
+    setNftMap2(result2);
     return () => {};
   }, [nftData]);
 
   useEffect(() => {
-    var result = [];
-    for (var i = 0; i < nftData.length; i++) {
-      var item = nftData[i];
-      result.push(
-        <>
-        <div>
-          <div className={styles.nftImgContainer}>
-            <img alt="nft1" src={item.imagePath} className={styles.nfturl2} />
-          </div>
-          <div className={styles.nftcard2}>
-            {item.landmarkTitle}
-          </div>
-        </div>
-        </>
-      );
-    }
-    setNftMap2(result);
-    return () => {};
+    // var result = [];
+    // for (var i = 0; i < nftData.length; i++) {
+    //   var item = nftData[i];
+    //   result.push(
+    //     <>
+    //       <div>
+    //         <div className={styles.nftImgContainer}>
+    //           <img alt="nft1" src={item.imagePath} className={styles.nfturl2} />
+    //         </div>
+    //         <div className={styles.nftcard2}>{item.landmarkTitle}</div>
+    //       </div>
+    //     </>
+    //   );
+    // }
+    // setNftMap2(result);
+    // return () => {};
   }, [nftData]);
 
   // SSAFY Network
@@ -593,9 +633,7 @@ function MyPage() {
                 <div className={styles.miratext}>보유 MIRA</div>
               </div>
               <div className={styles.detail3}>
-                <div className={styles.rank}>
-                  {keepDate}
-                </div>
+                <div className={styles.rank}>{keepDate}</div>
                 <div className={styles.ranktext}>지속일</div>
               </div>
             </div>
@@ -643,24 +681,24 @@ function MyPage() {
             <div className={styles.text1}>보유 NFT</div>
             <div className={styles.nftImg}>
               {nftData.length !== 0 ? (
-              <button className={styles.listbtn} onClick={() => handleShow8()}>
-                <img src="/list.png" className={styles.listicon}></img>
-              </button>
+                <button
+                  className={styles.listbtn}
+                  onClick={() => handleShow8()}>
+                  <img src="/list.png" className={styles.listicon}></img>
+                </button>
               ) : (
-                <div></div>
-              )}
-
-              {nftData.length === 0 ? (
-                <div className={styles.nonenft}>
-                  <div className={styles.gostoreText}>NFT를 구매해보세요!</div>
-                  <button
-                    onClick={() => navigate("/store")}
-                    className={styles.gostore}>
-                    구매하러가기
-                  </button>
+                <div>
+                  <div className={styles.nonenft}>
+                    <div className={styles.gostoreText}>
+                      NFT를 구매해보세요!
+                    </div>
+                    <button
+                      onClick={() => navigate("/store")}
+                      className={styles.gostore}>
+                      구매하러가기
+                    </button>
+                  </div>
                 </div>
-              ) : (
-                <div></div>
               )}
 
               <Swiper
@@ -1023,7 +1061,9 @@ function MyPage() {
         backdrop="static"
         keyboard={false}
         className={styles.dialog0}>
-        <Modal.Header className={styles.modalheader} closeButton={true}></Modal.Header>
+        <Modal.Header
+          className={styles.modalheader}
+          closeButton={true}></Modal.Header>
         <Modal.Body className={styles.body}>
           <Loading1 text="판매진행중입니다." />
         </Modal.Body>
@@ -1035,10 +1075,10 @@ function MyPage() {
         backdrop="static"
         keyboard={false}
         className={styles.dialog8}>
-        <Modal.Header className={styles.modalheader} closeButton={true}></Modal.Header>
-        <Modal.Body className={styles.modalcontent8}>
-          {nftMap2}
-        </Modal.Body>
+        <Modal.Header
+          className={styles.modalheader}
+          closeButton={true}></Modal.Header>
+        <Modal.Body className={styles.body10}>{nftMap2}</Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
 
@@ -1049,7 +1089,9 @@ function MyPage() {
         backdrop="static"
         keyboard={false}
         className={styles.dialog0}>
-        <Modal.Header className={styles.modalheader} closeButton={true}></Modal.Header>
+        <Modal.Header
+          className={styles.modalheader}
+          closeButton={true}></Modal.Header>
         <Modal.Body className={styles.modalcontent4}>
           개인키가 일치하지 않습니다.
         </Modal.Body>
@@ -1063,7 +1105,9 @@ function MyPage() {
         backdrop="static"
         keyboard={false}
         className={styles.modal2}>
-        <Modal.Header className={styles.modalheader} closeButton={true}></Modal.Header>
+        <Modal.Header
+          className={styles.modalheader}
+          closeButton={true}></Modal.Header>
         <Modal.Body className={styles.modalcontent2}>
           <div className={styles.nicknamechange}>
             닉네임은 2~5자리 이어야 합니다
