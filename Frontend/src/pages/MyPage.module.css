@@ -632,8 +632,7 @@
 
 .modalcontent8 {
     display:grid;
-    grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
-    grid-gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(47%, 1fr));
     font-family: 'neodgm';
     height:350px;
     overflow-y: auto !important;
@@ -678,11 +677,13 @@
     color: gray;
 }
   .nftImgContainer1 {
-      text-align: center;
-      margin-bottom: 20px;
-      padding: 10px;
-      border: 1px solid lightgray;
-      border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 5px;
+    padding-top:10px;
+    padding-bottom:10px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
   }
   .nfturl2 {
       width: 90%;
