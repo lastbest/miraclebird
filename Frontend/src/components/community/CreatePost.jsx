@@ -95,8 +95,7 @@ function CreatePost() {
                   title: title,
                   content: content,
                 },
-              }).then((res) => {
-              });
+              }).then((res) => {});
               document.location.href = "/community";
             }
           }}>
