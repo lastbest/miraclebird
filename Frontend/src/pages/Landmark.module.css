@@ -43,7 +43,6 @@
 
 .selectCt {
   width:100%;
-  padding-left:5%;
   margin-top:20px;
   float: left;
 }
@@ -301,4 +300,15 @@
 
 .nftArea {
   font-size: 13px;
+}
+
+.backicon {
+  width:25px;
+  height:25px;
+}
+
+.backbtn {
+  background-color: white;
+  border:none;
+  margin-right:10px;
 }
