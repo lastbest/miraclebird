@@ -10,7 +10,6 @@ const PostList = (props) => {
   var navigate = useNavigate();
   useEffect(() => {
     setDataList(props.postData);
-    console.log(props.postData);
   }, [props.postData]);
 
   useEffect(() => {

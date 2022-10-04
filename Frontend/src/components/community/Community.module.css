@@ -53,3 +53,20 @@
     margin-top: 50px;
     padding-top: 0px;
 }
+
+.communityTitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size:20px;
+    width: 120px;
+    margin-left:5%;
+    border-bottom: double #ffe969;
+}
+
+.communityIcon {
+    width:20px;
+    height:20px;
+    margin-right:5px;
+}

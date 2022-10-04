@@ -31,7 +31,6 @@ const PostView = () => {
     if (reflesh) {
       setReflesh(false);
     }
-    console.log("asd");
     axios({
       url: API_BASE_URL + "/comment/" + postIdx,
       method: "GET",
@@ -48,7 +47,6 @@ const PostView = () => {
   }, [reflesh]);
 
   useEffect(() => {
-    console.log(commentData);
     var temp = [];
     for (var i = 0; i < commentData.length; i++) {
       var item = commentData[i];
@@ -112,14 +110,13 @@ const PostView = () => {
         },
       });
       const result = await response.json();
-      console.log("mainData", result);
       var temp = [];
       var result2 = result.content.split("\n");
       for (var i = 0; i < result2.length; i++) {
         var item = result2[i];
-        console.log(item);
+
         temp.push(
-          <span>
+          <span key={i}>
             {item}
             <br />
           </span>
@@ -138,7 +135,6 @@ const PostView = () => {
         },
       });
       const result = await response.json();
-      console.log("mainData", result);
       setUserIdx(result.information.userIdx);
     } catch (error) {
       console.log(error);
@@ -244,7 +240,6 @@ const PostView = () => {
                 <button
                   className={styles.writebtn}
                   onClick={() => {
-                    console.log("asd");
                     if (commentContent == "" || commentContent == " ") {
                       handleShow3();
                     } else {
@@ -310,7 +305,7 @@ const PostView = () => {
                     user_idx: userIdx,
                   },
                 }).then((res) => {
-                  console.log(res.data);
+                  // console.log(res.data);
                   navigate("/community");
                 });
               }}>
@@ -345,7 +340,7 @@ const PostView = () => {
                     Authorization: "Bearer " + NOW_ACCESS_TOKEN,
                   },
                 }).then((res) => {
-                  console.log(res.data);
+                  // console.log(res.data);
                   handleClose2();
                   setReflesh(true);
                 });
