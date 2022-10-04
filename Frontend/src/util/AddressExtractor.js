@@ -7,7 +7,7 @@ import Web3 from 'web3';
  */
 export default function getAddressFrom(privKey) {
   if (privKey.length === 66 && privKey.startsWith('0x')) {
-    const web3 = new Web3(new Web3.providers.HttpProvider(`http://20.196.209.2:8545`));
+    const web3 = new Web3(new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain2/`));
     const pubKey = web3.eth.accounts.privateKeyToAccount(privKey);
 
     return pubKey.address;

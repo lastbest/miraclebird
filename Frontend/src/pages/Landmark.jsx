@@ -57,9 +57,9 @@ function Landmark() {
   const [sellingPrice, setSellingPrice] = useState(0);
   const [sellingStarForce, setSellingStarForce] = useState(0);
   const user = useSelector((state) => state.user.value);
-  const [buyerIdx, setBuyerIdx] = useState(1);
+  const [buyerIdx, setBuyerIdx] = useState(0);
   const [buyerAddress, setBuyerAddress] = useState("");
-  const [sellerIdx, setSellerIdx] = useState(1);
+  const [sellerIdx, setSellerIdx] = useState(0);
   const [sellerAddress, setSellerAddress] = useState("");
   const [transactionHash, setTransactionHash] = useState("");
   const [tokenBalance, setTokenBalance] = useState(0);
@@ -180,10 +180,14 @@ function Landmark() {
     if (!address) {
       handleShow3();
       return;
+    } else if (address != buyerAddress) {
+      handleShow3();
+      return;
     }
 
-    handleShow0();
+    
     try {
+      handleShow0();
       const buyer = web3.eth.accounts.privateKeyToAccount(privKey);
       web3.eth.accounts.wallet.add(buyer);
       console.log(web3.eth.accounts.wallet);

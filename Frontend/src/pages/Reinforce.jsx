@@ -73,7 +73,7 @@ function Reinforce() {
   // ]
 
   const web3 = new Web3(
-    new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain/`)
+    new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain2/`)
   );
 
   async function getTokenBalance(walletAddress) {
