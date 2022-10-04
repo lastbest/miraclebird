@@ -41,7 +41,7 @@ function Rank() {
         </SwiperSlide>
       );
     }
-    setNftMap(temp);
+    setNftMap(temp.slice(0,10));
   }, [nftOwner]);
 
   return (

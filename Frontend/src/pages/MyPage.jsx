@@ -48,6 +48,7 @@ function MyPage() {
   const [tempKey, setTempKey] = useState("");
   const keyRef = useRef(null);
   const [nftMap, setNftMap] = useState("");
+  const [nftMap2, setNftMap2] = useState("");
   const [season, setSeason] = useState(1);
   const [challengeMap, setChallengeMap] = useState("");
 
@@ -116,7 +117,6 @@ function MyPage() {
 
   useEffect(() => {
     setLoading1(false);
-    console.log(challengeMap);
   }, [challengeMap]);
 
   useEffect(() => {
@@ -217,22 +217,41 @@ function MyPage() {
     var pre = "";
     var count = 1;
     if (challengeData.length != 0) {
-      console.log('0'+challengeData[0].regtime[3])
-      pre =
+      if (1<= challengeData[0].regtime[2] <=9) {
+        pre =
         challengeData[0].regtime[0] +
         "-" +
         challengeData[0].regtime[1] +
         "-" +
         '0'+challengeData[0].regtime[2];
+      } else {
+        pre =
+        challengeData[0].regtime[0] +
+        "-" +
+        challengeData[0].regtime[1] +
+        "-" +
+        challengeData[0].regtime[2];
+      }
+
     }
 
     for (var i = 1; i < challengeData.length; i++) {
-      var now =
+      if (1<= challengeData[0].regtime[2] <=9) {
+        var now =
         challengeData[i].regtime[0] +
         "-" +
         challengeData[i].regtime[1] +
         "-" +
         '0'+challengeData[i].regtime[2];
+      } else {
+        var now =
+        challengeData[i].regtime[0] +
+        "-" +
+        challengeData[i].regtime[1] +
+        "-" +
+        challengeData[i].regtime[2];
+      }
+
       if (pre == now) {
         count++;
       } else {
@@ -245,7 +264,6 @@ function MyPage() {
       tempChallengeMap.values.push({ date: pre, count: count });
     }
     setChallengeMap(tempChallengeMap);
-    console.log(tempChallengeMap)
   }, [challengeData]);
 
   // my nft
@@ -323,6 +341,27 @@ function MyPage() {
       );
     }
     setNftMap(result);
+    return () => {};
+  }, [nftData]);
+
+  useEffect(() => {
+    var result = [];
+    for (var i = 0; i < nftData.length; i++) {
+      var item = nftData[i];
+      result.push(
+        <>
+        <div>
+          <div className={styles.nftImgContainer}>
+            <img alt="nft1" src={item.imagePath} className={styles.nfturl2} />
+          </div>
+          <div className={styles.nftcard2}>
+            {item.landmarkTitle}
+          </div>
+        </div>
+        </>
+      );
+    }
+    setNftMap2(result);
     return () => {};
   }, [nftData]);
 
@@ -554,7 +593,9 @@ function MyPage() {
                 <div className={styles.miratext}>보유 MIRA</div>
               </div>
               <div className={styles.detail3}>
-                <div className={styles.rank}>{keepDate}</div>
+                <div className={styles.rank}>
+                  {keepDate}
+                </div>
                 <div className={styles.ranktext}>지속일</div>
               </div>
             </div>
@@ -586,14 +627,14 @@ function MyPage() {
                   }
                   return `color-scale-${value.count >= 4 ? 4 : value.count}`;
                 }}
-                // tooltipDataAttrs={(value) => {
-                //   if (!value || !value.date) {
-                //     return null;
-                //   }
-                //   return {
-                //     "data-tip": `${value.date} 인증 횟수: ${value.count}`,
-                //   };
-                // }}
+                tooltipDataAttrs={(value) => {
+                  if (!value || !value.date) {
+                    return null;
+                  }
+                  return {
+                    "data-tip": `${value.date} 인증 횟수: ${value.count}`,
+                  };
+                }}
               />
               <ReactTooltip className={styles.tooltip} />
             </div>
@@ -601,9 +642,14 @@ function MyPage() {
           <div className={styles.nftContainer}>
             <div className={styles.text1}>보유 NFT</div>
             <div className={styles.nftImg}>
+              {nftData.length !== 0 ? (
               <button className={styles.listbtn} onClick={() => handleShow8()}>
                 <img src="/list.png" className={styles.listicon}></img>
               </button>
+              ) : (
+                <div></div>
+              )}
+
               {nftData.length === 0 ? (
                 <div className={styles.nonenft}>
                   <div className={styles.gostoreText}>NFT를 구매해보세요!</div>
@@ -977,7 +1023,7 @@ function MyPage() {
         backdrop="static"
         keyboard={false}
         className={styles.dialog0}>
-        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Header className={styles.modalheader} closeButton={true}></Modal.Header>
         <Modal.Body className={styles.body}>
           <Loading1 text="판매진행중입니다." />
         </Modal.Body>
@@ -989,8 +1035,11 @@ function MyPage() {
         backdrop="static"
         keyboard={false}
         className={styles.dialog8}>
-        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
-        <Modal.Body className={styles.body}>{nftMap}</Modal.Body>
+        <Modal.Header className={styles.modalheader} closeButton={true}></Modal.Header>
+        <Modal.Body className={styles.modalcontent8}>
+          {nftMap2}
+        </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
 
       <Modal
@@ -1000,7 +1049,7 @@ function MyPage() {
         backdrop="static"
         keyboard={false}
         className={styles.dialog0}>
-        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Header className={styles.modalheader} closeButton={true}></Modal.Header>
         <Modal.Body className={styles.modalcontent4}>
           개인키가 일치하지 않습니다.
         </Modal.Body>
@@ -1014,8 +1063,8 @@ function MyPage() {
         backdrop="static"
         keyboard={false}
         className={styles.modal2}>
-        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
-        <Modal.Body className={styles.modalcontent2} closeButton>
+        <Modal.Header className={styles.modalheader} closeButton={true}></Modal.Header>
+        <Modal.Body className={styles.modalcontent2}>
           <div className={styles.nicknamechange}>
             닉네임은 2~5자리 이어야 합니다
           </div>
