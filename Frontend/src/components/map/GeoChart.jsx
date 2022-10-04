@@ -768,6 +768,7 @@ function GeoChart({ data }) {
             />
             <button
               onClick={(e) => {
+                handleClose2();
                 buyNFT(e);
               }}
               className={styles.privKeybtn}>
@@ -800,10 +801,18 @@ function GeoChart({ data }) {
         backdrop="static"
         keyboard={false}
         className={styles.modal2}>
-        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
+        <Modal.Header className={styles.modalheader}></Modal.Header>
         <Modal.Body className={styles.modalcontent3}>
           구매가 완료되었습니다. 마이페이지를 확인하세요!
         </Modal.Body>
+        <button
+          className={styles.backbtn}
+          onClick={() => {
+            handleClose();
+            navigate("/");
+          }}>
+          확인
+        </button>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
 
