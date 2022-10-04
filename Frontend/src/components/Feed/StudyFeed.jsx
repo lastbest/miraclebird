@@ -41,7 +41,6 @@ function StudyFeed() {
       },
     })
       .then((res) => {
-        console.log(res.data);
         setChallengeData(res.data);
       })
       .catch((error) => {
@@ -50,7 +49,6 @@ function StudyFeed() {
   }, []);
 
   useEffect(() => {
-    console.log(challengeData);
     var temp = [];
     for (var i = 0; i < challengeData.length; i++) {
       var item = challengeData[i];
@@ -75,7 +73,6 @@ function StudyFeed() {
   }, [challengeData]);
 
   useEffect(() => {
-    console.log(cursorIndex);
     axios({
       url: API_BASE_URL + "/verification/" + cursorIndex,
       method: "GET",
@@ -115,7 +112,6 @@ function StudyFeed() {
       },
     })
       .then((res) => {
-        console.log(res.data);
         setLikeCount(res.data);
       })
       .catch((error) => {
@@ -272,7 +268,7 @@ function StudyFeed() {
             </div>
           </Modal.Body>
         ) : (
-          <Modal.Body className={styles.modalcontent2} closeButton>
+          <Modal.Body className={styles.modalcontent2} closeButton={true}>
             <div className={styles.titleForm}>신고내용</div>
             <div className={styles.pricecontainer}>
               <textarea
@@ -298,7 +294,6 @@ function StudyFeed() {
                     },
                   })
                     .then((res) => {
-                      console.log(res.data);
                     })
                     .catch((error) => {
                       console.log(error);
