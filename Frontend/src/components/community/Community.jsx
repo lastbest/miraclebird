@@ -2,15 +2,21 @@ import React, { useEffect, useState } from "react";
 import styles from "./Community.module.css";
 import PostMain from "./PostMain";
 import { useNavigate } from "react-router-dom";
+import Modal from "react-bootstrap/Modal";
 import { Loading2 } from "../Base/Loading2";
 import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
+import { useSelector } from "react-redux";
 
 function Community() {
+  const user = useSelector((state) => state.user.value);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [postData, setPostDate] = useState("");
   const [userData, setUserDate] = useState("");
   const [postDataMap, setPostDateMap] = useState("");
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const mainApi = async () => {
     try {
@@ -59,7 +65,13 @@ function Community() {
       ) : (
         <div className={styles.con}>
           <div className={styles.communityTitle}>
-            <div><img src="/src/assets/icon/footer_community.png" alt='community' className={styles.communityIcon}/></div>
+            <div>
+              <img
+                src="/src/assets/icon/footer_community.png"
+                alt="community"
+                className={styles.communityIcon}
+              />
+            </div>
             커뮤니티
           </div>
           <PostMain postData={postDataMap} className={styles.postMain} />
@@ -69,12 +81,44 @@ function Community() {
               src="/src/assets/icon/create_button.png"
               className={styles.footer_camera}
               onClick={() => {
-                navigate("/community/create");
+                if (user != null && user.check != "") {
+                  navigate("/community/create");
+                } else {
+                  handleShow();
+                }
               }}
             />
           </div>
         </div>
       )}
+      <Modal
+        centered
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}>
+        <Modal.Header className={styles.modalheader}></Modal.Header>
+        <Modal.Body className={styles.modalcontent}>
+          로그인이 필요한 서비스 입니다.
+          <div className={styles.btnCt}>
+            <button
+              className={styles.backbtn}
+              onClick={() => {
+                handleClose();
+              }}>
+              돌아가기
+            </button>
+            <button
+              className={styles.logoutbtn}
+              onClick={() => {
+                handleClose();
+                navigate("/login");
+              }}>
+              로그인하기
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 }
