@@ -414,7 +414,7 @@ function GeoChart({ data }) {
         setSellerAddress(sellerWalletData.walletAddress);
       })
       .catch((err) => console.log("Get seller data error", err));
-  }, [user]);
+  });
 
   useEffect(() => {
     axios(API_BASE_URL + "/wallet/" + buyerIdx, {
