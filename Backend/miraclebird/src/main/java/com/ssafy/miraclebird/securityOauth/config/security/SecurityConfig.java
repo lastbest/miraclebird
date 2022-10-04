@@ -10,6 +10,7 @@ import com.ssafy.miraclebird.securityOauth.service.auth.CustomUserDetailsService
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -91,6 +92,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                     .antMatchers("/landmark/landmarkinfoidx/**")
                         .permitAll()
                     .antMatchers("/verification/ranking", "/verification/ranking/**")
+                        .permitAll()
+                    .antMatchers(HttpMethod.GET, "/price/{\\d+}")
                         .permitAll()
                     .anyRequest()
                         .authenticated()
