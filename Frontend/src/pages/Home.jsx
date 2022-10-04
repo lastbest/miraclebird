@@ -25,7 +25,6 @@ function Home() {
   const [state, setState] = useState(0);
 
   useEffect(() => {
-    console.log(localStorage.getItem("accessToken"));
     axios({
       url: API_BASE_URL + "/verification/",
       method: "GET",
@@ -34,7 +33,6 @@ function Home() {
       },
     })
       .then((res) => {
-        console.log(res.data);
         setChallengeImg(res.data);
         // console.log('img', challengeImg);
       })
