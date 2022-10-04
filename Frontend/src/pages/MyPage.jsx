@@ -308,7 +308,7 @@ function MyPage() {
             <img alt="nft1" src={item.imagePath} className={styles.nfturl2} />
             <div className={styles.nftcard}>
               <div className={styles.nftname}>{item.nftname}</div>
-              <div className={styles.nftdetail}>{item.nftdetail}</div>
+              <div className={styles.nftdetail1}>{item.landmarkTitle}</div>
               <div className={styles.miraprice1}>
                 <img alt="mira" src="/mira.png" className={styles.miraicon1} />
                 <div className={styles.nftprice2}> {item.sellPrice} MIRA</div>
@@ -348,7 +348,7 @@ function MyPage() {
           </div>
           <div className={styles.nftcard}>
             <div className={styles.nftname}>{item.nftname}</div>
-            <div className={styles.nftdetail}>{item.nftdetail}</div>
+            <div className={styles.nftdetail}>{item.landmarkTitle}</div>
             <div className={styles.miraprice}>
               <img alt="mira" src="/mira.png" className={styles.miraicon} />
               <div className={styles.nftprice}> {item.sellPrice} MIRA</div>
@@ -1078,7 +1078,7 @@ function MyPage() {
         <Modal.Header
           className={styles.modalheader}
           closeButton={true}></Modal.Header>
-        <Modal.Body className={styles.body10}>{nftMap2}</Modal.Body>
+        <Modal.Body className={styles.modalcontent8}>{nftMap2}</Modal.Body>
         <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
 

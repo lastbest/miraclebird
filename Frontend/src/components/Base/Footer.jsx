@@ -169,7 +169,7 @@ function Footer() {
                         SIG_CD: "",
                       })
                     );
-                    document.location.href = "/mypage";
+                    navigate("/mypage");
                   }}
                 />
                 <div className={styles.icontext}>마이룸</div>
