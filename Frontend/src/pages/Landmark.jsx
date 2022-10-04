@@ -78,7 +78,6 @@ function Landmark() {
       },
     })
       .then((res) => {
-        console.log(res);
         setSellingItem(idx);
         setSellingStarForce(res.data.starForce);
         setSellingPrice(res.data.sellPrice);
@@ -161,8 +160,8 @@ function Landmark() {
     e.preventDefault();
 
     // Purchase();
-    console.log(sellingPrice);
-    console.log(tokenBalance);
+    // console.log(sellingPrice);
+    // console.log(tokenBalance);
 
     if (tokenBalance >= sellingPrice) {
       SendMira();
@@ -176,7 +175,7 @@ function Landmark() {
     const address = getAddressFrom(
       privKey.startsWith("0x") ? privKey : "0x" + privKey
     );
-    console.log("address", address);
+    // console.log("address", address);
     if (!address) {
       handleShow3();
       return;
@@ -190,7 +189,7 @@ function Landmark() {
       handleShow0();
       const buyer = web3.eth.accounts.privateKeyToAccount(privKey);
       web3.eth.accounts.wallet.add(buyer);
-      console.log(web3.eth.accounts.wallet);
+      // console.log(web3.eth.accounts.wallet);
       web3.eth.defaultAccount = buyer.address;
       // console.log("defaultAccount_buyer :", web3.eth.defaultAccount);
       // console.log(sellerAddress);
@@ -203,7 +202,7 @@ function Landmark() {
       const response = await sendMira.methods
         .transfer(sellerAddress, sellingPrice)
         .send({ from: senderAddress, gas: 3000000 });
-      console.log(response);
+      // console.log(response);
 
       if (response.status === true) {
         const sender = web3.eth.accounts.privateKeyToAccount(
@@ -247,7 +246,7 @@ function Landmark() {
             },
           })
             .then((res) => {
-              console.log(res);
+              // console.log(res);
               // put my nft db
               axios(API_BASE_URL + "/mynft/" + sellingItem, {
                 method: "PUT",
@@ -260,7 +259,7 @@ function Landmark() {
                 },
               })
                 .then((res) => {
-                  console.log(res);
+                  // console.log(res);
                 })
                 .catch((err) => console.log("My NFT PUT error", err));
 
@@ -281,7 +280,7 @@ function Landmark() {
                 },
               })
                 .then((res) => {
-                  console.log(res);
+                  // console.log(res);
                   setLoading(true);
                   handleClose0();
                   handleShow4();
@@ -456,7 +455,7 @@ function Landmark() {
   }, [gu]);
 
   useEffect(() => {
-    console.log(si);
+    // console.log(si);
 
     var tempOptions = [];
     var json = [];
@@ -488,6 +487,13 @@ function Landmark() {
   return (
     <>
       <div className={styles.selectCt}>
+      <button
+        className={styles.backbtn}
+        onClick={() => {
+          navigate("/store");
+        }}>
+        <img alt="back" src="/back.png" className={styles.backicon} />
+      </button>
         <select
           className={styles.selectbox1}
           onChange={(e) => {
