@@ -217,22 +217,41 @@ function MyPage() {
     var pre = "";
     var count = 1;
     if (challengeData.length != 0) {
-      console.log('0'+challengeData[0].regtime[3])
-      pre =
+      if (1<= challengeData[0].regtime[2] <=9) {
+        pre =
         challengeData[0].regtime[0] +
         "-" +
         challengeData[0].regtime[1] +
         "-" +
         '0'+challengeData[0].regtime[2];
+      } else {
+        pre =
+        challengeData[0].regtime[0] +
+        "-" +
+        challengeData[0].regtime[1] +
+        "-" +
+        challengeData[0].regtime[2];
+      }
+
     }
 
     for (var i = 1; i < challengeData.length; i++) {
-      var now =
+      if (1<= challengeData[0].regtime[2] <=9) {
+        var now =
         challengeData[i].regtime[0] +
         "-" +
         challengeData[i].regtime[1] +
         "-" +
         '0'+challengeData[i].regtime[2];
+      } else {
+        var now =
+        challengeData[i].regtime[0] +
+        "-" +
+        challengeData[i].regtime[1] +
+        "-" +
+        challengeData[i].regtime[2];
+      }
+
       if (pre == now) {
         count++;
       } else {
