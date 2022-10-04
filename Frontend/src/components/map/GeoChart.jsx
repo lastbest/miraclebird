@@ -8,7 +8,6 @@ import { selectArea } from "../../store/area";
 import { selectLandmark } from "../../store/landmark";
 import "./GeoChart.css";
 import spot from "./spot.json";
-
 import Modal from "react-bootstrap/Modal";
 import styles from "./GeoChart.module.css";
 import LineChart from "./LineChart";
@@ -57,6 +56,9 @@ function GeoChart({ data }) {
   const [show7, setShow7] = useState(false);
   const handleClose7 = () => setShow7(false);
   const handleShow7 = () => setShow7(true);
+  const [show8, setShow8] = useState(false);
+  const handleClose8 = () => setShow8(false);
+  const handleShow8 = () => setShow8(true);
 
   const [isListHover, setIsListHover] = useState(false);
   const [imgUrl, setImgUrl] = useState("");
@@ -138,9 +140,6 @@ function GeoChart({ data }) {
     setLoading1(true);
     axios(API_BASE_URL + "/price/" + landmarkData.landmarkIdx, {
       method: "GET",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("accessToken"),
-      },
     })
       .then((res) => {
         // console.log(res.data);
@@ -386,9 +385,6 @@ function GeoChart({ data }) {
     // console.log(landmarkInfoIdx);
     axios(API_BASE_URL + "/landmark/landmarkinfoidx/" + landmarkInfoIdx, {
       method: "GET",
-      headers: {
-        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
-      },
     })
       .then((result) => {
         // console.log(result.data);
@@ -583,11 +579,17 @@ function GeoChart({ data }) {
   }
 
   const MiracCheck = () => {
-    if (tokenBalance >= sellingPrice) {
-      handleShow2();
+    if (user != null && user.check != "") {
+      if (tokenBalance >= sellingPrice) {
+        handleShow2();
+      } else {
+        handleShow6();
+      }
     } else {
-      handleShow6();
+      handleShow8();
     }
+
+
   }
 
   // nft purchase
@@ -863,6 +865,36 @@ function GeoChart({ data }) {
             </button>
           </div>
         </Modal.Body>
+      </Modal>
+
+      <Modal
+        centered
+        show={show8}
+        onHide={handleClose8}
+        backdrop="static"
+        keyboard={false}>
+        <Modal.Header className={styles.modalheader}></Modal.Header>
+        <Modal.Body className={styles.modalcontent}>
+          로그인이 필요한 서비스 입니다.
+          <div className={styles.btnCt}>
+            <button
+              className={styles.backbtn}
+              onClick={() => {
+                handleClose8();
+              }}>
+              닫기
+            </button>
+            <button
+              className={styles.logoutbtn}
+              onClick={() => {
+                handleClose8();
+                navigate("/login");
+              }}>
+              로그인하기
+            </button>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className={styles.modalheader}></Modal.Footer>
       </Modal>
     </>
   );
