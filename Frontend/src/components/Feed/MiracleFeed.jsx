@@ -41,7 +41,6 @@ function MiracleFeed() {
       },
     })
       .then((res) => {
-        console.log(res.data);
         setChallengeData(res.data);
       })
       .catch((error) => {
@@ -50,7 +49,6 @@ function MiracleFeed() {
   }, []);
 
   useEffect(() => {
-    console.log(challengeData);
     var temp = [];
     for (var i = 0; i < challengeData.length; i++) {
       var item = challengeData[i];
@@ -75,7 +73,6 @@ function MiracleFeed() {
   }, [challengeData]);
 
   useEffect(() => {
-    console.log(cursorIndex);
     axios({
       url: API_BASE_URL + "/verification/" + cursorIndex,
       method: "GET",
@@ -115,7 +112,6 @@ function MiracleFeed() {
       },
     })
       .then((res) => {
-        console.log(res.data);
         setLikeCount(res.data);
       })
       .catch((error) => {
@@ -187,8 +183,8 @@ function MiracleFeed() {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}>
-        <Modal.Header className={styles.modalheader} closeButton></Modal.Header>
-        <Modal.Body className={styles.modalcontent} closeButton>
+        <Modal.Header className={styles.modalheader} closeButton={true}></Modal.Header>
+        <Modal.Body className={styles.modalcontent}>
           <img
             src={cursorMap.selfie}
             alt="mm"
@@ -299,7 +295,6 @@ function MiracleFeed() {
                     },
                   })
                     .then((res) => {
-                      console.log(res.data);
                     })
                     .catch((error) => {
                       console.log(error);
