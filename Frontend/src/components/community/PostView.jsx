@@ -15,6 +15,7 @@ const PostView = () => {
   const [commentData, setCommentData] = useState("");
   const [commentDataMap, setCommentDataMap] = useState("");
   const [curComment, setCurComment] = useState("");
+  const [content, setContent] = useState("");
 
   const [commentContent, setCommentContent] = useState("");
   const [reflesh, setReflesh] = useState(false);
@@ -112,6 +113,19 @@ const PostView = () => {
       });
       const result = await response.json();
       console.log("mainData", result);
+      var temp = [];
+      var result2 = result.content.split("\n");
+      for (var i = 0; i < result2.length; i++) {
+        var item = result2[i];
+        console.log(item);
+        temp.push(
+          <span>
+            {item}
+            <br />
+          </span>
+        );
+      }
+      setContent(temp);
       setData(result);
     } catch (error) {
       console.log(error);
@@ -174,9 +188,17 @@ const PostView = () => {
               <div className={styles.postInfoSub}>
                 <div className={styles.postInfoName}>
                   {data.image_url == null ? (
-                    <img alt="profile" src={profile_default} className={styles.profileImg} />
+                    <img
+                      alt="profile"
+                      src={profile_default}
+                      className={styles.profileImg}
+                    />
                   ) : (
-                    <img alt="profile" src={data.image_url} className={styles.profileImg}/>
+                    <img
+                      alt="profile"
+                      src={data.image_url}
+                      className={styles.profileImg}
+                    />
                   )}
                   {data.name}
                 </div>
@@ -197,7 +219,7 @@ const PostView = () => {
               </div>
             </div>
             <div className={styles.postContent}>
-              <div>{data.content}</div>
+              <div>{content}</div>
             </div>
             <div className={styles.postComment}>
               <div>
