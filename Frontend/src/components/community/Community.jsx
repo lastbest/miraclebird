@@ -14,7 +14,6 @@ function Community() {
 
   const mainApi = async () => {
     try {
-      console.log("community");
       const response = await fetch(API_BASE_URL + "/post", {
         method: "GET",
         headers: {
@@ -30,7 +29,6 @@ function Community() {
   useEffect(() => {
     const temp1 = [];
     const temp2 = [];
-    console.log(postData);
 
     for (var i = 0; i < postData.length; i++) {
       var item = postData[i];
@@ -40,7 +38,6 @@ function Community() {
         temp2.push(postData[i]);
       }
     }
-    console.log("mainData", temp1);
     for (var i = temp2.length - 1; i >= 0; i--) {
       temp1.push(temp2[i]);
     }
@@ -61,6 +58,10 @@ function Community() {
         <Loading2 />
       ) : (
         <div className={styles.con}>
+          <div className={styles.communityTitle}>
+            <div><img src="/src/assets/icon/footer_community.png" alt='community' className={styles.communityIcon}/></div>
+            커뮤니티
+          </div>
           <PostMain postData={postDataMap} className={styles.postMain} />
           <div className={styles.footer_camerabutton}>
             <img

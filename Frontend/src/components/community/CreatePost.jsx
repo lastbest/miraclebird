@@ -26,7 +26,6 @@ function CreatePost() {
         },
       });
       const result = await response.json();
-      console.log("mainData", result);
       setUserIdx(result.information.userIdx);
     } catch (error) {
       window.alert(error);
@@ -97,7 +96,6 @@ function CreatePost() {
                   content: content,
                 },
               }).then((res) => {
-                console.log(res.data);
               });
               document.location.href = "/community";
             }
