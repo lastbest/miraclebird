@@ -290,7 +290,6 @@ function MyPage() {
           }
         }
         setNftData(result);
-        console.log(nftData)
       })
       .catch((error) => {
         console.log(error);
