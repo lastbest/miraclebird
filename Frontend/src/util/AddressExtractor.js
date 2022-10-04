@@ -9,7 +9,6 @@ export default function getAddressFrom(privKey) {
   if (privKey.length === 66 && privKey.startsWith('0x')) {
     const web3 = new Web3(new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain2/`));
     const pubKey = web3.eth.accounts.privateKeyToAccount(privKey);
-
     return pubKey.address;
   }
   // else alert('유효한 개인키를 입력해주세요.');
