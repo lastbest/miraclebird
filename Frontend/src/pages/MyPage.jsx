@@ -116,7 +116,6 @@ function MyPage() {
 
   useEffect(() => {
     setLoading1(false);
-    console.log(challengeMap);
   }, [challengeMap]);
 
   useEffect(() => {
@@ -264,7 +263,6 @@ function MyPage() {
       tempChallengeMap.values.push({ date: pre, count: count });
     }
     setChallengeMap(tempChallengeMap);
-    console.log(tempChallengeMap)
   }, [challengeData]);
 
   // my nft
