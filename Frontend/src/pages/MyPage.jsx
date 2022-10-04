@@ -217,12 +217,13 @@ function MyPage() {
     var pre = "";
     var count = 1;
     if (challengeData.length != 0) {
+      console.log('0'+challengeData[0].regtime[3])
       pre =
         challengeData[0].regtime[0] +
         "-" +
         challengeData[0].regtime[1] +
         "-" +
-        challengeData[0].regtime[2];
+        '0'+challengeData[0].regtime[2];
     }
 
     for (var i = 1; i < challengeData.length; i++) {
@@ -231,7 +232,7 @@ function MyPage() {
         "-" +
         challengeData[i].regtime[1] +
         "-" +
-        challengeData[i].regtime[2];
+        '0'+challengeData[i].regtime[2];
       if (pre == now) {
         count++;
       } else {
@@ -244,6 +245,7 @@ function MyPage() {
       tempChallengeMap.values.push({ date: pre, count: count });
     }
     setChallengeMap(tempChallengeMap);
+    console.log(tempChallengeMap)
   }, [challengeData]);
 
   // my nft
