@@ -66,4 +66,14 @@ public class WalletDaoImpl implements WalletDao {
             throw new Exception();
         }
     }
+
+    @Override
+    public boolean existByUser(User user) throws Exception{
+        try {
+            return walletRepository.existsByUser(user);
+        }
+        catch (Exception e) {
+            throw new Exception();
+        }
+    }
 }

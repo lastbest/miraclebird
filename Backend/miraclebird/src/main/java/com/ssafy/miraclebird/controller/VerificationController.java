@@ -54,16 +54,17 @@ public class VerificationController {
     @ApiOperation(value = "챌린지인증샷을 등록한다.", response = VerificationDto.class)
     @PostMapping
     public ResponseEntity<String> createPost(@RequestBody VerificationDto verificationDto, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
+        String result;
         try {
             long userIdx = userPrincipal.getId();
             verificationDto.setUserIdx(userIdx);
-            verificationService.uploadVerification(verificationDto);
+            result = verificationService.uploadVerification(verificationDto);
         }
         catch (Exception e) {
             throw new RuntimeException();
         }
 
-        return new ResponseEntity<String>("success",HttpStatus.OK);
+        return new ResponseEntity<String>(result,HttpStatus.OK);
     }
 
     @ApiOperation(value = "특정 챌린지 인증샷을 승인한다.", response = VerificationDto.class)

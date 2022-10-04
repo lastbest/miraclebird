@@ -4,6 +4,7 @@ import com.ssafy.miraclebird.dao.*;
 import com.ssafy.miraclebird.dto.RankDto;
 import com.ssafy.miraclebird.dto.VerificationDto;
 import com.ssafy.miraclebird.entity.Verification;
+import com.ssafy.miraclebird.entity.Wallet;
 import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,14 @@ public class VerificationServiceImpl implements VerificationService {
     private final VerificationDao verificationDao;
     private final UserDao userDao;
     private final ChallengeDao challengeDao;
+    private final WalletDao walletDao;
 
     @Autowired
-    public VerificationServiceImpl(VerificationDao verificationDao, UserDao userDao, ChallengeDao challengeDao) {
+    public VerificationServiceImpl(VerificationDao verificationDao, UserDao userDao, ChallengeDao challengeDao, WalletDao walletDao) {
         this.verificationDao = verificationDao;
         this.userDao = userDao;
         this.challengeDao = challengeDao;
+        this.walletDao = walletDao;
     }
 
     @Override
@@ -69,17 +72,21 @@ public class VerificationServiceImpl implements VerificationService {
 
     @Override
     @Transactional
-    public void uploadVerification(VerificationDto verificationDto) throws Exception {
+    public String uploadVerification(VerificationDto verificationDto) throws Exception {
         try {
+            System.out.println(verificationDto.getUserIdx());
+            User user = userDao.getUserById(verificationDto.getUserIdx());
+            if(!walletDao.existByUser(user)) return "no_wallet";
+
             Verification verificationEntity = new Verification();
             verificationEntity.setRegtime(LocalDateTime.now());
-//            verificationEntity.setRegtime(verificationDto.getRegtime());
             verificationEntity.setSelfie(verificationDto.getSelfie());
             verificationEntity.setUser(userDao.getUserById(verificationDto.getUserIdx()));
             verificationEntity.setChallenge(challengeDao.getChallengeById(verificationDto.getChallengeIdx()));
             verificationEntity.setApproval((long)0);    //초기값 0으로(미검토)
             verificationEntity.setShare(verificationDto.getShare());
             verificationDao.saveVerification(verificationEntity);
+            return "upload_success";
         }
         catch (Exception e) {
             throw new Exception();
