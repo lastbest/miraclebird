@@ -405,7 +405,7 @@ function GeoChart({ data }) {
     axios(API_BASE_URL + "/wallet/" + sellerIdx, {
       method: "GET",
       headers: {
-        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     })
       .then((res) => {
@@ -420,7 +420,7 @@ function GeoChart({ data }) {
     axios(API_BASE_URL + "/wallet/" + buyerIdx, {
       method: "GET",
       headers: {
-        Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     })
       .then((res) => {
@@ -432,13 +432,15 @@ function GeoChart({ data }) {
           COMMON_ABI.CONTRACT_ABI.ERC_ABI,
           "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
         );
-      
+
         async function getTokenBalance() {
-          const response = await callMiraToken.methods.balanceOf(buyerWalletData.walletAddress).call();
+          const response = await callMiraToken.methods
+            .balanceOf(buyerWalletData.walletAddress)
+            .call();
           setTokenBalance(response);
         }
 
-          getTokenBalance();
+        getTokenBalance();
       })
       .catch((err) => console.log("Get buyer data error", err));
   });
@@ -528,7 +530,7 @@ function GeoChart({ data }) {
               starForce: sellingStarForce,
             },
             headers: {
-              Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+              Authorization: "Bearer " + localStorage.getItem("accessToken"),
             },
           })
             .then((res) => {
@@ -540,7 +542,8 @@ function GeoChart({ data }) {
                   user_idx: buyerIdx,
                 },
                 headers: {
-                  Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                  Authorization:
+                    "Bearer " + localStorage.getItem("accessToken"),
                 },
               })
                 .then((res) => {
@@ -552,7 +555,8 @@ function GeoChart({ data }) {
               axios(API_BASE_URL + "/price", {
                 method: "POST",
                 headers: {
-                  Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                  Authorization:
+                    "Bearer " + localStorage.getItem("accessToken"),
                 },
                 data: {
                   gasPrice: "string",
@@ -584,6 +588,7 @@ function GeoChart({ data }) {
 
   const MiracCheck = () => {
     if (user != null && user.check != "") {
+      console.log(tokenBalance);
       if (tokenBalance >= sellingPrice) {
         handleShow2();
       } else {
@@ -592,9 +597,7 @@ function GeoChart({ data }) {
     } else {
       handleShow8();
     }
-
-
-  }
+  };
 
   // nft purchase
   // const Purchase = () => {
@@ -652,7 +655,12 @@ function GeoChart({ data }) {
       </div>
 
       <div ref={wrapperRef} style={{ marginBottom: "2rem" }}>
-        {selectedCountry !== null ? <div>{area.name}</div> : <div></div>}
+        {selectedCountry !== null ? 
+        <div className={styles.areaName}>
+          <img src="/arrowhead.png" alt='area' className={styles.areaIcon}/>
+          {area.name}
+        </div> 
+        : <div></div>}
         <svg className={styles.svg} ref={svgRef}></svg>
       </div>
 
@@ -813,7 +821,7 @@ function GeoChart({ data }) {
           className={styles.backbtn}
           onClick={() => {
             handleClose();
-            navigate("/");
+            document.location.reload();
           }}>
           확인
         </button>

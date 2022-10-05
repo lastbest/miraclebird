@@ -25,9 +25,9 @@ function Study() {
           <div className={styles.maintext}>
             <p className={styles.titletext}>스터디</p>
             <br />
-            <p className={styles.subtext}>당신의 건강을 책임져줄 운동!</p>
+            <p className={styles.subtext}>당신의 미래를 책임져줄 공부!</p>
             <p className={styles.subtext}>
-              하루 한 장의 사진으로 당신의 건강을 인증해보세요!
+              하루 한 장의 사진으로 당신의 공부를 인증해보세요!
             </p>
             <br />
             <div className={styles.reward}>

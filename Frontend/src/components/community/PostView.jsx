@@ -15,6 +15,7 @@ const PostView = () => {
   const [commentData, setCommentData] = useState("");
   const [commentDataMap, setCommentDataMap] = useState("");
   const [curComment, setCurComment] = useState("");
+  const [content, setContent] = useState("");
 
   const [commentContent, setCommentContent] = useState("");
   const [reflesh, setReflesh] = useState(false);
@@ -30,7 +31,6 @@ const PostView = () => {
     if (reflesh) {
       setReflesh(false);
     }
-    console.log("asd");
     axios({
       url: API_BASE_URL + "/comment/" + postIdx,
       method: "GET",
@@ -47,7 +47,6 @@ const PostView = () => {
   }, [reflesh]);
 
   useEffect(() => {
-    console.log(commentData);
     var temp = [];
     for (var i = 0; i < commentData.length; i++) {
       var item = commentData[i];
@@ -111,7 +110,19 @@ const PostView = () => {
         },
       });
       const result = await response.json();
-      console.log("mainData", result);
+      var temp = [];
+      var result2 = result.content.split("\n");
+      for (var i = 0; i < result2.length; i++) {
+        var item = result2[i];
+
+        temp.push(
+          <span key={i}>
+            {item}
+            <br />
+          </span>
+        );
+      }
+      setContent(temp);
       setData(result);
     } catch (error) {
       console.log(error);
@@ -124,7 +135,6 @@ const PostView = () => {
         },
       });
       const result = await response.json();
-      console.log("mainData", result);
       setUserIdx(result.information.userIdx);
     } catch (error) {
       console.log(error);
@@ -174,9 +184,17 @@ const PostView = () => {
               <div className={styles.postInfoSub}>
                 <div className={styles.postInfoName}>
                   {data.image_url == null ? (
-                    <img alt="profile" src={profile_default} className={styles.profileImg} />
+                    <img
+                      alt="profile"
+                      src={profile_default}
+                      className={styles.profileImg}
+                    />
                   ) : (
-                    <img alt="profile" src={data.image_url} className={styles.profileImg}/>
+                    <img
+                      alt="profile"
+                      src={data.image_url}
+                      className={styles.profileImg}
+                    />
                   )}
                   {data.name}
                 </div>
@@ -197,7 +215,7 @@ const PostView = () => {
               </div>
             </div>
             <div className={styles.postContent}>
-              <div>{data.content}</div>
+              <div>{content}</div>
             </div>
             <div className={styles.postComment}>
               <div>
@@ -222,7 +240,6 @@ const PostView = () => {
                 <button
                   className={styles.writebtn}
                   onClick={() => {
-                    console.log("asd");
                     if (commentContent == "" || commentContent == " ") {
                       handleShow3();
                     } else {
@@ -288,7 +305,7 @@ const PostView = () => {
                     user_idx: userIdx,
                   },
                 }).then((res) => {
-                  console.log(res.data);
+                  // console.log(res.data);
                   navigate("/community");
                 });
               }}>
@@ -323,7 +340,7 @@ const PostView = () => {
                     Authorization: "Bearer " + NOW_ACCESS_TOKEN,
                   },
                 }).then((res) => {
-                  console.log(res.data);
+                  // console.log(res.data);
                   handleClose2();
                   setReflesh(true);
                 });

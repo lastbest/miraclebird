@@ -54,7 +54,7 @@
     /* position: absolute; */
     /* bottom:50px; */
     width:90%;
-    overflow-y: scroll;
+    overflow-y: auto;
     flex: 1;
     margin: auto;
     
@@ -187,9 +187,13 @@
     margin:auto;
   }
 
+  .effectText {
+    height:25px;
+  }
+
   .lottie {
     width:200px;
-    height:200px;
+    height:150px;
   }
 
   .effectCt {
