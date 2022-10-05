@@ -51,7 +51,6 @@ function Home() {
       },
     })
       .then((res) => {
-        console.log(res.data);
         axios({
           url: API_BASE_URL + "/wallet/" + res.data.information.userIdx,
           method: "GET",
@@ -59,7 +58,7 @@ function Home() {
             Authorization: "Bearer " + localStorage.getItem("accessToken"),
           },
         }).then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           handleClose();
         }).catch((error) => {
           console.log(error);

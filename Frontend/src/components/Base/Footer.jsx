@@ -27,7 +27,6 @@ function Footer() {
         }
       });
   }
-  console.log(user);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
