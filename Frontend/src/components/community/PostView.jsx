@@ -257,6 +257,9 @@ const PostView = () => {
                         },
                       })
                         .then((res) => {
+                          setTimeout(() => {
+                            console.log("posting")
+                          }, 1000);
                           setCommentContent("");
                           setReflesh(true);
                         })
