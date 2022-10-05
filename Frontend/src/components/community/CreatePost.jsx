@@ -96,11 +96,8 @@ function CreatePost() {
                   content: content,
                 },
               }).then((res) => {
-                setTimeout(() => {
-                  console.log("posting")
-                }, 1000);
+
               }).catch((error) => {
-                alert(error);
               });
               document.location.href = "/community";
             }
