@@ -40,7 +40,7 @@ function App() {
               <Routes>
                 {/* <Route path="/*" element={<Store />}></Route> */}
                 <Route path="/" element={<Home />}></Route>
-                <Route path="/*" element={<NotFound />}></Route>
+                {/* <Route path="/*" element={<NotFound />}></Route> */}
                 <Route
                   path="/oauth2/redirect"
                   element={<OAuth2RedirectHandler />}></Route>
@@ -87,7 +87,7 @@ function App() {
                 {/* <Route path="/*" element={<Store />}></Route> */}
                 <Route path="/" element={<Home />}></Route>
 
-                <Route path="/*" element={<NotFound />}></Route>
+                {/* <Route path="/*" element={<NotFound />}></Route> */}
                 <Route
                   path="/oauth2/redirect"
                   element={<OAuth2RedirectHandler />}></Route>
