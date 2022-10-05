@@ -25,7 +25,7 @@ import Deposit from "./pages/Deposit";
 import HealthFeed from "./components/Feed/HealthFeed";
 import StudyFeed from "./components/Feed/StudyFeed";
 import Admin from "./pages/Admin";
-import NotFound from "./pages/NotFound";
+// import NotFound from "./pages/NotFound";
 import { BrowserView, MobileView } from "react-device-detect";
 import MainPage from "./pages/MainPage";
 
