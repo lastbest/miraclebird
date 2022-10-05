@@ -54,7 +54,7 @@ const PostList = (props) => {
             <div className={styles.tableRow2}>
               <div className={styles.datename}>
                 <div className={styles.createDate}>
-                  {item.regtime[0]}-{item.regtime[1]}-{'0'+item.regtime[2]}
+                  {item.regtime[0]}-{item.regtime[1]}-{item.regtime[2]}
                 </div>
               </div>
               <div className={styles.nickname}>
