@@ -11,7 +11,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import MypageFeed from "../components/common/MypageFeed";
 import MypageCalendar from "../components/common/MypageCalendar";
 import { useCookies } from "react-cookie";
@@ -34,6 +34,7 @@ const BLOCKCHAIN_URL = "http://20.196.209.2:8545";
 function MyPage() {
   const [loading1, setLoading1] = useState(true);
   const [updateImg, setUpdateImg] = useState("");
+  const location = useLocation();
 
   const [userData, setUserData] = useState("");
   const [wallet, setWallet] = useState("");
@@ -117,6 +118,10 @@ function MyPage() {
 
   useEffect(() => {
     setLoading1(false);
+    console.log(location);
+    if (location.state && !location.state.hasWallet) {
+      handleShow();
+    }
   }, [challengeMap]);
 
   useEffect(() => {
@@ -383,7 +388,7 @@ function MyPage() {
     }
     setNftMap(result);
     setNftMap2(result2);
-    return () => {};
+    return () => { };
   }, [nftData]);
 
   useEffect(() => {
@@ -591,8 +596,8 @@ function MyPage() {
               <img
                 src={
                   user.information.imageUrl == "" ||
-                  user.information.imageUrl == undefined ||
-                  user.information.imageUrl == null
+                    user.information.imageUrl == undefined ||
+                    user.information.imageUrl == null
                     ? "src/assets/icon/profile_default.jpg"
                     : user.information.imageUrl
                 }
@@ -733,7 +738,7 @@ function MyPage() {
         <Modal.Body className={styles.modalcontent} closeButton>
           <img alt="wallet" src="/wallet.png" className={styles.wallet} />
           {(wallet.walletAddress == undefined || wallet.walletAddress == "") &&
-          tempKey == "" ? (
+            tempKey == "" ? (
             <>
               <div className={styles.buttonCt}>
                 <button
@@ -863,7 +868,7 @@ function MyPage() {
                       // user_idx: user.information.userIdx,/
                       name: write,
                     },
-                  }).then((res) => {});
+                  }).then((res) => { });
                   document.location.href = "/mypage";
                 }
               }}

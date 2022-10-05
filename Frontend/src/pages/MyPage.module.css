@@ -557,7 +557,10 @@
     border-radius: 20px;
     margin-right: 10px;
 }
-
+.btnCt {
+    margin: auto;
+    margin-top: 20px;
+}
 .textarea{
     width: 80%;
         height: 100px;

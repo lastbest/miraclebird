@@ -13,7 +13,7 @@ import { NOW_ACCESS_TOKEN, API_BASE_URL } from "/src/constants";
 import Loading2 from "../components/Base/Loading2";
 import Chart from "react-apexcharts";
 import WebCarouselBanner from "../components/carousel/HomeWebCarouselBanner";
-
+import Modal from "react-bootstrap/Modal";
 function Home() {
   const user = useSelector((state) => state.user.value);
   const [loading, setLoading] = useState(true);
@@ -23,6 +23,10 @@ function Home() {
   const [challengeImgMap, setChallengeImgMap] = useState("");
 
   const [state, setState] = useState(0);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [flag, setFlag] = useState(false);
 
   useEffect(() => {
     axios({
@@ -39,6 +43,31 @@ function Home() {
       .catch((error) => {
         console.log(error);
       });
+    axios({
+      url: API_BASE_URL + "/auth/",
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
+      },
+    })
+      .then((res) => {
+        console.log(res.data);
+        axios({
+          url: API_BASE_URL + "/wallet/" + res.data.information.userIdx,
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("accessToken"),
+          },
+        }).then((res) => {
+          console.log(res.data);
+          handleClose();
+        }).catch((error) => {
+          console.log(error);
+          handleShow();
+        })
+      }).catch((error) => {
+        console.log(error);
+      })
   }, []);
 
   useEffect(() => {
@@ -139,6 +168,37 @@ function Home() {
           </MobileView>
         </>
       )}
+      <Modal
+        centered
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}>
+        <Modal.Header
+          className={styles.modalheader}
+        ></Modal.Header>
+        <Modal.Body className={styles.modalcontent}>
+          지갑이 없습니다. 지갑을 생성해주세요.
+          <div className={styles.btnCt}>
+            {/* <button
+              className={styles.backbtn}
+              onClick={() => {
+                handleClose();
+                navigate("/");
+              }}>
+              돌아가기
+            </button> */}
+            <button
+              className={styles.logoutbtn}
+              onClick={() => {
+                handleClose();
+                navigate("/mypage", { state: { hasWallet: false } });
+              }}>
+              지갑생성
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 }
