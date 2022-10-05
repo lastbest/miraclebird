@@ -19,7 +19,7 @@ function CreatePost() {
   const handleShow2 = () => setShow2(true);
   const mainApi = async () => {
     try {
-      const response = await fetch(API_BASE_URL + "/auth/", {
+      const response = await fetch("http://j7c107.p.ssafy.io:8080/auth/", {
         method: "GET",
         headers: {
           Authorization: "Bearer " + NOW_ACCESS_TOKEN,
