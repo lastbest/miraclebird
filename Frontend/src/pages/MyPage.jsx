@@ -118,7 +118,7 @@ function MyPage() {
 
   useEffect(() => {
     setLoading1(false);
-    console.log(location);
+    // console.log(location);
     if (location.state && !location.state.hasWallet) {
       handleShow();
     }
@@ -163,7 +163,7 @@ function MyPage() {
           image_url: fileName,
         },
       }).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
       });
     }
   }, [updateImg]);
