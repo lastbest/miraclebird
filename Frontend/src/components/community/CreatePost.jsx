@@ -96,6 +96,12 @@ function CreatePost() {
                   content: content,
                 },
               }).then((res) => {
+                alert(res.data);
+                setTimeout(() => {
+                  console.log("posting")
+                }, 1000);
+              }).catch((error) => {
+                alert(error.data);
               });
               document.location.href = "/community";
             }
