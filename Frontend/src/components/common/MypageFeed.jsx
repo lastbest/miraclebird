@@ -95,7 +95,7 @@ function MypageFeed(props) {
                 챌린지에 참가해보세요!
               </div>
               <button
-                onClick={() => navigate("/challenge")}
+                onClick={() => navigate("/camera")}
                 className={styles.gochallenge}>
                 참가하기
               </button>
