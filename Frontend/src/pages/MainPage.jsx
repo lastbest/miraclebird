@@ -7,6 +7,7 @@ import landmark from "../components/animation/landmark.json"
 import reinforce from "../components/animation/reinforce.json"
 import arrow from "../components/animation/arrow.json"
 import click from "../components/animation/click.json"
+import headers from "../components/animation/headers.json"
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -40,6 +41,10 @@ function MainPage () {
     const navigate = useNavigate();
 
     return (
+        <>
+        <div>
+            <Lottie animationData={headers} className={styles.headers} />
+        </div>
         <div className={styles.Main}>
         <div className={styles.first}>
             <BrowserView>
@@ -159,7 +164,11 @@ function MainPage () {
             <Lottie animationData={click} className={styles.lottie2} />
         </div>
 
-    </div>
+        </div>
+    <div>
+            <Lottie animationData={headers} className={styles.headers2} />
+        </div>
+    </>
     )
 }
 
