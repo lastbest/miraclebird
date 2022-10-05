@@ -40,16 +40,18 @@ const WebCarousel = () => {
     for (var i = 0; i < challengeImg.length; i++) {
       var item = challengeImg[i];
       if (!item.share) continue;
-      temp.push(
-        <img
-          src={item.selfie}
-          alt="selfie"
-          style={{
-            width: "100%",
-          }}
-          onDragStart={handleDragStart}
-          role="presentation"></img>
-      );
+      if ( item.approval === 1) {
+        temp.push(
+          <img
+            src={item.selfie}
+            alt="selfie"
+            style={{
+              width: "100%",
+            }}
+            onDragStart={handleDragStart}
+            role="presentation"></img>
+        );
+      }
     }
     setChallengeMap(temp);
   }, [challengeImg]);
