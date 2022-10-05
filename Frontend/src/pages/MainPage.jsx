@@ -97,7 +97,7 @@ function MainPage () {
             <Lottie animationData={reinforce} className={styles.lottie1} />
         </div>
 
-        <div className={styles.How}>How to Use 미라클 버드</div>
+        <div className={styles.How}>How to Use 미라클버드</div>
         <MobileView>
             <div className={styles.slideCt}>
                 <Swiper

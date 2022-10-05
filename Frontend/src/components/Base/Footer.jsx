@@ -9,6 +9,7 @@ import { login } from "../../store/user";
 import { selectArea } from "../../store/area";
 
 function Footer() {
+  if (window.location.pathname === '/main') return null;
   const [isListHover1, setIsListHover1] = useState(false);
   const [isListHover2, setIsListHover2] = useState(false);
   const [isListHover3, setIsListHover3] = useState(false);
