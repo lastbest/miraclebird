@@ -1,30 +1,33 @@
 import React from "react";
 import styles from './MainPage.module.css';
-import {Fade, Bounce, Slide} from 'react-reveal';
+// import {Fade, Bounce, Slide} from 'react-reveal';
+import { useSpring, animated } from "react-spring";
 
 function MainPage () {
+    const props = useSpring({ opacity: 0, from: { opacity: 1 } });
     return (
         <div className={styles.Main}>
+            <animated.div style={props}>"I will fade in"</animated.div>
         <div className={styles.first}>
             <div className={styles.text1}>당신의 습관,</div>
             <div className={styles.text1}>당신의 건강,</div>
             <div className={styles.text1}>당신의 미래를 위해</div>
             <div className={styles.logoimg}>
-                <Slide bottom>
+                {/* <Slide bottom>
                 <img alt="detail" src="/logo.png" className={styles.logo} />
                     <img alt="detail" src="/title.png" className={styles.title} />
-                </Slide>
+                </Slide> */}
             </div>
         </div>
         <div>
-        <Fade left>
+        {/* <Fade left>
             <div className={styles.text2_1}>
                 01
             </div>
             <div className={styles.text2_2}>
                 NFT 랜드마크를 구매해보세요.
             </div>
-        </Fade>
+        </Fade> */}
         </div>
         <div>
             <img alt="detail" src="/nft2.jpg" className={styles.mainImg} />
