@@ -22,7 +22,7 @@ function CreatePost() {
       const response = await fetch(API_BASE_URL + "/auth/", {
         method: "GET",
         headers: {
-          Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+          Authorization: "Bearer " + localStorage.getItem("accessToken");,
         },
       });
       const result = await response.json();
@@ -85,7 +85,7 @@ function CreatePost() {
                 url: "https://j7c107.p.ssafy.io/api/post",
                 method: "POST",
                 headers: {
-                  Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                  Authorization: "Bearer " + localStorage.getItem("accessToken"),
                 },
                 params: {
                   // user_idx: user.information.userIdx,/
@@ -96,12 +96,11 @@ function CreatePost() {
                   content: content,
                 },
               }).then((res) => {
-                alert(res.data);
                 setTimeout(() => {
                   console.log("posting")
                 }, 1000);
               }).catch((error) => {
-                alert(error.data);
+                alert(error);
               });
               document.location.href = "/community";
             }
