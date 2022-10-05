@@ -237,7 +237,7 @@ function Footer() {
                   />
                 )}
 
-                <div className={styles.icontext}>챌린지</div>
+                <div className={styles.icontext}>갤러리</div>
               </div>
               <div className={styles.footer_button}>
                 {location.pathname == "/mypage" ? (
@@ -399,7 +399,7 @@ function Footer() {
                     handleShow();
                   }}
                 />
-                <div className={styles.icontext}>챌린지</div>
+                <div className={styles.icontext}>갤러리</div>
               </div>
               <div className={styles.footer_button}>
                 {location.pathname == "/mypage" ? (
