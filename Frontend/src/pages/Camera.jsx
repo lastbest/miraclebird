@@ -447,6 +447,14 @@ function Camera() {
                     } else {
                       if (them == 1 && morningCount) {
                         handleShow3();
+                      } else if (them == 1 && !morningCount) {
+                        var temp = new Date();
+                        console.log(temp.getHours());
+                        if (temp.getHours() < 7 && temp.getHours() >= 4) {
+                          capture();
+                        } else {
+                          handleShow4();
+                        }
                       } else if (them == 2 && exerciseCount) {
                         handleShow3();
                       } else if (them == 3 && studyCount) {
