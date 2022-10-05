@@ -11,27 +11,37 @@
 
 .title {
     height:30px;
-    width:200px;
+    width:180px;
 }
 
 .text1 {
-    font-size: 26px;
+    font-size: 23px;
+}
+
+.test1Ct {
+    /* background: linear-gradient(#058af056, #f3faff00); */
+    /* border-radius: 20px; */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding:20px;
 }
 
 .first {
+    width:80%;
+    margin: auto;
     margin-top: 100px;
     margin-bottom: 50px;
 }
 
 .logoimg {
-    text-align: left;
+    margin: auto;
     margin-top:20px;
 }
 
 .Main {
     width: 80%;
     margin: auto;
-
+    text-align: center;
 }
 
 .text2_1 {
@@ -42,4 +52,12 @@
 .text2_2 {
     font-size: 20px;
     word-wrap: normal;
+}
+
+.landmark {
+    width:80%;
+}
+
+.landmarkCt {
+    text-align: center;
 }

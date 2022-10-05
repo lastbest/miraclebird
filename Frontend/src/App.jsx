@@ -25,7 +25,7 @@ import Deposit from "./pages/Deposit";
 import HealthFeed from "./components/Feed/HealthFeed";
 import StudyFeed from "./components/Feed/StudyFeed";
 import Admin from "./pages/Admin";
-// import NotFound from "./pages/NotFound";
+import NotFound from "./pages/NotFound";
 import { BrowserView, MobileView } from "react-device-detect";
 import MainPage from "./pages/MainPage";
 
@@ -40,7 +40,7 @@ function App() {
               <Routes>
                 {/* <Route path="/*" element={<Store />}></Route> */}
                 <Route path="/" element={<Home />}></Route>
-                {/* <Route path="/*" element={<NotFound />}></Route> */}
+                <Route path="/*" element={<NotFound />}></Route>
                 <Route
                   path="/oauth2/redirect"
                   element={<OAuth2RedirectHandler />}></Route>
@@ -86,7 +86,7 @@ function App() {
               <Routes>
                 {/* <Route path="/*" element={<Store />}></Route> */}
                 <Route path="/" element={<Home />}></Route>
-                {/* <Route path="/*" element={<NotFound />}></Route> */}
+                <Route path="/*" element={<NotFound />}></Route>
                 <Route
                   path="/oauth2/redirect"
                   element={<OAuth2RedirectHandler />}></Route>
