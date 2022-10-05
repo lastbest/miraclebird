@@ -1,0 +1,45 @@
+.mainImg {
+    width:200px;
+    height:200px;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.title {
+    height:30px;
+    width:200px;
+}
+
+.text1 {
+    font-size: 26px;
+}
+
+.first {
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.logoimg {
+    text-align: left;
+    margin-top:20px;
+}
+
+.Main {
+    width: 80%;
+    margin: auto;
+
+}
+
+.text2_1 {
+    font-size: 30px;
+    color:gray
+}
+
+.text2_2 {
+    font-size: 20px;
+    word-wrap: normal;
+}
