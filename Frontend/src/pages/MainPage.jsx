@@ -5,6 +5,14 @@ import { useSpring, animated } from "react-spring";
 
 function MainPage () {
     const props = useSpring({ opacity: 0, from: { opacity: 1 } });
+    const styless = useSpring({
+    from: { transform: "translateY(100%)" },
+    to: [
+      { transform: "translateY(0%)" },
+    ],
+    config: { duration: "1500" },
+    loop:false
+  })
     return (
         <div className={styles.Main}>
             <animated.div style={props}>"I will fade in"</animated.div>
@@ -18,6 +26,10 @@ function MainPage () {
                     <img alt="detail" src="/title.png" className={styles.title} />
                 </Slide> */}
             </div>
+            <animated.div style={styless} className={styles.logoimg}>
+                <img alt="detail" src="/logo.png" className={styles.logo} />
+                <img alt="detail" src="/title.png" className={styles.title} />
+            </animated.div>
         </div>
         <div>
         {/* <Fade left>
