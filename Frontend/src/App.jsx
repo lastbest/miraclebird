@@ -77,7 +77,7 @@ function App() {
                 <Route path="/mypage" element={<MyPage />}></Route>
                 <Route path="/reinforce" element={<Reinforce />}></Route>
                 <Route path="/admin" element={<Admin />}></Route>
-                <Route path="/mainPage" element={<MainPage />}></Route>
+                <Route path="/main" element={<MainPage />}></Route>
               </Routes>
             </div>
           </BrowserView>
@@ -124,7 +124,7 @@ function App() {
                 <Route path="/mypage" element={<MyPage />}></Route>
                 <Route path="/reinforce" element={<Reinforce />}></Route>
                 <Route path="/admin" element={<Admin />}></Route>
-                <Route path="/mainPage" element={<MainPage />}></Route>
+                <Route path="/main" element={<MainPage />}></Route>
               </Routes>
             </div>
           </MobileView>
