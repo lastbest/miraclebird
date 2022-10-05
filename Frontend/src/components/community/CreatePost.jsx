@@ -22,7 +22,7 @@ function CreatePost() {
       const response = await fetch(API_BASE_URL + "/auth/", {
         method: "GET",
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("accessToken");,
+          Authorization: "Bearer " + localStorage.getItem("accessToken"),
         },
       });
       const result = await response.json();
