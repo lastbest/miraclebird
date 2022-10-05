@@ -62,7 +62,7 @@ function Landmark() {
   const [sellerIdx, setSellerIdx] = useState(0);
   const [sellerAddress, setSellerAddress] = useState("");
   const [transactionHash, setTransactionHash] = useState("");
-  const [tokenBalance, setTokenBalance] = useState(0);
+  const [tokenBalance, setTokenBalance] = useState('');
   const [privKey, setPrivKey] = useState("");
 
   const web3 = new Web3(
@@ -85,13 +85,13 @@ function Landmark() {
         setSellerIdx(res.data.userIdx);
         setSellingToken(res.data.tokenId);
 
+        console.log(tokenBalance)
+        console.log(res.data.sellPrice)
         if (tokenBalance < res.data.sellPrice) {
           handleShow2()
         } else {
           handleShow()
         }
-
-
       })
       .catch((err) => console.log("Get landmark error", err));
   };
@@ -133,7 +133,7 @@ function Landmark() {
         async function getTokenBalance() {
           const response = await callMiraToken.methods.balanceOf(buyerWalletData.walletAddress).call();
           setTokenBalance(response);
-          // console.log(response);
+          console.log(response);
         }
         getTokenBalance();
         setBuyerIdx(user.information.userIdx);
