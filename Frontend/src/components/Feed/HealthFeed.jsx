@@ -215,9 +215,9 @@ function HealthFeed() {
             <div>
               {cursorMap.challengeIdx == 1
                 ? "미라클모닝"
-                : cursorMap == 2
-                  ? "운동"
-                  : "스터디"}
+                : cursorMap.challengeIdx == 2
+                ? "운동"
+                : "스터디"}
             </div>
             <div>
               {cursorMap.regtime && cursorMap.regtime[0]}-

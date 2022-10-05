@@ -45,8 +45,11 @@ public class PostController {
     @PostMapping
     public ResponseEntity<String> createPost(@RequestBody PostDto postDto, @RequestParam(value = "user_idx", required = false) Long userIdx_nouse, @Parameter(description = "Accesstoken", required = true) @CurrentUser UserPrincipal userPrincipal) {
         try {
+            System.out.println("postcontroller");
             long userIdx = userPrincipal.getId();
+            System.out.println("getid");
             postService.createPost(postDto, userIdx);
+            System.out.println("야호");
         }
         catch (Exception e) {
             throw new RuntimeException();
