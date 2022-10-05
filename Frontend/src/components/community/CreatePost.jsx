@@ -82,7 +82,7 @@ function CreatePost() {
               handleShow2();
             } else {
               axios({
-                url: "http://j7c107.p.ssafy.io:8080/post/",
+                url: API_BASE_URL + "/post",
                 method: "post",
                 headers: {
                   Authorization: "Bearer " + NOW_ACCESS_TOKEN,
