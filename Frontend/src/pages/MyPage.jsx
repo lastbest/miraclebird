@@ -93,7 +93,7 @@ function MyPage() {
               // call Mira Token
               const callMiraToken = new web3.eth.Contract(
                 COMMON_ABI.CONTRACT_ABI.ERC_ABI,
-                "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+                import.meta.env.VITE_APP_ERC20_CA
               );
 
               async function getTokenBalance() {
@@ -415,23 +415,6 @@ function MyPage() {
     new Web3.providers.HttpProvider(`https://j7c107.p.ssafy.io/blockchain2/`)
   );
 
-  // call Mira Token
-  // const callMiraToken = new web3.eth.Contract(
-  //   COMMON_ABI.CONTRACT_ABI.ERC_ABI,
-  //   "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
-  // );
-
-  // async function getTokenBalance() {
-  //   const response = await callMiraToken.methods
-  //     .balanceOf(wallet.walletAddress)
-  //     .call();
-  //   setTokenBalance(response);
-  // }
-
-  // useEffect(() => {
-  //   getTokenBalance();
-  // }, [wallet]);
-
   // nft 판매 권한을 관리자에게 넘긴다
   async function ApproveItem() {
     const address = getAddressFrom(
@@ -451,12 +434,12 @@ function MyPage() {
       const senderAddress = web3.eth.defaultAccount;
       const approveNft = new web3.eth.Contract(
         COMMON_ABI.CONTRACT_ABI.NFT_ABI,
-        "0xED71ceA7Ae66892792c2E3d86156B29A71a1677a"
+        import.meta.env.VITE_APP_NFT_CA
       );
 
       // approve할 관리자주소
       const response = await approveNft.methods
-        .approve("0x52aEdCe8c99d769C9896A518Cb5927744F5da32b", sellTokenId)
+        .approve(import.meta.env.VITE_APP_ADMIN_ADDRESS, sellTokenId)
         .send({ from: senderAddress, gas: 3000000 });
 
       // db에 가격 변경 및 selling 여부 변경
