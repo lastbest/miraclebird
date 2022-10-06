@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -93,7 +94,7 @@ public class VerificationLikeServiceImpl implements VerificationLikeService{
              */
             long writeUserIdx = verification.getUser().getUserIdx();
             String likeUser = userDao.getUserById(userId).getName();
-            if(userId != writeUserIdx) {
+            if(userId != writeUserIdx && userDao.getUserById(writeUserIdx).getKakaoToken()!=null && LocalDateTime.now().isBefore(userDao.getUserById(writeUserIdx).getTokenPeriod().plusHours(6))) {
                 customMEssageService.sendMyMessage(writeUserIdx, likeUser, 2);
             }
         }

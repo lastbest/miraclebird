@@ -10,6 +10,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,9 @@ public class User extends DefaultTime {
 
     @Column(name = "kakao_token")
     private String kakaoToken;
+
+    @Column(name = "token_period")
+    private LocalDateTime tokenPeriod;
     @JsonIgnore
     private String password;
 
