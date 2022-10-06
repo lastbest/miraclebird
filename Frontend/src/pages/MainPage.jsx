@@ -179,7 +179,7 @@ function MainPage() {
                 path: "/",
                 expires: decade.toDate(),
               });
-              navigate("/login");
+              navigate("/");
             }}
             className={styles.lottie2}
           />
