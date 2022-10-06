@@ -47,7 +47,7 @@ function Admin() {
   async function transferToken() {
     try {
       const sender = web3.eth.accounts.privateKeyToAccount(
-        "0x474d486a4009e752f6608594385a4676ce85ffe359221b210875516c02047ab3"
+        import.meta.env.VITE_APP_ADMIN_PRIVKEY
       );
       web3.eth.accounts.wallet.add(sender);
       console.log("wallet", web3.eth.accounts.wallet);
@@ -58,30 +58,13 @@ function Admin() {
       console.log("senderAddress", senderAddress);
       const sendMira = new web3.eth.Contract(
         ABI.CONTRACT_ABI.ERC_ABI,
-        "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+        import.meta.env.VITE_APP_ERC20_CA
       );
-      // const response = sendMira.methods.transfer("0xD86B88fCfabFD13FA64F2D8026Ef692370A0d191", 5)
-      //                                     .send({
-      //     from: senderAddress,
-      //     gas: 3000000
-      //   }).then(receipt=>{console.log("receipt::::",receipt)});
+
       const response = await sendMira.methods
         .transfer(wallet, 5)
         .send({ from: senderAddress, gas: 3000000 });
       console.log(response);
-      // const response = await sendMira.methods
-      //   .transfer("0xD86B88fCfabFD13FA64F2D8026Ef692370A0d191", 5)
-      //   .send({ from: senderAddress, gas: 3000000 });
-      // console.log("=============")
-      // console.log("여기",response);
-      // console.log("=============")
-      // await sendMira
-      //   .getPastEvents("Transfer", { fromBlock: "latest" })
-      //   .then((result) => {
-      //     console.log("await sendMira getPastEvents", result);
-      //     const evt = result.slice(-1);
-      //     console.log(evt);
-      //   })
     } catch (error) {
       console.log(error);
     }

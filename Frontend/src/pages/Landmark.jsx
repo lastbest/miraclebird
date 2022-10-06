@@ -97,7 +97,7 @@ function Landmark() {
 
   // const callMiraToken = new web3.eth.Contract(
   //   COMMON_ABI.CONTRACT_ABI.ERC_ABI,
-  //   "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+  //   import.meta.env.VITE_APP_ERC20_CA
   // );
 
   // async function getTokenBalance() {
@@ -126,7 +126,7 @@ function Landmark() {
 
         const callMiraToken = new web3.eth.Contract(
           COMMON_ABI.CONTRACT_ABI.ERC_ABI,
-          "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+          import.meta.env.VITE_APP_ERC20_CA
         );
 
         async function getTokenBalance() {
@@ -197,7 +197,7 @@ function Landmark() {
       const senderAddress = web3.eth.defaultAccount;
       const sendMira = new web3.eth.Contract(
         COMMON_ABI.CONTRACT_ABI.ERC_ABI,
-        "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+        import.meta.env.VITE_APP_ERC20_CA
       );
       const response = await sendMira.methods
         .transfer(sellerAddress, sellingPrice)
@@ -206,7 +206,7 @@ function Landmark() {
 
       if (response.status === true) {
         const sender = web3.eth.accounts.privateKeyToAccount(
-          "0x474d486a4009e752f6608594385a4676ce85ffe359221b210875516c02047ab3"
+          import.meta.env.VITE_APP_ADMIN_PRIVKEY
         );
         web3.eth.accounts.wallet.add(sender);
         // console.log(web3.eth.accounts.wallet);
@@ -216,7 +216,7 @@ function Landmark() {
 
         const sendLandmarkNft = new web3.eth.Contract(
           COMMON_ABI.CONTRACT_ABI.NFT_ABI,
-          "0xED71ceA7Ae66892792c2E3d86156B29A71a1677a"
+          import.meta.env.VITE_APP_NFT_CA
         );
 
         // console.log("sellerAccount :", sellerAddress);

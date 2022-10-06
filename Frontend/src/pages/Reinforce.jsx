@@ -79,7 +79,7 @@ function Reinforce() {
   async function getTokenBalance(walletAddress) {
     const callMiraToken = new web3.eth.Contract(
       COMMON_ABI.CONTRACT_ABI.ERC_ABI,
-      "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+      import.meta.env.VITE_APP_ERC20_CA
     );
 
     const response = await callMiraToken.methods
@@ -179,35 +179,6 @@ function Reinforce() {
     upgradeNFT();
   }
 
-  // const upgradeBtn = () => {
-  //   setLoading(true);
-  //   setTimeout(() => {
-  //     let random_num = Math.floor(Math.random() * 101);
-  //     setLoading(false);
-  //     console.log(random_num, upgradePercent[level], downgradePercent[level]);
-  //     if (random_num <= upgradePercent[level]) {
-  //       handleShow();
-  //       setNewImg(
-  //         "/src/assets/landmark/" + imgIndex + "_" + (level + 1) + ".png"
-  //       );
-
-  //       return;
-  //     } else {
-  //       if (random_num <= downgradePercent[level]) {
-  //         setNewImg(
-  //           "/src/assets/landmark/" + imgIndex + "_" + (level - 1) + ".png"
-  //         );
-  //         handleShow3();
-  //         return;
-  //       } else if (random_num > downgradePercent[level]) {
-  //         setNewImg("/src/assets/landmark/" + imgIndex + "_" + level + ".png");
-  //         handleShow2();
-  //         return;
-  //       }
-  //     }
-  //   }, 2000);
-  // };
-
   // upgrade NFT
   async function upgradeNFT() {
     console.log(userData);
@@ -232,11 +203,11 @@ function Reinforce() {
       const senderAddress = web3.eth.defaultAccount;
       const sendMira = new web3.eth.Contract(
         COMMON_ABI.CONTRACT_ABI.ERC_ABI,
-        "0x741Bf8b3A2b2446B68762B4d2aD70781705CCa83"
+        import.meta.env.VITE_APP_ERC20_CA
       );
       // 관리자에게 미라 토큰 전송
       const response = await sendMira.methods
-        .transfer("0x52aEdCe8c99d769C9896A518Cb5927744F5da32b", 2)
+        .transfer(import.meta.env.VITE_APP_ADMIN_ADDRESS, 2)
         .send({ from: senderAddress, gas: 3000000 });
       console.log(response);
       if (response.status === true) {
@@ -252,20 +223,20 @@ function Reinforce() {
           setNewImg(nextImg);
           const sendLandmarkNft = new web3.eth.Contract(
             COMMON_ABI.CONTRACT_ABI.NFT_ABI,
-            "0xED71ceA7Ae66892792c2E3d86156B29A71a1677a"
+            import.meta.env.VITE_APP_NFT_CA
           );
           // 내꺼 관리자에게로 보내기
           const response2 = await sendLandmarkNft.methods
             .safeTransferFrom(
               walletAddress,
-              "0x52aEdCe8c99d769C9896A518Cb5927744F5da32b",
+              import.meta.env.VITE_APP_ADMIN_ADDRESS,
               nowTokenId
             )
             .send({ from: senderAddress, gas: 3000000 });
           console.log(response2);
 
           const sender2 = web3.eth.accounts.privateKeyToAccount(
-            "0x474d486a4009e752f6608594385a4676ce85ffe359221b210875516c02047ab3"
+            import.meta.env.VITE_APP_ADMIN_PRIVKEY
           );
           web3.eth.accounts.wallet.add(sender2);
           console.log(web3.eth.accounts.wallet);
