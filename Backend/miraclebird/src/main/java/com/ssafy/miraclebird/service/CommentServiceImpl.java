@@ -71,9 +71,9 @@ public class CommentServiceImpl implements CommentService {
             /*
              * 카카오톡 알림
              */
-            long writeUser = postDao.getPost(postIdx).getUser().getUserIdx();
-            if(userIdx!=writeUser) {
-                customMEssageService.sendMyMessage(writeUser);
+            long writeUserIdx = postDao.getPost(postIdx).getUser().getUserIdx();
+            if(userIdx!=writeUserIdx) {
+                customMEssageService.sendMyMessage(writeUserIdx, 1);
             }
         }
         catch (Exception e) {
