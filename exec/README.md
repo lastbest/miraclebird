@@ -328,3 +328,5 @@ Redirect URI는 다음 규칙에 맞게 등록해야 합니다.
 | <img src="https://user-images.githubusercontent.com/97828427/194219082-332d31ea-ebaa-4289-8fe9-6ec1f6a6ed8b.png"> |
 
 # 시연 시나리오
+
+[🎬시연 시나리오](https://lab.ssafy.com/s07-blockchain-nft-sub2/S07P22C107/-/blob/develop/exec/miracle_bird_%EC%8B%9C%EC%97%B0%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4.pdf)
