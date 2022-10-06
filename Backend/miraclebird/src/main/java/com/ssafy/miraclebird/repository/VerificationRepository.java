@@ -2,6 +2,7 @@ package com.ssafy.miraclebird.repository;
 
 
 import com.ssafy.miraclebird.dto.RankDto;
+import com.ssafy.miraclebird.entity.Challenge;
 import com.ssafy.miraclebird.entity.Verification;
 import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -56,5 +57,7 @@ public interface VerificationRepository extends JpaRepository<Verification,Long>
 
     @Query(value = "SELECT @ROWNUM \\:= 0;", nativeQuery = true)
     void rownuminit();
+
+    List<Verification> findByUserAndChallengeAndApprovalAndRegtimeAfter(User user, Challenge challenge, long approval, LocalDateTime regtime);
 
 }
