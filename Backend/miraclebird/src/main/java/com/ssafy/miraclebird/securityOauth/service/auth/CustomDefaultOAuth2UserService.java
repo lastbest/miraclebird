@@ -15,6 +15,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -47,6 +48,7 @@ public class CustomDefaultOAuth2UserService extends DefaultOAuth2UserService{
                 throw new Exception("blacklist");
 
             user.setKakaoToken(oAuth2UserRequest.getAccessToken().getTokenValue());
+            user.setTokenPeriod(LocalDateTime.now());
 
             DefaultAssert.isAuthentication(user.getProvider().equals(Provider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId())));
             user = updateExistingUser(user, oAuth2UserInfo);

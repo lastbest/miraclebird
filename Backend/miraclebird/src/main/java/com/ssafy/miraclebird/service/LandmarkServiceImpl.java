@@ -206,6 +206,7 @@ public class LandmarkServiceImpl implements LandmarkService {
             /*
             * 카카오톡 알림
             */
+            if (userDao.getUserById(beforeUserIdx).getKakaoToken()!=null && LocalDateTime.now().isBefore(userDao.getUserById(beforeUserIdx).getTokenPeriod().plusHours(6)))
             customMEssageService.sendMyMessage(beforeUserIdx, landmarkName);
             
         }
