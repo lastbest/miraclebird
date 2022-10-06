@@ -39,17 +39,17 @@ public class CustomMessageService {
     }
 
     @Transactional
-    public boolean sendMyMessage(Long userIdx, int check) throws Exception {
+    public boolean sendMyMessage(Long userIdx, String username, int check) throws Exception {
         DefaultMessageDto myMsg = new DefaultMessageDto();
         myMsg.setBtnTitle("확인하러 가기");
         myMsg.setMobileUrl("https://j7c107.p.ssafy.io/");
         myMsg.setObjType("text");
         myMsg.setWebUrl("https://j7c107.p.ssafy.io/");
         if (check == 1) {
-            myMsg.setText("새로운 댓글이 등록되었습니다.");
+            myMsg.setText(username + " 님께서 댓글을 남기셨습니다.");
         }
         if (check == 2) {
-            myMsg.setText("회원님의 인증샷에 좋아요가 눌렸습니다.");
+            myMsg.setText(username + " 님께서 회원님의 인증샷에 좋아요를 눌렀습니다.");
         }
         User user = userDao.getUserById(userIdx);
         String accessToken = user.getKakaoToken();
