@@ -42,6 +42,8 @@ public class User extends DefaultTime {
     @Column(name = "email_verified", nullable = false)
     private Boolean emailVerified = false;
 
+    @Column(name = "kakao_token")
+    private String kakaoToken;
     @JsonIgnore
     private String password;
 

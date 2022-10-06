@@ -46,6 +46,8 @@ public class CustomDefaultOAuth2UserService extends DefaultOAuth2UserService{
             if (user.getBlacklist() == true)
                 throw new Exception("blacklist");
 
+            user.setKakaoToken(oAuth2UserRequest.getAccessToken().getTokenValue());
+
             DefaultAssert.isAuthentication(user.getProvider().equals(Provider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId())));
             user = updateExistingUser(user, oAuth2UserInfo);
         } else {
