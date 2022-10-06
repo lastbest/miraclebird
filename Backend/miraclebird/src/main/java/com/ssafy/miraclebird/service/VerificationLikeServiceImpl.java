@@ -1,5 +1,6 @@
 package com.ssafy.miraclebird.service;
 
+import com.ssafy.miraclebird.KakaoPush.CustomMessageService;
 import com.ssafy.miraclebird.dao.VerificationLikeDao;
 import com.ssafy.miraclebird.dao.UserDao;
 import com.ssafy.miraclebird.dao.VerificationDao;
@@ -19,6 +20,12 @@ public class VerificationLikeServiceImpl implements VerificationLikeService{
     private final VerificationLikeDao verificationLikeDao;
     private final UserDao userDao;
     private final VerificationDao verificationDao;
+
+    /*
+     * 카카오톡 알림
+     */
+    @Autowired
+    CustomMessageService customMEssageService;
 
     @Autowired
     public VerificationLikeServiceImpl(VerificationLikeDao verificationLikeDao, UserDao userDao, VerificationDao verificationDao) {
@@ -80,6 +87,14 @@ public class VerificationLikeServiceImpl implements VerificationLikeService{
             verificationLikeEntity.setVerification(verification);
 
             verificationLikeDao.saveVerificationLike(verificationLikeEntity);
+
+            /*
+             * 카카오톡 알림
+             */
+            long writeUserIdx = verification.getUser().getUserIdx();
+            if(userId != writeUserIdx) {
+                customMEssageService.sendMyMessage(writeUserIdx, 2);
+            }
         }
         catch (Exception e) {
             throw new Exception();
