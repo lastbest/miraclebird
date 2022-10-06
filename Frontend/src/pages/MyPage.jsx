@@ -388,7 +388,7 @@ function MyPage() {
     }
     setNftMap(result);
     setNftMap2(result2);
-    return () => { };
+    return () => {};
   }, [nftData]);
 
   useEffect(() => {
@@ -579,8 +579,8 @@ function MyPage() {
               <img
                 src={
                   user.information.imageUrl == "" ||
-                    user.information.imageUrl == undefined ||
-                    user.information.imageUrl == null
+                  user.information.imageUrl == undefined ||
+                  user.information.imageUrl == null
                     ? "src/assets/icon/profile_default.jpg"
                     : user.information.imageUrl
                 }
@@ -721,7 +721,7 @@ function MyPage() {
         <Modal.Body className={styles.modalcontent} closeButton>
           <img alt="wallet" src="/wallet.png" className={styles.wallet} />
           {(wallet.walletAddress == undefined || wallet.walletAddress == "") &&
-            tempKey == "" ? (
+          tempKey == "" ? (
             <>
               <div className={styles.buttonCt}>
                 <button
@@ -851,7 +851,7 @@ function MyPage() {
                       // user_idx: user.information.userIdx,/
                       name: write,
                     },
-                  }).then((res) => { });
+                  }).then((res) => {});
                   document.location.href = "/mypage";
                 }
               }}
@@ -1008,14 +1008,13 @@ function MyPage() {
                     console.log(error);
                   });
 
-                // localStorage.removeItem("accessToken");
-                // localStorage.removeItem("refreshToken");
-                // console.log(document.cookie);
-                // dispatch(login(null));
-                // removeCookie("refreshToken", { path: "/" });
-                // handleClose6();
+                localStorage.removeItem("accessToken");
+                localStorage.removeItem("refreshToken");
+                dispatch(login(null));
+                removeCookie("refreshToken", { path: "/" });
+                handleClose6();
 
-                navigate("/");
+                document.location.href = "/";
               }}>
               회원탈퇴
             </button>
