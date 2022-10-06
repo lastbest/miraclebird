@@ -78,12 +78,15 @@ public class PostServiceImpl implements PostService {
     public void createPost(PostDto postDto, Long userIdx) throws Exception {
         try {
             Post postEntity = new Post();
+            System.out.println("뽀스트 엔티티생성");
             postEntity.setTitle(postDto.getTitle());
             postEntity.setContent(postDto.getContent());
             postEntity.setRegtime(LocalDateTime.now());
             postEntity.setHit(0);
             postEntity.setUser(userDao.getUserById(userIdx));
+            System.out.println("엔티티 세팅 완료");
             postDao.savePost(postEntity);
+            System.out.println("세이브됬는데?");
         }
         catch (Exception e) {
             throw new Exception();

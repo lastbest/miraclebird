@@ -7,6 +7,7 @@ import { BrowserView, MobileView } from "react-device-detect";
 
 function Header() {
   const navigate = useNavigate();
+  if (window.location.pathname === '/main') return null;
   return (
     <>
       <BrowserView>

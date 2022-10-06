@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,17 +70,18 @@ public class VerificationServiceImpl implements VerificationService {
 
     @Override
     @Transactional
-    public void uploadVerification(VerificationDto verificationDto) throws Exception {
+    public String uploadVerification(VerificationDto verificationDto) throws Exception {
         try {
+            if(verificationDao.isUploaded(verificationDto.getUserIdx(), verificationDto.getChallengeIdx(), LocalDate.now().atStartOfDay())) return "already_uploaded";
             Verification verificationEntity = new Verification();
             verificationEntity.setRegtime(LocalDateTime.now());
-//            verificationEntity.setRegtime(verificationDto.getRegtime());
             verificationEntity.setSelfie(verificationDto.getSelfie());
             verificationEntity.setUser(userDao.getUserById(verificationDto.getUserIdx()));
             verificationEntity.setChallenge(challengeDao.getChallengeById(verificationDto.getChallengeIdx()));
             verificationEntity.setApproval((long)0);    //초기값 0으로(미검토)
             verificationEntity.setShare(verificationDto.getShare());
             verificationDao.saveVerification(verificationEntity);
+            return "upload_success";
         }
         catch (Exception e) {
             throw new Exception();

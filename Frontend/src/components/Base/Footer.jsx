@@ -9,6 +9,7 @@ import { login } from "../../store/user";
 import { selectArea } from "../../store/area";
 
 function Footer() {
+  if (window.location.pathname === "/main") return null;
   const [isListHover1, setIsListHover1] = useState(false);
   const [isListHover2, setIsListHover2] = useState(false);
   const [isListHover3, setIsListHover3] = useState(false);
@@ -41,7 +42,11 @@ function Footer() {
         dispatch(login(response));
       })
       .catch((error) => {
-        if (location.pathname != "/" && location.pathname != "/store") {
+        if (
+          location.pathname != "/" &&
+          location.pathname != "/store" &&
+          location.pathname != "/Main"
+        ) {
           handleShow();
         }
       });
@@ -102,7 +107,7 @@ function Footer() {
               </div>
               <div className={styles.footer_button}>
                 {location.pathname == "/store" ||
-                  location.pathname == "/landmark" ? (
+                location.pathname == "/landmark" ? (
                   <img
                     alt="store"
                     src="/src/assets/icon/footer_store_hover.png"
@@ -192,12 +197,12 @@ function Footer() {
 
               <div className={styles.footer_button}>
                 {location.pathname == "/challenge" ||
-                  location.pathname == "/challenge/morning" ||
-                  location.pathname == "/challenge/health" ||
-                  location.pathname == "/challenge/study" ||
-                  location.pathname == "/challenge/morning/feed" ||
-                  location.pathname == "/challenge/health/feed" ||
-                  location.pathname == "/challenge/study/feed" ? (
+                location.pathname == "/challenge/morning" ||
+                location.pathname == "/challenge/health" ||
+                location.pathname == "/challenge/study" ||
+                location.pathname == "/challenge/morning/feed" ||
+                location.pathname == "/challenge/health/feed" ||
+                location.pathname == "/challenge/study/feed" ? (
                   <img
                     alt="challenge"
                     src="/src/assets/icon/footer_challenge_hover.png"
@@ -237,7 +242,7 @@ function Footer() {
                   />
                 )}
 
-                <div className={styles.icontext}>챌린지</div>
+                <div className={styles.icontext}>갤러리</div>
               </div>
               <div className={styles.footer_button}>
                 {location.pathname == "/mypage" ? (
@@ -322,7 +327,7 @@ function Footer() {
               </div>
               <div className={styles.footer_button}>
                 {location.pathname == "/store" ||
-                  location.pathname == "/landmark" ? (
+                location.pathname == "/landmark" ? (
                   <img
                     alt="store"
                     src="/src/assets/icon/footer_store_hover.png"
@@ -399,7 +404,7 @@ function Footer() {
                     handleShow();
                   }}
                 />
-                <div className={styles.icontext}>챌린지</div>
+                <div className={styles.icontext}>갤러리</div>
               </div>
               <div className={styles.footer_button}>
                 {location.pathname == "/mypage" ? (

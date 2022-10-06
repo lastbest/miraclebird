@@ -2,7 +2,9 @@ package com.ssafy.miraclebird.dao;
 
 
 import com.ssafy.miraclebird.dto.RankDto;
+import com.ssafy.miraclebird.entity.Challenge;
 import com.ssafy.miraclebird.entity.Verification;
+import com.ssafy.miraclebird.repository.ChallengeRepository;
 import com.ssafy.miraclebird.repository.VerificationRepository;
 import com.ssafy.miraclebird.securityOauth.domain.entity.user.User;
 import com.ssafy.miraclebird.securityOauth.repository.user.UserRepository;
@@ -17,11 +19,13 @@ import java.util.List;
 public class VerificationDaoImpl implements VerificationDao {
     private final VerificationRepository verificationRepository;
     private final UserRepository userRepository;
+    private final ChallengeRepository challengeRepository;
 
     @Autowired
-    public VerificationDaoImpl(VerificationRepository verificationRepository, UserRepository userRepository){
+    public VerificationDaoImpl(VerificationRepository verificationRepository, UserRepository userRepository, ChallengeRepository challengeRepository){
         this.verificationRepository = verificationRepository;
         this.userRepository = userRepository;
+        this.challengeRepository = challengeRepository;
     }
 
     @Override
@@ -115,5 +119,15 @@ public class VerificationDaoImpl implements VerificationDao {
         }
 
         return rankDtoList;
+    }
+
+    @Override
+    public boolean isUploaded(long userIdx, long challengeIdx, LocalDateTime regtime) {
+        User user = userRepository.getById(userIdx);
+        Challenge challenge = challengeRepository.getById(challengeIdx);
+        List<Verification> list = verificationRepository.findByUserAndChallengeAndApprovalAndRegtimeAfter(user, challenge, 0, regtime);
+        List<Verification> list2 = verificationRepository.findByUserAndChallengeAndApprovalAndRegtimeAfter(user, challenge, 1, regtime);
+        if(list.size() == 0 && list2.size() == 0) return false;
+        return true;
     }
 }

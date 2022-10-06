@@ -27,6 +27,7 @@ import StudyFeed from "./components/Feed/StudyFeed";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 import { BrowserView, MobileView } from "react-device-detect";
+import MainPage from "./pages/MainPage";
 
 function App() {
   return (
@@ -76,6 +77,7 @@ function App() {
                 <Route path="/mypage" element={<MyPage />}></Route>
                 <Route path="/reinforce" element={<Reinforce />}></Route>
                 <Route path="/admin" element={<Admin />}></Route>
+                <Route path="/main" element={<MainPage />}></Route>
               </Routes>
             </div>
           </BrowserView>
@@ -84,7 +86,6 @@ function App() {
               <Routes>
                 {/* <Route path="/*" element={<Store />}></Route> */}
                 <Route path="/" element={<Home />}></Route>
-
                 <Route path="/*" element={<NotFound />}></Route>
                 <Route
                   path="/oauth2/redirect"
@@ -122,6 +123,7 @@ function App() {
                 <Route path="/mypage" element={<MyPage />}></Route>
                 <Route path="/reinforce" element={<Reinforce />}></Route>
                 <Route path="/admin" element={<Admin />}></Route>
+                <Route path="/main" element={<MainPage />}></Route>
               </Routes>
             </div>
           </MobileView>

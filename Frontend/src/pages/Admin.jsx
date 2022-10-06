@@ -99,7 +99,19 @@ function Admin() {
           onClick={() => (
             setImg(item.selfie),
             setNickname(item.name),
-            setDate(item.regtime),
+            setDate(
+              item.regtime[0] +
+                "-" +
+                item.regtime[1] +
+                "-" +
+                item.regtime[2] +
+                " " +
+                item.regtime[3] +
+                ":" +
+                item.regtime[4] +
+                ":" +
+                item.regtime[5]
+            ),
             setVerificationIdx(item.verificationIdx),
             setCategory(item.challengeIdx),
             setApproval(item.approval),

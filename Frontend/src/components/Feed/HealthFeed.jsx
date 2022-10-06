@@ -136,7 +136,7 @@ function HealthFeed() {
           user_idx: user.information.userIdx,
         },
       })
-        .then((res) => {})
+        .then((res) => { })
         .catch((error) => {
           console.log(error);
         });
@@ -156,7 +156,7 @@ function HealthFeed() {
           user_idx: user.information.userIdx,
         },
       })
-        .then((res) => {})
+        .then((res) => { })
         .catch((error) => {
           console.log(error);
         });
@@ -215,7 +215,7 @@ function HealthFeed() {
             <div>
               {cursorMap.challengeIdx == 1
                 ? "미라클모닝"
-                : cursorMap == 2
+                : cursorMap.challengeIdx == 2
                 ? "운동"
                 : "스터디"}
             </div>
@@ -286,7 +286,7 @@ function HealthFeed() {
                     url: API_BASE_URL + "/report",
                     method: "post",
                     headers: {
-                      Authorization: "Bearer " + NOW_ACCESS_TOKEN,
+                      Authorization: "Bearer " + localStorage.getItem("accessToken"),
                     },
                     data: {
                       description: content,

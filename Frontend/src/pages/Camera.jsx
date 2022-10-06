@@ -82,6 +82,7 @@ function Camera() {
       .then((res) => {
         for (var i = 0; i < res.data.length; i++) {
           const item = res.data[i];
+          if (item.approval == 2) continue;
           if (item.challengeIdx == 1) {
             setMorningCount(true);
           } else if (item.challengeIdx == 2) {

@@ -18,4 +18,5 @@ public interface VerificationDao {
     List<String> getRankByStreak();
     long getStreakByUserIdx(Long userIdx);
     List<RankDto> getNftOwner();
+    boolean isUploaded(long userIdx, long challengeIdx, LocalDateTime regtime);
 }

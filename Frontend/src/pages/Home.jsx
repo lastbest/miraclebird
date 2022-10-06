@@ -14,7 +14,11 @@ import Loading2 from "../components/Base/Loading2";
 import Chart from "react-apexcharts";
 import WebCarouselBanner from "../components/carousel/HomeWebCarouselBanner";
 import Modal from "react-bootstrap/Modal";
+import { useCookies } from "react-cookie";
 function Home() {
+  const COOKIE_KEY = "todayOpenMain";
+  const [cookies, setCookies] = useCookies([COOKIE_KEY]);
+
   const user = useSelector((state) => state.user.value);
   const [loading, setLoading] = useState(true);
 
@@ -29,6 +33,9 @@ function Home() {
   const [flag, setFlag] = useState(false);
 
   useEffect(() => {
+    if (cookies[COOKIE_KEY] == null) {
+      navigate("/main");
+    }
     axios({
       url: API_BASE_URL + "/verification/",
       method: "GET",
@@ -57,16 +64,19 @@ function Home() {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("accessToken"),
           },
-        }).then((res) => {
-          // console.log(res.data);
-          handleClose();
-        }).catch((error) => {
-          console.log(error);
-          handleShow();
         })
-      }).catch((error) => {
-        console.log(error);
+          .then((res) => {
+            // console.log(res.data);
+            handleClose();
+          })
+          .catch((error) => {
+            console.log(error);
+            handleShow();
+          });
       })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   useEffect(() => {
@@ -173,9 +183,7 @@ function Home() {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}>
-        <Modal.Header
-          className={styles.modalheader}
-        ></Modal.Header>
+        <Modal.Header className={styles.modalheader}></Modal.Header>
         <Modal.Body className={styles.modalcontent}>
           지갑이 없습니다. 지갑을 생성해주세요.
           <div className={styles.btnCt}>
