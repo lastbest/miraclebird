@@ -1,5 +1,6 @@
 package com.ssafy.miraclebird.service;
 
+import com.ssafy.miraclebird.KakaoPush.CustomMessageService;
 import com.ssafy.miraclebird.dao.CommentDao;
 import com.ssafy.miraclebird.dao.PostDao;
 import com.ssafy.miraclebird.dao.UserDao;
@@ -22,6 +23,12 @@ public class CommentServiceImpl implements CommentService {
     private final CommentDao commentDao;
     private final UserDao userDao;
     private final PostDao postDao;
+
+    /*
+     * 카카오톡 알림
+     */
+    @Autowired
+    CustomMessageService customMEssageService;
 
     @Autowired
     public CommentServiceImpl(CommentDao commentDao, PostDao postDao, UserDao userDao) {
@@ -60,6 +67,14 @@ public class CommentServiceImpl implements CommentService {
             commentEntity.setPost(postDao.getPost(postIdx));
             commentEntity.setUser(userDao.getUserById(userIdx));
             commentDao.saveComment(commentEntity);
+
+            /*
+             * 카카오톡 알림
+             */
+            long writeUser = postDao.getPost(postIdx).getUser().getUserIdx();
+            if(userIdx!=writeUser) {
+                customMEssageService.sendMyMessage(writeUser);
+            }
         }
         catch (Exception e) {
             throw new Exception();

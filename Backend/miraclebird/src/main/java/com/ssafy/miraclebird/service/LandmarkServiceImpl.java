@@ -1,5 +1,6 @@
 package com.ssafy.miraclebird.service;
 
+import com.ssafy.miraclebird.KakaoPush.CustomMessageService;
 import com.ssafy.miraclebird.dao.*;
 import com.ssafy.miraclebird.dto.LandmarkDto;
 import com.ssafy.miraclebird.dto.PostDto;
@@ -24,6 +25,12 @@ public class LandmarkServiceImpl implements LandmarkService {
     private final LandmarkInfoDao landmarkInfoDao;
     private final UserDao userDao;
 
+    /*
+     * 카카오톡 알림
+     */
+    @Autowired
+    CustomMessageService customMEssageService;
+    
     @Autowired
     public LandmarkServiceImpl(LandmarkDao landmarkDao, LandmarkInfoDao landmarkInfoDao, UserDao userDao) {
         this.landmarkDao = landmarkDao;
@@ -180,6 +187,12 @@ public class LandmarkServiceImpl implements LandmarkService {
             landmarkDao.saveLandmark(landmarkEntity);
         }
         else if (landmarkEntity.getUser().getUserIdx() != userIdx && landmarkEntity.getStarForce() == landmarkDto.getStarForce() && landmarkEntity.getSelling() == true) {
+            /*
+             * 카카오톡 알림
+             */
+            long beforeUserIdx = landmarkEntity.getUser().getUserIdx();
+            String landmarkName = landmarkEntity.getLandmarkInfo().getTitle();
+
             landmarkEntity.setSelling(false);
             landmarkEntity.setUser(userDao.getUserById(userIdx));
             landmarkDao.saveLandmark(landmarkEntity);
@@ -189,6 +202,12 @@ public class LandmarkServiceImpl implements LandmarkService {
                 landmark.setSellPrice(landmarkEntity.getSellPrice());
                 landmarkDao.saveLandmark(landmark);
             }
+            
+            /*
+            * 카카오톡 알림
+            */
+            customMEssageService.sendMyMessage(beforeUserIdx, landmarkName);
+            
         }
         else if (landmarkEntity.getUser().getUserIdx() == userIdx && landmarkEntity.getStarForce() != landmarkDto.getStarForce()) {
             landmarkEntity.setSelling(false);
