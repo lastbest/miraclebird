@@ -47,11 +47,13 @@ function MainPage () {
         </div>
         <div className={styles.Main}>
         <div className={styles.first}>
+
+
             <BrowserView>
                 <animated.div style={leftslide} className={styles.test1Ct}>
-                    <div className={styles.text1}>당신의 습관,</div>
-                    <div className={styles.text1}>당신의 건강,</div>
-                    <div className={styles.text1}>당신의 미래를 위해</div>
+                    <div className={styles.text1}>For your habits</div>
+                    <div className={styles.text1}>For your health</div>
+                    <div className={styles.text1}>For your future</div>
                 </animated.div>
             </BrowserView>
             <MobileView>
@@ -102,7 +104,7 @@ function MainPage () {
             <Lottie animationData={reinforce} className={styles.lottie1} />
         </div>
 
-        <div className={styles.How}>How to Use 미라클버드</div>
+        <div className={styles.How}>How to Start 미라클버드</div>
         <MobileView>
             <div className={styles.slideCt}>
                 <Swiper
