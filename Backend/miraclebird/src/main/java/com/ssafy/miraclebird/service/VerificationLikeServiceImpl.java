@@ -92,8 +92,9 @@ public class VerificationLikeServiceImpl implements VerificationLikeService{
              * 카카오톡 알림
              */
             long writeUserIdx = verification.getUser().getUserIdx();
+            String likeUser = userDao.getUserById(userId).getName();
             if(userId != writeUserIdx) {
-                customMEssageService.sendMyMessage(writeUserIdx, 2);
+                customMEssageService.sendMyMessage(writeUserIdx, likeUser, 2);
             }
         }
         catch (Exception e) {
