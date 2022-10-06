@@ -21,11 +21,10 @@
 .test1Ct {
     /* background: linear-gradient(#058af056, #f3faff00); */
     /* border-radius: 20px; */
-    text-align: left;
+    text-align: center;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     margin-top:20px;
-    margin-left:40px;
     margin-bottom:50px;
     padding:20px;
 }
@@ -116,7 +115,7 @@
 }
 
 .slideCt {
-    margin-bottom: 50px;
+    margin-bottom: 80px;
     margin-top: 30px;
 }
 
@@ -124,7 +123,7 @@
     width:400px;
     margin: auto;
     margin-top: 30px;
-    margin-bottom: 50px;
+    margin-bottom: 80px;
 }
 
 .How {
@@ -137,7 +136,7 @@
 }
 
 .test1Ct2 {
-    text-align: left;
+    text-align: center;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     margin-top:20px;
@@ -151,6 +150,7 @@
 }
 
 .headers2 {
+    margin-top:50px;
     margin-bottom: -60px;
     width:100%;
     transform: rotate(180deg);
