@@ -155,11 +155,11 @@
 
 |                                              아키텍처(Architecture)                                               |
 | :---------------------------------------------------------------------------------------------------------------: |
-| <img src="https://user-images.githubusercontent.com/97828427/194441487-fd65262b-814c-481e-b718-7fae6fef3d33.png"> |
+| <img src="https://user-images.githubusercontent.com/97828427/194281058-3a0c4ac4-fe15-42f9-bf34-c3a520ab97e6.png"> |
 
 |                                                개체-관계 모델(ERD)                                                |
 | :---------------------------------------------------------------------------------------------------------------: |
-| <img src="https://user-images.githubusercontent.com/97828427/194214214-b00d2439-78e4-423e-9b0a-25a0625e1233.png"> |
+| <img src="https://user-images.githubusercontent.com/97828427/194441487-fd65262b-814c-481e-b718-7fae6fef3d33.png"> |
 
 <br />
 
