@@ -30,8 +30,8 @@ public class KakaoAuthService extends HttpCallService{
         parameters.add("code", code);
         parameters.add("grant_type", "authorization_code");
         parameters.add("client_id", "9f5cf8f99ca14f9806fe56e140b74d02");
-        parameters.add("redirect_url", "http://localhost:8080");
-        //parameters.add("redirect_url", "https://j7c107.p.ssafy.io");
+        //parameters.add("redirect_url", "http://localhost:8080");
+        parameters.add("redirect_url", "https://j7c107.p.ssafy.io/api");
         parameters.add("client_secret", "Aj4FenNS6JxqmoHaRpUPEgklSmXzoIe6");
 
         HttpEntity<?> requestEntity = httpClientEntity(header, parameters);
