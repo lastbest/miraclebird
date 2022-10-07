@@ -6,6 +6,7 @@ import com.ssafy.miraclebird.securityOauth.domain.entity.time.DefaultTime;
 import com.ssafy.miraclebird.util.ModelMapperUtils;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -47,6 +48,7 @@ public class User extends DefaultTime {
     private String kakaoToken;
 
     @Column(name = "token_period")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime tokenPeriod;
     @JsonIgnore
     private String password;
