@@ -92,11 +92,11 @@ public class VerificationLikeServiceImpl implements VerificationLikeService{
             /*
              * 카카오톡 알림
              */
-            long writeUserIdx = verification.getUser().getUserIdx();
-            String likeUser = userDao.getUserById(userId).getName();
-            if(userId != writeUserIdx && userDao.getUserById(writeUserIdx).getKakaoToken()!=null && LocalDateTime.now().isBefore(userDao.getUserById(writeUserIdx).getTokenPeriod().plusHours(6))) {
-                customMEssageService.sendMyMessage(writeUserIdx, likeUser, 2);
-            }
+            //long writeUserIdx = verification.getUser().getUserIdx();
+            //String likeUser = userDao.getUserById(userId).getName();
+            //if(userId != writeUserIdx && userDao.getUserById(writeUserIdx).getKakaoToken()!=null && LocalDateTime.now().isBefore(userDao.getUserById(writeUserIdx).getTokenPeriod().plusHours(6))) {
+            //    customMEssageService.sendMyMessage(writeUserIdx, likeUser, 2);
+            //}
         }
         catch (Exception e) {
             throw new Exception();

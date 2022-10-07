@@ -190,8 +190,8 @@ public class LandmarkServiceImpl implements LandmarkService {
             /*
              * 카카오톡 알림
              */
-            long beforeUserIdx = landmarkEntity.getUser().getUserIdx();
-            String landmarkName = landmarkEntity.getLandmarkInfo().getTitle();
+            //long beforeUserIdx = landmarkEntity.getUser().getUserIdx();
+            //String landmarkName = landmarkEntity.getLandmarkInfo().getTitle();
 
             landmarkEntity.setSelling(false);
             landmarkEntity.setUser(userDao.getUserById(userIdx));
@@ -206,8 +206,8 @@ public class LandmarkServiceImpl implements LandmarkService {
             /*
             * 카카오톡 알림
             */
-            if (userDao.getUserById(beforeUserIdx).getKakaoToken()!=null && LocalDateTime.now().isBefore(userDao.getUserById(beforeUserIdx).getTokenPeriod().plusHours(6)))
-            customMEssageService.sendMyMessage(beforeUserIdx, landmarkName);
+            //if (userDao.getUserById(beforeUserIdx).getKakaoToken()!=null && LocalDateTime.now().isBefore(userDao.getUserById(beforeUserIdx).getTokenPeriod().plusHours(6)))
+            //customMEssageService.sendMyMessage(beforeUserIdx, landmarkName);
             
         }
         else if (landmarkEntity.getUser().getUserIdx() == userIdx && landmarkEntity.getStarForce() != landmarkDto.getStarForce()) {

@@ -71,11 +71,11 @@ public class CommentServiceImpl implements CommentService {
             /*
              * 카카오톡 알림
              */
-            long writeUserIdx = postDao.getPost(postIdx).getUser().getUserIdx();
-            String commentUser = userDao.getUserById(userIdx).getName();
-            if(userIdx!=writeUserIdx && userDao.getUserById(writeUserIdx).getKakaoToken()!=null && LocalDateTime.now().isBefore(userDao.getUserById(writeUserIdx).getTokenPeriod().plusHours(6))) {
-                customMEssageService.sendMyMessage(writeUserIdx, commentUser, 1);
-            }
+            //long writeUserIdx = postDao.getPost(postIdx).getUser().getUserIdx();
+            //String commentUser = userDao.getUserById(userIdx).getName();
+            //if(userIdx!=writeUserIdx && userDao.getUserById(writeUserIdx).getKakaoToken()!=null && LocalDateTime.now().isBefore(userDao.getUserById(writeUserIdx).getTokenPeriod().plusHours(6))) {
+            //    customMEssageService.sendMyMessage(writeUserIdx, commentUser, 1);
+            //}
         }
         catch (Exception e) {
             throw new Exception();
