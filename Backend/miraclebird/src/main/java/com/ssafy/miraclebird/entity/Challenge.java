@@ -1,5 +1,7 @@
 package com.ssafy.miraclebird.entity;
 
+import com.ssafy.miraclebird.dto.ChallengeDto;
+import com.ssafy.miraclebird.util.ModelMapperUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,5 +32,11 @@ public class Challenge {
 
     /* 연관관계 매핑 */
     @OneToMany(mappedBy = "challenge")
-    List<Challenger> challenger = new ArrayList<>();
+    List<Verification> verification = new ArrayList<>();
+
+    public static Challenge of(ChallengeDto challengeDto) {
+        Challenge challengeEntity = ModelMapperUtils.getModelMapper().map(challengeDto, Challenge.class);
+
+        return challengeEntity;
+    }
 }
