@@ -1,5 +1,5 @@
 <div align="center">
-<img src ="https://user-images.githubusercontent.com/97828427/194188121-6abe2d2a-bbe1-4cf0-962d-e9ccccb33412.png" width=70/>
+<img src ="https://postfiles.pstatic.net/MjAyMjExMjVfMTg2/MDAxNjY5MzQ5MzAwOTgz.uWFKJmpzpanHIM9hEGLpTAqVvSGfRLpHUN2S0I56SeQg.elyQqRCzK--s7ttbff_bBh20z4EW7aMl09N7q9cBNmsg.PNG.junwu19/1.png?type=w966" width=70/>
   <h1>미라클버드 (Miracle Bird)</h1>
   <br/>
 </div>
@@ -41,9 +41,9 @@
 
 ## 💡 기획배경
 
-![배경1](https://user-images.githubusercontent.com/97828427/194266650-e5cdddeb-d0c2-4f5b-bbb0-8f080597b6a8.png)
-![배경2](https://user-images.githubusercontent.com/97828427/194266655-18e8de10-706d-408e-87e7-afbd26cc13b9.png)
-![배경3](https://user-images.githubusercontent.com/97828427/194266659-a5c74ffc-0b82-40e2-8ff4-a93461faaef2.png)
+![배경1](https://postfiles.pstatic.net/MjAyMjExMjVfMjI2/MDAxNjY5MzQ5MzAxNDEw.aWJAdwWmUM5dpE14--ZCcyUbwv98dOV148xPR_yd_7Ug.Dqq_vaEQKqia_XGhF3jJPBK57anI3dVtVGvX0STaFncg.PNG.junwu19/2.png?type=w966)
+![배경2](https://postfiles.pstatic.net/MjAyMjExMjVfMjU1/MDAxNjY5MzQ5MzAxMDU2.H_XZ6MOc6cPwcnje4w5rODSTEvtkCh8ox18Rjj93qZ4g.Yng3C3HO_XBuVP-tE888O7GFG8G9LVHS0MAwli604jEg.PNG.junwu19/3.png?type=w966)
+![배경3](https://postfiles.pstatic.net/MjAyMjExMjVfNTEg/MDAxNjY5MzQ5MzAxMDA5.MOxNS_STtkDw54-4r-dluEaMM_Mw_i1YouobL06oEsgg.iP323O9ufJDTmYnxQsZ7RAnHWzTyrW_eLA4DDzWYfmsg.PNG.junwu19/4.png?type=w966)
 
 - 최근 MZ세대의 트렌드인 갓생살기는 부지런하고 타의 모범이 되는 인생을 말합니다. `부지런한 새가 먹이를 잡는다!` 라는 말처럼 저희는 갓생을 살고있는 갓생러들에게 더 재밌고 함께 실천할 수 있도록 매일 갓생살기에 성공하면 랜드마크NFT를 구매, 강화, 판매 등 블록체인 기술을 활용한 서비스를 기획하게 되었습니다.
 
@@ -107,44 +107,44 @@
 
 |                                                       회원가입, 지갑생성                                                       |
 | :----------------------------------------------------------------------------------------------------------------------------: |
-| ![01_회원가입,지갑생성](https://user-images.githubusercontent.com/97828427/194275117-59c80aa3-2f6b-451f-aaf8-f9d6e03b77e0.gif) |
+| ![01_회원가입,지갑생성](https://postfiles.pstatic.net/MjAyMjExMjVfMzEg/MDAxNjY5MzQ5MzA0OTg4.MxSy2Q-Y0jBHi9PaVCgZtCH5KDOtfxPyPB2-pcAjio8g.vN2Mtq4AiJBfBTuB9sMk1LobrMQChCW-i5ioG2HPDD4g.GIF.junwu19/5.gif?type=w966) |
 
 |                                                       메인페이지                                                        |
 | :---------------------------------------------------------------------------------------------------------------------: |
-| ![03_메인페이지](https://user-images.githubusercontent.com/97828427/194275156-33e4d234-c566-4648-b862-422af3ae1033.gif) |
+| ![03_메인페이지](https://postfiles.pstatic.net/MjAyMjExMjVfMjgz/MDAxNjY5MzQ5MzA3NDEx.oI9QGfO8WBTa3EQmdYw_65G1JtSXEvHZ0LPcmx-wrFog.p3vy5wkML4s0DfsXgSSI4ZVzMGJa8moWC-jqCLzG-DEg.GIF.junwu19/6.gif?type=w966) |
 
 |                                                       마이페이지                                                        |
 | :---------------------------------------------------------------------------------------------------------------------: |
-| ![06_마이페이지](https://user-images.githubusercontent.com/97828427/194275193-79369d2e-0315-44a3-81e4-46c421048491.gif) |
+| ![06_마이페이지](https://postfiles.pstatic.net/MjAyMjExMjVfMTQz/MDAxNjY5MzQ5MzA0NjI1.dXnlzUDuSBJOGjnCfQiyZxhh_6vqF1geYnlyqdsR8MEg.44QZ0LbQiNBJKTA65qx3n62D7-cJXjqX_9Gu-sZYswYg.GIF.junwu19/7.gif?type=w966) |
 
 | 챌린지 참여 |
 | :---------: |
 
-|![02_챌린지참여](https://user-images.githubusercontent.com/97828427/194275146-9f6c3854-d88d-4e32-bd50-454c0190f795.gif)
+|![02_챌린지참여](https://postfiles.pstatic.net/MjAyMjExMjVfODAg/MDAxNjY5MzQ5MzA3NTE3.jELq5ER8BxyTAYqeeIhi-3QDmW3-GDfogOUMfzOAqpgg.imSmVp2jRlCTz51zrsJNoNq32EmLliIiJMtJIYCR39Ag.GIF.junwu19/8.gif?type=w966)
 |
 
 |                                                       랜드마크 구매                                                       |
 | :-----------------------------------------------------------------------------------------------------------------------: |
-| ![04_랜드마크구매](https://user-images.githubusercontent.com/97828427/194275183-b5ce1815-3a5c-4a64-96a4-f753c2cd052d.gif) |
+| ![04_랜드마크구매](https://postfiles.pstatic.net/MjAyMjExMjVfMjU3/MDAxNjY5MzQ5MzAyMjEy.qf7u7xCWBOSVjrLjUQ0Fls_CN-faR6TvDCofjXkZEIsg.fp9hr8AVvfWK5EdpkRMuTS8XrsWpRcRxQrKMwRmCuMIg.GIF.junwu19/9.gif?type=w966) |
 
 |                                                       랜드마크 강화                                                       |
 | :-----------------------------------------------------------------------------------------------------------------------: |
-| ![05_랜드마크강화](https://user-images.githubusercontent.com/97828427/194275189-f000d155-397e-4c14-9347-f7777c697800.gif) |
+| ![05_랜드마크강화](https://postfiles.pstatic.net/MjAyMjExMjVfMTA0/MDAxNjY5MzQ5MzA2ODcz.LT87O7wbPP0jql3e52Jq4ZmcLacmAqjjovN0-iZy60Ag.ieopjOAFlql-B7mZktxhPlbpD61ua4rjJKuOsYxf8UEg.GIF.junwu19/10.gif?type=w966) |
 
 |                                                       랜드마크 전체조회                                                       |
 | :---------------------------------------------------------------------------------------------------------------------------: |
-| ![09_랜드마크전체보기](https://user-images.githubusercontent.com/97828427/194275212-7f8ddb2b-f51e-4b24-a657-7c9900bb0343.gif) |
+| ![09_랜드마크전체보기](https://postfiles.pstatic.net/MjAyMjExMjVfMTE1/MDAxNjY5MzQ5MzM4MTk0.tqq3EgxO3u4MgzZ6GCCIlo-6w6760nJgrkBMfW7HohIg.rlmqvnI6Pu0cMhmWWAEInTTAKdK1Xe2Jhie__38NqEMg.GIF.junwu19/11.gif?type=w966) |
 
 | 갤러리 페이지 |
 | :-----------: |
 
-|![07_갤러리페이지](https://user-images.githubusercontent.com/97828427/194275197-1baf7346-040c-43f1-beb4-4261588f13fc.gif)
+|![07_갤러리페이지](https://postfiles.pstatic.net/MjAyMjExMjVfMjUy/MDAxNjY5MzQ5MzQwNzUz.lZ_es48T6PAfqJdykUYRpgTRhMvbw6RrU10nXO2-tTUg.id2M61PIAypB48w5ElWoxy-W-MCgdtbynyLmIuUrhnIg.GIF.junwu19/12.gif?type=w966)
 |
 
 | 관리자 페이지 |
 | :-----------: |
 
-|![10_관리자페이지](https://user-images.githubusercontent.com/97828427/194275216-5dd051a8-7d35-42cc-8230-951d62e84863.gif)
+|![10_관리자페이지](https://postfiles.pstatic.net/MjAyMjExMjVfMTY0/MDAxNjY5MzQ5MzM4Nzgx.a77MwV8cNCwg1yhIxLooPVVw_Ii7MdpIJOIuOZF4TyMg.1DuNZrmYjVHHUJW5TQ9aVmfeAasaZxEPjwjlPncU6vMg.GIF.junwu19/13.gif?type=w966)
 |
 
 <br />
@@ -155,11 +155,11 @@
 
 |                                              아키텍처(Architecture)                                               |
 | :---------------------------------------------------------------------------------------------------------------: |
-| <img src="https://user-images.githubusercontent.com/97828427/194281058-3a0c4ac4-fe15-42f9-bf34-c3a520ab97e6.png"> |
+| <img src="https://postfiles.pstatic.net/MjAyMjExMjVfMTYy/MDAxNjY5MzQ5MzM3NTEw.CPoKYTYXtMueP_WLBZZfh_0hMJ6Tg09Ee_oNVmOuaNsg.bznA8hEHDzHrxHohenLVVwcbhuVMac_yRk3Y4YljDM0g.PNG.junwu19/14%EA%B5%AC%EC%84%B1%EB%8F%84.png?type=w966"> |
 
 |                                                개체-관계 모델(ERD)                                                |
 | :---------------------------------------------------------------------------------------------------------------: |
-| <img src="https://user-images.githubusercontent.com/97828427/194441487-fd65262b-814c-481e-b718-7fae6fef3d33.png"> |
+| <img src="https://postfiles.pstatic.net/MjAyMjExMjVfMTAx/MDAxNjY5MzQ5MzM3MTgy.an1PW9Z59RPQgYTl3Od4ppiPpCu5W5ZG38MxzX2QaEgg.VsOy_QLZIVMXDlekZXeIorn04zDQMbHYNnjDglrCqeIg.PNG.junwu19/15.png?type=w966"> |
 
 <br />
 
@@ -252,7 +252,7 @@
 
 ### **서비스 마지막날 서버DB 정보**
 
-  <img src="https://user-images.githubusercontent.com/97828427/194281806-cb8ae5ba-3db8-4b95-b47d-4278a0f95ee6.png"> 
+  <img src="https://postfiles.pstatic.net/MjAyMjExMjVfMTI5/MDAxNjY5MzQ5MzM3NDYy.e7niG4Clillo7YY-wS8dXXMRhChFMZdHz5wQSW3eQpkg.WKxncmGBRBCn44WsUsrMlcr2cOGZRizeu7lsh4kYgcgg.PNG.junwu19/19%EB%B2%A0%ED%83%80%EC%9C%A0%EC%A0%80.png?type=w966"> 
   
   <br />
 
