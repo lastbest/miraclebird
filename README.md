@@ -4,9 +4,8 @@
   <br/>
 </div>
 
-- 👉 [서비스 페이지](https://j7c107.p.ssafy.io)
-- 👉 [노션](https://few-mat-bba.notion.site/6ed917c7a7214d1c911bd2936e75c431)
-- 👉 [시연영상]()
+## UCC 및 서비스 시연 영상
+[![Video Label](http://img.youtube.com/vi/g7NLv6pB6K8/0.jpg)](https://youtu.be/g7NLv6pB6K8?t=0s)
 
 <br />
 
